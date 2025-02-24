@@ -1,6 +1,7 @@
 import { Vector2D } from '../math/vector';
 import { Matrix3x3 } from '../math/matrix';
 import { Shape, ShapeStyle, Bounds, ShapeFactory, ShapeOptions } from './types';
+import { AbstractShape } from './abstract-shape';
 
 /**
  * Circle shape options
@@ -17,24 +18,26 @@ export interface CircleOptions extends ShapeOptions {
 /**
  * Circle shape implementation
  */
-export class Circle implements Shape {
-  readonly id: string;
-  readonly type: string = 'circle';
-  readonly transform: Matrix3x3;
-  readonly style: ShapeStyle;
-  
+export class Circle extends AbstractShape {
   private _centerX: number;
   private _centerY: number;
   private _radius: number;
 
   constructor(options: CircleOptions = {}) {
-    this.id = options.id || crypto.randomUUID();
-    this.transform = options.transform || Matrix3x3.create();
-    this.style = options.style || {};
+    super('circle', options);
     
     this._centerX = options.centerX || 0;
     this._centerY = options.centerY || 0;
     this._radius = options.radius || 0;
+  }
+
+  protected getLocalBounds(): Bounds {
+    return {
+      x: this._centerX - this._radius,
+      y: this._centerY - this._radius,
+      width: this._radius * 2,
+      height: this._radius * 2
+    };
   }
 
   get bounds(): Bounds {
@@ -44,14 +47,7 @@ export class Circle implements Shape {
     const transformedY = center.values[5];
 
     // Scale 행렬 추출하여 radius 계산
-    const scaleX = Math.sqrt(
-      this.transform.values[0] * this.transform.values[0] +
-      this.transform.values[1] * this.transform.values[1]
-    );
-    const scaleY = Math.sqrt(
-      this.transform.values[3] * this.transform.values[3] +
-      this.transform.values[4] * this.transform.values[4]
-    );
+    const { scaleX, scaleY } = this.getTransformScale();
     const transformedRadius = Math.max(scaleX, scaleY) * this._radius;
 
     return {
@@ -74,22 +70,51 @@ export class Circle implements Shape {
   }
 
   applyTransform(matrix: Matrix3x3): Shape {
-    // 중심점을 기준으로 변환 적용
-    const centerTransform = Matrix3x3.translation(this._centerX, this._centerY);
-    const inverseCenterTransform = Matrix3x3.translation(-this._centerX, -this._centerY);
-    
-    const finalTransform = centerTransform
-      .multiply(matrix)
-      .multiply(inverseCenterTransform)
-      .multiply(this.transform);
+    // Scale 변환인 경우 지정된 기준점을 사용
+    const scale = this.getTransformScale(matrix);
+    if (scale.scaleX !== 1 || scale.scaleY !== 1) {
+      let origin;
+      switch (this.scaleOrigin) {
+        case 'center':
+          origin = {
+            x: this._centerX,
+            y: this._centerY
+          };
+          break;
+        case 'custom':
+          origin = this.customScaleOrigin || {
+            x: this._centerX - this._radius,
+            y: this._centerY - this._radius
+          };
+          break;
+        default:
+          origin = {
+            x: this._centerX - this._radius,
+            y: this._centerY - this._radius
+          };
+      }
+      return new Circle({
+        id: this.id,
+        transform: this.getTransformAroundPoint(matrix, origin.x, origin.y),
+        style: { ...this.style },
+        centerX: this._centerX,
+        centerY: this._centerY,
+        radius: this._radius,
+        scaleOrigin: this.scaleOrigin,
+        customScaleOriginPoint: this.customScaleOrigin
+      });
+    }
 
+    // Scale이 아닌 변환은 기존 transform에 직접 적용
     return new Circle({
       id: this.id,
-      transform: finalTransform,
-      style: this.style,
+      transform: matrix.multiply(this.transform),
+      style: { ...this.style },
       centerX: this._centerX,
       centerY: this._centerY,
-      radius: this._radius
+      radius: this._radius,
+      scaleOrigin: this.scaleOrigin,
+      customScaleOriginPoint: this.customScaleOrigin
     });
   }
 
@@ -105,14 +130,7 @@ export class Circle implements Shape {
     const distance = Math.sqrt(dx * dx + dy * dy);
 
     // Scale 행렬 추출하여 radius 계산
-    const scaleX = Math.sqrt(
-      this.transform.values[0] * this.transform.values[0] +
-      this.transform.values[1] * this.transform.values[1]
-    );
-    const scaleY = Math.sqrt(
-      this.transform.values[3] * this.transform.values[3] +
-      this.transform.values[4] * this.transform.values[4]
-    );
+    const { scaleX, scaleY } = this.getTransformScale();
     const transformedRadius = Math.max(scaleX, scaleY) * this._radius;
 
     return distance <= transformedRadius;

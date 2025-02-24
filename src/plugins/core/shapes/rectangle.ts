@@ -1,6 +1,7 @@
 import { Vector2D } from '../math/vector';
 import { Matrix3x3 } from '../math/matrix';
 import { Shape, ShapeStyle, Bounds, ShapeFactory, ShapeOptions } from './types';
+import { AbstractShape } from './abstract-shape';
 
 /**
  * Rectangle shape options
@@ -19,26 +20,28 @@ export interface RectangleOptions extends ShapeOptions {
 /**
  * Rectangle shape implementation
  */
-export class Rectangle implements Shape {
-  readonly id: string;
-  readonly type: string = 'rectangle';
-  readonly transform: Matrix3x3;
-  readonly style: ShapeStyle;
-  
+export class Rectangle extends AbstractShape {
   private _x: number;
   private _y: number;
   private _width: number;
   private _height: number;
 
   constructor(options: RectangleOptions = {}) {
-    this.id = options.id || crypto.randomUUID();
-    this.transform = options.transform || Matrix3x3.create();
-    this.style = options.style || {};
+    super('rectangle', options);
     
     this._x = options.x || 0;
     this._y = options.y || 0;
     this._width = options.width || 0;
     this._height = options.height || 0;
+  }
+
+  protected getLocalBounds(): Bounds {
+    return {
+      x: this._x,
+      y: this._y,
+      width: this._width,
+      height: this._height
+    };
   }
 
   get bounds(): Bounds {
@@ -82,14 +85,53 @@ export class Rectangle implements Shape {
   }
 
   applyTransform(matrix: Matrix3x3): Shape {
+    // Scale 변환인 경우 지정된 기준점을 사용
+    const scale = this.getTransformScale(matrix);
+    if (scale.scaleX !== 1 || scale.scaleY !== 1) {
+      let origin;
+      switch (this.scaleOrigin) {
+        case 'center':
+          origin = {
+            x: this._x + this._width / 2,
+            y: this._y + this._height / 2
+          };
+          break;
+        case 'custom':
+          origin = this.customScaleOrigin || {
+            x: this._x,
+            y: this._y
+          };
+          break;
+        default:
+          origin = {
+            x: this._x,
+            y: this._y
+          };
+      }
+      return new Rectangle({
+        id: this.id,
+        transform: this.getTransformAroundPoint(matrix, origin.x, origin.y),
+        style: { ...this.style },
+        x: this._x,
+        y: this._y,
+        width: this._width,
+        height: this._height,
+        scaleOrigin: this.scaleOrigin,
+        customScaleOriginPoint: this.customScaleOrigin
+      });
+    }
+
+    // Scale이 아닌 변환은 기존 transform에 직접 적용
     return new Rectangle({
       id: this.id,
       transform: matrix.multiply(this.transform),
-      style: this.style,
+      style: { ...this.style },
       x: this._x,
       y: this._y,
       width: this._width,
-      height: this._height
+      height: this._height,
+      scaleOrigin: this.scaleOrigin,
+      customScaleOriginPoint: this.customScaleOrigin
     });
   }
 

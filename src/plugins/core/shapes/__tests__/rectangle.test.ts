@@ -167,6 +167,107 @@ describe('Rectangle', () => {
       expect(clone.transform.values).toEqual(original.transform.values);
     });
   });
+
+  describe('scale origin', () => {
+    it('should scale from top-left by default', () => {
+      const rect = new Rectangle({
+        x: 0,
+        y: 0,
+        width: 100,
+        height: 50
+      });
+      const scaled = rect.applyTransform(Matrix3x3.scale(2, 2));
+      expect(scaled.bounds).toEqual({
+        x: 0,  // Top-left point stays at (0,0)
+        y: 0,
+        width: 200,
+        height: 100
+      });
+    });
+
+    it('should scale from center when specified', () => {
+      const rect = new Rectangle({
+        x: 0,
+        y: 0,
+        width: 100,
+        height: 50,
+        scaleOrigin: 'center'
+      });
+      const scaled = rect.applyTransform(Matrix3x3.scale(2, 2));
+      expect(scaled.bounds).toEqual({
+        x: -50,  // Center point is (50, 25), so x: 50 - (100 * 2)/2 = -50
+        y: -25,  // y: 25 - (50 * 2)/2 = -25
+        width: 200,
+        height: 100
+      });
+    });
+
+    it('should scale from custom point', () => {
+      const rect = new Rectangle({
+        x: 0,
+        y: 0,
+        width: 100,
+        height: 50,
+        scaleOrigin: 'custom',
+        customScaleOriginPoint: { x: 50, y: 0 }  // Middle of top edge
+      });
+      const scaled = rect.applyTransform(Matrix3x3.scale(2, 2));
+      expect(scaled.bounds).toEqual({
+        x: -50,  // x: 50 - (100 * 2)/2 = -50
+        y: 0,    // y stays at 0
+        width: 200,
+        height: 100
+      });
+    });
+
+    it('should allow changing scale origin after creation', () => {
+      const rect = new Rectangle({
+        x: 0,
+        y: 0,
+        width: 100,
+        height: 50
+      });
+      
+      // Default is topLeft, so let's change to center
+      rect.setScaleOrigin('center');
+      const scaled1 = rect.applyTransform(Matrix3x3.scale(2, 2));
+      expect(scaled1.bounds).toEqual({
+        x: -50,
+        y: -25,
+        width: 200,
+        height: 100
+      });
+
+      rect.setScaleOrigin('custom', { x: 50, y: 25 });  // Center point
+      const scaled2 = rect.applyTransform(Matrix3x3.scale(2, 2));
+      expect(scaled2.bounds).toEqual({
+        x: -50,
+        y: -25,
+        width: 200,
+        height: 100
+      });
+    });
+
+    it('should preserve scale origin after transformation', () => {
+      const rect = new Rectangle({
+        x: 0,
+        y: 0,
+        width: 100,
+        height: 50,
+        scaleOrigin: 'center'
+      });
+      
+      const scaled = rect.applyTransform(Matrix3x3.scale(2, 2));
+      const scaledAgain = scaled.applyTransform(Matrix3x3.scale(1.5, 1.5));
+      
+      expect(scaledAgain.bounds).toEqual({
+        x: -100,  // Center scaling continues
+        y: -50,   // Center scaling continues
+        width: 300,  // 100 * 2 * 1.5
+        height: 150  // 50 * 2 * 1.5
+      });
+    });
+  });
 });
 
 describe('RectangleFactory', () => {

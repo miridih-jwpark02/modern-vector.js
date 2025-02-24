@@ -56,11 +56,119 @@ describe('Circle', () => {
       });
       const scaled = circle.applyTransform(Matrix3x3.scale(2, 2));
       expect(scaled.bounds).toEqual({
+        x: 50,   // Top-left point stays at (50,50)
+        y: 50,
+        width: 200,
+        height: 200
+      });
+    });
+  });
+
+  describe('scale origin', () => {
+    it('should scale from top-left by default', () => {
+      const circle = new Circle({
+        centerX: 100,
+        centerY: 100,
+        radius: 50
+      });
+      const scaled = circle.applyTransform(Matrix3x3.scale(2, 2));
+      expect(scaled.bounds).toEqual({
+        x: 50,   // Top-left point stays at (50,50)
+        y: 50,
+        width: 200,
+        height: 200
+      });
+    });
+
+    it('should scale from center when specified', () => {
+      const circle = new Circle({
+        centerX: 100,
+        centerY: 100,
+        radius: 50,
+        scaleOrigin: 'center'
+      });
+      const scaled = circle.applyTransform(Matrix3x3.scale(2, 2));
+      expect(scaled.bounds).toEqual({
+        x: 0,    // Center stays at (100,100), radius doubles to 100
+        y: 0,
+        width: 200,
+        height: 200
+      });
+    });
+
+    it('should scale from custom point', () => {
+      const circle = new Circle({
+        centerX: 100,
+        centerY: 100,
+        radius: 50,
+        scaleOrigin: 'custom',
+        customScaleOriginPoint: { x: 100, y: 50 }  // Top center point
+      });
+      const scaled = circle.applyTransform(Matrix3x3.scale(2, 2));
+      expect(scaled.bounds).toEqual({
+        x: 0,    // x: 100 - 100 = 0
+        y: 50,   // y stays at 50
+        width: 200,
+        height: 200
+      });
+    });
+
+    it('should allow changing scale origin after creation', () => {
+      const circle = new Circle({
+        centerX: 100,
+        centerY: 100,
+        radius: 50
+      });
+      
+      // Default is topLeft, so let's change to center
+      circle.setScaleOrigin('center');
+      const scaled1 = circle.applyTransform(Matrix3x3.scale(2, 2));
+      expect(scaled1.bounds).toEqual({
         x: 0,
         y: 0,
         width: 200,
         height: 200
       });
+
+      circle.setScaleOrigin('custom', { x: 100, y: 100 });  // Center point
+      const scaled2 = circle.applyTransform(Matrix3x3.scale(2, 2));
+      expect(scaled2.bounds).toEqual({
+        x: 0,
+        y: 0,
+        width: 200,
+        height: 200
+      });
+    });
+
+    it('should preserve scale origin after transformation', () => {
+      const circle = new Circle({
+        centerX: 100,
+        centerY: 100,
+        radius: 50,
+        scaleOrigin: 'center'
+      });
+      
+      const scaled = circle.applyTransform(Matrix3x3.scale(2, 2));
+      const scaledAgain = scaled.applyTransform(Matrix3x3.scale(1.5, 1.5));
+      
+      expect(scaledAgain.bounds).toEqual({
+        x: -50,   // Center scaling continues
+        y: -50,   // Center scaling continues
+        width: 300,  // 100 * 2 * 1.5
+        height: 300  // 100 * 2 * 1.5
+      });
+    });
+
+    it('should maintain circle shape after non-uniform scale', () => {
+      const circle = new Circle({
+        centerX: 100,
+        centerY: 100,
+        radius: 50,
+        scaleOrigin: 'center'
+      });
+      
+      const scaled = circle.applyTransform(Matrix3x3.scale(2, 3));
+      expect(scaled.bounds.width).toBe(scaled.bounds.height);  // Circle should stay circular
     });
   });
 

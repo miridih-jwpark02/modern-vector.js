@@ -1,5 +1,6 @@
 import { Vector2D } from '../math/vector';
 import { Matrix3x3 } from '../math/matrix';
+import { ScaleOrigin } from './abstract-shape';
 
 /**
  * Shape의 경계 상자를 나타내는 interface
@@ -74,6 +75,10 @@ export interface ShapeOptions {
   style?: ShapeStyle;
   /** Shape의 초기 변환 행렬 */
   transform?: Matrix3x3;
+  /** Scale 변환의 기준점 타입 */
+  scaleOrigin?: ScaleOrigin;
+  /** Custom scale 기준점 좌표 */
+  customScaleOriginPoint?: { x: number; y: number };
   /** Shape별 추가 속성 */
   [key: string]: any;
 }
