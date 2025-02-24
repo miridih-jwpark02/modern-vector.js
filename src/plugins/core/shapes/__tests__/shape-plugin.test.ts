@@ -96,6 +96,9 @@ describe('ShapePlugin', () => {
       intersects(): boolean {
         return false;
       }
+      setScaleOrigin(): void {
+        // Do nothing
+      }
     }
 
     class TestShapeFactory implements ShapeFactory<TestShape> {
@@ -148,6 +151,9 @@ describe('ShapePlugin', () => {
         }
         intersects(): boolean {
           return false;
+        }
+        setScaleOrigin(): void {
+          // Do nothing
         }
       }
 

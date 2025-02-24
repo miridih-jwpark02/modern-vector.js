@@ -59,6 +59,16 @@ export interface Shape {
   readonly style: ShapeStyle;
   /** Shape의 점들 (Path shape에서만 사용) */
   readonly points?: PathPoint[];
+  /** Text의 내용 (Text shape에서만 사용) */
+  readonly text?: string;
+  /** Text의 폰트 (Text shape에서만 사용) */
+  readonly font?: string;
+  /** Text의 크기 (Text shape에서만 사용) */
+  readonly fontSize?: number;
+  /** Text의 정렬 (Text shape에서만 사용) */
+  readonly textAlign?: 'left' | 'center' | 'right';
+  /** Text의 기준선 (Text shape에서만 사용) */
+  readonly textBaseline?: 'top' | 'middle' | 'bottom';
   
   /** Shape 복제 */
   clone(): Shape;
