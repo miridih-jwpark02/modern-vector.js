@@ -6,7 +6,11 @@ export class Vector2D {
   private constructor(
     readonly x: number,
     readonly y: number
-  ) {}
+  ) {
+    // Convert -0 to +0
+    this.x = this.x === 0 ? 0 : this.x;
+    this.y = this.y === 0 ? 0 : this.y;
+  }
 
   /**
    * Create a new 2D vector
@@ -101,7 +105,10 @@ export class Vector2D {
    * @returns A new vector perpendicular to this one
    */
   perpendicular(): Vector2D {
-    return new Vector2D(-this.y, this.x);
+    // Convert -0 to +0 when creating new vector
+    const x = -this.y === 0 ? 0 : -this.y;
+    const y = this.x === 0 ? 0 : this.x;
+    return new Vector2D(x, y);
   }
 
   /**
