@@ -1,6 +1,7 @@
 import { Vector2D } from '../math/vector';
 import { Matrix3x3 } from '../math/matrix';
 import { ScaleOrigin } from './abstract-shape';
+import { PathPoint } from './path';
 
 /**
  * Shape의 경계 상자를 나타내는 interface
@@ -30,6 +31,16 @@ export interface ShapeStyle {
   fillOpacity?: number;
   /** Stroke opacity (0-1) */
   strokeOpacity?: number;
+  /** 테두리 점선 패턴 */
+  strokeDashArray?: number[];
+  /** 테두리 점선 시작 위치 */
+  strokeDashOffset?: number;
+  /** 테두리 선 끝 모양 */
+  strokeLineCap?: 'butt' | 'round' | 'square';
+  /** 테두리 선 연결 모양 */
+  strokeLineJoin?: 'miter' | 'round' | 'bevel';
+  /** 테두리 선 연결 제한 */
+  strokeMiterLimit?: number;
 }
 
 /**
@@ -46,6 +57,8 @@ export interface Shape {
   readonly bounds: Bounds;
   /** Shape의 style */
   readonly style: ShapeStyle;
+  /** Shape의 점들 (Path shape에서만 사용) */
+  readonly points?: PathPoint[];
   
   /** Shape 복제 */
   clone(): Shape;
@@ -55,6 +68,8 @@ export interface Shape {
   containsPoint(point: Vector2D): boolean;
   /** Shape가 다른 Shape와 겹치는지 확인 */
   intersects(other: Shape): boolean;
+  /** Scale 기준점 설정 */
+  setScaleOrigin(origin: 'center' | 'topLeft' | 'custom', point?: { x: number; y: number }): void;
 }
 
 /**
