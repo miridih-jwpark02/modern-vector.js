@@ -1,0 +1,43 @@
+# Dependencies
+node_modules
+.pnpm-store
+
+# Build
+dist
+build
+lib
+
+# IDE
+.vscode
+.idea
+*.sublime-*
+*.swp
+.DS_Store
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Test
+coverage
+.nyc_output
+
+# Cache
+.cache
+.temp
+.eslintcache
+.stylelintcache
+*.tsbuildinfo
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Misc
+.DS_Store
+Thumbs.db
