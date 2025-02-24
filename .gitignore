@@ -5,14 +5,20 @@ node_modules
 # Build
 dist
 build
-lib
+
+# Testing
+coverage
 
 # IDE
-.vscode
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
 .idea
-*.sublime-*
-*.swp
-.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
 # Logs
 logs
@@ -22,22 +28,17 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# Test
-coverage
-.nyc_output
-
-# Cache
-.cache
-.temp
-.eslintcache
-.stylelintcache
-*.tsbuildinfo
-
 # Environment
 .env
 .env.*
 !.env.example
 
-# Misc
+# OS
 .DS_Store
 Thumbs.db
+
+# Cache
+.cache
+.temp
+.eslintcache
+*.tsbuildinfo 

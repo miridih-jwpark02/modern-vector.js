@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import dts from 'vite-plugin-dts';
 import { resolve } from 'path';
 
 export default defineConfig({
@@ -8,18 +9,23 @@ export default defineConfig({
       name: 'ModernVector',
       fileName: 'modern-vector'
     },
-    rollupOptions: {
-      external: ['gl-matrix'],
-      output: {
-        globals: {
-          'gl-matrix': 'glMatrix'
-        }
-      }
-    }
+    sourcemap: true,
+    target: 'es2020'
   },
-  resolve: {
-    alias: {
-      '@': resolve(__dirname, './src')
+  plugins: [dts()],
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'json', 'html'],
+      exclude: [
+        'node_modules/',
+        'dist/',
+        '**/*.d.ts',
+        '**/*.test.ts',
+        'vite.config.ts'
+      ]
     }
   }
-});
+}); 

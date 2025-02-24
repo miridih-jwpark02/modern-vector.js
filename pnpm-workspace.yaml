@@ -1,9 +1,0 @@
-packages:
-  # Core package
-  - 'packages/core'
-  # Optional packages
-  - 'packages/webgl'
-  - 'packages/svg'
-  # Examples and documentation
-  - 'examples/*'
-  - 'docs'
