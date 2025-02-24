@@ -1,6 +1,7 @@
 import { Matrix3x3 } from '../math/matrix';
 import { Vector2D } from '../math/vector';
 import { Shape, ShapeStyle, Bounds, ShapeOptions } from './types';
+import { PathPoint } from './path/types';
 
 /**
  * Scale 기준점 타입
@@ -91,6 +92,11 @@ export abstract class AbstractShape implements Shape {
    * @param point - 확인할 점
    */
   abstract containsPoint(point: Vector2D): boolean;
+
+  /**
+   * Shape를 Path로 변환
+   */
+  abstract toPath(): PathPoint[];
 
   /**
    * 기본 충돌 검사 구현 (Bounds 기반)

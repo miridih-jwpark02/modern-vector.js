@@ -1,7 +1,7 @@
 import { Vector2D } from '../math/vector';
 import { Matrix3x3 } from '../math/matrix';
 import { ScaleOrigin } from './abstract-shape';
-import { PathPoint } from './path';
+import { PathPoint } from './path/types';
 
 /**
  * Shape의 경계 상자를 나타내는 interface
@@ -80,6 +80,8 @@ export interface Shape {
   intersects(other: Shape): boolean;
   /** Scale 기준점 설정 */
   setScaleOrigin(origin: 'center' | 'topLeft' | 'custom', point?: { x: number; y: number }): void;
+  /** Shape를 Path로 변환 */
+  toPath(): PathPoint[];
 }
 
 /**

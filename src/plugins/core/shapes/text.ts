@@ -2,6 +2,7 @@ import { Vector2D } from '../math/vector';
 import { Matrix3x3 } from '../math/matrix';
 import { Shape, ShapeStyle, Bounds, ShapeFactory, ShapeOptions } from './types';
 import { AbstractShape } from './abstract-shape';
+import { PathPoint } from './path/types';
 
 /**
  * Text shape options
@@ -258,6 +259,23 @@ export class Text extends AbstractShape {
       b2.y > b1.y + b1.height ||
       b2.y + b2.height < b1.y
     );
+  }
+
+  /**
+   * Text를 Path로 변환
+   * @returns Path points
+   */
+  toPath(): PathPoint[] {
+    // Text를 Path로 변환하는 것은 복잡한 작업이므로,
+    // 현재는 Text의 경계 상자를 Path로 반환
+    const bounds = this.bounds;
+    return [
+      { x: bounds.x, y: bounds.y, type: 'move' },
+      { x: bounds.x + bounds.width, y: bounds.y, type: 'line' },
+      { x: bounds.x + bounds.width, y: bounds.y + bounds.height, type: 'line' },
+      { x: bounds.x, y: bounds.y + bounds.height, type: 'line' },
+      { x: bounds.x, y: bounds.y, type: 'line' }
+    ];
   }
 }
 

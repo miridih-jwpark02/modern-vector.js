@@ -2,6 +2,7 @@ import { Vector2D } from '../math/vector';
 import { Matrix3x3 } from '../math/matrix';
 import { Shape, ShapeStyle, Bounds, ShapeFactory, ShapeOptions } from './types';
 import { AbstractShape } from './abstract-shape';
+import { PathPoint } from './path/types';
 
 /**
  * Circle shape options
@@ -148,6 +149,45 @@ export class Circle extends AbstractShape {
       b2.y > b1.y + b1.height ||
       b2.y + b2.height < b1.y
     );
+  }
+
+  /**
+   * Circle을 Path로 변환
+   * @param segments - 원을 근사할 선분의 수 (기본값: 32)
+   * @returns Path points
+   */
+  toPath(segments: number = 32): PathPoint[] {
+    const bounds = this.bounds;
+    const centerX = bounds.x + bounds.width / 2;
+    const centerY = bounds.y + bounds.height / 2;
+    const radius = bounds.width / 2;
+    const points: PathPoint[] = [];
+
+    // 첫 점은 move
+    points.push({
+      x: centerX + radius,
+      y: centerY,
+      type: 'move'
+    });
+
+    // 나머지 점들은 line
+    for (let i = 1; i <= segments; i++) {
+      const angle = (i * 2 * Math.PI) / segments;
+      points.push({
+        x: centerX + radius * Math.cos(angle),
+        y: centerY + radius * Math.sin(angle),
+        type: 'line'
+      });
+    }
+
+    // 마지막 점은 시작점과 같게
+    points.push({
+      x: centerX + radius,
+      y: centerY,
+      type: 'line'
+    });
+
+    return points;
   }
 }
 
