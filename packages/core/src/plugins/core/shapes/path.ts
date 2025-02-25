@@ -579,37 +579,239 @@ export class Path extends AbstractShape {
     return [...this._points];
   }
 
+  /**
+   * 2차 베지어 곡선의 극점(extrema)을 계산하는 헬퍼 메서드
+   * @param p0 - 시작점
+   * @param p1 - 제어점
+   * @param p2 - 끝점
+   * @returns 극점의 t 매개변수 값 배열 (0과 1 사이)
+   */
+  private findQuadraticExtrema(
+    p0: Point2D,
+    p1: Point2D,
+    p2: Point2D
+  ): number[] {
+    const result: number[] = [];
+    
+    // x 좌표의 극점 계산
+    const ax = p0.x - 2 * p1.x + p2.x;
+    const bx = 2 * (p1.x - p0.x);
+    
+    if (Math.abs(ax) > 0.0001) {
+      const tx = -bx / (2 * ax);
+      if (tx > 0 && tx < 1) {
+        result.push(tx);
+      }
+    }
+    
+    // y 좌표의 극점 계산
+    const ay = p0.y - 2 * p1.y + p2.y;
+    const by = 2 * (p1.y - p0.y);
+    
+    if (Math.abs(ay) > 0.0001) {
+      const ty = -by / (2 * ay);
+      if (ty > 0 && ty < 1) {
+        result.push(ty);
+      }
+    }
+    
+    return result;
+  }
+  
+  /**
+   * 3차 베지어 곡선의 극점(extrema)을 계산하는 헬퍼 메서드
+   * @param p0 - 시작점
+   * @param p1 - 첫 번째 제어점
+   * @param p2 - 두 번째 제어점
+   * @param p3 - 끝점
+   * @returns 극점의 t 매개변수 값 배열 (0과 1 사이)
+   */
+  private findCubicExtrema(
+    p0: Point2D,
+    p1: Point2D,
+    p2: Point2D,
+    p3: Point2D
+  ): number[] {
+    const result: number[] = [];
+    
+    // x 좌표의 극점 계산 (미분 = at² + bt + c)
+    const ax = 3 * (-p0.x + 3 * p1.x - 3 * p2.x + p3.x);
+    const bx = 6 * (p0.x - 2 * p1.x + p2.x);
+    const cx = 3 * (p1.x - p0.x);
+    
+    if (Math.abs(ax) > 0.0001) {
+      // 2차 방정식 해 구하기: ax² + bx + c = 0
+      const discriminant = bx * bx - 4 * ax * cx;
+      if (discriminant >= 0) {
+        const sqrtDisc = Math.sqrt(discriminant);
+        const t1 = (-bx + sqrtDisc) / (2 * ax);
+        const t2 = (-bx - sqrtDisc) / (2 * ax);
+        
+        if (t1 > 0 && t1 < 1) {
+          result.push(t1);
+        }
+        if (t2 > 0 && t2 < 1) {
+          result.push(t2);
+        }
+      }
+    } else if (Math.abs(bx) > 0.0001) {
+      // 선형 방정식 해 구하기: bx + c = 0
+      const t = -cx / bx;
+      if (t > 0 && t < 1) {
+        result.push(t);
+      }
+    }
+    
+    // y 좌표의 극점 계산
+    const ay = 3 * (-p0.y + 3 * p1.y - 3 * p2.y + p3.y);
+    const by = 6 * (p0.y - 2 * p1.y + p2.y);
+    const cy = 3 * (p1.y - p0.y);
+    
+    if (Math.abs(ay) > 0.0001) {
+      const discriminant = by * by - 4 * ay * cy;
+      if (discriminant >= 0) {
+        const sqrtDisc = Math.sqrt(discriminant);
+        const t1 = (-by + sqrtDisc) / (2 * ay);
+        const t2 = (-by - sqrtDisc) / (2 * ay);
+        
+        if (t1 > 0 && t1 < 1) {
+          result.push(t1);
+        }
+        if (t2 > 0 && t2 < 1) {
+          result.push(t2);
+        }
+      }
+    } else if (Math.abs(by) > 0.0001) {
+      const t = -cy / by;
+      if (t > 0 && t < 1) {
+        result.push(t);
+      }
+    }
+    
+    return result;
+  }
+  
+  /**
+   * 주어진 t 값에서 2차 베지어 곡선 상의 점을 계산
+   * @param p0 - 시작점
+   * @param p1 - 제어점
+   * @param p2 - 끝점
+   * @param t - 매개변수 (0-1 사이)
+   * @returns 곡선 상의 점
+   */
+  private evaluateQuadraticBezier(
+    p0: Point2D,
+    p1: Point2D,
+    p2: Point2D,
+    t: number
+  ): Point2D {
+    const mt = 1 - t;
+    return {
+      x: mt * mt * p0.x + 2 * mt * t * p1.x + t * t * p2.x,
+      y: mt * mt * p0.y + 2 * mt * t * p1.y + t * t * p2.y
+    };
+  }
+  
+  /**
+   * 주어진 t 값에서 3차 베지어 곡선 상의 점을 계산
+   * @param p0 - 시작점
+   * @param p1 - 첫 번째 제어점
+   * @param p2 - 두 번째 제어점
+   * @param p3 - 끝점
+   * @param t - 매개변수 (0-1 사이)
+   * @returns 곡선 상의 점
+   */
+  private evaluateCubicBezier(
+    p0: Point2D,
+    p1: Point2D,
+    p2: Point2D,
+    p3: Point2D,
+    t: number
+  ): Point2D {
+    const mt = 1 - t;
+    const mt2 = mt * mt;
+    const mt3 = mt2 * mt;
+    const t2 = t * t;
+    const t3 = t2 * t;
+    
+    return {
+      x: mt3 * p0.x + 3 * mt2 * t * p1.x + 3 * mt * t2 * p2.x + t3 * p3.x,
+      y: mt3 * p0.y + 3 * mt2 * t * p1.y + 3 * mt * t2 * p2.y + t3 * p3.y
+    };
+  }
+
   protected getLocalBounds(): Bounds {
     if (this._points.length === 0) {
       return { x: 0, y: 0, width: 0, height: 0 };
     }
 
-    let minX = this._points[0].x;
-    let minY = this._points[0].y;
-    let maxX = this._points[0].x;
-    let maxY = this._points[0].y;
-
-    for (let i = 0; i < this._points.length; i++) {
-      const point = this._points[i];
+    // 모든 점과 베지어 곡선의 극점을 고려한 점들의 집합
+    const allPoints: Point2D[] = [];
+    
+    // 시작점 추가
+    allPoints.push(this._points[0]);
+    
+    for (let i = 1; i < this._points.length; i++) {
+      const currentPoint = this._points[i];
+      const prevPoint = this._points[i - 1];
       
-      // 점 자체의 좌표 확인
+      // 각 포인트 추가
+      allPoints.push(currentPoint);
+      
+      // 베지어 곡선의 경우 극점 찾아서 추가
+      if (currentPoint.type === 'quadratic' && currentPoint.controlPoint) {
+        const extremaParams = this.findQuadraticExtrema(
+          prevPoint, 
+          currentPoint.controlPoint, 
+          currentPoint
+        );
+        
+        // 극점에서의 좌표 계산하여 추가
+        for (const t of extremaParams) {
+          allPoints.push(
+            this.evaluateQuadraticBezier(
+              prevPoint, 
+              currentPoint.controlPoint, 
+              currentPoint, 
+              t
+            )
+          );
+        }
+      } else if (currentPoint.type === 'cubic' && currentPoint.controlPoint1 && currentPoint.controlPoint2) {
+        const extremaParams = this.findCubicExtrema(
+          prevPoint,
+          currentPoint.controlPoint1,
+          currentPoint.controlPoint2,
+          currentPoint
+        );
+        
+        // 극점에서의 좌표 계산하여 추가
+        for (const t of extremaParams) {
+          allPoints.push(
+            this.evaluateCubicBezier(
+              prevPoint,
+              currentPoint.controlPoint1,
+              currentPoint.controlPoint2,
+              currentPoint,
+              t
+            )
+          );
+        }
+      }
+    }
+    
+    // 모든 점 중에서 경계 상자 계산
+    let minX = allPoints[0].x;
+    let minY = allPoints[0].y;
+    let maxX = allPoints[0].x;
+    let maxY = allPoints[0].y;
+    
+    for (let i = 1; i < allPoints.length; i++) {
+      const point = allPoints[i];
       minX = Math.min(minX, point.x);
       minY = Math.min(minY, point.y);
       maxX = Math.max(maxX, point.x);
       maxY = Math.max(maxY, point.y);
-      
-      // 베지어 곡선의 제어점도 경계 상자에 포함
-      if (point.type === 'quadratic' && point.controlPoint) {
-        minX = Math.min(minX, point.controlPoint.x);
-        minY = Math.min(minY, point.controlPoint.y);
-        maxX = Math.max(maxX, point.controlPoint.x);
-        maxY = Math.max(maxY, point.controlPoint.y);
-      } else if (point.type === 'cubic' && point.controlPoint1 && point.controlPoint2) {
-        minX = Math.min(minX, point.controlPoint1.x, point.controlPoint2.x);
-        minY = Math.min(minY, point.controlPoint1.y, point.controlPoint2.y);
-        maxX = Math.max(maxX, point.controlPoint1.x, point.controlPoint2.x);
-        maxY = Math.max(maxY, point.controlPoint1.y, point.controlPoint2.y);
-      }
     }
 
     return {
@@ -625,46 +827,121 @@ export class Path extends AbstractShape {
       return { x: 0, y: 0, width: 0, height: 0 };
     }
 
-    // Transform 적용된 모든 점 계산
+    // 변환이 적용된 모든 점과 곡선의 극점을 고려한 점들의 집합
     const transformedPoints: Point2D[] = [];
     
-    // 모든 점과 제어점을 변환하여 배열에 추가
-    for (const point of this._points) {
-      // 점 자체 변환
-      const transformed = this.transform.multiply(Matrix3x3.translation(point.x, point.y));
+    // 첫 번째 점 변환하여 추가
+    const firstTransformed = this.transform.multiply(
+      Matrix3x3.translation(this._points[0].x, this._points[0].y)
+    );
+    transformedPoints.push({
+      x: firstTransformed.values[2],
+      y: firstTransformed.values[5]
+    });
+    
+    for (let i = 1; i < this._points.length; i++) {
+      const currentPoint = this._points[i];
+      const prevPoint = this._points[i - 1];
+      
+      // 현재 점 변환하여 추가
+      const transformed = this.transform.multiply(
+        Matrix3x3.translation(currentPoint.x, currentPoint.y)
+      );
       transformedPoints.push({
         x: transformed.values[2],
         y: transformed.values[5]
       });
       
-      // 베지어 곡선의 제어점도 변환하여 추가
-      if (point.type === 'quadratic' && point.controlPoint) {
+      // 베지어 곡선의 경우
+      if (currentPoint.type === 'quadratic' && currentPoint.controlPoint) {
+        // 제어점 변환
+        const prevTransformed = {
+          x: transformedPoints[transformedPoints.length - 2].x,
+          y: transformedPoints[transformedPoints.length - 2].y
+        };
+        
         const transformedCP = this.transform.multiply(
-          Matrix3x3.translation(point.controlPoint.x, point.controlPoint.y)
+          Matrix3x3.translation(currentPoint.controlPoint.x, currentPoint.controlPoint.y)
         );
-        transformedPoints.push({
+        const controlTransformed = {
           x: transformedCP.values[2],
           y: transformedCP.values[5]
-        });
-      } else if (point.type === 'cubic' && point.controlPoint1 && point.controlPoint2) {
-        const transformedCP1 = this.transform.multiply(
-          Matrix3x3.translation(point.controlPoint1.x, point.controlPoint1.y)
+        };
+        
+        const currentTransformed = {
+          x: transformed.values[2],
+          y: transformed.values[5]
+        };
+        
+        // 극점 찾기
+        const extremaParams = this.findQuadraticExtrema(
+          prevTransformed,
+          controlTransformed,
+          currentTransformed
         );
-        transformedPoints.push({
+        
+        // 극점 계산하여 추가
+        for (const t of extremaParams) {
+          transformedPoints.push(
+            this.evaluateQuadraticBezier(
+              prevTransformed,
+              controlTransformed,
+              currentTransformed,
+              t
+            )
+          );
+        }
+      } else if (currentPoint.type === 'cubic' && currentPoint.controlPoint1 && currentPoint.controlPoint2) {
+        // 제어점들 변환
+        const prevTransformed = {
+          x: transformedPoints[transformedPoints.length - 2].x,
+          y: transformedPoints[transformedPoints.length - 2].y
+        };
+        
+        const transformedCP1 = this.transform.multiply(
+          Matrix3x3.translation(currentPoint.controlPoint1.x, currentPoint.controlPoint1.y)
+        );
+        const control1Transformed = {
           x: transformedCP1.values[2],
           y: transformedCP1.values[5]
-        });
+        };
         
         const transformedCP2 = this.transform.multiply(
-          Matrix3x3.translation(point.controlPoint2.x, point.controlPoint2.y)
+          Matrix3x3.translation(currentPoint.controlPoint2.x, currentPoint.controlPoint2.y)
         );
-        transformedPoints.push({
+        const control2Transformed = {
           x: transformedCP2.values[2],
           y: transformedCP2.values[5]
-        });
+        };
+        
+        const currentTransformed = {
+          x: transformed.values[2],
+          y: transformed.values[5]
+        };
+        
+        // 극점 찾기
+        const extremaParams = this.findCubicExtrema(
+          prevTransformed,
+          control1Transformed,
+          control2Transformed,
+          currentTransformed
+        );
+        
+        // 극점 계산하여 추가
+        for (const t of extremaParams) {
+          transformedPoints.push(
+            this.evaluateCubicBezier(
+              prevTransformed,
+              control1Transformed,
+              control2Transformed,
+              currentTransformed,
+              t
+            )
+          );
+        }
       }
     }
-
+    
     // 모든 변환된 점들 중 최소/최대 좌표 찾기
     let minX = transformedPoints[0].x;
     let minY = transformedPoints[0].y;
