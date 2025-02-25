@@ -71,30 +71,55 @@ export class Path extends AbstractShape {
 
   /**
    * 2차 베지어 곡선 점 추가
+   * 
+   * 현재 경로에 2차 베지어 곡선 점을 추가합니다. 2차 베지어 곡선은 하나의 제어점을 사용하여
+   * 부드러운 곡선을 생성합니다.
+   * 
    * @param cpx - 제어점의 x 좌표
    * @param cpy - 제어점의 y 좌표
    * @param x - 끝점의 x 좌표
    * @param y - 끝점의 y 좌표
+   * @returns 현재 Path 인스턴스 (메서드 체이닝 지원)
+   * 
+   * @example
+   * ```typescript
+   * const path = new Path();
+   * path.addPoint(10, 10, 'move');
+   * path.addQuadraticCurve(50, 0, 90, 10); // 제어점 (50, 0), 끝점 (90, 10)
+   * ```
    */
-  addQuadraticCurve(cpx: number, cpy: number, x: number, y: number): void {
+  addQuadraticCurve(cpx: number, cpy: number, x: number, y: number): Path {
     this._points.push({
       x,
       y,
       type: 'quadratic',
       controlPoint: { x: cpx, y: cpy }
     });
+    return this;
   }
 
   /**
    * 3차 베지어 곡선 점 추가
+   * 
+   * 현재 경로에 3차 베지어 곡선 점을 추가합니다. 3차 베지어 곡선은 두 개의 제어점을 사용하여
+   * 더 복잡하고 유연한 곡선을 생성합니다.
+   * 
    * @param cp1x - 첫 번째 제어점의 x 좌표
    * @param cp1y - 첫 번째 제어점의 y 좌표
    * @param cp2x - 두 번째 제어점의 x 좌표
    * @param cp2y - 두 번째 제어점의 y 좌표
    * @param x - 끝점의 x 좌표
    * @param y - 끝점의 y 좌표
+   * @returns 현재 Path 인스턴스 (메서드 체이닝 지원)
+   * 
+   * @example
+   * ```typescript
+   * const path = new Path();
+   * path.addPoint(10, 10, 'move');
+   * path.addCubicCurve(30, 0, 60, 30, 90, 10); // 제어점1 (30, 0), 제어점2 (60, 30), 끝점 (90, 10)
+   * ```
    */
-  addCubicCurve(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number): void {
+  addCubicCurve(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number): Path {
     this._points.push({
       x,
       y,
@@ -102,6 +127,7 @@ export class Path extends AbstractShape {
       controlPoint1: { x: cp1x, y: cp1y },
       controlPoint2: { x: cp2x, y: cp2y }
     });
+    return this;
   }
 
   /**
@@ -128,7 +154,22 @@ export class Path extends AbstractShape {
 
   /**
    * Path를 SVG path 문자열로 변환
-   * @returns SVG path 문자열 (d 속성 값)
+   * 
+   * 현재 Path 객체를 SVG path 요소의 d 속성에 사용할 수 있는 문자열로 변환합니다.
+   * 이 메서드는 모든 점 타입(이동, 선, 2차 베지어, 3차 베지어)을 지원합니다.
+   * 
+   * @returns SVG path 문자열
+   * 
+   * @example
+   * ```typescript
+   * const path = new Path();
+   * path.addPoint(10, 10, 'move');
+   * path.addPoint(50, 10, 'line');
+   * path.addQuadraticCurve(70, 30, 90, 10);
+   * 
+   * const svgPath = path.toSVGPath();
+   * // 결과: "M10,10 L50,10 Q70,30 90,10"
+   * ```
    */
   toSVGPath(): string {
     if (this._points.length === 0) {
@@ -165,8 +206,26 @@ export class Path extends AbstractShape {
 
   /**
    * SVG path 문자열에서 Path 객체 생성
+   * 
+   * SVG path 요소의 d 속성 값으로부터 Path 객체를 생성합니다.
+   * 이 메서드는 다음 SVG 명령어들을 지원합니다:
+   * - M/m: 이동 (절대/상대)
+   * - L/l: 선 (절대/상대)
+   * - H/h: 수평선 (절대/상대)
+   * - V/v: 수직선 (절대/상대)
+   * - Q/q: 2차 베지어 곡선 (절대/상대)
+   * - C/c: 3차 베지어 곡선 (절대/상대)
+   * - A/a: 호 (절대/상대) - 여러 개의 베지어 곡선으로 근사화됨
+   * - Z/z: 경로 닫기
+   * 
    * @param svgPath - SVG path 문자열 (d 속성 값)
    * @returns 생성된 Path 객체
+   * 
+   * @example
+   * ```typescript
+   * // SVG path 문자열에서 Path 객체 생성
+   * const path = Path.fromSVGPath("M10,10 L50,10 Q70,30 90,10 C110,-10 130,30 150,10 Z");
+   * ```
    */
   static fromSVGPath(svgPath: string): Path {
     const path = new Path();
@@ -387,6 +446,10 @@ export class Path extends AbstractShape {
   /**
    * SVG Arc를 여러 개의 3차 베지어 곡선으로 근사화
    * 
+   * SVG path의 Arc 명령어(A/a)를 여러 개의 3차 베지어 곡선으로 변환합니다.
+   * 이 메서드는 내부적으로 사용되며, Arc를 정확하게 표현하기 위해 여러 개의 
+   * 베지어 곡선 세그먼트로 분할합니다.
+   * 
    * @param x1 - 시작점 x 좌표
    * @param y1 - 시작점 y 좌표
    * @param rx - x 반지름
@@ -397,6 +460,8 @@ export class Path extends AbstractShape {
    * @param x2 - 끝점 x 좌표
    * @param y2 - 끝점 y 좌표
    * @returns 3차 베지어 곡선 배열
+   * 
+   * @internal
    */
   private static approximateArc(
     x1: number, y1: number,

@@ -63,6 +63,36 @@ export default function ExamplesPage() {
               </div>
             </div>
             
+            {/* Bezier Curves Example */}
+            <div className="border rounded-lg overflow-hidden">
+              <div className="aspect-video bg-muted flex items-center justify-center">
+                <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  {/* Control lines */}
+                  <line x1="20" y1="60" x2="60" y2="20" stroke="#94a3b8" strokeWidth="1" strokeDasharray="4" />
+                  <line x1="60" y1="20" x2="100" y2="60" stroke="#94a3b8" strokeWidth="1" strokeDasharray="4" />
+                  
+                  {/* Bezier curve */}
+                  <path d="M20,60 Q60,20 100,60" stroke="#3b82f6" strokeWidth="4" fill="none" strokeLinecap="round" />
+                  
+                  {/* Control point */}
+                  <circle cx="60" cy="20" r="6" fill="#f59e0b" stroke="white" strokeWidth="2" />
+                  
+                  {/* Start and end points */}
+                  <circle cx="20" cy="60" r="6" fill="#ef4444" stroke="white" strokeWidth="2" />
+                  <circle cx="100" cy="60" r="6" fill="#ef4444" stroke="white" strokeWidth="2" />
+                </svg>
+              </div>
+              <div className="p-4">
+                <h3 className="font-bold">베지어 곡선</h3>
+                <p className="text-sm text-muted-foreground mt-1 mb-3">
+                  2차와 3차 베지어 곡선을 생성하고 제어점을 조작하여 부드러운 곡선을 만들어보세요.
+                </p>
+                <Button variant="outline" size="sm" asChild>
+                  <Link href="/examples/bezier-curves">View Example</Link>
+                </Button>
+              </div>
+            </div>
+            
             {/* Path Drawing Example */}
             <div className="border rounded-lg overflow-hidden">
               <div className="aspect-video bg-muted flex items-center justify-center">
