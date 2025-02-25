@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern Vector.js - 예제</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    .examples-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+    
+    .example-card {
+      border: 1px solid #eee;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .example-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    
+    .example-preview {
+      height: 200px;
+      background-color: #f8f8f8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .example-preview canvas,
+    .example-preview svg {
+      max-width: 100%;
+      max-height: 100%;
+    }
+    
+    .example-info {
+      padding: 15px;
+    }
+    
+    .example-info h3 {
+      margin-top: 0;
+      color: #2c3e50;
+    }
+    
+    .example-info p {
+      color: #666;
+      font-size: 0.9em;
+      margin-bottom: 10px;
+    }
+    
+    .example-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+    
+    .example-tag {
+      background-color: #e0f2fe;
+      color: #0369a1;
+      font-size: 0.8em;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Modern Vector.js v0.1.0</h1>
+    <p>인터랙티브 예제</p>
+    <nav>
+      <a href="../index.html">홈으로</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="content">
+      <h2>인터랙티브 예제</h2>
+      <p>
+        Modern Vector.js의 다양한 기능을 직접 체험해볼 수 있는 인터랙티브 예제입니다.
+        각 예제는 라이브러리의 특정 기능을 보여주며, 소스 코드도 함께 제공됩니다.
+      </p>
+
+      <div class="examples-grid">
+        <a href="basic-shapes.html" class="example-card">
+          <div class="example-preview">
+            <canvas id="preview-basic-shapes" width="280" height="180"></canvas>
+          </div>
+          <div class="example-info">
+            <h3>기본 도형</h3>
+            <p>Rectangle, Circle, Line, Path 등 기본 도형을 그리는 방법을 보여줍니다.</p>
+            <div class="example-tags">
+              <span class="example-tag">Canvas</span>
+              <span class="example-tag">Shapes</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="svg-renderer.html" class="example-card">
+          <div class="example-preview">
+            <div id="preview-svg-renderer"></div>
+          </div>
+          <div class="example-info">
+            <h3>SVG 렌더러</h3>
+            <p>SVG 렌더러를 사용하여 벡터 그래픽을 그리는 방법을 보여줍니다.</p>
+            <div class="example-tags">
+              <span class="example-tag">SVG</span>
+              <span class="example-tag">Renderer</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="transformations.html" class="example-card">
+          <div class="example-preview">
+            <canvas id="preview-transformations" width="280" height="180"></canvas>
+          </div>
+          <div class="example-info">
+            <h3>변환</h3>
+            <p>Translation, Rotation, Scale 등 다양한 변환을 적용하는 방법을 보여줍니다.</p>
+            <div class="example-tags">
+              <span class="example-tag">Canvas</span>
+              <span class="example-tag">Transformations</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="path-operations.html" class="example-card">
+          <div class="example-preview">
+            <canvas id="preview-path-operations" width="280" height="180"></canvas>
+          </div>
+          <div class="example-info">
+            <h3>Path 연산</h3>
+            <p>Union, Intersect, Subtract, XOR 등 Path 연산을 수행하는 방법을 보여줍니다.</p>
+            <div class="example-tags">
+              <span class="example-tag">Canvas</span>
+              <span class="example-tag">Path</span>
+              <span class="example-tag">Boolean Operations</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="interactive-editor.html" class="example-card">
+          <div class="example-preview">
+            <canvas id="preview-interactive-editor" width="280" height="180"></canvas>
+          </div>
+          <div class="example-info">
+            <h3>인터랙티브 에디터</h3>
+            <p>마우스로 도형을 그리고 편집할 수 있는 간단한 에디터입니다.</p>
+            <div class="example-tags">
+              <span class="example-tag">Canvas</span>
+              <span class="example-tag">Interactive</span>
+              <span class="example-tag">Editor</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  <footer class="footer">
+    <p>Modern Vector.js v0.1.0 - 플러그인 기반의 벡터 그래픽 라이브러리</p>
+    <p>&copy; 2024 Modern Vector.js 팀</p>
+  </footer>
+
+  <script type="module">
+    // 미리보기 이미지 생성
+    function drawBasicShapesPreview() {
+      const canvas = document.getElementById('preview-basic-shapes');
+      const ctx = canvas.getContext('2d');
+      
+      // 배경
+      ctx.fillStyle = '#f8f8f8';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      // 사각형
+      ctx.fillStyle = '#3498db';
+      ctx.fillRect(50, 40, 80, 60);
+      
+      // 원
+      ctx.fillStyle = '#e74c3c';
+      ctx.beginPath();
+      ctx.arc(180, 70, 40, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // 선
+      ctx.strokeStyle = '#2ecc71';
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.moveTo(30, 140);
+      ctx.lineTo(250, 140);
+      ctx.stroke();
+    }
+    
+    function drawTransformationsPreview() {
+      const canvas = document.getElementById('preview-transformations');
+      const ctx = canvas.getContext('2d');
+      
+      // 배경
+      ctx.fillStyle = '#f8f8f8';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      // 회전된 사각형
+      ctx.save();
+      ctx.translate(140, 90);
+      ctx.rotate(Math.PI / 6);
+      ctx.fillStyle = '#9b59b6';
+      ctx.fillRect(-40, -30, 80, 60);
+      ctx.restore();
+      
+      // 크기가 변경된 원
+      ctx.save();
+      ctx.translate(70, 70);
+      ctx.scale(1.5, 0.8);
+      ctx.fillStyle = '#f1c40f';
+      ctx.beginPath();
+      ctx.arc(0, 0, 30, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+      
+      // 기울어진 선
+      ctx.save();
+      ctx.translate(200, 120);
+      ctx.transform(1, 0.3, 0.2, 1, 0, 0);
+      ctx.strokeStyle = '#1abc9c';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(-50, 0);
+      ctx.lineTo(50, 0);
+      ctx.stroke();
+      ctx.restore();
+    }
+    
+    function drawPathOperationsPreview() {
+      const canvas = document.getElementById('preview-path-operations');
+      const ctx = canvas.getContext('2d');
+      
+      // 배경
+      ctx.fillStyle = '#f8f8f8';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      // 첫 번째 경로 (사각형)
+      ctx.fillStyle = 'rgba(52, 152, 219, 0.6)';
+      ctx.fillRect(60, 40, 100, 100);
+      
+      // 두 번째 경로 (원)
+      ctx.fillStyle = 'rgba(231, 76, 60, 0.6)';
+      ctx.beginPath();
+      ctx.arc(160, 90, 60, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    
+    function drawInteractiveEditorPreview() {
+      const canvas = document.getElementById('preview-interactive-editor');
+      const ctx = canvas.getContext('2d');
+      
+      // 배경
+      ctx.fillStyle = '#f8f8f8';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      // 에디터 UI 요소
+      ctx.fillStyle = '#ecf0f1';
+      ctx.fillRect(10, 10, 260, 30);
+      
+      // 도구 아이콘
+      ctx.fillStyle = '#7f8c8d';
+      for (let i = 0; i < 5; i++) {
+        ctx.fillRect(20 + i * 40, 15, 20, 20);
+      }
+      
+      // 캔버스 영역에 도형들
+      ctx.fillStyle = '#3498db';
+      ctx.fillRect(50, 70, 60, 40);
+      
+      ctx.fillStyle = '#e74c3c';
+      ctx.beginPath();
+      ctx.arc(170, 90, 30, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // 선택 표시
+      ctx.strokeStyle = '#2ecc71';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([5, 3]);
+      ctx.strokeRect(46, 66, 68, 48);
+      ctx.setLineDash([]);
+      
+      // 핸들
+      ctx.fillStyle = '#fff';
+      ctx.strokeStyle = '#2ecc71';
+      ctx.lineWidth = 1;
+      const handles = [
+        [46, 66], [80, 66], [114, 66],
+        [46, 90], [114, 90],
+        [46, 114], [80, 114], [114, 114]
+      ];
+      handles.forEach(([x, y]) => {
+        ctx.beginPath();
+        ctx.arc(x, y, 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+      });
+    }
+    
+    function createSVGRendererPreview() {
+      const container = document.getElementById('preview-svg-renderer');
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('width', '280');
+      svg.setAttribute('height', '180');
+      svg.setAttribute('viewBox', '0 0 280 180');
+      container.appendChild(svg);
+      
+      // 배경
+      const background = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      background.setAttribute('x', '0');
+      background.setAttribute('y', '0');
+      background.setAttribute('width', '280');
+      background.setAttribute('height', '180');
+      background.setAttribute('fill', '#f8f8f8');
+      svg.appendChild(background);
+      
+      // 사각형
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('x', '50');
+      rect.setAttribute('y', '40');
+      rect.setAttribute('width', '80');
+      rect.setAttribute('height', '60');
+      rect.setAttribute('fill', '#3498db');
+      svg.appendChild(rect);
+      
+      // 원
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('cx', '180');
+      circle.setAttribute('cy', '70');
+      circle.setAttribute('r', '40');
+      circle.setAttribute('fill', '#e74c3c');
+      svg.appendChild(circle);
+      
+      // 선
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', '30');
+      line.setAttribute('y1', '140');
+      line.setAttribute('x2', '250');
+      line.setAttribute('y2', '140');
+      line.setAttribute('stroke', '#2ecc71');
+      line.setAttribute('stroke-width', '4');
+      svg.appendChild(line);
+    }
+    
+    // 페이지 로드 시 미리보기 이미지 생성
+    window.addEventListener('DOMContentLoaded', () => {
+      drawBasicShapesPreview();
+      createSVGRendererPreview();
+      drawTransformationsPreview();
+      drawPathOperationsPreview();
+      drawInteractiveEditorPreview();
+    });
+  </script>
+</body>
+</html> 
