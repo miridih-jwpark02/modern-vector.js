@@ -21,6 +21,8 @@ export interface PathPoint {
 export interface PathOptions extends ShapeOptions {
   /** Path를 구성하는 점들의 배열 */
   points?: PathPoint[];
+  /** Path를 닫힌 경로로 생성할지 여부 */
+  closed?: boolean;
 }
 
 /**
@@ -33,6 +35,39 @@ export class Path extends AbstractShape {
     super('path', options);
     
     this._points = options.points || [];
+    
+    // closed 옵션이 true인 경우 경로 닫기
+    if (options.closed) {
+      this.closePath();
+    }
+  }
+
+  /**
+   * Path 닫기
+   * 첫 번째 점과 마지막 점을 연결하여 닫힌 경로를 만듭니다.
+   * @returns 현재 Path 인스턴스
+   */
+  closePath(): Path {
+    if (this._points.length < 2) {
+      return this; // 점이 2개 미만이면 닫을 수 없음
+    }
+
+    const firstPoint = this._points[0];
+    const lastPoint = this._points[this._points.length - 1];
+
+    // 이미 닫혀있는지 확인 (마지막 점이 첫 번째 점과 같은 위치인지)
+    if (lastPoint.x === firstPoint.x && lastPoint.y === firstPoint.y) {
+      return this; // 이미 닫혀있음
+    }
+
+    // 첫 번째 점과 같은 위치에 line 타입의 점 추가
+    this._points.push({
+      x: firstPoint.x,
+      y: firstPoint.y,
+      type: 'line'
+    });
+
+    return this;
   }
 
   /**
@@ -50,6 +85,21 @@ export class Path extends AbstractShape {
    */
   get points(): PathPoint[] {
     return [...this._points];
+  }
+
+  /**
+   * Path가 닫혀있는지 확인
+   * 첫 번째 점과 마지막 점이 같은 위치에 있으면 닫힌 경로로 간주합니다.
+   */
+  get isClosed(): boolean {
+    if (this._points.length < 3) {
+      return false; // 점이 3개 미만이면 닫힌 경로가 될 수 없음
+    }
+
+    const firstPoint = this._points[0];
+    const lastPoint = this._points[this._points.length - 1];
+
+    return lastPoint.x === firstPoint.x && lastPoint.y === firstPoint.y;
   }
 
   /**
@@ -122,7 +172,7 @@ export class Path extends AbstractShape {
   }
 
   clone(): Shape {
-    return new Path({
+    const clonedPath = new Path({
       id: crypto.randomUUID(),
       transform: Matrix3x3.create(this.transform.values),
       style: { ...this.style },
@@ -130,6 +180,8 @@ export class Path extends AbstractShape {
       scaleOrigin: this.scaleOrigin,
       customScaleOriginPoint: this.customScaleOrigin
     });
+    
+    return clonedPath;
   }
 
   applyTransform(matrix: Matrix3x3): Shape {
@@ -157,7 +209,7 @@ export class Path extends AbstractShape {
             y: bounds.y
           };
       }
-      return new Path({
+      const transformedPath = new Path({
         id: this.id,
         transform: this.getTransformAroundPoint(matrix, origin.x, origin.y),
         style: { ...this.style },
@@ -165,10 +217,12 @@ export class Path extends AbstractShape {
         scaleOrigin: this.scaleOrigin,
         customScaleOriginPoint: this.customScaleOrigin
       });
+      
+      return transformedPath;
     }
 
     // Scale이 아닌 변환은 기존 transform에 직접 적용
-    return new Path({
+    const transformedPath = new Path({
       id: this.id,
       transform: matrix.multiply(this.transform),
       style: { ...this.style },
@@ -176,6 +230,8 @@ export class Path extends AbstractShape {
       scaleOrigin: this.scaleOrigin,
       customScaleOriginPoint: this.customScaleOrigin
     });
+    
+    return transformedPath;
   }
 
   containsPoint(point: Vector2D): boolean {

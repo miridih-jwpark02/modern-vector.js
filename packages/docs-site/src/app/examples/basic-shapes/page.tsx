@@ -165,9 +165,9 @@ export default function BasicShapesExample() {
           points: [
             { x: canvasSize.width / 2, y: canvasSize.height / 2 - halfSize, type: 'move' },
             { x: canvasSize.width / 2 + halfSize, y: canvasSize.height / 2 + halfSize, type: 'line' },
-            { x: canvasSize.width / 2 - halfSize, y: canvasSize.height / 2 + halfSize, type: 'line' },
-            { x: canvasSize.width / 2, y: canvasSize.height / 2 - halfSize, type: 'line' }
+            { x: canvasSize.width / 2 - halfSize, y: canvasSize.height / 2 + halfSize, type: 'line' }
           ],
+          closed: true,
           style: {
             fillColor: currentFill,
             strokeColor: currentStroke,
@@ -208,15 +208,9 @@ export default function BasicShapesExample() {
           });
         }
         
-        // 닫힌 경로를 위해 첫 점 추가
-        points.push({
-          x: points[0].x,
-          y: points[0].y,
-          type: 'line'
-        });
-        
         vectorShape = shapePlugin.createShape('path', {
           points,
+          closed: true,
           style: {
             fillColor: currentFill,
             strokeColor: currentStroke,
@@ -305,9 +299,9 @@ const triangle = shapePlugin.createShape('path', {
   points: [
     { x: canvas.width / 2, y: canvas.height / 2 - ${currentSize / 2}, type: 'move' },
     { x: canvas.width / 2 + ${currentSize / 2}, y: canvas.height / 2 + ${currentSize / 2}, type: 'line' },
-    { x: canvas.width / 2 - ${currentSize / 2}, y: canvas.height / 2 + ${currentSize / 2}, type: 'line' },
-    { x: canvas.width / 2, y: canvas.height / 2 - ${currentSize / 2}, type: 'line' }
+    { x: canvas.width / 2 - ${currentSize / 2}, y: canvas.height / 2 + ${currentSize / 2}, type: 'line' }
   ],
+  closed: true,
   style: {
     fillColor: '${currentFill}',
     strokeColor: '${currentStroke}',
@@ -338,6 +332,7 @@ scene.root.addChild(line);`;
 const shapePlugin = engine.getPlugin('shape');
 const star = shapePlugin.createShape('path', {
   points: calculateStarPoints(canvas.width / 2, canvas.height / 2, 5, ${currentSize / 2}, ${currentSize / 4}),
+  closed: true,
   style: {
     fillColor: '${currentFill}',
     strokeColor: '${currentStroke}',
@@ -361,13 +356,6 @@ function calculateStarPoints(centerX, centerY, spikes, outerRadius, innerRadius)
       type: i === 0 ? 'move' : 'line'
     });
   }
-  
-  // 닫힌 경로를 위해 첫 점 추가
-  points.push({
-    x: points[0].x,
-    y: points[0].y,
-    type: 'line'
-  });
   
   return points;
 }`;
