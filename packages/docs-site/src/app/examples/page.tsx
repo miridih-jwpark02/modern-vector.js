@@ -63,6 +63,35 @@ export default function ExamplesPage() {
               </div>
             </div>
             
+            {/* Circle toPath Example */}
+            <div className="border rounded-lg overflow-hidden">
+              <div className="aspect-video bg-muted flex items-center justify-center">
+                <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  {/* Circle */}
+                  <circle cx="60" cy="60" r="40" fill="rgba(65, 105, 225, 0.2)" stroke="royalblue" strokeWidth="2" />
+                  
+                  {/* Path circle (bezier) */}
+                  <path d="M100,60 C100,82.09 82.09,100 60,100 C37.91,100 20,82.09 20,60 C20,37.91 37.91,20 60,20 C82.09,20 100,37.91 100,60 Z" 
+                    fill="rgba(220, 20, 60, 0.2)" stroke="crimson" strokeWidth="2" />
+                  
+                  {/* Path points visualization */}
+                  <circle cx="100" cy="60" r="3" fill="white" stroke="black" strokeWidth="1" />
+                  <circle cx="60" cy="100" r="3" fill="white" stroke="black" strokeWidth="1" />
+                  <circle cx="20" cy="60" r="3" fill="white" stroke="black" strokeWidth="1" />
+                  <circle cx="60" cy="20" r="3" fill="white" stroke="black" strokeWidth="1" />
+                </svg>
+              </div>
+              <div className="p-4">
+                <h3 className="font-bold">Circle toPath Method</h3>
+                <p className="text-sm text-muted-foreground mt-1 mb-3">
+                  Circle.toPath 메서드를 사용하여 원을 Path 객체로 변환하고 다양한 렌더링 방법을 비교해보세요.
+                </p>
+                <Button variant="outline" size="sm" asChild>
+                  <Link href="/examples/circle-rendering">View Example</Link>
+                </Button>
+              </div>
+            </div>
+            
             {/* Bezier Curves Example */}
             <div className="border rounded-lg overflow-hidden">
               <div className="aspect-video bg-muted flex items-center justify-center">

@@ -252,6 +252,24 @@ export default function BezierCurvesExample() {
     const pathNode = new DefaultSceneNode('bezier-curve', engine.events.createNamespace('bezier-curve'));
     pathNode.data = path;
     scene.root.addChild(pathNode);
+
+    // Bounds 시각화
+    const bounds = path.bounds;
+    const boundsRect = shapePlugin.createShape('rectangle', {
+      x: bounds.x,
+      y: bounds.y,
+      width: bounds.width,
+      height: bounds.height,
+      style: {
+        strokeColor: '#94a3b8',
+        strokeWidth: 1,
+        strokeDashArray: [4, 4],
+        fillColor: 'transparent'
+      }
+    });
+    const boundsNode = new DefaultSceneNode('bounds', engine.events.createNamespace('bounds'));
+    boundsNode.data = boundsRect;
+    scene.root.addChild(boundsNode);
     
     // 장면 렌더링
     engine.renderer.render(scene);
