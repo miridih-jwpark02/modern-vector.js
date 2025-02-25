@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import "highlight.js/styles/github.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { GitHubPagesRedirect } from "@/components/github-pages-redirect";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -46,36 +47,13 @@ export default function RootLayout({
             .dark .hljs-doctag {
               color: #ce9178;
             }
-            .dark .hljs-title,
-            .dark .hljs-section,
-            .dark .hljs-selector-id {
-              color: #dcdcaa;
-            }
-            .dark .hljs-comment {
-              color: #6a9955;
-            }
-            .dark .hljs-meta,
-            .dark .hljs-operator,
-            .dark .hljs-punctuation {
-              color: #d4d4d4;
-            }
-            .dark .hljs-template-tag {
-              color: #d7ba7d;
-            }
-            .dark .hljs-type,
-            .dark .hljs-class,
+            .dark .hljs-built_in,
             .dark .hljs-builtin-name {
               color: #4ec9b0;
             }
-            .dark .hljs-params {
-              color: #9cdcfe;
-            }
-            .dark .hljs-variable,
-            .dark .hljs-attr {
-              color: #9cdcfe;
-            }
-            .dark .hljs-regexp {
-              color: #d16969;
+            .dark .hljs-comment,
+            .dark .hljs-quote {
+              color: #6a9955;
             }
             
             /* 코드 블록 스타일 개선 */
@@ -218,6 +196,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <GitHubPagesRedirect />
           {children}
         </ThemeProvider>
       </body>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Modern Vector.js - Page Not Found</title>
+  <script>
+    // GitHub Pages에서 SPA 라우팅을 위한 리다이렉트 스크립트
+    // 현재 URL을 저장하고 루트 페이지로 리다이렉트
+    const segmentCount = 1; // 저장소 이름을 포함하는 경우 1, 사용자 페이지인 경우 0
+    const repo = 'modern-vector.js'; // 저장소 이름
+    
+    const l = window.location;
+    const origin = l.origin;
+    const path = l.pathname.split('/').slice(segmentCount + 1).join('/');
+    const search = l.search;
+    const hash = l.hash;
+    
+    // 새 URL 생성
+    const redirectUrl = `${origin}/${repo}/?path=${path}${search}${hash}`;
+    
+    // 리다이렉트
+    window.location.replace(redirectUrl);
+  </script>
+</head>
+<body>
+  <h1>Page Not Found</h1>
+  <p>Redirecting to home page...</p>
+</body>
+</html> 
