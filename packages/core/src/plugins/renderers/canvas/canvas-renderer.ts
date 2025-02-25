@@ -294,8 +294,26 @@ export class CanvasRenderer implements Renderer {
     shape.points.forEach((point, index) => {
       if (point.type === 'move' || index === 0) {
         this.context.moveTo(point.x, point.y);
-      } else {
+      } else if (point.type === 'line') {
         this.context.lineTo(point.x, point.y);
+      } else if (point.type === 'quadratic' && point.controlPoint) {
+        // 2차 베지어 곡선 그리기
+        this.context.quadraticCurveTo(
+          point.controlPoint.x,
+          point.controlPoint.y,
+          point.x,
+          point.y
+        );
+      } else if (point.type === 'cubic' && point.controlPoint1 && point.controlPoint2) {
+        // 3차 베지어 곡선 그리기
+        this.context.bezierCurveTo(
+          point.controlPoint1.x,
+          point.controlPoint1.y,
+          point.controlPoint2.x,
+          point.controlPoint2.y,
+          point.x,
+          point.y
+        );
       }
     });
 
