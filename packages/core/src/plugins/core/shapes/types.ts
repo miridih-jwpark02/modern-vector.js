@@ -72,6 +72,8 @@ export interface Shape {
   readonly style: ShapeStyle;
   /** Shape의 점들 (Path shape에서만 사용) */
   readonly points?: PathPoint[];
+  /** Path가 닫혀있는지 여부 (Path shape에서만 사용) */
+  readonly isClosed?: boolean;
   /** Text의 내용 (Text shape에서만 사용) */
   readonly text?: string;
   /** Text의 폰트 (Text shape에서만 사용) */

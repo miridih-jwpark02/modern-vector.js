@@ -149,8 +149,8 @@ export class CanvasRenderer implements Renderer {
     this.context.save();
 
     // Render each shape
-    scene.root.childNodes.forEach(node => {
-      const shape = node as unknown as Shape;
+    scene.root.children.forEach(node => {
+      const shape = node.data as Shape;
       this.renderShape(shape);
     });
 
@@ -298,6 +298,11 @@ export class CanvasRenderer implements Renderer {
         this.context.lineTo(point.x, point.y);
       }
     });
+
+    // 닫힌 경로인 경우 closePath 호출
+    if (shape.isClosed) {
+      this.context.closePath();
+    }
 
     if (shape.style.fillColor) {
       this.context.fill();

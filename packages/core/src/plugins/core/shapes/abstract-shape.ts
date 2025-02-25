@@ -19,6 +19,15 @@ export abstract class AbstractShape implements Shape {
   protected scaleOrigin: ScaleOrigin;
   protected customScaleOrigin?: { x: number; y: number };
 
+  /**
+   * Path가 닫혀있는지 여부
+   * 기본적으로 모든 도형은 닫혀있지 않다고 가정합니다.
+   * Path 클래스에서 오버라이드하여 사용합니다.
+   */
+  get isClosed(): boolean {
+    return false;
+  }
+
   constructor(type: string, options: ShapeOptions = {}) {
     this.id = options.id || crypto.randomUUID();
     this.type = type;
