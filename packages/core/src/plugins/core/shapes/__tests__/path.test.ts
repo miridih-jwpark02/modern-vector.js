@@ -432,4 +432,183 @@ describe('PathFactory', () => {
       height: 30
     });
   });
+});
+
+describe('Bezier Curves and SVG Path Commands', () => {
+  describe('quadratic bezier curves', () => {
+    it('should add quadratic bezier curve point', () => {
+      const path = new Path();
+      path.addPoint(10, 10, 'move');
+      path.addQuadraticCurve(20, 20, 30, 10);
+      
+      expect(path.points).toEqual([
+        { x: 10, y: 10, type: 'move' },
+        { x: 30, y: 10, type: 'quadratic', controlPoint: { x: 20, y: 20 } }
+      ]);
+    });
+    
+    it('should calculate bounds correctly with quadratic curves', () => {
+      const path = new Path({
+        points: [
+          { x: 0, y: 0, type: 'move' },
+          { x: 100, y: 0, type: 'quadratic', controlPoint: { x: 50, y: -50 } }
+        ]
+      });
+      
+      // 베지어 곡선의 경계 상자는 제어점을 포함해야 함
+      expect(path.bounds).toEqual({
+        x: 0,
+        y: -50,
+        width: 100,
+        height: 50
+      });
+    });
+  });
+  
+  describe('cubic bezier curves', () => {
+    it('should add cubic bezier curve point', () => {
+      const path = new Path();
+      path.addPoint(10, 10, 'move');
+      path.addCubicCurve(20, 20, 40, 20, 50, 10);
+      
+      expect(path.points).toEqual([
+        { x: 10, y: 10, type: 'move' },
+        { 
+          x: 50, 
+          y: 10, 
+          type: 'cubic', 
+          controlPoint1: { x: 20, y: 20 },
+          controlPoint2: { x: 40, y: 20 }
+        }
+      ]);
+    });
+    
+    it('should calculate bounds correctly with cubic curves', () => {
+      const path = new Path({
+        points: [
+          { x: 0, y: 0, type: 'move' },
+          { 
+            x: 100, 
+            y: 0, 
+            type: 'cubic', 
+            controlPoint1: { x: 30, y: -30 },
+            controlPoint2: { x: 70, y: 30 }
+          }
+        ]
+      });
+      
+      // 베지어 곡선의 경계 상자는 제어점을 포함해야 함
+      expect(path.bounds).toEqual({
+        x: 0,
+        y: -30,
+        width: 100,
+        height: 60
+      });
+    });
+  });
+  
+  describe('SVG path commands', () => {
+    it('should convert path to SVG path commands', () => {
+      const path = new Path();
+      path.addPoint(10, 10, 'move');
+      path.addPoint(50, 10, 'line');
+      path.addQuadraticCurve(70, 30, 90, 10);
+      path.addCubicCurve(110, -10, 130, 30, 150, 10);
+      
+      const svgPath = path.toSVGPath();
+      expect(svgPath).toBe('M10,10 L50,10 Q70,30 90,10 C110,-10 130,30 150,10');
+    });
+    
+    it('should create path from SVG path commands', () => {
+      const svgPath = 'M10,10 L50,10 Q70,30 90,10 C110,-10 130,30 150,10 Z';
+      const path = Path.fromSVGPath(svgPath);
+      
+      expect(path.points).toEqual([
+        { x: 10, y: 10, type: 'move' },
+        { x: 50, y: 10, type: 'line' },
+        { x: 90, y: 10, type: 'quadratic', controlPoint: { x: 70, y: 30 } },
+        { 
+          x: 150, 
+          y: 10, 
+          type: 'cubic', 
+          controlPoint1: { x: 110, y: -10 },
+          controlPoint2: { x: 130, y: 30 }
+        },
+        { x: 10, y: 10, type: 'line' } // Z 명령어로 인해 첫 점으로 돌아감
+      ]);
+      
+      expect(path.isClosed).toBe(true);
+    });
+    
+    it('should handle relative commands in SVG path', () => {
+      const svgPath = 'm10,10 l40,0 q20,20 40,0 c20,-20 40,20 60,0 z';
+      const path = Path.fromSVGPath(svgPath);
+      
+      expect(path.points).toEqual([
+        { x: 10, y: 10, type: 'move' },
+        { x: 50, y: 10, type: 'line' },
+        { x: 90, y: 10, type: 'quadratic', controlPoint: { x: 70, y: 30 } },
+        { 
+          x: 150, 
+          y: 10, 
+          type: 'cubic', 
+          controlPoint1: { x: 110, y: -10 },
+          controlPoint2: { x: 130, y: 30 }
+        },
+        { x: 10, y: 10, type: 'line' }
+      ]);
+    });
+    
+    it('should handle arc commands in SVG path', () => {
+      const svgPath = 'M10,10 A50,25 0 0,1 150,10';
+      const path = Path.fromSVGPath(svgPath);
+      
+      // Arc 명령어는 여러 개의 베지어 곡선으로 근사화됨
+      expect(path.points.length).toBeGreaterThan(2);
+      expect(path.points[0]).toEqual({ x: 10, y: 10, type: 'move' });
+      
+      // 마지막 점은 호의 끝점 (부동 소수점 오차 허용)
+      const lastPoint = path.points[path.points.length - 1];
+      expect(lastPoint.x).toBeCloseTo(150, 5);
+      expect(lastPoint.y).toBeCloseTo(10, 5);
+    });
+  });
+  
+  describe('containsPoint with bezier curves', () => {
+    it('should detect point on quadratic bezier curve', () => {
+      const path = new Path({
+        points: [
+          { x: 0, y: 0, type: 'move' },
+          { x: 100, y: 0, type: 'quadratic', controlPoint: { x: 50, y: -50 } }
+        ]
+      });
+      
+      // 곡선 위의 점 (t=0.5일 때의 점)
+      expect(path.containsPoint(Vector2D.create(50, -25))).toBe(true);
+      
+      // 곡선에서 멀리 떨어진 점
+      expect(path.containsPoint(Vector2D.create(50, 25))).toBe(false);
+    });
+    
+    it('should detect point on cubic bezier curve', () => {
+      const path = new Path({
+        points: [
+          { x: 0, y: 0, type: 'move' },
+          { 
+            x: 100, 
+            y: 0, 
+            type: 'cubic', 
+            controlPoint1: { x: 30, y: -30 },
+            controlPoint2: { x: 70, y: 30 }
+          }
+        ]
+      });
+      
+      // 곡선 위의 점 (t=0.5일 때의 점)
+      expect(path.containsPoint(Vector2D.create(50, 0))).toBe(true);
+      
+      // 곡선에서 멀리 떨어진 점
+      expect(path.containsPoint(Vector2D.create(50, 50))).toBe(false);
+    });
+  });
 }); 

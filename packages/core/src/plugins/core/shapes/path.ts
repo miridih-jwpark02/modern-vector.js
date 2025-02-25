@@ -343,30 +343,167 @@ export class Path extends AbstractShape {
           }
           break;
           
-        // 다른 명령어들 (S, T, A 등)은 필요에 따라 구현
+        // Arc 명령어 처리
         case 'A':
         case 'a':
-          // Arc 명령어는 복잡하므로 간단한 구현으로 대체
-          // 실제로는 여러 개의 베지어 곡선으로 근사화해야 함
           if (params.length >= 7) {
             const rx = Math.abs(params[0]);
             const ry = Math.abs(params[1]);
-            const xAxisRotation = params[2];
-            const largeArcFlag = params[3];
-            const sweepFlag = params[4];
-            const x = command === 'A' ? params[5] : currentX + params[5];
-            const y = command === 'A' ? params[6] : currentY + params[6];
+            const xAxisRotation = params[2] * Math.PI / 180; // 각도를 라디안으로 변환
+            const largeArcFlag = params[3] !== 0;
+            const sweepFlag = params[4] !== 0;
+            const endX = command === 'A' ? params[5] : currentX + params[5];
+            const endY = command === 'A' ? params[6] : currentY + params[6];
             
-            // 간단한 구현: 직선으로 연결
-            path.addPoint(x, y, 'line');
-            currentX = x;
-            currentY = y;
+            // Arc를 베지어 곡선으로 근사화
+            const curves = Path.approximateArc(
+              currentX, currentY,
+              rx, ry,
+              xAxisRotation,
+              largeArcFlag,
+              sweepFlag,
+              endX, endY
+            );
+            
+            // 생성된 베지어 곡선들을 경로에 추가
+            for (const curve of curves) {
+              path.addCubicCurve(
+                curve.cp1x, curve.cp1y,
+                curve.cp2x, curve.cp2y,
+                curve.x, curve.y
+              );
+            }
+            
+            currentX = endX;
+            currentY = endY;
           }
           break;
       }
     }
     
     return path;
+  }
+
+  /**
+   * SVG Arc를 여러 개의 3차 베지어 곡선으로 근사화
+   * 
+   * @param x1 - 시작점 x 좌표
+   * @param y1 - 시작점 y 좌표
+   * @param rx - x 반지름
+   * @param ry - y 반지름
+   * @param angle - x축 회전 각도 (라디안)
+   * @param largeArcFlag - 큰 호 플래그
+   * @param sweepFlag - 쓸기 방향 플래그
+   * @param x2 - 끝점 x 좌표
+   * @param y2 - 끝점 y 좌표
+   * @returns 3차 베지어 곡선 배열
+   */
+  private static approximateArc(
+    x1: number, y1: number,
+    rx: number, ry: number,
+    angle: number,
+    largeArcFlag: boolean,
+    sweepFlag: boolean,
+    x2: number, y2: number
+  ): { cp1x: number; cp1y: number; cp2x: number; cp2y: number; x: number; y: number }[] {
+    // 반지름이 0이면 직선으로 처리
+    if (rx === 0 || ry === 0) {
+      return [];
+    }
+    
+    // 시작점과 끝점이 같으면 빈 배열 반환
+    if (x1 === x2 && y1 === y2) {
+      return [];
+    }
+    
+    // 반지름이 음수면 절대값 사용
+    rx = Math.abs(rx);
+    ry = Math.abs(ry);
+    
+    // 1. 타원 중심 좌표계로 변환
+    const cosAngle = Math.cos(angle);
+    const sinAngle = Math.sin(angle);
+    
+    // 시작점을 타원 중심 좌표계로 변환
+    const dx = (x1 - x2) / 2;
+    const dy = (y1 - y2) / 2;
+    const x1p = cosAngle * dx + sinAngle * dy;
+    const y1p = -sinAngle * dx + cosAngle * dy;
+    
+    // 반지름 보정 (필요한 경우)
+    let lambda = (x1p * x1p) / (rx * rx) + (y1p * y1p) / (ry * ry);
+    if (lambda > 1) {
+      const sqrtLambda = Math.sqrt(lambda);
+      rx *= sqrtLambda;
+      ry *= sqrtLambda;
+    }
+    
+    // 2. 타원 중심 계산
+    const sign = largeArcFlag === sweepFlag ? -1 : 1;
+    const sq = ((rx * rx) * (ry * ry) - (rx * rx) * (y1p * y1p) - (ry * ry) * (x1p * x1p)) / 
+               ((rx * rx) * (y1p * y1p) + (ry * ry) * (x1p * x1p));
+    const coef = sign * Math.sqrt(Math.max(0, sq));
+    const cxp = coef * ((rx * y1p) / ry);
+    const cyp = coef * (-(ry * x1p) / rx);
+    
+    // 타원 중심을 원래 좌표계로 변환
+    const cx = cosAngle * cxp - sinAngle * cyp + (x1 + x2) / 2;
+    const cy = sinAngle * cxp + cosAngle * cyp + (y1 + y2) / 2;
+    
+    // 3. 시작각과 끝각 계산
+    const startVectorX = (x1p - cxp) / rx;
+    const startVectorY = (y1p - cyp) / ry;
+    const startAngle = Math.atan2(startVectorY, startVectorX);
+    
+    const endVectorX = (-x1p - cxp) / rx;
+    const endVectorY = (-y1p - cyp) / ry;
+    let sweepAngle = Math.atan2(endVectorY, endVectorX) - startAngle;
+    
+    // 각도 조정
+    if (!sweepFlag && sweepAngle > 0) {
+      sweepAngle -= 2 * Math.PI;
+    } else if (sweepFlag && sweepAngle < 0) {
+      sweepAngle += 2 * Math.PI;
+    }
+    
+    // 4. 호를 여러 개의 베지어 곡선으로 분할
+    const segments = Math.ceil(Math.abs(sweepAngle) / (Math.PI / 2));
+    const curves: { cp1x: number; cp1y: number; cp2x: number; cp2y: number; x: number; y: number }[] = [];
+    
+    for (let i = 0; i < segments; i++) {
+      const segmentAngle = startAngle + sweepAngle * (i / segments);
+      const nextSegmentAngle = startAngle + sweepAngle * ((i + 1) / segments);
+      const segmentSweep = nextSegmentAngle - segmentAngle;
+      
+      // 베지어 곡선 제어점 계산을 위한 상수
+      const alpha = Math.sin(segmentSweep) * (Math.sqrt(4 + 3 * Math.tan(segmentSweep / 2) * Math.tan(segmentSweep / 2)) - 1) / 3;
+      
+      // 현재 세그먼트의 시작점
+      const startX = cx + rx * Math.cos(segmentAngle) * cosAngle - ry * Math.sin(segmentAngle) * sinAngle;
+      const startY = cy + rx * Math.cos(segmentAngle) * sinAngle + ry * Math.sin(segmentAngle) * cosAngle;
+      
+      // 현재 세그먼트의 끝점
+      const endX = cx + rx * Math.cos(nextSegmentAngle) * cosAngle - ry * Math.sin(nextSegmentAngle) * sinAngle;
+      const endY = cy + rx * Math.cos(nextSegmentAngle) * sinAngle + ry * Math.sin(nextSegmentAngle) * cosAngle;
+      
+      // 제어점 계산
+      const cp1x = startX + alpha * (-rx * Math.sin(segmentAngle) * cosAngle - ry * Math.cos(segmentAngle) * sinAngle);
+      const cp1y = startY + alpha * (-rx * Math.sin(segmentAngle) * sinAngle + ry * Math.cos(segmentAngle) * cosAngle);
+      
+      const cp2x = endX - alpha * (-rx * Math.sin(nextSegmentAngle) * cosAngle - ry * Math.cos(nextSegmentAngle) * sinAngle);
+      const cp2y = endY - alpha * (-rx * Math.sin(nextSegmentAngle) * sinAngle + ry * Math.cos(nextSegmentAngle) * cosAngle);
+      
+      // 첫 번째 세그먼트가 아니면 곡선 추가
+      if (i > 0 || curves.length === 0) {
+        curves.push({
+          cp1x, cp1y,
+          cp2x, cp2y,
+          x: endX, y: endY
+        });
+      }
+    }
+    
+    return curves;
   }
 
   /**
@@ -424,14 +561,46 @@ export class Path extends AbstractShape {
     }
 
     // Transform 적용된 모든 점 계산
-    const transformedPoints = this._points.map(p => {
-      const transformed = this.transform.multiply(Matrix3x3.translation(p.x, p.y));
-      return {
+    const transformedPoints: Point2D[] = [];
+    
+    // 모든 점과 제어점을 변환하여 배열에 추가
+    for (const point of this._points) {
+      // 점 자체 변환
+      const transformed = this.transform.multiply(Matrix3x3.translation(point.x, point.y));
+      transformedPoints.push({
         x: transformed.values[2],
         y: transformed.values[5]
-      };
-    });
+      });
+      
+      // 베지어 곡선의 제어점도 변환하여 추가
+      if (point.type === 'quadratic' && point.controlPoint) {
+        const transformedCP = this.transform.multiply(
+          Matrix3x3.translation(point.controlPoint.x, point.controlPoint.y)
+        );
+        transformedPoints.push({
+          x: transformedCP.values[2],
+          y: transformedCP.values[5]
+        });
+      } else if (point.type === 'cubic' && point.controlPoint1 && point.controlPoint2) {
+        const transformedCP1 = this.transform.multiply(
+          Matrix3x3.translation(point.controlPoint1.x, point.controlPoint1.y)
+        );
+        transformedPoints.push({
+          x: transformedCP1.values[2],
+          y: transformedCP1.values[5]
+        });
+        
+        const transformedCP2 = this.transform.multiply(
+          Matrix3x3.translation(point.controlPoint2.x, point.controlPoint2.y)
+        );
+        transformedPoints.push({
+          x: transformedCP2.values[2],
+          y: transformedCP2.values[5]
+        });
+      }
+    }
 
+    // 모든 변환된 점들 중 최소/최대 좌표 찾기
     let minX = transformedPoints[0].x;
     let minY = transformedPoints[0].y;
     let maxX = transformedPoints[0].x;
