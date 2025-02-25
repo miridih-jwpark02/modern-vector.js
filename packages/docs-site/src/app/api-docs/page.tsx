@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { allApiDocs, ApiDoc } from 'contentlayer/generated';
 import { Metadata } from 'next';
+import { Suspense } from 'react';
 
 /**
  * API 문서 메타데이터
@@ -9,17 +10,6 @@ export const metadata: Metadata = {
   title: 'API Documentation | Modern Vector.js',
   description: 'API documentation for Modern Vector.js library',
 };
-
-/**
- * 현재 경로가 활성 상태인지 확인
- */
-function isActive(path: string): boolean {
-  // 클라이언트 사이드에서만 window 객체 사용
-  if (typeof window !== 'undefined') {
-    return window.location.pathname === path;
-  }
-  return false;
-}
 
 /**
  * API 문서 인덱스 페이지 컴포넌트
@@ -37,54 +27,9 @@ export default function ApiDocsPage() {
       {/* 사이드바 네비게이션 */}
       <aside className="w-full md:w-64 p-4 border-r border-border bg-card">
         <nav className="api-nav">
-          <Link
-            href="/api-docs"
-            className={`api-nav-link text-foreground ${isActive('/api-docs') ? 'active' : ''}`}
-          >
-            API Home
-          </Link>
-          
-          <h3 className="text-lg font-semibold mt-4 mb-2">Classes</h3>
-          <ul className="space-y-1">
-            {categories.classes.map((item: ApiDoc) => (
-              <li key={item.slug}>
-                <Link
-                  href={item.url}
-                  className={`api-nav-link text-foreground ${isActive(item.url) ? 'active' : ''}`}
-                >
-                  {item.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          
-          <h3 className="text-lg font-semibold mt-4 mb-2">Interfaces</h3>
-          <ul className="space-y-1">
-            {categories.interfaces.map((item: ApiDoc) => (
-              <li key={item.slug}>
-                <Link
-                  href={item.url}
-                  className={`api-nav-link text-foreground ${isActive(item.url) ? 'active' : ''}`}
-                >
-                  {item.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          
-          <h3 className="text-lg font-semibold mt-4 mb-2">Type Aliases</h3>
-          <ul className="space-y-1">
-            {categories['type-aliases'].map((item: ApiDoc) => (
-              <li key={item.slug}>
-                <Link
-                  href={item.url}
-                  className={`api-nav-link text-foreground ${isActive(item.url) ? 'active' : ''}`}
-                >
-                  {item.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <Suspense fallback={<div>Loading...</div>}>
+            <ApiNavLinks categories={categories} />
+          </Suspense>
         </nav>
       </aside>
       
@@ -144,5 +89,78 @@ export default function ApiDocsPage() {
         </article>
       </main>
     </div>
+  );
+}
+
+// 클라이언트 컴포넌트로 분리
+'use client';
+
+import { usePathname } from 'next/navigation';
+
+/**
+ * 현재 경로가 활성 상태인지 확인
+ */
+function isActive(path: string, currentPath: string | null): boolean {
+  if (!currentPath) return false;
+  return currentPath === path;
+}
+
+/**
+ * API 네비게이션 링크 컴포넌트
+ */
+function ApiNavLinks({ categories }: { categories: Record<string, ApiDoc[]> }) {
+  const pathname = usePathname();
+  
+  return (
+    <>
+      <Link
+        href="/api-docs"
+        className={`api-nav-link text-foreground ${isActive('/api-docs', pathname) ? 'active' : ''}`}
+      >
+        API Home
+      </Link>
+      
+      <h3 className="text-lg font-semibold mt-4 mb-2">Classes</h3>
+      <ul className="space-y-1">
+        {categories.classes.map((item: ApiDoc) => (
+          <li key={item.slug}>
+            <Link
+              href={item.url}
+              className={`api-nav-link text-foreground ${isActive(item.url, pathname) ? 'active' : ''}`}
+            >
+              {item.title}
+            </Link>
+          </li>
+        ))}
+      </ul>
+      
+      <h3 className="text-lg font-semibold mt-4 mb-2">Interfaces</h3>
+      <ul className="space-y-1">
+        {categories.interfaces.map((item: ApiDoc) => (
+          <li key={item.slug}>
+            <Link
+              href={item.url}
+              className={`api-nav-link text-foreground ${isActive(item.url, pathname) ? 'active' : ''}`}
+            >
+              {item.title}
+            </Link>
+          </li>
+        ))}
+      </ul>
+      
+      <h3 className="text-lg font-semibold mt-4 mb-2">Type Aliases</h3>
+      <ul className="space-y-1">
+        {categories['type-aliases'].map((item: ApiDoc) => (
+          <li key={item.slug}>
+            <Link
+              href={item.url}
+              className={`api-nav-link text-foreground ${isActive(item.url, pathname) ? 'active' : ''}`}
+            >
+              {item.title}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </>
   );
 } 
