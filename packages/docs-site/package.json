@@ -1,0 +1,29 @@
+{
+  "name": "docs-site",
+  "version": "0.1.0",
+  "description": "Modern Vector.js 문서 사이트",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "deploy": "gh-pages -d dist"
+  },
+  "keywords": [
+    "vector",
+    "graphics",
+    "documentation",
+    "examples"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "gh-pages": "^6.3.0",
+    "typescript": "^5.3.3",
+    "vite": "^5.1.4"
+  },
+  "dependencies": {
+    "modern-vector.js": "workspace:*"
+  }
+} 

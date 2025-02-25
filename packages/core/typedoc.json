@@ -1,0 +1,19 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["./src/index.ts"],
+  "out": "../docs-site/public/api-docs",
+  "plugin": ["typedoc-plugin-markdown"],
+  "readme": "none",
+  "name": "Modern Vector.js",
+  "includeVersion": true,
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "excludeInternal": true,
+  "githubPages": false,
+  "categorizeByGroup": true,
+  "searchInComments": true,
+  "navigationLinks": {
+    "GitHub": "https://github.com/username/modern-vector.js",
+    "Examples": "https://username.github.io/modern-vector.js"
+  }
+} 

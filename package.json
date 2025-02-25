@@ -1,35 +1,17 @@
 {
-  "name": "modern-vector.js",
+  "name": "modern-vector-monorepo",
   "version": "0.1.0",
+  "private": true,
   "description": "Modern Vector Graphics Library with Plugin System",
   "type": "module",
   "packageManager": "pnpm@8.15.4",
-  "main": "./dist/modern-vector.umd.cjs",
-  "module": "./dist/modern-vector.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/modern-vector.js",
-      "require": "./dist/modern-vector.umd.cjs",
-      "types": "./dist/index.d.ts"
-    }
-  },
-  "files": [
-    "dist"
-  ],
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "test": "vitest",
-    "test:ui": "vitest --ui",
-    "test:coverage": "vitest run --coverage",
-    "lint": "eslint src --ext ts",
-    "format": "prettier --write \"src/**/*.ts\"",
-    "docs": "typedoc",
-    "docs:site": "cp -r docs/* docs-site/",
-    "predeploy": "pnpm run docs && pnpm run docs:site",
-    "deploy": "gh-pages -d docs-site",
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "deploy": "turbo run deploy",
     "prepare": "husky"
   },
   "keywords": [
@@ -43,30 +25,15 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^20.11.24",
     "@typescript-eslint/eslint-plugin": "^7.1.0",
     "@typescript-eslint/parser": "^7.1.0",
-    "@vitest/coverage-v8": "^1.3.1",
-    "@vitest/ui": "^1.3.1",
-    "canvas": "^3.1.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
-    "gh-pages": "^6.3.0",
     "husky": "^9.0.11",
-    "jsdom": "^26.0.0",
     "lint-staged": "^15.2.2",
     "prettier": "^3.2.5",
-    "typedoc": "^0.27.9",
-    "typedoc-plugin-markdown": "^4.4.2",
-    "typescript": "^5.3.3",
-    "vite": "^5.1.4",
-    "vite-plugin-dts": "^3.7.3",
-    "vitest": "^1.3.1"
-  },
-  "dependencies": {
-    "gl-matrix": "^3.4.3",
-    "tslib": "^2.6.2"
+    "turbo": "^2.0.0"
   },
   "engines": {
     "node": ">=14.0.0",
@@ -77,5 +44,8 @@
       "eslint --fix",
       "prettier --write"
     ]
-  }
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }
