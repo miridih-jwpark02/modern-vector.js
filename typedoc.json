@@ -1,0 +1,20 @@
+{
+  "entryPoints": ["src/index.ts"],
+  "out": "docs",
+  "name": "Modern Vector.js",
+  "includeVersion": true,
+  "excludePrivate": true,
+  "excludeExternals": true,
+  "categorizeByGroup": true,
+  "categoryOrder": [
+    "Core",
+    "Shapes",
+    "Math",
+    "Renderers",
+    "Plugins",
+    "*"
+  ],
+  "plugin": ["typedoc-plugin-markdown"],
+  "theme": "default",
+  "tsconfig": "tsconfig.json"
+} 

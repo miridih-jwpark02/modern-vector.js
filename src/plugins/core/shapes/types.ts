@@ -1,3 +1,10 @@
+/**
+ * Shape 타입 정의
+ * 
+ * @packageDocumentation
+ * @module Shapes
+ */
+
 import { Vector2D } from '../math/vector';
 import { Matrix3x3 } from '../math/matrix';
 import { ScaleOrigin } from './abstract-shape';
@@ -5,6 +12,8 @@ import { PathPoint } from './path/types';
 
 /**
  * Shape의 경계 상자를 나타내는 interface
+ * 
+ * 모든 Shape는 경계 상자를 가지며, 이는 Shape의 위치와 크기를 나타냅니다.
  */
 export interface Bounds {
   /** 좌상단 x 좌표 */
@@ -19,17 +28,19 @@ export interface Bounds {
 
 /**
  * Shape의 style 속성을 나타내는 interface
+ * 
+ * Shape의 시각적 표현을 정의하는 속성들을 포함합니다.
  */
 export interface ShapeStyle {
-  /** Fill color */
+  /** Fill color - 채우기 색상 */
   fillColor?: string;
-  /** Stroke color */
+  /** Stroke color - 테두리 색상 */
   strokeColor?: string;
-  /** Stroke width */
+  /** Stroke width - 테두리 두께 */
   strokeWidth?: number;
-  /** Fill opacity (0-1) */
+  /** Fill opacity (0-1) - 채우기 투명도 */
   fillOpacity?: number;
-  /** Stroke opacity (0-1) */
+  /** Stroke opacity (0-1) - 테두리 투명도 */
   strokeOpacity?: number;
   /** 테두리 점선 패턴 */
   strokeDashArray?: number[];
@@ -45,6 +56,8 @@ export interface ShapeStyle {
 
 /**
  * Shape의 기본 interface
+ * 
+ * 모든 도형 타입의 기본이 되는 인터페이스입니다.
  */
 export interface Shape {
   /** Shape의 고유 ID */
@@ -70,17 +83,58 @@ export interface Shape {
   /** Text의 기준선 (Text shape에서만 사용) */
   readonly textBaseline?: 'top' | 'middle' | 'bottom';
   
-  /** Shape 복제 */
+  /**
+   * Shape 복제
+   * 
+   * 현재 Shape와 동일한 속성을 가진 새로운 Shape 인스턴스를 생성합니다.
+   * 
+   * @returns 복제된 Shape 인스턴스
+   */
   clone(): Shape;
-  /** Shape 변환 적용 */
+  
+  /**
+   * Shape 변환 적용
+   * 
+   * 주어진 변환 행렬을 Shape에 적용합니다.
+   * 
+   * @param matrix - 적용할 변환 행렬
+   * @returns 변환이 적용된 새로운 Shape 인스턴스
+   */
   applyTransform(matrix: Matrix3x3): Shape;
-  /** Point가 Shape 내부에 있는지 확인 */
+  
+  /**
+   * Point가 Shape 내부에 있는지 확인
+   * 
+   * @param point - 확인할 점
+   * @returns 점이 Shape 내부에 있으면 true, 아니면 false
+   */
   containsPoint(point: Vector2D): boolean;
-  /** Shape가 다른 Shape와 겹치는지 확인 */
+  
+  /**
+   * Shape가 다른 Shape와 겹치는지 확인
+   * 
+   * @param other - 겹침을 확인할 다른 Shape
+   * @returns 두 Shape가 겹치면 true, 아니면 false
+   */
   intersects(other: Shape): boolean;
-  /** Scale 기준점 설정 */
+  
+  /**
+   * Scale 기준점 설정
+   * 
+   * Scale 변환 시 사용할 기준점을 설정합니다.
+   * 
+   * @param origin - Scale 기준점 ('center', 'topLeft', 'custom')
+   * @param point - Custom 기준점일 경우 좌표
+   */
   setScaleOrigin(origin: 'center' | 'topLeft' | 'custom', point?: { x: number; y: number }): void;
-  /** Shape를 Path로 변환 */
+  
+  /**
+   * Shape를 Path로 변환
+   * 
+   * 현재 Shape를 Path 점들의 배열로 변환합니다.
+   * 
+   * @returns Path 점들의 배열
+   */
   toPath(): PathPoint[];
 }
 

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { PathPoint } from '../types';
+import { PathPoint, PathSegment } from '../types';
 import {
   pathToSegments,
   findSegmentIntersection,
@@ -43,13 +43,13 @@ describe('Path Boolean Operations', () => {
 
   describe('findSegmentIntersection', () => {
     it('should find intersection between two segments', () => {
-      const seg1 = {
-        start: { x: 0, y: 0, type: 'move' },
-        end: { x: 100, y: 100, type: 'line' }
+      const seg1: PathSegment = {
+        start: { x: 0, y: 0, type: 'move' as const },
+        end: { x: 100, y: 100, type: 'line' as const }
       };
-      const seg2 = {
-        start: { x: 0, y: 100, type: 'move' },
-        end: { x: 100, y: 0, type: 'line' }
+      const seg2: PathSegment = {
+        start: { x: 0, y: 100, type: 'move' as const },
+        end: { x: 100, y: 0, type: 'line' as const }
       };
 
       const intersection = findSegmentIntersection(seg1, seg2);
@@ -59,13 +59,13 @@ describe('Path Boolean Operations', () => {
     });
 
     it('should return null for parallel segments', () => {
-      const seg1 = {
-        start: { x: 0, y: 0, type: 'move' },
-        end: { x: 100, y: 0, type: 'line' }
+      const seg1: PathSegment = {
+        start: { x: 0, y: 0, type: 'move' as const },
+        end: { x: 100, y: 0, type: 'line' as const }
       };
-      const seg2 = {
-        start: { x: 0, y: 100, type: 'move' },
-        end: { x: 100, y: 100, type: 'line' }
+      const seg2: PathSegment = {
+        start: { x: 0, y: 100, type: 'move' as const },
+        end: { x: 100, y: 100, type: 'line' as const }
       };
 
       const intersection = findSegmentIntersection(seg1, seg2);
@@ -73,13 +73,13 @@ describe('Path Boolean Operations', () => {
     });
 
     it('should return null for non-intersecting segments', () => {
-      const seg1 = {
-        start: { x: 0, y: 0, type: 'move' },
-        end: { x: 50, y: 50, type: 'line' }
+      const seg1: PathSegment = {
+        start: { x: 0, y: 0, type: 'move' as const },
+        end: { x: 50, y: 50, type: 'line' as const }
       };
-      const seg2 = {
-        start: { x: 60, y: 60, type: 'move' },
-        end: { x: 100, y: 100, type: 'line' }
+      const seg2: PathSegment = {
+        start: { x: 60, y: 60, type: 'move' as const },
+        end: { x: 100, y: 100, type: 'line' as const }
       };
 
       const intersection = findSegmentIntersection(seg1, seg2);

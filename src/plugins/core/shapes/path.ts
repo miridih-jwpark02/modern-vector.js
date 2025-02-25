@@ -52,6 +52,14 @@ export class Path extends AbstractShape {
     return [...this._points];
   }
 
+  /**
+   * Path를 Path points로 변환
+   * @returns Path points
+   */
+  toPath(): PathPoint[] {
+    return [...this._points];
+  }
+
   protected getLocalBounds(): Bounds {
     if (this._points.length === 0) {
       return { x: 0, y: 0, width: 0, height: 0 };

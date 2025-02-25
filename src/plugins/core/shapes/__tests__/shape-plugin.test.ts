@@ -4,6 +4,7 @@ import { Rectangle } from '../rectangle';
 import { Circle } from '../circle';
 import { VectorEngine } from '../../../../core/types';
 import { Shape, ShapeFactory } from '../types';
+import { PathPoint } from '../path/types';
 
 describe('ShapePlugin', () => {
   let plugin: ShapePlugin;
@@ -99,6 +100,9 @@ describe('ShapePlugin', () => {
       setScaleOrigin(): void {
         // Do nothing
       }
+      toPath(): PathPoint[] {
+        return [];
+      }
     }
 
     class TestShapeFactory implements ShapeFactory<TestShape> {
@@ -154,6 +158,9 @@ describe('ShapePlugin', () => {
         }
         setScaleOrigin(): void {
           // Do nothing
+        }
+        toPath(): PathPoint[] {
+          return [];
         }
       }
 

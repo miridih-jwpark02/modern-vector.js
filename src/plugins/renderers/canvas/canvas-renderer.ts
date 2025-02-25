@@ -1,12 +1,26 @@
+/**
+ * Canvas Renderer 구현
+ * 
+ * HTML Canvas를 사용하여 Shape들을 렌더링하는 Renderer 구현입니다.
+ * 
+ * @packageDocumentation
+ * @module Renderers.Canvas
+ */
+
 import { Renderer, RendererCapabilities, CanvasRendererOptions } from '../types';
 import { Scene } from '../../../core/types';
 import { Shape } from '../../core/shapes/types';
 
 /**
  * Canvas renderer implementation
+ * 
+ * HTML Canvas API를 사용하여 벡터 그래픽을 렌더링합니다.
  */
 export class CanvasRenderer implements Renderer {
+  /** Renderer의 고유 ID */
   readonly id = 'canvas';
+  
+  /** Renderer의 기능 */
   readonly capabilities: RendererCapabilities = {
     maxTextureSize: 4096,
     supportsSVG: false,
@@ -14,11 +28,23 @@ export class CanvasRenderer implements Renderer {
     supports3D: false
   };
 
+  /** Canvas element */
   private canvas: HTMLCanvasElement;
+  
+  /** Canvas 2D context */
   private context: CanvasRenderingContext2D;
+  
+  /** Renderer options */
   private options: Required<CanvasRendererOptions>;
+  
+  /** 현재 display 크기 */
   private displaySize: { width: number; height: number } = { width: 0, height: 0 };
 
+  /**
+   * Canvas Renderer 생성
+   * 
+   * @param options - Canvas Renderer 옵션
+   */
   constructor(options: CanvasRendererOptions = {}) {
     this.options = {
       context: {
@@ -57,6 +83,8 @@ export class CanvasRenderer implements Renderer {
 
   /**
    * Canvas element 가져오기
+   * 
+   * @returns Canvas element
    */
   getCanvas(): HTMLCanvasElement {
     return this.canvas;
@@ -64,6 +92,8 @@ export class CanvasRenderer implements Renderer {
 
   /**
    * Canvas context 가져오기
+   * 
+   * @returns Canvas 2D context
    */
   getContext(): CanvasRenderingContext2D {
     return this.context;
@@ -71,6 +101,10 @@ export class CanvasRenderer implements Renderer {
 
   /**
    * Canvas 크기 설정
+   * 
+   * 디스플레이 크기와 실제 캔버스 크기를 설정합니다.
+   * pixelRatio를 적용하여 고해상도 디스플레이에서도 선명하게 표시됩니다.
+   * 
    * @param width - Canvas 너비
    * @param height - Canvas 높이
    */
@@ -100,6 +134,9 @@ export class CanvasRenderer implements Renderer {
 
   /**
    * Scene 렌더링
+   * 
+   * Scene의 모든 Shape을 Canvas에 렌더링합니다.
+   * 
    * @param scene - 렌더링할 Scene
    */
   render(scene: Scene): void {
@@ -123,6 +160,9 @@ export class CanvasRenderer implements Renderer {
 
   /**
    * Shape 렌더링
+   * 
+   * 개별 Shape을 Canvas에 렌더링합니다.
+   * 
    * @param shape - 렌더링할 Shape
    */
   private renderShape(shape: Shape): void {
@@ -191,6 +231,7 @@ export class CanvasRenderer implements Renderer {
 
   /**
    * Rectangle 렌더링
+   * 
    * @param shape - 렌더링할 Rectangle
    */
   private renderRectangle(shape: Shape): void {
@@ -205,6 +246,7 @@ export class CanvasRenderer implements Renderer {
 
   /**
    * Circle 렌더링
+   * 
    * @param shape - 렌더링할 Circle
    */
   private renderCircle(shape: Shape): void {
@@ -226,6 +268,7 @@ export class CanvasRenderer implements Renderer {
 
   /**
    * Line 렌더링
+   * 
    * @param shape - 렌더링할 Line
    */
   private renderLine(shape: Shape): void {
@@ -241,6 +284,7 @@ export class CanvasRenderer implements Renderer {
 
   /**
    * Path 렌더링
+   * 
    * @param shape - 렌더링할 Path
    */
   private renderPath(shape: Shape): void {
@@ -265,6 +309,7 @@ export class CanvasRenderer implements Renderer {
 
   /**
    * Text 렌더링
+   * 
    * @param shape - 렌더링할 Text
    */
   private renderText(shape: Shape): void {
@@ -291,6 +336,8 @@ export class CanvasRenderer implements Renderer {
 
   /**
    * Canvas 클리어
+   * 
+   * Canvas의 모든 내용을 지웁니다.
    */
   clear(): void {
     this.context.save();
@@ -308,6 +355,8 @@ export class CanvasRenderer implements Renderer {
 
   /**
    * 리소스 정리
+   * 
+   * Canvas를 정리하고 필요한 경우 DOM에서 제거합니다.
    */
   dispose(): void {
     // Clear canvas

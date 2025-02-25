@@ -77,6 +77,7 @@ describe('SVGRenderer', () => {
       containsPoint: () => false,
       intersects: () => false,
       setScaleOrigin: () => {},
+      toPath: () => [],
       ...overrides
     });
 

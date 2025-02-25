@@ -91,12 +91,19 @@ describe('CanvasRenderer', () => {
     });
 
     it('should handle pixel ratio', () => {
+      // Create new renderer with pixel ratio
+      const canvas = createCanvas(100, 100) as unknown as HTMLCanvasElement;
+      const context = canvas.getContext('2d')!;
+      vi.spyOn(context, 'scale');
+
       const renderer = new CanvasRenderer({
+        context: { canvas },
         pixelRatio: 2
       });
+
       renderer.setSize(100, 200);
-      expect(renderer.getCanvas().width).toBe(200);
-      expect(renderer.getCanvas().height).toBe(400);
+      expect(canvas.width).toBe(200);
+      expect(canvas.height).toBe(400);
       expect(context.scale).toHaveBeenCalledWith(2, 2);
     });
   });
@@ -124,6 +131,7 @@ describe('CanvasRenderer', () => {
       containsPoint: () => false,
       intersects: () => false,
       setScaleOrigin: () => {},
+      toPath: () => [],
       ...overrides
     });
 

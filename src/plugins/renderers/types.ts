@@ -1,22 +1,45 @@
+/**
+ * Renderer 타입 정의
+ * 
+ * @packageDocumentation
+ * @module Renderers
+ */
+
 import { Shape } from '../core/shapes/types';
 import { Scene } from '../../core/types';
 
 /**
  * Renderer의 기능을 정의하는 interface
+ * 
+ * 다양한 렌더링 백엔드(Canvas, SVG, WebGL 등)를 위한 공통 인터페이스입니다.
  */
 export interface Renderer {
   /** Renderer의 고유 ID */
   readonly id: string;
   /** Renderer의 기능 */
   readonly capabilities: RendererCapabilities;
-  /** Scene 렌더링 */
+  
+  /**
+   * Scene 렌더링
+   * 
+   * 주어진 Scene을 렌더링합니다.
+   * 
+   * @param scene - 렌더링할 Scene
+   */
   render(scene: Scene): void;
-  /** 리소스 정리 */
+  
+  /**
+   * 리소스 정리
+   * 
+   * Renderer가 사용한 리소스를 정리합니다.
+   */
   dispose(): void;
 }
 
 /**
  * Renderer의 기능을 나타내는 interface
+ * 
+ * 각 Renderer가 지원하는 기능을 정의합니다.
  */
 export interface RendererCapabilities {
   /** 최대 텍스처 크기 */
@@ -31,13 +54,35 @@ export interface RendererCapabilities {
 
 /**
  * Renderer plugin interface
+ * 
+ * Renderer 플러그인을 위한 인터페이스입니다.
  */
 export interface RendererPlugin {
-  /** Renderer 등록 */
+  /**
+   * Renderer 등록
+   * 
+   * 새로운 Renderer를 등록합니다.
+   * 
+   * @param renderer - 등록할 Renderer
+   */
   register(renderer: Renderer): void;
-  /** 활성 Renderer 설정 */
+  
+  /**
+   * 활성 Renderer 설정
+   * 
+   * 주어진 ID의 Renderer를 활성 Renderer로 설정합니다.
+   * 
+   * @param rendererId - 활성화할 Renderer의 ID
+   */
   setActive(rendererId: string): void;
-  /** Scene 렌더링 */
+  
+  /**
+   * Scene 렌더링
+   * 
+   * 주어진 Scene을 활성 Renderer로 렌더링합니다.
+   * 
+   * @param scene - 렌더링할 Scene
+   */
   render(scene: Scene): void;
 }
 
