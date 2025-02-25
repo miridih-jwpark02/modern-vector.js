@@ -153,40 +153,87 @@ export class Circle extends AbstractShape {
 
   /**
    * Circle을 Path로 변환
-   * @param segments - 원을 근사할 선분의 수 (기본값: 32)
+   * 
+   * @param segments - 직선 근사 사용할 경우 선분의 수 (베지어 곡선 사용 시 무시됨)
+   * @param useBezier - 베지어 곡선 사용 여부 (기본값: true)
    * @returns Path points
    */
-  toPath(segments: number = 32): PathPoint[] {
+  toPath(segments: number = 32, useBezier: boolean = true): PathPoint[] {
     const bounds = this.bounds;
     const centerX = bounds.x + bounds.width / 2;
     const centerY = bounds.y + bounds.height / 2;
     const radius = bounds.width / 2;
     const points: PathPoint[] = [];
-
-    // 첫 점은 move
-    points.push({
-      x: centerX + radius,
-      y: centerY,
-      type: 'move'
-    });
-
-    // 나머지 점들은 line
-    for (let i = 1; i <= segments; i++) {
-      const angle = (i * 2 * Math.PI) / segments;
+    
+    // 베지어 곡선을 사용하는 경우 (기본값)
+    if (useBezier) {
+      // 원을 3차 베지어 곡선으로 정확하게 그리기 위한 제어점 계수
+      // 수학적으로 원을 정확하게 근사하기 위한 상수 값: 4/3 * tan(π/8) ≈ 0.5522847498
+      const c = radius * 0.552284749831;
+      
+      // 시작점 (우측)
       points.push({
-        x: centerX + radius * Math.cos(angle),
-        y: centerY + radius * Math.sin(angle),
-        type: 'line'
+        x: centerX + radius,
+        y: centerY,
+        type: 'move'
       });
+      
+      // 제1사분면 (우상단)
+      points.push({
+        x: centerX,
+        y: centerY - radius,
+        type: 'cubic',
+        controlPoint1: { x: centerX + radius, y: centerY - c },
+        controlPoint2: { x: centerX + c, y: centerY - radius }
+      });
+      
+      // 제2사분면 (좌상단)
+      points.push({
+        x: centerX - radius,
+        y: centerY,
+        type: 'cubic',
+        controlPoint1: { x: centerX - c, y: centerY - radius },
+        controlPoint2: { x: centerX - radius, y: centerY - c }
+      });
+      
+      // 제3사분면 (좌하단)
+      points.push({
+        x: centerX,
+        y: centerY + radius,
+        type: 'cubic',
+        controlPoint1: { x: centerX - radius, y: centerY + c },
+        controlPoint2: { x: centerX - c, y: centerY + radius }
+      });
+      
+      // 제4사분면 (우하단) - 시작점으로 돌아감
+      points.push({
+        x: centerX + radius,
+        y: centerY,
+        type: 'cubic',
+        controlPoint1: { x: centerX + c, y: centerY + radius },
+        controlPoint2: { x: centerX + radius, y: centerY + c }
+      });
+    } 
+    // 직선 세그먼트를 사용하는 방식
+    else {
+      // 첫 점은 move
+      points.push({
+        x: centerX + radius,
+        y: centerY,
+        type: 'move'
+      });
+
+      // 나머지 점들은 line
+      for (let i = 1; i <= segments; i++) {
+        const angle = (i * 2 * Math.PI) / segments;
+        points.push({
+          x: centerX + radius * Math.cos(angle),
+          y: centerY + radius * Math.sin(angle),
+          type: 'line'
+        });
+      }
     }
-
-    // 마지막 점은 시작점과 같게
-    points.push({
-      x: centerX + radius,
-      y: centerY,
-      type: 'line'
-    });
-
+    
     return points;
   }
 }
