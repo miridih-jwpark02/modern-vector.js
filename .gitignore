@@ -5,6 +5,8 @@ node_modules
 # Build
 dist
 build
+.next
+.contentlayer
 
 # Testing
 coverage

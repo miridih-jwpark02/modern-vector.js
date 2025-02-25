@@ -1,0 +1,62 @@
+{
+  "name": "docs-site",
+  "version": "1.0.0",
+  "description": "Documentation site for Modern Vector.js",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "pnpm run generate-docs && pnpm run prepare-markdown && next build && pnpm run copy-api-docs",
+    "start": "next start",
+    "lint": "next lint",
+    "generate-docs": "pnpm run typedoc",
+    "typedoc": "cd ../core && pnpm run docs",
+    "copy-api-docs": "cp -r public/api-docs dist/api-docs",
+    "serve": "npx serve dist",
+    "prepare-markdown": "node scripts/prepare-markdown.js"
+  },
+  "keywords": [
+    "docs",
+    "documentation",
+    "vector",
+    "graphics"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@radix-ui/react-dropdown-menu": "^2.1.6",
+    "@radix-ui/react-slot": "^1.1.2",
+    "@types/node": "^22.13.5",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "autoprefixer": "^10.4.20",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "contentlayer": "^0.3.4",
+    "eslint": "^9.21.0",
+    "eslint-config-next": "^15.1.7",
+    "lucide-react": "^0.475.0",
+    "next": "^15.1.7",
+    "next-contentlayer": "^0.3.4",
+    "next-themes": "^0.4.4",
+    "postcss": "^8.5.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "rehype-autolink-headings": "^7.1.0",
+    "rehype-pretty-code": "^0.14.0",
+    "rehype-slug": "^6.0.0",
+    "remark-gfm": "^4.0.1",
+    "tailwind-merge": "^3.0.2",
+    "tailwindcss-animate": "^1.0.7",
+    "typescript": "^5.7.3"
+  },
+  "devDependencies": {
+    "@shadcn/ui": "^0.0.4",
+    "@tailwindcss/typography": "^0.5.16",
+    "highlight.js": "^11.11.1",
+    "marked": "^15.0.7",
+    "postcss-import": "^16.1.0",
+    "serve": "^14.2.4",
+    "tailwindcss": "3.4.1"
+  }
+}

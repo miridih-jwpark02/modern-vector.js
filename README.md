@@ -9,7 +9,7 @@ Modern Vector.js는 플러그인 기반의 벡터 그래픽 라이브러리입�
 ### 패키지
 
 - `packages/core`: Modern Vector.js 라이브러리 코어
-- `packages/docs-site`: 문서 사이트 및 인터랙티브 예제
+- `packages/docs-site`: 문서 사이트 및 인터랙티브 예제 (Next.js, Tailwind CSS, shadcn/ui)
 
 ## 개발 환경 설정
 
@@ -31,6 +31,29 @@ pnpm lint
 
 # 배포
 pnpm deploy
+```
+
+## 문서 사이트
+
+문서 사이트는 Next.js, Tailwind CSS, shadcn/ui를 사용하여 구축되었으며, TypeDoc으로 생성된 API 문서를 포함합니다.
+
+### 문서 사이트 개발
+
+```bash
+# docs-site 디렉토리로 이동
+cd packages/docs-site
+
+# 개발 서버 실행
+pnpm run dev
+
+# API 문서 생성
+pnpm run generate-docs
+
+# 빌드
+pnpm run build
+
+# 정적 사이트 실행
+pnpm run serve
 ```
 
 ## 주요 기능

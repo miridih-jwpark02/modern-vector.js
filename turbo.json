@@ -17,6 +17,12 @@
     },
     "deploy": {
       "dependsOn": ["build", "test", "lint"]
+    },
+    "docs": {
+      "outputs": ["public/api-docs/**"]
+    },
+    "generate-docs": {
+      "dependsOn": ["^build"]
     }
   }
 } 
