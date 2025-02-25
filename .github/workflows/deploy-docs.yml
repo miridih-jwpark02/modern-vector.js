@@ -52,6 +52,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
 
+      - name: Build core package
+        run: cd packages/core && pnpm build
+
       - name: Build docs site
         run: cd packages/docs-site && pnpm build
 
