@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { createCanvas } from 'canvas';
 import { CanvasRenderer } from '../canvas-renderer';
-import { Scene } from '../../../../core/types';
+import { Scene, SceneNode } from '../../../../core/types';
 import { Shape } from '../../../core/shapes/types';
 import { Matrix3x3 } from '../../../core/math/matrix';
 
@@ -137,12 +137,13 @@ describe('CanvasRenderer', () => {
 
     const createMockScene = (shapes: Shape[]): Scene => {
       const mockRoot = {
-        childNodes: shapes.map(shape => ({
+        children: shapes.map(shape => ({
           ...shape,
           nodeType: 1,  // ELEMENT_NODE
-          nodeName: 'DIV'
+          nodeName: 'DIV',
+          data: shape
         }))
-      } as unknown as HTMLElement;
+      } as unknown as SceneNode;
       return {
         root: mockRoot,
         renderer: {} as any,

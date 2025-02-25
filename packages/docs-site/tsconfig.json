@@ -26,16 +26,19 @@
       "@/*": [
         "./src/*"
       ],
-      "contentlayer/generated": ["./.contentlayer/generated"]
+      "contentlayer/generated": [
+        "./.contentlayer/generated"
+      ]
     },
     "baseUrl": "."
   },
   "include": [
-    "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
+    ".contentlayer/generated",
     ".next/types/**/*.ts",
-    ".contentlayer/generated"
+    "next-env.d.ts",
+    "dist/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"

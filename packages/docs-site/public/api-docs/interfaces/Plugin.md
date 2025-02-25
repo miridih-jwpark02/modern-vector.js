@@ -11,7 +11,7 @@ category: interfaces
 
 # Interface: Plugin
 
-Defined in: [types/index.ts:13](https://github.com/miridih-jwpark02/modern-vector.js/blob/37a69dc197ba8a52e9720cae0849c3f533f1e74e/packages/core/src/core/types/index.ts#L13)
+Defined in: [types/index.ts:13](https://github.com/miridih-jwpark02/modern-vector.js/blob/c2231def466b19fc2591bcf6d1ba9b3cb4795c03/packages/core/src/core/types/index.ts#L13)
 
 Plugin interface for the vector graphics engine
 
@@ -23,7 +23,7 @@ Plugin interface for the vector graphics engine
 
 > `readonly` `optional` **dependencies**: `string`[]
 
-Defined in: [types/index.ts:19](https://github.com/miridih-jwpark02/modern-vector.js/blob/37a69dc197ba8a52e9720cae0849c3f533f1e74e/packages/core/src/core/types/index.ts#L19)
+Defined in: [types/index.ts:19](https://github.com/miridih-jwpark02/modern-vector.js/blob/c2231def466b19fc2591bcf6d1ba9b3cb4795c03/packages/core/src/core/types/index.ts#L19)
 
 Optional array of plugin IDs that this plugin depends on
 
@@ -33,7 +33,7 @@ Optional array of plugin IDs that this plugin depends on
 
 > `readonly` **id**: `string`
 
-Defined in: [types/index.ts:15](https://github.com/miridih-jwpark02/modern-vector.js/blob/37a69dc197ba8a52e9720cae0849c3f533f1e74e/packages/core/src/core/types/index.ts#L15)
+Defined in: [types/index.ts:15](https://github.com/miridih-jwpark02/modern-vector.js/blob/c2231def466b19fc2591bcf6d1ba9b3cb4795c03/packages/core/src/core/types/index.ts#L15)
 
 Unique identifier for the plugin
 
@@ -43,7 +43,7 @@ Unique identifier for the plugin
 
 > `readonly` **version**: `string`
 
-Defined in: [types/index.ts:17](https://github.com/miridih-jwpark02/modern-vector.js/blob/37a69dc197ba8a52e9720cae0849c3f533f1e74e/packages/core/src/core/types/index.ts#L17)
+Defined in: [types/index.ts:17](https://github.com/miridih-jwpark02/modern-vector.js/blob/c2231def466b19fc2591bcf6d1ba9b3cb4795c03/packages/core/src/core/types/index.ts#L17)
 
 Semantic version of the plugin
 
@@ -53,7 +53,7 @@ Semantic version of the plugin
 
 > **install**(`engine`): `void`
 
-Defined in: [types/index.ts:28](https://github.com/miridih-jwpark02/modern-vector.js/blob/37a69dc197ba8a52e9720cae0849c3f533f1e74e/packages/core/src/core/types/index.ts#L28)
+Defined in: [types/index.ts:28](https://github.com/miridih-jwpark02/modern-vector.js/blob/c2231def466b19fc2591bcf6d1ba9b3cb4795c03/packages/core/src/core/types/index.ts#L28)
 
 Install the plugin into the engine
 
@@ -77,7 +77,7 @@ The vector engine instance
 
 > **uninstall**(`engine`): `void`
 
-Defined in: [types/index.ts:37](https://github.com/miridih-jwpark02/modern-vector.js/blob/37a69dc197ba8a52e9720cae0849c3f533f1e74e/packages/core/src/core/types/index.ts#L37)
+Defined in: [types/index.ts:37](https://github.com/miridih-jwpark02/modern-vector.js/blob/c2231def466b19fc2591bcf6d1ba9b3cb4795c03/packages/core/src/core/types/index.ts#L37)
 
 Uninstall the plugin from the engine
 

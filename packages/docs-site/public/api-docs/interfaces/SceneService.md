@@ -11,7 +11,7 @@ category: interfaces
 
 # Interface: SceneService
 
-Defined in: [types/index.ts:168](https://github.com/miridih-jwpark02/modern-vector.js/blob/37a69dc197ba8a52e9720cae0849c3f533f1e74e/packages/core/src/core/types/index.ts#L168)
+Defined in: [types/index.ts:168](https://github.com/miridih-jwpark02/modern-vector.js/blob/c2231def466b19fc2591bcf6d1ba9b3cb4795c03/packages/core/src/core/types/index.ts#L168)
 
 Service for managing scenes
 
@@ -23,7 +23,7 @@ Service for managing scenes
 
 > **create**(): [`Scene`](Scene.md)
 
-Defined in: [types/index.ts:174](https://github.com/miridih-jwpark02/modern-vector.js/blob/37a69dc197ba8a52e9720cae0849c3f533f1e74e/packages/core/src/core/types/index.ts#L174)
+Defined in: [types/index.ts:174](https://github.com/miridih-jwpark02/modern-vector.js/blob/c2231def466b19fc2591bcf6d1ba9b3cb4795c03/packages/core/src/core/types/index.ts#L174)
 
 새 장면 생성
 
@@ -39,7 +39,7 @@ Defined in: [types/index.ts:174](https://github.com/miridih-jwpark02/modern-vect
 
 > **getActive**(): [`Scene`](Scene.md)
 
-Defined in: [types/index.ts:181](https://github.com/miridih-jwpark02/modern-vector.js/blob/37a69dc197ba8a52e9720cae0849c3f533f1e74e/packages/core/src/core/types/index.ts#L181)
+Defined in: [types/index.ts:181](https://github.com/miridih-jwpark02/modern-vector.js/blob/c2231def466b19fc2591bcf6d1ba9b3cb4795c03/packages/core/src/core/types/index.ts#L181)
 
 활성 장면 가져오기
 
@@ -55,7 +55,7 @@ Defined in: [types/index.ts:181](https://github.com/miridih-jwpark02/modern-vect
 
 > **setActive**(`scene`): `void`
 
-Defined in: [types/index.ts:188](https://github.com/miridih-jwpark02/modern-vector.js/blob/37a69dc197ba8a52e9720cae0849c3f533f1e74e/packages/core/src/core/types/index.ts#L188)
+Defined in: [types/index.ts:188](https://github.com/miridih-jwpark02/modern-vector.js/blob/c2231def466b19fc2591bcf6d1ba9b3cb4795c03/packages/core/src/core/types/index.ts#L188)
 
 활성 장면 설정
 

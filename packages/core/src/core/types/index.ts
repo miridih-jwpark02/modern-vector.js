@@ -195,11 +195,56 @@ export interface SceneService {
  */
 export interface Scene extends EventEmitter {
   /** 장면의 루트 노드 */
-  readonly root: Node;
+  readonly root: SceneNode;
   /** 장면의 렌더러 */
   readonly renderer: Renderer;
   /** 장면에 등록된 플러그인 맵 */
   readonly plugins: Map<string, Plugin>;
+}
+
+/**
+ * SceneNode interface representing a node in the scene graph
+ * 
+ * 장면 그래프의 노드를 나타내는 인터페이스입니다.
+ */
+export interface SceneNode extends EventEmitter {
+  /** 노드의 고유 ID */
+  readonly id: string;
+  /** 부모 노드 */
+  parent: SceneNode | null;
+  /** 자식 노드 목록 */
+  readonly children: SceneNode[];
+  /** 노드에 연결된 데이터 */
+  data: any;
+  
+  /**
+   * 자식 노드 추가
+   * 
+   * @param child - 추가할 자식 노드
+   * @returns 추가된 자식 노드
+   */
+  addChild(child: SceneNode): SceneNode;
+  
+  /**
+   * 자식 노드 제거
+   * 
+   * @param child - 제거할 자식 노드
+   * @returns 제거 성공 여부
+   */
+  removeChild(child: SceneNode): boolean;
+  
+  /**
+   * 모든 자식 노드 제거
+   */
+  clearChildren(): void;
+  
+  /**
+   * ID로 자식 노드 찾기
+   * 
+   * @param id - 찾을 노드의 ID
+   * @returns 찾은 노드 또는 null
+   */
+  findChildById(id: string): SceneNode | null;
 }
 
 /**

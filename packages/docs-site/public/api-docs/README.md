@@ -24,6 +24,7 @@ Modern Vector.js - 벡터 그래픽 라이브러리
 - [RendererCapabilities](interfaces/RendererCapabilities.md)
 - [RendererService](interfaces/RendererService.md)
 - [Scene](interfaces/Scene.md)
+- [SceneNode](interfaces/SceneNode.md)
 - [SceneService](interfaces/SceneService.md)
 
 ## Type Aliases

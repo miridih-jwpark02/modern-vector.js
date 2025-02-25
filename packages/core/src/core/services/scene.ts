@@ -1,10 +1,11 @@
-import { SceneService, Scene, VectorEngine, EventEmitter, Plugin, Renderer } from '../types';
+import { SceneService, Scene, VectorEngine, EventEmitter, Plugin, Renderer, SceneNode } from '../types';
+import { DefaultSceneNode } from './scene-node';
 
 /**
  * Default Scene implementation
  */
 class DefaultScene implements Scene {
-  readonly root: Node;
+  readonly root: SceneNode;
   readonly plugins: Map<string, Plugin>;
   private eventEmitter: EventEmitter;
 
@@ -12,7 +13,7 @@ class DefaultScene implements Scene {
     private engine: VectorEngine,
     eventEmitter: EventEmitter
   ) {
-    this.root = document.createElement('div'); // Temporary Node implementation
+    this.root = new DefaultSceneNode('scene-root', eventEmitter);
     this.plugins = new Map();
     this.eventEmitter = eventEmitter;
   }

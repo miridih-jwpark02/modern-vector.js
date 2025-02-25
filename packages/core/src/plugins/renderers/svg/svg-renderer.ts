@@ -121,8 +121,8 @@ export class SVGRenderer implements Renderer {
       this.clear();
     }
 
-    scene.root.childNodes.forEach(node => {
-      const shape = node as unknown as Shape;
+    scene.root.children.forEach(node => {
+      const shape = node.data as Shape;
       this.renderShape(shape);
     });
   }

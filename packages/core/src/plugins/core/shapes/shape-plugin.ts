@@ -1,7 +1,10 @@
 import { Plugin, VectorEngine } from '../../../core/types';
 import { Shape, ShapeFactory, ShapeOptions, ShapePlugin as IShapePlugin } from './types';
-import { Rectangle, RectangleFactory } from './rectangle';
-import { Circle, CircleFactory } from './circle';
+import { RectangleFactory } from './rectangle';
+import { CircleFactory } from './circle';
+import { LineFactory } from './line';
+import { TextFactory } from './text';
+import { PathFactory } from './path';
 
 /**
  * Shape plugin implementation
@@ -18,6 +21,9 @@ export class ShapePlugin implements Plugin, IShapePlugin {
     // Register built-in shapes
     this.registerShape('rectangle', new RectangleFactory());
     this.registerShape('circle', new CircleFactory());
+    this.registerShape('path', new PathFactory());
+    this.registerShape('line', new LineFactory());
+    this.registerShape('text', new TextFactory());
   }
 
   install(engine: VectorEngine): void {
