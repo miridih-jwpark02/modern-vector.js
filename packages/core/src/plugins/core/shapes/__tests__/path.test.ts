@@ -250,32 +250,145 @@ describe('Path', () => {
       const path1 = new Path({
         points: [
           { x: 0, y: 0, type: 'move' },
-          { x: 100, y: 50, type: 'line' }
-        ]
-      });
-      const path2 = new Path({
-        points: [
-          { x: 50, y: 25, type: 'move' },
-          { x: 150, y: 75, type: 'line' }
-        ]
-      });
-      expect(path1.intersects(path2)).toBe(true);
-    });
-
-    it('should detect non-intersection', () => {
-      const path1 = new Path({
-        points: [
-          { x: 0, y: 0, type: 'move' },
-          { x: 100, y: 50, type: 'line' }
+          { x: 100, y: 100, type: 'line' }
         ]
       });
       const path2 = new Path({
         points: [
           { x: 0, y: 100, type: 'move' },
-          { x: 100, y: 150, type: 'line' }
+          { x: 100, y: 0, type: 'line' }
+        ]
+      });
+      expect(path1.intersects(path2)).toBe(true);
+    });
+
+    it('should detect non-intersection with another path', () => {
+      const path1 = new Path({
+        points: [
+          { x: 0, y: 0, type: 'move' },
+          { x: 50, y: 50, type: 'line' }
+        ]
+      });
+      const path2 = new Path({
+        points: [
+          { x: 100, y: 100, type: 'move' },
+          { x: 150, y: 150, type: 'line' }
         ]
       });
       expect(path1.intersects(path2)).toBe(false);
+    });
+  });
+
+  describe('closed path', () => {
+    it('should close path with closePath method', () => {
+      const path = new Path({
+        points: [
+          { x: 0, y: 0, type: 'move' },
+          { x: 100, y: 0, type: 'line' },
+          { x: 100, y: 100, type: 'line' }
+        ]
+      });
+      
+      // 초기에는 닫힌 경로가 아님
+      expect(path.isClosed).toBe(false);
+      
+      // closePath 호출 후 닫힌 경로가 됨
+      const closedPath = path.closePath();
+      expect(closedPath.isClosed).toBe(true);
+      
+      // 마지막 점이 첫 번째 점과 같은 좌표인지 확인
+      const points = closedPath.points;
+      expect(points[points.length - 1].x).toBe(points[0].x);
+      expect(points[points.length - 1].y).toBe(points[0].y);
+      expect(points[points.length - 1].type).toBe('line');
+    });
+    
+    it('should not add duplicate point when path is already closed', () => {
+      const path = new Path({
+        points: [
+          { x: 0, y: 0, type: 'move' },
+          { x: 100, y: 0, type: 'line' },
+          { x: 100, y: 100, type: 'line' },
+          { x: 0, y: 0, type: 'line' }  // 이미 닫힌 경로
+        ]
+      });
+      
+      // 이미 닫힌 경로임
+      expect(path.isClosed).toBe(true);
+      
+      // 점의 개수 저장
+      const initialPointCount = path.points.length;
+      
+      // closePath 호출해도 점이 추가되지 않음
+      const closedPath = path.closePath();
+      expect(closedPath.points.length).toBe(initialPointCount);
+    });
+    
+    it('should create closed path with closed option', () => {
+      const path = new Path({
+        points: [
+          { x: 0, y: 0, type: 'move' },
+          { x: 100, y: 0, type: 'line' },
+          { x: 100, y: 100, type: 'line' }
+        ],
+        closed: true  // 생성 시 닫힌 경로 옵션 사용
+      });
+      
+      // 닫힌 경로로 생성됨
+      expect(path.isClosed).toBe(true);
+      
+      // 마지막 점이 첫 번째 점과 같은 좌표인지 확인
+      const points = path.points;
+      expect(points[points.length - 1].x).toBe(points[0].x);
+      expect(points[points.length - 1].y).toBe(points[0].y);
+    });
+    
+    it('should not close path with less than 2 points', () => {
+      // 점이 1개인 경로
+      const path1 = new Path({
+        points: [
+          { x: 0, y: 0, type: 'move' }
+        ]
+      });
+      
+      const closedPath1 = path1.closePath();
+      expect(closedPath1.isClosed).toBe(false);
+      expect(closedPath1.points.length).toBe(1);
+      
+      // 점이 없는 경로
+      const path2 = new Path();
+      
+      const closedPath2 = path2.closePath();
+      expect(closedPath2.isClosed).toBe(false);
+      expect(closedPath2.points.length).toBe(0);
+    });
+    
+    it('should preserve closed property when cloning', () => {
+      const path = new Path({
+        points: [
+          { x: 0, y: 0, type: 'move' },
+          { x: 100, y: 0, type: 'line' },
+          { x: 100, y: 100, type: 'line' }
+        ],
+        closed: true
+      });
+      
+      const clonedPath = path.clone() as Path;
+      expect(clonedPath.isClosed).toBe(true);
+    });
+    
+    it('should preserve closed property when applying transform', () => {
+      const path = new Path({
+        points: [
+          { x: 0, y: 0, type: 'move' },
+          { x: 100, y: 0, type: 'line' },
+          { x: 100, y: 100, type: 'line' }
+        ],
+        closed: true
+      });
+      
+      const transformedPath = path.applyTransform(Matrix3x3.translation(10, 20)) as Path;
+      expect(transformedPath.isClosed).toBe(true);
     });
   });
 
