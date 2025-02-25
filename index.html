@@ -3,265 +3,132 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modern Vector.js - 문서</title>
-  <link rel="stylesheet" href="assets/css/style.css">
+  <title>Modern Vector.js - 인터랙티브 예제</title>
+  <meta name="description" content="Modern Vector.js - 플러그인 기반의 벡터 그래픽 라이브러리 인터랙티브 예제">
+  <script type="module" crossorigin src="./assets/main-B0FoLjjr.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/main-BKvD3S5e.css">
 </head>
 <body>
   <header>
-    <h1>Modern Vector.js v0.1.0</h1>
-    <p>플러그인 기반의 벡터 그래픽 라이브러리</p>
+    <div class="container">
+      <h1>Modern Vector.js</h1>
+      <p>플러그인 기반의 벡터 그래픽 라이브러리</p>
+      <nav>
+        <ul>
+          <li><a href="#intro">소개</a></li>
+          <li><a href="#examples">예제</a></li>
+          <li><a href="#api">API</a></li>
+          <li><a href="https://github.com/username/modern-vector.js" target="_blank">GitHub</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
-  <div class="container">
-    <div class="sidebar">
-      <h2>목차</h2>
-      <ul class="api-list">
-        <li><a href="#features">주요 기능</a></li>
-        <li><a href="#usage">사용 방법</a></li>
-        <li><a href="#plugin-dev">플러그인 개발 가이드</a></li>
-        <li><a href="examples/index.html">인터랙티브 예제</a></li>
-        <li><a href="#classes">클래스</a></li>
-        <li><a href="#interfaces">인터페이스</a></li>
-        <li><a href="#types">타입 별칭</a></li>
-      </ul>
+  <main>
+    <section id="intro" class="section">
+      <div class="container">
+        <h2>Modern Vector.js 소개</h2>
+        <p>Modern Vector.js는 플러그인 기반의 벡터 그래픽 라이브러리입니다. Canvas와 SVG 렌더링을 지원하며, 확장 가능한 아키텍처를 제공합니다.</p>
+        <div class="features">
+          <div class="feature">
+            <h3>플러그인 기반 아키텍처</h3>
+            <p>필요한 기능만 선택적으로 사용할 수 있는 플러그인 시스템</p>
+          </div>
+          <div class="feature">
+            <h3>다중 렌더러 지원</h3>
+            <p>Canvas, SVG 등 다양한 렌더링 엔진 지원</p>
+          </div>
+          <div class="feature">
+            <h3>타입스크립트 지원</h3>
+            <p>완전한 타입 지원으로 개발 경험 향상</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="examples" class="section">
+      <div class="container">
+        <h2>인터랙티브 예제</h2>
+        <div class="examples-grid">
+          <div class="example-card" data-example="basic-shapes">
+            <h3>기본 도형</h3>
+            <div class="example-preview" id="basic-shapes-preview"></div>
+            <p>사각형, 원, 선, 다각형 등 기본 도형 그리기</p>
+            <a href="#" class="btn" data-action="view-example" data-target="basic-shapes">예제 보기</a>
+          </div>
+          <div class="example-card" data-example="transformations">
+            <h3>변환</h3>
+            <div class="example-preview" id="transformations-preview"></div>
+            <p>이동, 회전, 크기 조절 등 변환 적용하기</p>
+            <a href="#" class="btn" data-action="view-example" data-target="transformations">예제 보기</a>
+          </div>
+          <div class="example-card" data-example="path-operations">
+            <h3>패스 연산</h3>
+            <div class="example-preview" id="path-operations-preview"></div>
+            <p>합집합, 교집합, 차집합 등 패스 연산</p>
+            <a href="#" class="btn" data-action="view-example" data-target="path-operations">예제 보기</a>
+          </div>
+          <div class="example-card" data-example="svg-renderer">
+            <h3>SVG 렌더러</h3>
+            <div class="example-preview" id="svg-renderer-preview"></div>
+            <p>SVG 렌더링 엔진을 사용한 벡터 그래픽</p>
+            <a href="#" class="btn" data-action="view-example" data-target="svg-renderer">예제 보기</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="example-viewer" class="section hidden">
+      <div class="container">
+        <div class="example-header">
+          <h2 id="example-title">예제 제목</h2>
+          <button class="btn" id="back-to-examples">목록으로 돌아가기</button>
+        </div>
+        <div class="example-content">
+          <div class="example-canvas-container">
+            <div id="example-canvas"></div>
+          </div>
+          <div class="example-controls">
+            <div id="example-controls-content"></div>
+          </div>
+        </div>
+        <div class="example-code">
+          <h3>예제 코드</h3>
+          <pre><code id="example-code"></code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="api" class="section">
+      <div class="container">
+        <h2>API 문서</h2>
+        <p>Modern Vector.js의 API 문서는 <a href="../docs-site/index.html" target="_blank">여기</a>에서 확인할 수 있습니다.</p>
+        
+        <div class="api-overview">
+          <h3>주요 클래스</h3>
+          <ul>
+            <li><strong>VectorEngine</strong> - 벡터 그래픽 엔진의 메인 클래스</li>
+            <li><strong>RendererService</strong> - 렌더링 관련 기능 제공</li>
+            <li><strong>SceneService</strong> - 장면 관리 기능 제공</li>
+            <li><strong>EventService</strong> - 이벤트 처리 기능 제공</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 Modern Vector.js. MIT License.</p>
     </div>
+  </footer>
 
-    <div class="content">
-      <p>
-        Modern Vector.js는 플러그인 기반의 벡터 그래픽 라이브러리입니다. 
-        Canvas와 SVG 렌더링을 지원하며, 확장 가능한 아키텍처를 제공합니다.
-      </p>
-
-      <h2 id="features">주요 기능</h2>
-      <ul class="feature-list">
-        <li>플러그인 기반 아키텍처</li>
-        <li>Canvas 및 SVG 렌더링 지원</li>
-        <li>다양한 Shape 지원 (Rectangle, Circle, Line, Path, Text)</li>
-        <li>변환 (Translation, Rotation, Scale) 지원</li>
-        <li>Path 연산 (Union, Intersect, Subtract, XOR) 지원</li>
-      </ul>
-
-      <div class="note">
-        <div class="note-title">새로운 기능!</div>
-        <p>이제 <a href="examples/index.html">인터랙티브 예제</a>를 통해 Modern Vector.js의 기능을 직접 체험해볼 수 있습니다.</p>
-      </div>
-
-      <h2 id="usage">사용 방법</h2>
-      <p>Modern Vector.js를 사용하여 간단한 벡터 그래픽을 그리는 방법입니다:</p>
-      
-      <h3>Canvas 렌더러 사용</h3>
-      <pre><code>// 엔진 초기화
-import { VectorEngine } from 'modern-vector.js';
-import { ShapePlugin } from 'modern-vector.js/plugins/shapes';
-import { CanvasRenderer } from 'modern-vector.js/plugins/renderers/canvas';
-
-// 엔진 생성
-const engine = new VectorEngine();
-
-// 플러그인 등록
-engine.use(new ShapePlugin());
-
-// 렌더러 등록
-const renderer = new CanvasRenderer({
-  context: {
-    canvas: document.getElementById('canvas')
-  }
-});
-engine.renderer.register(renderer);
-engine.renderer.setActive('canvas');
-
-// 장면 생성
-const scene = engine.scene.create();
-
-// Shape 생성
-const shapePlugin = engine.getPlugin('shape');
-const rectangle = shapePlugin.createShape('rectangle', {
-  x: 50,
-  y: 50,
-  width: 100,
-  height: 50,
-  style: {
-    fillColor: 'red',
-    strokeColor: 'black',
-    strokeWidth: 2
-  }
-});
-
-// 장면에 Shape 추가
-scene.root.appendChild(rectangle);
-
-// 렌더링
-engine.renderer.render(scene);</code></pre>
-
-      <h3>SVG 렌더러 사용</h3>
-      <pre><code>// 엔진 초기화
-import { VectorEngine } from 'modern-vector.js';
-import { ShapePlugin } from 'modern-vector.js/plugins/shapes';
-import { SVGRenderer } from 'modern-vector.js/plugins/renderers/svg';
-
-// 엔진 생성
-const engine = new VectorEngine();
-
-// 플러그인 등록
-engine.use(new ShapePlugin());
-
-// SVG 렌더러 등록
-const renderer = new SVGRenderer({
-  context: {
-    svg: document.getElementById('svg-container')
-  },
-  width: 500,
-  height: 300,
-  viewBox: { x: 0, y: 0, width: 500, height: 300 }
-});
-engine.renderer.register(renderer);
-engine.renderer.setActive('svg');
-
-// 장면 생성
-const scene = engine.scene.create();
-
-// Circle 생성
-const shapePlugin = engine.getPlugin('shape');
-const circle = shapePlugin.createShape('circle', {
-  centerX: 150,
-  centerY: 150,
-  radius: 50,
-  style: {
-    fillColor: 'blue',
-    strokeColor: 'black',
-    strokeWidth: 2
-  }
-});
-
-// 장면에 Shape 추가
-scene.root.appendChild(circle);
-
-// 렌더링
-engine.renderer.render(scene);</code></pre>
-
-      <div class="note">
-        <div class="note-title">참고</div>
-        <p>Modern Vector.js는 플러그인 기반 아키텍처를 사용하므로, 필요한 기능을 플러그인으로 추가하여 확장할 수 있습니다. 위 예제에서는 기본 Shape 플러그인과 렌더러 플러그인만 사용했지만, 필요에 따라 다양한 플러그인을 추가할 수 있습니다.</p>
-      </div>
-
-      <h2 id="plugin-dev">플러그인 개발 가이드</h2>
-      <p>Modern Vector.js는 플러그인 기반 아키텍처를 사용하여 확장성을 제공합니다. 다음은 간단한 플러그인을 개발하는 방법입니다:</p>
-
-      <pre><code>import { Plugin, VectorEngine } from 'modern-vector.js';
-
-/**
- * 간단한 로깅 플러그인 예제
- */
-export class LoggerPlugin implements Plugin {
-  readonly id = 'logger';
-  readonly version = '1.0.0';
-  readonly dependencies = []; // 의존성이 없는 경우
-
-  /**
-   * 플러그인 설치
-   */
-  install(engine: VectorEngine): void {
-    // 렌더링 이벤트 리스너 등록
-    engine.events.on('render', (scene) => {
-      console.log(`Scene rendered: ${scene.id}`);
-    });
-
-    // 장면 생성 이벤트 리스너 등록
-    engine.events.on('sceneCreated', (scene) => {
-      console.log(`New scene created: ${scene.id}`);
-    });
-
-    console.log('Logger plugin installed');
-  }
-
-  /**
-   * 플러그인 제거
-   */
-  uninstall(engine: VectorEngine): void {
-    // 이벤트 리스너 제거 등 정리 작업
-    console.log('Logger plugin uninstalled');
-  }
-}</code></pre>
-
-      <p>플러그인 사용 방법:</p>
-
-      <pre><code>import { VectorEngine } from 'modern-vector.js';
-import { LoggerPlugin } from './plugins/logger';
-
-// 엔진 생성
-const engine = new VectorEngine();
-
-// 플러그인 등록
-engine.use(new LoggerPlugin());</code></pre>
-
-      <div class="note">
-        <div class="note-title">플러그인 개발 팁</div>
-        <ul>
-          <li>플러그인은 고유한 ID를 가져야 합니다.</li>
-          <li>의존성이 있는 경우 dependencies 배열에 명시해야 합니다.</li>
-          <li>install 메서드에서 필요한 초기화 작업을 수행합니다.</li>
-          <li>uninstall 메서드에서 리소스 정리 작업을 수행합니다.</li>
-          <li>다른 플러그인과의 통신은 이벤트 시스템을 활용하는 것이 좋습니다.</li>
-        </ul>
-      </div>
-
-      <h2 id="classes">클래스</h2>
-      <ul class="api-list">
-        <li>
-          <a href="classes/VectorEngine.html">VectorEngine</a>
-          <span class="api-description">벡터 그래픽 엔진의 메인 클래스</span>
-        </li>
-      </ul>
-
-      <h2 id="interfaces">인터페이스</h2>
-      <ul class="api-list">
-        <li>
-          <a href="interfaces/Plugin.html">Plugin</a>
-          <span class="api-description">플러그인 인터페이스</span>
-        </li>
-        <li>
-          <a href="interfaces/Renderer.html">Renderer</a>
-          <span class="api-description">렌더러 인터페이스</span>
-        </li>
-        <li>
-          <a href="interfaces/RendererCapabilities.html">RendererCapabilities</a>
-          <span class="api-description">렌더러 기능 인터페이스</span>
-        </li>
-        <li>
-          <a href="interfaces/Scene.html">Scene</a>
-          <span class="api-description">장면 인터페이스</span>
-        </li>
-        <li>
-          <a href="interfaces/EventEmitter.html">EventEmitter</a>
-          <span class="api-description">이벤트 발생기 인터페이스</span>
-        </li>
-        <li>
-          <a href="interfaces/EventService.html">EventService</a>
-          <span class="api-description">이벤트 서비스 인터페이스</span>
-        </li>
-        <li>
-          <a href="interfaces/RendererService.html">RendererService</a>
-          <span class="api-description">렌더러 서비스 인터페이스</span>
-        </li>
-        <li>
-          <a href="interfaces/SceneService.html">SceneService</a>
-          <span class="api-description">장면 서비스 인터페이스</span>
-        </li>
-      </ul>
-
-      <h2 id="types">타입 별칭</h2>
-      <ul class="api-list">
-        <li>
-          <a href="type-aliases/EventHandler.html">EventHandler</a>
-          <span class="api-description">이벤트 핸들러 타입</span>
-        </li>
-      </ul>
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <div id="modal-content"></div>
     </div>
   </div>
-  
-  <footer class="footer">
-    <p>Modern Vector.js v0.1.0 - 플러그인 기반의 벡터 그래픽 라이브러리</p>
-    <p>&copy; 2024 Modern Vector.js 팀</p>
-  </footer>
+
 </body>
 </html> 
