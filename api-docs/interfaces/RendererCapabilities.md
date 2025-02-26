@@ -11,7 +11,7 @@ category: interfaces
 
 # Interface: RendererCapabilities
 
-Defined in: [types/index.ts:283](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L283)
+Defined in: [types/index.ts:283](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/types/index.ts#L283)
 
 Renderer capabilities interface
 
@@ -23,7 +23,7 @@ Renderer capabilities interface
 
 > `readonly` **maxTextureSize**: `number`
 
-Defined in: [types/index.ts:285](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L285)
+Defined in: [types/index.ts:285](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/types/index.ts#L285)
 
 최대 텍스처 크기
 
@@ -33,7 +33,7 @@ Defined in: [types/index.ts:285](https://github.com/miridih-jwpark02/modern-vect
 
 > `readonly` **supports3D**: `boolean`
 
-Defined in: [types/index.ts:291](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L291)
+Defined in: [types/index.ts:291](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/types/index.ts#L291)
 
 3D 지원 여부
 
@@ -43,7 +43,7 @@ Defined in: [types/index.ts:291](https://github.com/miridih-jwpark02/modern-vect
 
 > `readonly` **supportsSVG**: `boolean`
 
-Defined in: [types/index.ts:287](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L287)
+Defined in: [types/index.ts:287](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/types/index.ts#L287)
 
 SVG 지원 여부
 
@@ -53,6 +53,6 @@ SVG 지원 여부
 
 > `readonly` **supportsWebGL**: `boolean`
 
-Defined in: [types/index.ts:289](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L289)
+Defined in: [types/index.ts:289](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/types/index.ts#L289)
 
 WebGL 지원 여부
