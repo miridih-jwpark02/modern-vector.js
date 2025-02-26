@@ -1,6 +1,12 @@
 import { describe, expect, test, vi, beforeEach } from 'vitest';
 import { SVGImportToolPlugin } from '../svg-import-plugin';
-import { VectorEngine, SceneNode } from '../../../../core/types';
+import {
+  VectorEngine,
+  SceneNode,
+  Renderer,
+  Scene,
+  RendererCapabilities,
+} from '../../../../core/types';
 import { SVGImportToolPluginExtension, SVGImportOptions } from '../types';
 
 /**
@@ -13,6 +19,9 @@ describe('SVGImportToolPlugin', () => {
 
   // Mock VectorEngine
   let mockEngine: VectorEngine;
+
+  // Mock Renderer
+  let mockRenderer: Renderer;
 
   // 플러그인 인스턴스
   let plugin: SVGImportToolPlugin;
@@ -66,24 +75,84 @@ describe('SVGImportToolPlugin', () => {
       })
     );
 
+    // Mock Renderer
+    mockRenderer = {
+      id: 'mock-renderer',
+      capabilities: {
+        maxTextureSize: 4096,
+        supportsSVG: true,
+        supportsWebGL: true,
+        supports3D: false,
+      } as RendererCapabilities,
+      render: vi.fn(),
+      dispose: vi.fn(),
+    };
+
     // Mock SceneNode
     const mockSceneNode: Partial<SceneNode> = {
-      addChild: vi.fn().mockReturnValue({
-        addChild: vi.fn().mockReturnValue({}),
-        data: {},
-      } as unknown as SceneNode),
+      id: 'root-node',
+      parent: null,
+      children: [],
+      data: {},
+      addChild: vi.fn().mockImplementation(child => {
+        return {
+          id: child.id || 'imported-svg',
+          parent: mockSceneNode,
+          children: [],
+          data: {},
+          addChild: vi.fn().mockReturnValue({
+            id: 'child-node',
+            parent: { id: 'imported-svg' },
+            children: [],
+            data: {},
+          }),
+        } as unknown as SceneNode;
+      }),
+      removeChild: vi.fn().mockReturnValue(true),
+      clearChildren: vi.fn(),
+      findChildById: vi.fn().mockReturnValue(null),
+      on: vi.fn(),
+      off: vi.fn(),
+      emit: vi.fn(),
+    };
+
+    // Mock Scene
+    const mockScene: Partial<Scene> = {
+      root: mockSceneNode as SceneNode,
+      renderer: mockRenderer,
+      plugins: new Map(),
+      on: vi.fn(),
+      off: vi.fn(),
+      emit: vi.fn(),
     };
 
     // Mock VectorEngine 생성
     mockEngine = {
       scene: {
-        getActive: vi.fn().mockReturnValue({
-          root: mockSceneNode as SceneNode,
+        getActive: vi.fn().mockReturnValue(mockScene),
+        create: vi.fn().mockReturnValue(mockScene),
+        setActive: vi.fn(),
+      },
+      renderer: {
+        register: vi.fn(),
+        setActive: vi.fn(),
+        render: vi.fn(),
+      },
+      events: {
+        on: vi.fn(),
+        off: vi.fn(),
+        emit: vi.fn(),
+        createNamespace: vi.fn().mockReturnValue({
+          on: vi.fn(),
+          off: vi.fn(),
+          emit: vi.fn(),
         }),
       },
       getPlugin: vi.fn().mockReturnValue({
         createShape: vi.fn().mockReturnValue({}),
       }),
+      use: vi.fn(),
+      remove: vi.fn(),
     } as unknown as VectorEngine;
 
     // 플러그인 인스턴스 생성
@@ -241,5 +310,27 @@ describe('SVGImportToolPlugin', () => {
     await expect(uninstalledPlugin.importFromString(testSvgString)).rejects.toThrow(
       'Plugin not installed on an engine'
     );
+  });
+
+  /**
+   * SVG import 후 렌더링 테스트
+   */
+  test('should render imported SVG correctly', async () => {
+    // SVG 문자열에서 가져오기
+    const engineExtended = mockEngine as unknown as SVGImportToolPluginExtension;
+    const importedNode = await engineExtended.svgImport.importFromString(testSvgString);
+
+    // 가져온 노드가 정상적으로 생성되었는지 확인
+    expect(importedNode).toBeDefined();
+    expect(importedNode.id).toBe('imported-svg');
+
+    // 현재 활성화된 씬 가져오기
+    const activeScene = mockEngine.scene.getActive();
+
+    // 렌더러 호출
+    activeScene.renderer.render(activeScene);
+
+    // 렌더러의 render 메서드가 호출되었는지 확인
+    expect(mockRenderer.render).toHaveBeenCalledWith(activeScene);
   });
 });
