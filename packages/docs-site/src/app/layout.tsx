@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import "highlight.js/styles/github.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { GitHubPagesRedirect } from "@/components/github-pages-redirect";
-
-const inter = Inter({ subsets: ["latin"] });
+import { pretendard } from "@/lib/fonts";
 
 export const metadata: Metadata = {
   title: "Modern Vector.js Documentation",
@@ -22,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="ko" suppressHydrationWarning className={pretendard.variable}>
       <head>
         <style>
           {`
@@ -189,7 +187,7 @@ export default function RootLayout({
           `}
         </style>
       </head>
-      <body className={inter.className}>
+      <body className="font-pretendard">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
