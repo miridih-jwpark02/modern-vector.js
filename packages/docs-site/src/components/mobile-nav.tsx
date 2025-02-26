@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
 import { DocsNavigation } from './docs-navigation';
 
 /**
@@ -32,6 +32,7 @@ export function MobileNav({ currentSlug }: MobileNavProps) {
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="pr-0">
+        <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
         <div className="px-7">
           <Link href="/" className="flex items-center" onClick={() => setOpen(false)}>
             <span className="font-bold">Modern Vector.js</span>
