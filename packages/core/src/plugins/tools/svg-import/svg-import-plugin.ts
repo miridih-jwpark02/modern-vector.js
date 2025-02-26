@@ -157,17 +157,13 @@ export class SVGImportToolPlugin implements Plugin, SVGImportToolPluginInterface
     const rootGroup = scene.root.addChild({
       type: 'group',
       id: 'imported-svg',
+      data: {},
     } as unknown as SceneNode);
 
     // Extract viewBox if present and if preserveViewBox is true
     if (options.preserveViewBox && svgElement.hasAttribute('viewBox')) {
       const viewBoxAttr = svgElement.getAttribute('viewBox')?.split(/\s+/).map(Number);
       if (viewBoxAttr && viewBoxAttr.length === 4) {
-        // Initialize data object if it doesn't exist
-        if (!rootGroup.data) {
-          rootGroup.data = {};
-        }
-
         const viewBox: ViewBox = {
           x: viewBoxAttr[0],
           y: viewBoxAttr[1],
