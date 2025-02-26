@@ -11,7 +11,7 @@ category: interfaces
 
 # Interface: SceneNode
 
-Defined in: [types/index.ts:210](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/types/index.ts#L210)
+Defined in: [types/index.ts:210](https://github.com/miridih-jwpark02/modern-vector.js/blob/5221f2fc49f67dd4433b667bc6d0e95a648486aa/packages/core/src/core/types/index.ts#L210)
 
 SceneNode interface representing a node in the scene graph
 
@@ -27,7 +27,7 @@ SceneNode interface representing a node in the scene graph
 
 > `readonly` **children**: [`SceneNode`](SceneNode.md)[]
 
-Defined in: [types/index.ts:216](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/types/index.ts#L216)
+Defined in: [types/index.ts:216](https://github.com/miridih-jwpark02/modern-vector.js/blob/5221f2fc49f67dd4433b667bc6d0e95a648486aa/packages/core/src/core/types/index.ts#L216)
 
 자식 노드 목록
 
@@ -37,7 +37,7 @@ Defined in: [types/index.ts:216](https://github.com/miridih-jwpark02/modern-vect
 
 > **data**: `any`
 
-Defined in: [types/index.ts:218](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/types/index.ts#L218)
+Defined in: [types/index.ts:218](https://github.com/miridih-jwpark02/modern-vector.js/blob/5221f2fc49f67dd4433b667bc6d0e95a648486aa/packages/core/src/core/types/index.ts#L218)
 
 노드에 연결된 데이터
 
@@ -47,7 +47,7 @@ Defined in: [types/index.ts:218](https://github.com/miridih-jwpark02/modern-vect
 
 > `readonly` **id**: `string`
 
-Defined in: [types/index.ts:212](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/types/index.ts#L212)
+Defined in: [types/index.ts:212](https://github.com/miridih-jwpark02/modern-vector.js/blob/5221f2fc49f67dd4433b667bc6d0e95a648486aa/packages/core/src/core/types/index.ts#L212)
 
 노드의 고유 ID
 
@@ -57,7 +57,7 @@ Defined in: [types/index.ts:212](https://github.com/miridih-jwpark02/modern-vect
 
 > **parent**: `null` \| [`SceneNode`](SceneNode.md)
 
-Defined in: [types/index.ts:214](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/types/index.ts#L214)
+Defined in: [types/index.ts:214](https://github.com/miridih-jwpark02/modern-vector.js/blob/5221f2fc49f67dd4433b667bc6d0e95a648486aa/packages/core/src/core/types/index.ts#L214)
 
 부모 노드
 
@@ -67,7 +67,7 @@ Defined in: [types/index.ts:214](https://github.com/miridih-jwpark02/modern-vect
 
 > **addChild**(`child`): [`SceneNode`](SceneNode.md)
 
-Defined in: [types/index.ts:226](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/types/index.ts#L226)
+Defined in: [types/index.ts:226](https://github.com/miridih-jwpark02/modern-vector.js/blob/5221f2fc49f67dd4433b667bc6d0e95a648486aa/packages/core/src/core/types/index.ts#L226)
 
 자식 노드 추가
 
@@ -91,7 +91,7 @@ Defined in: [types/index.ts:226](https://github.com/miridih-jwpark02/modern-vect
 
 > **clearChildren**(): `void`
 
-Defined in: [types/index.ts:239](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/types/index.ts#L239)
+Defined in: [types/index.ts:239](https://github.com/miridih-jwpark02/modern-vector.js/blob/5221f2fc49f67dd4433b667bc6d0e95a648486aa/packages/core/src/core/types/index.ts#L239)
 
 모든 자식 노드 제거
 
@@ -105,7 +105,7 @@ Defined in: [types/index.ts:239](https://github.com/miridih-jwpark02/modern-vect
 
 > **emit**(`event`, `data`): `void`
 
-Defined in: [types/index.ts:117](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/types/index.ts#L117)
+Defined in: [types/index.ts:117](https://github.com/miridih-jwpark02/modern-vector.js/blob/5221f2fc49f67dd4433b667bc6d0e95a648486aa/packages/core/src/core/types/index.ts#L117)
 
 이벤트 발생
 
@@ -137,7 +137,7 @@ Defined in: [types/index.ts:117](https://github.com/miridih-jwpark02/modern-vect
 
 > **findChildById**(`id`): `null` \| [`SceneNode`](SceneNode.md)
 
-Defined in: [types/index.ts:247](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/types/index.ts#L247)
+Defined in: [types/index.ts:247](https://github.com/miridih-jwpark02/modern-vector.js/blob/5221f2fc49f67dd4433b667bc6d0e95a648486aa/packages/core/src/core/types/index.ts#L247)
 
 ID로 자식 노드 찾기
 
@@ -161,7 +161,7 @@ ID로 자식 노드 찾기
 
 > **off**(`event`, `handler`): `void`
 
-Defined in: [types/index.ts:109](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/types/index.ts#L109)
+Defined in: [types/index.ts:109](https://github.com/miridih-jwpark02/modern-vector.js/blob/5221f2fc49f67dd4433b667bc6d0e95a648486aa/packages/core/src/core/types/index.ts#L109)
 
 이벤트 리스너 제거
 
@@ -193,7 +193,7 @@ Defined in: [types/index.ts:109](https://github.com/miridih-jwpark02/modern-vect
 
 > **on**(`event`, `handler`): `void`
 
-Defined in: [types/index.ts:101](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/types/index.ts#L101)
+Defined in: [types/index.ts:101](https://github.com/miridih-jwpark02/modern-vector.js/blob/5221f2fc49f67dd4433b667bc6d0e95a648486aa/packages/core/src/core/types/index.ts#L101)
 
 이벤트 리스너 등록
 
@@ -225,7 +225,7 @@ Defined in: [types/index.ts:101](https://github.com/miridih-jwpark02/modern-vect
 
 > **removeChild**(`child`): `boolean`
 
-Defined in: [types/index.ts:234](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/types/index.ts#L234)
+Defined in: [types/index.ts:234](https://github.com/miridih-jwpark02/modern-vector.js/blob/5221f2fc49f67dd4433b667bc6d0e95a648486aa/packages/core/src/core/types/index.ts#L234)
 
 자식 노드 제거
 

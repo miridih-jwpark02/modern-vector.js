@@ -1,0 +1,398 @@
+<!DOCTYPE html><html lang="ko" class="__variable_c60a13"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="preload" href="/modern-vector.js/_next/static/media/119cf01b445a4dc3-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" href="/modern-vector.js/_next/static/media/12f0acdcae926a24-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" href="/modern-vector.js/_next/static/media/4aeaaf124a5054bc-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" href="/modern-vector.js/_next/static/media/b6885b7a9c09d162-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" href="/modern-vector.js/_next/static/media/cfa29e4f0aabf12a-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" href="/modern-vector.js/_next/static/media/dd3e76c51ce1a360-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" href="/modern-vector.js/_next/static/media/e00e15f44d7b58c0-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" href="/modern-vector.js/_next/static/media/e725ed3d1f6bc360-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" href="/modern-vector.js/_next/static/media/fc2b22d5c5b14cbb-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="stylesheet" href="/modern-vector.js/_next/static/css/a0071d00f84115dd.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/modern-vector.js/_next/static/chunks/webpack-215bff7debead481.js"/><script src="/modern-vector.js/_next/static/chunks/87c73c54-2306ec92ae4d95bb.js" async=""></script><script src="/modern-vector.js/_next/static/chunks/855-33ac0ebca547994c.js" async=""></script><script src="/modern-vector.js/_next/static/chunks/main-app-db9d2c8506281af9.js" async=""></script><script src="/modern-vector.js/_next/static/chunks/app/layout-86465bc224ae2e10.js" async=""></script><script src="/modern-vector.js/_next/static/chunks/770-57321866e8f48bfb.js" async=""></script><script src="/modern-vector.js/_next/static/chunks/816-eea2b2ef59921a13.js" async=""></script><script src="/modern-vector.js/_next/static/chunks/508-5bb57ed481e1e5a5.js" async=""></script><script src="/modern-vector.js/_next/static/chunks/435-ef317aca933735f6.js" async=""></script><script src="/modern-vector.js/_next/static/chunks/app/docs/layout-d625de0b562528ec.js" async=""></script><script src="/modern-vector.js/_next/static/chunks/app/docs/page-4fe432206ff5e2d2.js" async=""></script><meta name="next-size-adjust" content=""/><title>Modern Vector.js Documentation</title><meta name="description" content="Documentation for Modern Vector.js - A Modern Vector Graphics Library with Plugin System"/><style>
+            /* 다크 모드에서 highlight.js 스타일 */
+            .dark .hljs {
+              background: #1e1e1e;
+              color: #dcdcdc;
+            }
+            .dark .hljs-keyword,
+            .dark .hljs-selector-tag,
+            .dark .hljs-tag,
+            .dark .hljs-name {
+              color: #569cd6;
+            }
+            .dark .hljs-attribute,
+            .dark .hljs-literal,
+            .dark .hljs-number,
+            .dark .hljs-keyword {
+              color: #b5cea8;
+            }
+            .dark .hljs-string,
+            .dark .hljs-doctag {
+              color: #ce9178;
+            }
+            .dark .hljs-built_in,
+            .dark .hljs-builtin-name {
+              color: #4ec9b0;
+            }
+            .dark .hljs-comment,
+            .dark .hljs-quote {
+              color: #6a9955;
+            }
+            
+            /* 코드 블록 스타일 개선 */
+            .prose pre {
+              margin: 1.5em 0;
+              border-radius: 0.375rem;
+              padding: 1rem;
+              overflow-x: auto;
+            }
+            
+            .prose code {
+              font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+              font-size: 0.9em;
+            }
+            
+            /* 링크 스타일 개선 */
+            .prose a {
+              text-decoration: none;
+              transition: color 0.2s ease;
+            }
+            
+            .prose a:hover {
+              text-decoration: underline;
+            }
+            
+            /* 테이블 스타일 개선 */
+            .prose table {
+              width: 100%;
+              border-collapse: collapse;
+              margin: 1.5em 0;
+            }
+            
+            .prose table th,
+            .prose table td {
+              padding: 0.75rem;
+              border: 1px solid hsl(var(--border));
+            }
+            
+            .prose table th {
+              background-color: hsl(var(--muted));
+              font-weight: 600;
+            }
+            
+            .dark .prose table th {
+              background-color: hsl(var(--muted));
+            }
+            
+            /* 헤더 스타일 개선 */
+            .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+              scroll-margin-top: 5rem;
+              position: relative;
+            }
+            
+            .prose h1 {
+              font-size: 2.25rem;
+              margin-top: 2.5rem;
+              margin-bottom: 1.5rem;
+              font-weight: 700;
+            }
+            
+            .prose h2 {
+              font-size: 1.875rem;
+              margin-top: 2rem;
+              margin-bottom: 1rem;
+              font-weight: 600;
+              border-bottom: 1px solid hsl(var(--border));
+              padding-bottom: 0.5rem;
+            }
+            
+            .prose h3 {
+              font-size: 1.5rem;
+              margin-top: 1.5rem;
+              margin-bottom: 0.75rem;
+              font-weight: 600;
+            }
+            
+            /* 목록 스타일 개선 */
+            .prose ul, .prose ol {
+              margin: 1.25em 0;
+              padding-left: 1.625em;
+            }
+            
+            .prose li {
+              margin-bottom: 0.5em;
+            }
+            
+            /* 인용구 스타일 개선 */
+            .prose blockquote {
+              border-left: 4px solid hsl(var(--border));
+              padding-left: 1rem;
+              font-style: italic;
+              margin: 1.5em 0;
+              color: hsl(var(--muted-foreground));
+            }
+            
+            /* 다크 모드 텍스트 색상 개선 */
+            .dark .prose {
+              color: hsl(var(--foreground));
+            }
+            
+            .dark .prose h1,
+            .dark .prose h2,
+            .dark .prose h3,
+            .dark .prose h4,
+            .dark .prose h5,
+            .dark .prose h6 {
+              color: hsl(var(--foreground));
+            }
+            
+            .dark .prose p,
+            .dark .prose ul,
+            .dark .prose ol,
+            .dark .prose li {
+              color: hsl(var(--foreground));
+            }
+            
+            .dark .prose strong {
+              color: hsl(var(--foreground));
+            }
+            
+            .dark .prose table td {
+              color: hsl(var(--foreground));
+            }
+            
+            .dark .prose table th {
+              color: hsl(var(--foreground));
+            }
+            
+            /* 다크 모드에서 API 네비게이션 스타일 */
+            .dark .api-nav-link {
+              color: hsl(var(--foreground));
+            }
+          </style><script src="/modern-vector.js/_next/static/chunks/polyfills-42372ed130431b0a.js" noModule=""></script></head><body class="font-pretendard"><script>((e,t,r,n,o,a,i,u)=>{let s=document.documentElement,c=["light","dark"];function l(t){(Array.isArray(e)?e:[e]).forEach(e=>{let r="class"===e,n=r&&a?o.map(e=>a[e]||e):o;r?(s.classList.remove(...n),s.classList.add(t)):s.setAttribute(e,t)}),u&&c.includes(t)&&(s.style.colorScheme=t)}if(n)l(n);else try{let e=localStorage.getItem(t)||r,n=i&&"system"===e?window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light":e;l(n)}catch(e){}})("class","theme","system",null,["light","dark"],null,true,true)</script><!--$!--><template data-dgst="BAILOUT_TO_CLIENT_SIDE_RENDERING"></template><!--/$--><div class="flex min-h-screen flex-col"><header class="sticky top-0 z-40 w-full border-b bg-background"><div class="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0"><div class="flex items-center space-x-4"><button class="inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:text-accent-foreground h-10 py-2 mr-2 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:R2mulb:" data-state="closed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu h-6 w-6"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg><span class="sr-only">Toggle Menu</span></button><a class="flex items-center space-x-2" href="/modern-vector.js"><span class="inline-block font-bold">Modern Vector.js</span></a></div><nav class="hidden md:flex gap-6"><a class="flex items-center text-sm font-medium text-foreground transition-colors hover:text-foreground" href="/modern-vector.js/docs">Documentation</a><a class="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground" href="/modern-vector.js/api-docs">API Reference</a><a class="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground" href="/modern-vector.js/examples">Examples</a></nav></div></header><div class="container flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10 py-8"><aside class="fixed top-24 z-30 -ml-2 hidden h-[calc(100vh-6rem)] w-full shrink-0 md:sticky md:block"><div class="h-full py-6 pr-6 lg:py-8"><div class="w-full"><div class="mb-6"><h4 class="font-medium mb-2 text-sm text-foreground">Getting Started</h4><ul class="space-y-1"><li><a class="text-sm block py-1 px-2 rounded-md text-muted-foreground hover:text-foreground" href="/modern-vector.js/docs/getting-started/project-structure">프로젝트 구조</a></li></ul></div><div class="mb-6"><h4 class="font-medium mb-2 text-sm text-foreground">Core Concepts</h4><ul class="space-y-1"><li><a class="text-sm block py-1 px-2 rounded-md text-muted-foreground hover:text-foreground" href="/modern-vector.js/docs/core-concepts/plugin-system">플러그인 시스템</a></li></ul></div><div class="mb-6"><h4 class="font-medium mb-2 text-sm text-foreground">Api Reference</h4><ul class="space-y-1"><li><a class="text-sm block py-1 px-2 rounded-md text-muted-foreground hover:text-foreground" href="/modern-vector.js/docs/api-reference">API 레퍼런스</a></li><li><a class="text-sm block py-1 px-2 rounded-md text-muted-foreground hover:text-foreground" href="/modern-vector.js/docs/api-reference/core/plugin">Plugin</a></li><li><a class="text-sm block py-1 px-2 rounded-md text-muted-foreground hover:text-foreground" href="/modern-vector.js/docs/api-reference/core/service">Service</a></li><li><a class="text-sm block py-1 px-2 rounded-md text-muted-foreground hover:text-foreground" href="/modern-vector.js/docs/api-reference/core/vector-engine">VectorEngine</a></li><li><a class="text-sm block py-1 px-2 rounded-md text-muted-foreground hover:text-foreground" href="/modern-vector.js/docs/api-reference/math/vector">Vector</a></li><li><a class="text-sm block py-1 px-2 rounded-md text-muted-foreground hover:text-foreground" href="/modern-vector.js/docs/api-reference/renderers/canvas-renderer">CanvasRenderer</a></li><li><a class="text-sm block py-1 px-2 rounded-md text-muted-foreground hover:text-foreground" href="/modern-vector.js/docs/api-reference/shapes/shape">Shape</a></li></ul></div><div class="mb-6"><h4 class="font-medium mb-2 text-sm text-foreground">Api Docs</h4><ul class="space-y-1"><li><a class="text-sm block py-1 px-2 rounded-md text-muted-foreground hover:text-foreground" href="/modern-vector.js/docs/api-docs/generation">API 문서 생성</a></li></ul></div><div class="mb-6"><h4 class="font-medium mb-2 text-sm text-foreground">Deployment</h4><ul class="space-y-1"><li><a class="text-sm block py-1 px-2 rounded-md text-muted-foreground hover:text-foreground" href="/modern-vector.js/docs/deployment/github-pages">GitHub Pages 배포</a></li></ul></div></div></div></aside><main class="relative py-6 lg:gap-10 lg:py-8"><div class="max-w-3xl mx-auto"><h1 class="text-3xl font-bold mb-4">GitHub Pages 배포</h1><p class="text-muted-foreground mb-8">Modern Vector.js 문서 사이트를 GitHub Pages에 배포하는 방법</p><div class="prose dark:prose-invert max-w-none"><h1>GitHub Pages 배포</h1>
+<p>Modern Vector.js 문서 사이트는 GitHub Pages를 통해 배포됩니다. 이 문서에서는 GitHub Pages 배포 설정 방법과 자동화된 배포 워크플로우에 대해 설명합니다.</p>
+<h2>배포 설정</h2>
+<h3>GitHub Actions 워크플로우</h3>
+<p>Modern Vector.js는 GitHub Actions를 사용하여 문서 사이트를 자동으로 빌드하고 GitHub Pages에 배포합니다. 워크플로우 설정은 <code>.github/workflows/deploy-docs.yml</code> 파일에 정의되어 있습니다.</p>
+<pre><code class="language-yaml">name: Deploy Docs to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: &quot;pages&quot;
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: &#x27;20&#x27;
+      
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+      
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+      
+      - name: Build core package
+        run: cd packages/core &amp;&amp; pnpm build
+      
+      - name: Build docs site
+        run: cd packages/docs-site &amp;&amp; pnpm build
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./packages/docs-site/dist
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
+</code></pre>
+<p>이 워크플로우는 다음과 같은 작업을 수행합니다:</p>
+<ol>
+<li><code>main</code> 브랜치에 푸시하거나 수동으로 워크플로우를 트리거할 때 실행됩니다.</li>
+<li>저장소를 체크아웃하고 Node.js와 pnpm을 설정합니다.</li>
+<li>의존성을 설치하고 core 패키지와 docs-site 패키지를 빌드합니다.</li>
+<li>빌드된 문서 사이트를 GitHub Pages에 배포합니다.</li>
+</ol>
+<h3>Next.js 설정</h3>
+<p>GitHub Pages에서 Next.js 애플리케이션을 올바르게 실행하려면 <code>next.config.js</code> 파일에 다음과 같은 설정이 필요합니다:</p>
+<pre><code class="language-javascript">/** @type {import(&#x27;next&#x27;).NextConfig} */
+const nextConfig = {
+  output: &#x27;export&#x27;,
+  distDir: &#x27;dist&#x27;,
+  images: {
+    unoptimized: true,
+  },
+  basePath: process.env.NODE_ENV === &#x27;production&#x27; ? &#x27;/modern-vector.js&#x27; : &#x27;&#x27;,
+  assetPrefix: process.env.NODE_ENV === &#x27;production&#x27; ? &#x27;/modern-vector.js/&#x27; : &#x27;&#x27;,
+};
+
+module.exports = nextConfig;
+</code></pre>
+<ul>
+<li><code>output: &#x27;export&#x27;</code>: 정적 HTML 파일로 내보내기</li>
+<li><code>distDir: &#x27;dist&#x27;</code>: 빌드 결과물을 <code>dist</code> 디렉토리에 저장</li>
+<li><code>basePath</code>: GitHub Pages의 저장소 이름에 맞게 기본 경로 설정</li>
+<li><code>assetPrefix</code>: 정적 자산(CSS, JavaScript 등)의 경로 접두사 설정</li>
+</ul>
+<h2>SPA 라우팅 지원</h2>
+<p>GitHub Pages는 기본적으로 SPA(Single Page Application) 라우팅을 지원하지 않습니다. 이를 해결하기 위해 다음과 같은 설정이 필요합니다:</p>
+<h3>404.html 페이지</h3>
+<p><code>public/404.html</code> 파일을 생성하여 클라이언트 측 라우팅을 지원합니다:</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+  &lt;title&gt;Page Not Found&lt;/title&gt;
+  &lt;script&gt;
+    // SPA를 위한 리다이렉션 스크립트
+    (function() {
+      // 현재 URL 가져오기
+      var location = window.location;
+      var pathname = location.pathname;
+      
+      // 저장소 이름 (GitHub Pages 경로)
+      var repoName = &#x27;modern-vector.js&#x27;;
+      
+      // 저장소 이름으로 시작하는 경로인지 확인
+      var pathSegments = pathname.split(&#x27;/&#x27;);
+      var isInRepo = pathSegments[1] === repoName;
+      
+      // 새 URL 구성
+      var redirectUrl = location.origin;
+      
+      if (isInRepo) {
+        redirectUrl += &#x27;/&#x27; + repoName;
+        
+        // 쿼리 파라미터로 원래 경로 전달
+        var path = pathname.replace(&#x27;/&#x27; + repoName, &#x27;&#x27;);
+        if (path) {
+          redirectUrl += &#x27;?path=&#x27; + encodeURIComponent(path);
+        }
+      }
+      
+      // 리다이렉션
+      window.location.replace(redirectUrl);
+    })();
+  &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    &lt;h1&gt;페이지를 찾을 수 없습니다&lt;/h1&gt;
+    &lt;p&gt;요청하신 페이지를 찾을 수 없습니다. 홈페이지로 리다이렉션됩니다.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h3>GitHubPagesRedirect 컴포넌트</h3>
+<p><code>src/components/github-pages-redirect.tsx</code> 파일을 생성하여 404 페이지에서 전달된 경로로 리다이렉션합니다:</p>
+<pre><code class="language-tsx">&#x27;use client&#x27;;
+
+import { useEffect } from &#x27;react&#x27;;
+import { useRouter, useSearchParams } from &#x27;next/navigation&#x27;;
+
+/**
+ * GitHub Pages에서 SPA 라우팅을 지원하기 위한 리다이렉션 컴포넌트
+ * 404.html에서 전달된 path 파라미터를 사용하여 적절한 경로로 리다이렉션합니다.
+ */
+export function GitHubPagesRedirect() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  
+  useEffect(() =&gt; {
+    // URL에서 path 파라미터 확인
+    const path = searchParams.get(&#x27;path&#x27;);
+    
+    // path 파라미터가 있으면 해당 경로로 리다이렉션
+    if (path) {
+      router.replace(path);
+    }
+  }, [router, searchParams]);
+  
+  // 이 컴포넌트는 UI를 렌더링하지 않음
+  return null;
+}
+</code></pre>
+<h3>레이아웃에 컴포넌트 추가</h3>
+<p><code>src/app/layout.tsx</code> 파일에 <code>GitHubPagesRedirect</code> 컴포넌트를 추가합니다:</p>
+<pre><code class="language-tsx">import { GitHubPagesRedirect } from &#x27;@/components/github-pages-redirect&#x27;;
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    &lt;html lang=&quot;en&quot;&gt;
+      &lt;body&gt;
+        &lt;GitHubPagesRedirect /&gt;
+        {children}
+      &lt;/body&gt;
+    &lt;/html&gt;
+  );
+}
+</code></pre>
+<h2>GitHub Pages 설정</h2>
+<p>GitHub 저장소 설정에서 Pages 기능을 활성화하고 배포 소스를 설정해야 합니다:</p>
+<ol>
+<li>GitHub 저장소 페이지로 이동</li>
+<li>&quot;Settings&quot; 탭 클릭</li>
+<li>왼쪽 사이드바에서 &quot;Pages&quot; 클릭</li>
+<li>&quot;Build and deployment&quot; 섹션에서:<!-- -->
+<ul>
+<li>Source: &quot;GitHub Actions&quot;를 선택</li>
+</ul>
+</li>
+</ol>
+<h2>수동 배포</h2>
+<p>GitHub Actions 워크플로우를 수동으로 트리거하여 문서 사이트를 배포할 수 있습니다:</p>
+<ol>
+<li>GitHub 저장소의 &quot;Actions&quot; 탭으로 이동</li>
+<li>왼쪽 사이드바에서 &quot;Deploy Docs to GitHub Pages&quot; 워크플로우 선택</li>
+<li>오른쪽 상단의 &quot;Run workflow&quot; 버튼 클릭</li>
+<li>&quot;Run workflow&quot; 대화 상자에서 &quot;Run workflow&quot; 버튼 클릭</li>
+</ol>
+<h2>배포 확인</h2>
+<p>배포가 완료되면 <code>https://username.github.io/modern-vector.js/</code> 주소에서 문서 사이트를 확인할 수 있습니다.</p>
+<h2>문제 해결</h2>
+<h3>404 오류</h3>
+<p>GitHub Pages에서 404 오류가 발생하는 경우:</p>
+<ol>
+<li><code>.github/workflows/deploy-docs.yml</code> 파일이 올바르게 설정되어 있는지 확인</li>
+<li><code>next.config.js</code> 파일에서 <code>basePath</code>와 <code>assetPrefix</code>가 올바르게 설정되어 있는지 확인</li>
+<li><code>public/404.html</code> 파일이 존재하고 올바르게 설정되어 있는지 확인</li>
+<li>GitHub 저장소 설정에서 Pages 기능이 활성화되어 있는지 확인</li>
+</ol>
+<h3>정적 자산 로드 실패</h3>
+<p>정적 자산(CSS, JavaScript 등)이 로드되지 않는 경우:</p>
+<ol>
+<li><code>next.config.js</code> 파일에서 <code>assetPrefix</code>가 올바르게 설정되어 있는지 확인</li>
+<li>브라우저 개발자 도구에서 네트워크 탭을 확인하여 정적 자산의 URL이 올바른지 확인</li>
+</ol>
+<h3>클라이언트 측 라우팅 문제</h3>
+<p>클라이언트 측 라우팅이 작동하지 않는 경우:</p>
+<ol>
+<li><code>public/404.html</code> 파일이 올바르게 설정되어 있는지 확인</li>
+<li><code>src/components/github-pages-redirect.tsx</code> 파일이 올바르게 구현되어 있는지 확인</li>
+<li><code>src/app/layout.tsx</code> 파일에 <code>GitHubPagesRedirect</code> 컴포넌트가 추가되어 있는지 확인</li>
+</ol></div></div></main></div><footer class="border-t py-6 md:py-0"><div class="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row"><p class="text-center text-sm leading-loose text-muted-foreground md:text-left">Built with Next.js, Tailwind CSS, and shadcn/ui.</p></div></footer></div><script src="/modern-vector.js/_next/static/chunks/webpack-215bff7debead481.js" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n3:I[9638,[\"177\",\"static/chunks/app/layout-86465bc224ae2e10.js\"],\"ThemeProvider\"]\n4:I[3952,[\"177\",\"static/chunks/app/layout-86465bc224ae2e10.js\"],\"GitHubPagesRedirect\"]\n5:I[9507,[],\"\"]\n6:I[2639,[],\"\"]\n9:I[1432,[],\"OutletBoundary\"]\nb:I[1432,[],\"MetadataBoundary\"]\nd:I[1432,[],\"ViewportBoundary\"]\nf:I[9398,[],\"\"]\n:HL[\"/modern-vector.js/_next/static/media/119cf01b445a4dc3-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/modern-vector.js/_next/static/media/12f0acdcae926a24-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/modern-vector.js/_next/static/media/4aeaaf124a5054bc-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/modern-vector.js/_next/static/media/b6885b7a9c09d162-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/modern-vector.js/_next/static/media/cfa29e4f0aabf12a-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/modern-vector.js/_next/static/media/dd3e76c51ce1a360-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/modern-vector.js/_next/static/media/e00e15f44d7b58c0-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/modern-vector.js/_next/static/media/e725ed3d1f6bc360-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/modern-vector.js/_next/static/media/fc2b22d5c5b14cbb-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/modern-vector.js/_next/static/css/a0071d00f84115dd.css\",\"style\"]\n2:T1281,"])</script><script>self.__next_f.push([1,"\n            /* 다크 모드에서 highlight.js 스타일 */\n            .dark .hljs {\n              background: #1e1e1e;\n              color: #dcdcdc;\n            }\n            .dark .hljs-keyword,\n            .dark .hljs-selector-tag,\n            .dark .hljs-tag,\n            .dark .hljs-name {\n              color: #569cd6;\n            }\n            .dark .hljs-attribute,\n            .dark .hljs-literal,\n            .dark .hljs-number,\n            .dark .hljs-keyword {\n              color: #b5cea8;\n            }\n            .dark .hljs-string,\n            .dark .hljs-doctag {\n              color: #ce9178;\n            }\n            .dark .hljs-built_in,\n            .dark .hljs-builtin-name {\n              color: #4ec9b0;\n            }\n            .dark .hljs-comment,\n            .dark .hljs-quote {\n              color: #6a9955;\n            }\n            \n            /* 코드 블록 스타일 개선 */\n            .prose pre {\n              margin: 1.5em 0;\n              border-radius: 0.375rem;\n              padding: 1rem;\n              overflow-x: auto;\n            }\n            \n            .prose code {\n              font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace;\n              font-size: 0.9em;\n            }\n            \n            /* 링크 스타일 개선 */\n            .prose a {\n              text-decoration: none;\n              transition: color 0.2s ease;\n            }\n            \n            .prose a:hover {\n              text-decoration: underline;\n            }\n            \n            /* 테이블 스타일 개선 */\n            .prose table {\n              width: 100%;\n              border-collapse: collapse;\n              margin: 1.5em 0;\n            }\n            \n            .prose table th,\n            .prose table td {\n              padding: 0.75rem;\n              border: 1px solid hsl(var(--border));\n            }\n            \n            .prose table th {\n              background-color: hsl(var(--muted));\n              font-weight: 600;\n            }\n            \n            .dark .prose table th {\n              background-color: hsl(var(--muted));\n            }\n            \n            /* 헤더 스타일 개선 */\n            .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {\n              scroll-margin-top: 5rem;\n              position: relative;\n            }\n            \n            .prose h1 {\n              font-size: 2.25rem;\n              margin-top: 2.5rem;\n              margin-bottom: 1.5rem;\n              font-weight: 700;\n            }\n            \n            .prose h2 {\n              font-size: 1.875rem;\n              margin-top: 2rem;\n              margin-bottom: 1rem;\n              font-weight: 600;\n              border-bottom: 1px solid hsl(var(--border));\n              padding-bottom: 0.5rem;\n            }\n            \n            .prose h3 {\n              font-size: 1.5rem;\n              margin-top: 1.5rem;\n              margin-bottom: 0.75rem;\n              font-weight: 600;\n            }\n            \n            /* 목록 스타일 개선 */\n            .prose ul, .prose ol {\n              margin: 1.25em 0;\n              padding-left: 1.625em;\n            }\n            \n            .prose li {\n              margin-bottom: 0.5em;\n            }\n            \n            /* 인용구 스타일 개선 */\n            .prose blockquote {\n              border-left: 4px solid hsl(var(--border));\n              padding-left: 1rem;\n              font-style: italic;\n              margin: 1.5em 0;\n              color: hsl(var(--muted-foreground));\n            }\n            \n            /* 다크 모드 텍스트 색상 개선 */\n            .dark .prose {\n              color: hsl(var(--foreground));\n            }\n            \n            .dark .prose h1,\n            .dark .prose h2,\n            .dark .prose h3,\n            .dark .prose h4,\n            .dark .prose h5,\n            .dark .prose h6 {\n              color: hsl(var(--foreground));\n            }\n            \n            .dark .prose p,\n            .dark .prose ul,\n            .dark .prose ol,\n            .dark .prose li {\n              color: hsl(var(--foreground));\n            }\n            \n            .dark .prose strong {\n              color: hsl(var(--foreground));\n            }\n            \n            .dark .prose table td {\n              color: hsl(var(--foreground));\n            }\n            \n            .dark .prose table th {\n              color: hsl(var(--foreground));\n            }\n            \n            /* 다크 모드에서 API 네비게이션 스타일 */\n            .dark .api-nav-link {\n              color: hsl(var(--foreground));\n            }\n          "])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"b\":\"6sp2ENyHN8Im5U1B7fgQ_\",\"p\":\"/modern-vector.js\",\"c\":[\"\",\"docs\",\"deployment\",\"github-pages\"],\"i\":false,\"f\":[[[\"\",{\"children\":[\"docs\",{\"children\":[[\"slug\",\"deployment/github-pages\",\"c\"],{\"children\":[\"__PAGE__\",{}]}]}]},\"$undefined\",\"$undefined\",true],[\"\",[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/modern-vector.js/_next/static/css/a0071d00f84115dd.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}]],[\"$\",\"html\",null,{\"lang\":\"ko\",\"suppressHydrationWarning\":true,\"className\":\"__variable_c60a13\",\"children\":[[\"$\",\"head\",null,{\"children\":[\"$\",\"style\",null,{\"children\":\"$2\"}]}],[\"$\",\"body\",null,{\"className\":\"font-pretendard\",\"children\":[\"$\",\"$L3\",null,{\"attribute\":\"class\",\"defaultTheme\":\"system\",\"enableSystem\":true,\"disableTransitionOnChange\":true,\"children\":[[\"$\",\"$L4\",null,{}],[\"$\",\"$L5\",null,{\"parallelRouterKey\":\"children\",\"segmentPath\":[\"children\"],\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L6\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[],[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}]}]]}]]}],{\"children\":[\"docs\",[\"$\",\"$1\",\"c\",{\"children\":[null,\"$L7\"]}],{\"children\":[[\"slug\",\"deployment/github-pages\",\"c\"],[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L5\",null,{\"parallelRouterKey\":\"children\",\"segmentPath\":[\"children\",\"docs\",\"children\",\"$0:f:0:1:2:children:2:children:0\",\"children\"],\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L6\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[\"__PAGE__\",[\"$\",\"$1\",\"c\",{\"children\":[\"$L8\",null,[\"$\",\"$L9\",null,{\"children\":\"$La\"}]]}],{},null,false]},null,false]},null,false]},null,false],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$1\",\"kJ11nsDCtbnIa0SzJMfg8\",{\"children\":[[\"$\",\"$Lb\",null,{\"children\":\"$Lc\"}],[\"$\",\"$Ld\",null,{\"children\":\"$Le\"}],[\"$\",\"meta\",null,{\"name\":\"next-size-adjust\",\"content\":\"\"}]]}]]}],false]],\"m\":\"$undefined\",\"G\":[\"$f\",\"$undefined\"],\"s\":false,\"S\":true}\n"])</script><script>self.__next_f.push([1,"10:I[4763,[\"770\",\"static/chunks/770-57321866e8f48bfb.js\",\"816\",\"static/chunks/816-eea2b2ef59921a13.js\",\"508\",\"static/chunks/508-5bb57ed481e1e5a5.js\",\"435\",\"static/chunks/435-ef317aca933735f6.js\",\"499\",\"static/chunks/app/docs/layout-d625de0b562528ec.js\"],\"MobileNav\"]\n11:I[5770,[\"770\",\"static/chunks/770-57321866e8f48bfb.js\",\"816\",\"static/chunks/816-eea2b2ef59921a13.js\",\"40\",\"static/chunks/app/docs/page-4fe432206ff5e2d2.js\"],\"\"]\n12:I[2000,[\"770\",\"static/chunks/770-57321866e8f48bfb.js\",\"816\",\"static/chunks/816-eea2b2ef59921a13.js\",\"508\",\"static/chunks/508-5bb57ed481e1e5a5.js\",\"435\",\"static/chunks/435-ef317aca933735f6.js\",\"499\",\"static/chunks/app/docs/layout-d625de0b562528ec.js\"],\"DocsNavigation\"]\n"])</script><script>self.__next_f.push([1,"7:[\"$\",\"div\",null,{\"className\":\"flex min-h-screen flex-col\",\"children\":[[\"$\",\"header\",null,{\"className\":\"sticky top-0 z-40 w-full border-b bg-background\",\"children\":[\"$\",\"div\",null,{\"className\":\"container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0\",\"children\":[[\"$\",\"div\",null,{\"className\":\"flex items-center space-x-4\",\"children\":[[\"$\",\"$L10\",null,{\"currentSlug\":\"$undefined\"}],[\"$\",\"$L11\",null,{\"href\":\"/\",\"className\":\"flex items-center space-x-2\",\"children\":[\"$\",\"span\",null,{\"className\":\"inline-block font-bold\",\"children\":\"Modern Vector.js\"}]}]]}],[\"$\",\"nav\",null,{\"className\":\"hidden md:flex gap-6\",\"children\":[[\"$\",\"$L11\",null,{\"href\":\"/docs\",\"className\":\"flex items-center text-sm font-medium text-foreground transition-colors hover:text-foreground\",\"children\":\"Documentation\"}],[\"$\",\"$L11\",null,{\"href\":\"/api-docs\",\"className\":\"flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground\",\"children\":\"API Reference\"}],[\"$\",\"$L11\",null,{\"href\":\"/examples\",\"className\":\"flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground\",\"children\":\"Examples\"}]]}]]}]}],[\"$\",\"div\",null,{\"className\":\"container flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10 py-8\",\"children\":[[\"$\",\"aside\",null,{\"className\":\"fixed top-24 z-30 -ml-2 hidden h-[calc(100vh-6rem)] w-full shrink-0 md:sticky md:block\",\"children\":[\"$\",\"div\",null,{\"className\":\"h-full py-6 pr-6 lg:py-8\",\"children\":[\"$\",\"$L12\",null,{\"currentSlug\":\"$undefined\"}]}]}],[\"$\",\"main\",null,{\"className\":\"relative py-6 lg:gap-10 lg:py-8\",\"children\":[\"$\",\"$L5\",null,{\"parallelRouterKey\":\"children\",\"segmentPath\":[\"children\",\"docs\",\"children\"],\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L6\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}],[\"$\",\"footer\",null,{\"className\":\"border-t py-6 md:py-0\",\"children\":[\"$\",\"div\",null,{\"className\":\"container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row\",\"children\":[\"$\",\"p\",null,{\"className\":\"text-center text-sm leading-loose text-muted-foreground md:text-left\",\"children\":\"Built with Next.js, Tailwind CSS, and shadcn/ui.\"}]}]}]]}]\n"])</script><script>self.__next_f.push([1,"8:[\"$\",\"div\",null,{\"className\":\"max-w-3xl mx-auto\",\"children\":[[\"$\",\"h1\",null,{\"className\":\"text-3xl font-bold mb-4\",\"children\":\"GitHub Pages 배포\"}],[\"$\",\"p\",null,{\"className\":\"text-muted-foreground mb-8\",\"children\":\"Modern Vector.js 문서 사이트를 GitHub Pages에 배포하는 방법\"}],[\"$\",\"div\",null,{\"className\":\"prose dark:prose-invert max-w-none\",\"children\":\"$L13\"}]]}]\n"])</script><script>self.__next_f.push([1,"14:T515,name: Deploy Docs to GitHub Pages\n\non:\n  push:\n    branches: [ main ]\n  workflow_dispatch:\n\npermissions:\n  contents: read\n  pages: write\n  id-token: write\n\nconcurrency:\n  group: \"pages\"\n  cancel-in-progress: false\n\njobs:\n  build:\n    runs-on: ubuntu-latest\n    steps:\n      - name: Checkout\n        uses: actions/checkout@v4\n      \n      - name: Setup Node.js\n        uses: actions/setup-node@v4\n        with:\n          node-version: '20'\n      \n      - name: Setup pnpm\n        uses: pnpm/action-setup@v2\n        with:\n          version: 8\n          run_install: false\n      \n      - name: Install dependencies\n        run: pnpm install --no-frozen-lockfile\n      \n      - name: Build core package\n        run: cd packages/core \u0026\u0026 pnpm build\n      \n      - name: Build docs site\n        run: cd packages/docs-site \u0026\u0026 pnpm build\n      \n      - name: Setup Pages\n        uses: actions/configure-pages@v3\n      \n      - name: Upload artifact\n        uses: actions/upload-pages-artifact@v3\n        with:\n          path: ./packages/docs-site/dist\n\n  deploy:\n    environment:\n      name: github-pages\n      url: ${{ steps.deployment.outputs.page_url }}\n    runs-on: ubuntu-latest\n    needs: build\n    steps:\n      - name: Deploy to GitHub Pages\n        id: deployment\n        uses: actions/deploy-pages@v2\n15:T518,\u003c!DOCTYPE html\u003e\n\u003chtml lang=\"en\"\u003e\n\u003chead\u003e\n  \u003cmeta charset=\"UTF-8\"\u003e\n  \u003cmeta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"\u003e\n  \u003ctitle\u003ePage Not Found\u003c/title\u003e\n  \u003cscript\u003e\n    // SPA를 위한 리다이렉션 스크립트\n    (function() {\n      // 현재 URL 가져오기\n      var location = window.location;\n      var pathname = location.pathname;\n      \n      // 저장소 이름 (GitHub Pages 경로)\n      var repoName = 'modern-vector.js';\n      \n      // 저장소 이름으로 시작하는 경로인지 확인\n      var pathSegments = pathname.split('/');\n      var isInRepo = pathSegments[1] === repoName;\n      \n      // 새 URL 구성\n      var redirectUrl = location.origin;\n      \n      if (isInRepo) {\n     "])</script><script>self.__next_f.push([1,"   redirectUrl += '/' + repoName;\n        \n        // 쿼리 파라미터로 원래 경로 전달\n        var path = pathname.replace('/' + repoName, '');\n        if (path) {\n          redirectUrl += '?path=' + encodeURIComponent(path);\n        }\n      }\n      \n      // 리다이렉션\n      window.location.replace(redirectUrl);\n    })();\n  \u003c/script\u003e\n\u003c/head\u003e\n\u003cbody\u003e\n  \u003cdiv class=\"container\"\u003e\n    \u003ch1\u003e페이지를 찾을 수 없습니다\u003c/h1\u003e\n    \u003cp\u003e요청하신 페이지를 찾을 수 없습니다. 홈페이지로 리다이렉션됩니다.\u003c/p\u003e\n  \u003c/div\u003e\n\u003c/body\u003e\n\u003c/html\u003e\n"])</script><script>self.__next_f.push([1,"13:[[\"$\",\"h1\",null,{\"children\":\"GitHub Pages 배포\"}],\"\\n\",[\"$\",\"p\",null,{\"children\":\"Modern Vector.js 문서 사이트는 GitHub Pages를 통해 배포됩니다. 이 문서에서는 GitHub Pages 배포 설정 방법과 자동화된 배포 워크플로우에 대해 설명합니다.\"}],\"\\n\",[\"$\",\"h2\",null,{\"children\":\"배포 설정\"}],\"\\n\",[\"$\",\"h3\",null,{\"children\":\"GitHub Actions 워크플로우\"}],\"\\n\",[\"$\",\"p\",null,{\"children\":[\"Modern Vector.js는 GitHub Actions를 사용하여 문서 사이트를 자동으로 빌드하고 GitHub Pages에 배포합니다. 워크플로우 설정은 \",[\"$\",\"code\",null,{\"children\":\".github/workflows/deploy-docs.yml\"}],\" 파일에 정의되어 있습니다.\"]}],\"\\n\",[\"$\",\"pre\",null,{\"children\":[\"$\",\"code\",null,{\"className\":\"language-yaml\",\"children\":\"$14\"}]}],\"\\n\",[\"$\",\"p\",null,{\"children\":\"이 워크플로우는 다음과 같은 작업을 수행합니다:\"}],\"\\n\",[\"$\",\"ol\",null,{\"children\":[\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"code\",null,{\"children\":\"main\"}],\" 브랜치에 푸시하거나 수동으로 워크플로우를 트리거할 때 실행됩니다.\"]}],\"\\n\",[\"$\",\"li\",null,{\"children\":\"저장소를 체크아웃하고 Node.js와 pnpm을 설정합니다.\"}],\"\\n\",[\"$\",\"li\",null,{\"children\":\"의존성을 설치하고 core 패키지와 docs-site 패키지를 빌드합니다.\"}],\"\\n\",[\"$\",\"li\",null,{\"children\":\"빌드된 문서 사이트를 GitHub Pages에 배포합니다.\"}],\"\\n\"]}],\"\\n\",[\"$\",\"h3\",null,{\"children\":\"Next.js 설정\"}],\"\\n\",[\"$\",\"p\",null,{\"children\":[\"GitHub Pages에서 Next.js 애플리케이션을 올바르게 실행하려면 \",[\"$\",\"code\",null,{\"children\":\"next.config.js\"}],\" 파일에 다음과 같은 설정이 필요합니다:\"]}],\"\\n\",[\"$\",\"pre\",null,{\"children\":[\"$\",\"code\",null,{\"className\":\"language-javascript\",\"children\":\"/** @type {import('next').NextConfig} */\\nconst nextConfig = {\\n  output: 'export',\\n  distDir: 'dist',\\n  images: {\\n    unoptimized: true,\\n  },\\n  basePath: process.env.NODE_ENV === 'production' ? '/modern-vector.js' : '',\\n  assetPrefix: process.env.NODE_ENV === 'production' ? '/modern-vector.js/' : '',\\n};\\n\\nmodule.exports = nextConfig;\\n\"}]}],\"\\n\",[\"$\",\"ul\",null,{\"children\":[\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"code\",null,{\"children\":\"output: 'export'\"}],\": 정적 HTML 파일로 내보내기\"]}],\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"code\",null,{\"children\":\"distDir: 'dist'\"}],\": 빌드 결과물을 \",[\"$\",\"code\",null,{\"children\":\"dist\"}],\" 디렉토리에 저장\"]}],\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"code\",null,{\"children\":\"basePath\"}],\": GitHub Pages의 저장소 이름에 맞게 기본 경로 설정\"]}],\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"code\",null,{\"children\":\"assetPrefix\"}],\": 정적 자산(CSS, JavaScript 등)의 경로 접두사 설정\"]}],\"\\n\"]}],\"\\n\",[\"$\",\"h2\",null,{\"children\":\"SPA 라우팅 지원\"}],\"\\n\",[\"$\",\"p\",null,{\"children\":\"GitHub Pages는 기본적으로 SPA(Single Page Application) 라우팅을 지원하지 않습니다. 이를 해결하기 위해 다음과 같은 설정이 필요합니다:\"}],\"\\n\",[\"$\",\"h3\",null,{\"children\":\"404.html 페이지\"}],\"\\n\",[\"$\",\"p\",null,{\"children\":[[\"$\",\"code\",null,{\"children\":\"public/404.html\"}],\" 파일을 생성하여 클라이언트 측 라우팅을 지원합니다:\"]}],\"\\n\",[\"$\",\"pre\",null,{\"children\":[\"$\",\"code\",null,{\"className\":\"language-html\",\"children\":\"$15\"}]}],\"\\n\",[\"$\",\"h3\",null,{\"children\":\"GitHubPagesRedirect 컴포넌트\"}],\"\\n\",[\"$\",\"p\",null,{\"children\":[[\"$\",\"code\",null,{\"children\":\"src/components/github-pages-redirect.tsx\"}],\" 파일을 생성하여 404 페이지에서 전달된 경로로 리다이렉션합니다:\"]}],\"\\n\",[\"$\",\"pre\",null,{\"children\":[\"$\",\"code\",null,{\"className\":\"language-tsx\",\"children\":\"'use client';\\n\\nimport { useEffect } from 'react';\\nimport { useRouter, useSearchParams } from 'next/navigation';\\n\\n/**\\n * GitHub Pages에서 SPA 라우팅을 지원하기 위한 리다이렉션 컴포넌트\\n * 404.html에서 전달된 path 파라미터를 사용하여 적절한 경로로 리다이렉션합니다.\\n */\\nexport function GitHubPagesRedirect() {\\n  const router = useRouter();\\n  const searchParams = useSearchParams();\\n  \\n  useEffect(() =\u003e {\\n    // URL에서 path 파라미터 확인\\n    const path = searchParams.get('path');\\n    \\n    // path 파라미터가 있으면 해당 경로로 리다이렉션\\n    if (path) {\\n      router.replace(path);\\n    }\\n  }, [router, searchParams]);\\n  \\n  // 이 컴포넌트는 UI를 렌더링하지 않음\\n  return null;\\n}\\n\"}]}],\"\\n\",[\"$\",\"h3\",null,{\"children\":\"레이아웃에 컴포넌트 추가\"}],\"\\n\",[\"$\",\"p\",null,{\"children\":[[\"$\",\"code\",null,{\"children\":\"src/app/layout.tsx\"}],\" 파일에 \",[\"$\",\"code\",null,{\"children\":\"GitHubPagesRedirect\"}],\" 컴포넌트를 추가합니다:\"]}],\"\\n\",[\"$\",\"pre\",null,{\"children\":[\"$\",\"code\",null,{\"className\":\"language-tsx\",\"children\":\"import { GitHubPagesRedirect } from '@/components/github-pages-redirect';\\n\\nexport default function RootLayout({\\n  children,\\n}: {\\n  children: React.ReactNode;\\n}) {\\n  return (\\n    \u003chtml lang=\\\"en\\\"\u003e\\n      \u003cbody\u003e\\n        \u003cGitHubPagesRedirect /\u003e\\n        {children}\\n      \u003c/body\u003e\\n    \u003c/html\u003e\\n  );\\n}\\n\"}]}],\"\\n\",[\"$\",\"h2\",null,{\"children\":\"GitHub Pages 설정\"}],\"\\n\",[\"$\",\"p\",null,{\"children\":\"GitHub 저장소 설정에서 Pages 기능을 활성화하고 배포 소스를 설정해야 합니다:\"}],\"\\n\",[\"$\",\"ol\",null,{\"children\":[\"\\n\",[\"$\",\"li\",null,{\"children\":\"GitHub 저장소 페이지로 이동\"}],\"\\n\",[\"$\",\"li\",null,{\"children\":\"\\\"Settings\\\" 탭 클릭\"}],\"\\n\",[\"$\",\"li\",null,{\"children\":\"왼쪽 사이드바에서 \\\"Pages\\\" 클릭\"}],\"\\n\",[\"$\",\"li\",null,{\"children\":[\"\\\"Build and deployment\\\" 섹션에서:\",\"\\n\",[\"$\",\"ul\",null,{\"children\":[\"\\n\",[\"$\",\"li\",null,{\"children\":\"Source: \\\"GitHub Actions\\\"를 선택\"}],\"\\n\"]}],\"\\n\"]}],\"\\n\"]}],\"\\n\",[\"$\",\"h2\",null,{\"children\":\"수동 배포\"}],\"\\n\",[\"$\",\"p\",null,{\"children\":\"GitHub Actions 워크플로우를 수동으로 트리거하여 문서 사이트를 배포할 수 있습니다:\"}],\"\\n\",[\"$\",\"ol\",null,{\"children\":[\"\\n\",[\"$\",\"li\",null,{\"children\":\"GitHub 저장소의 \\\"Actions\\\" 탭으로 이동\"}],\"\\n\",[\"$\",\"li\",null,{\"children\":\"왼쪽 사이드바에서 \\\"Deploy Docs to GitHub Pages\\\" 워크플로우 선택\"}],\"\\n\",[\"$\",\"li\",null,{\"children\":\"오른쪽 상단의 \\\"Run workflow\\\" 버튼 클릭\"}],\"\\n\",[\"$\",\"li\",null,{\"children\":\"\\\"Run workflow\\\" 대화 상자에서 \\\"Run workflow\\\" 버튼 클릭\"}],\"\\n\"]}],\"\\n\",[\"$\",\"h2\",null,{\"children\":\"배포 확인\"}],\"\\n\",[\"$\",\"p\",null,{\"children\":[\"배포가 완료되면 \",[\"$\",\"code\",null,{\"children\":\"https://username.github.io/modern-vector.js/\"}],\" 주소에서 문서 사이트를 확인할 수 있습니다.\"]}],\"\\n\",[\"$\",\"h2\",null,{\"children\":\"문제 해결\"}],\"\\n\",[\"$\",\"h3\",null,{\"children\":\"404 오류\"}],\"\\n\",[\"$\",\"p\",null,{\"children\":\"GitHub Pages에서 404 오류가 발생하는 경우:\"}],\"\\n\",[\"$\",\"ol\",null,{\"children\":[\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"code\",null,{\"children\":\".github/workflows/deploy-docs.yml\"}],\" 파일이 올바르게 설정되어 있는지 확인\"]}],\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"code\",null,{\"children\":\"next.config.js\"}],\" 파일에서 \",[\"$\",\"code\",null,{\"children\":\"basePath\"}],\"와 \",[\"$\",\"code\",null,{\"children\":\"assetPrefix\"}],\"가 올바르게 설정되어 있는지 확인\"]}],\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"code\",null,{\"children\":\"public/404.html\"}],\" 파일이 존재하고 올바르게 설정되어 있는지 확인\"]}],\"\\n\",[\"$\",\"li\",null,{\"children\":\"GitHub 저장소 설정에서 Pages 기능이 활성화되어 있는지 확인\"}],\"\\n\"]}],\"\\n\",[\"$\",\"h3\",null,{\"children\":\"정적 자산 로드 실패\"}],\"\\n\",[\"$\",\"p\",null,{\"children\":\"정적 자산(CSS, JavaScript 등)이 로드되지 않는 경우:\"}],\"\\n\",[\"$\",\"ol\",null,{\"children\":[\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"code\",null,{\"children\":\"next.config.js\"}],\" 파일에서 \",[\"$\",\"code\",null,{\"children\":\"assetPrefix\"}],\"가 올바르게 설정되어 있는지 확인\"]}],\"\\n\",[\"$\",\"li\",null,{\"children\":\"브라우저 개발자 도구에서 네트워크 탭을 확인하여 정적 자산의 URL이 올바른지 확인\"}],\"\\n\"]}],\"\\n\",[\"$\",\"h3\",null,{\"children\":\"클라이언트 측 라우팅 문제\"}],\"\\n\",[\"$\",\"p\",null,{\"children\":\"클라이언트 측 라우팅이 작동하지 않는 경우:\"}],\"\\n\",[\"$\",\"ol\",null,{\"children\":[\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"code\",null,{\"children\":\"public/404.html\"}],\" 파일이 올바르게 설정되어 있는지 확인\"]}],\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"code\",null,{\"children\":\"src/components/github-pages-redirect.tsx\"}],\" 파일이 올바르게 구현되어 있는지 확인\"]}],\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"code\",null,{\"children\":\"src/app/layout.tsx\"}],\" 파일에 \",[\"$\",\"code\",null,{\"children\":\"GitHubPagesRedirect\"}],\" 컴포넌트가 추가되어 있는지 확인\"]}],\"\\n\"]}]]\n"])</script><script>self.__next_f.push([1,"e:[[\"$\",\"meta\",\"0\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\nc:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"title\",\"1\",{\"children\":\"Modern Vector.js Documentation\"}],[\"$\",\"meta\",\"2\",{\"name\":\"description\",\"content\":\"Documentation for Modern Vector.js - A Modern Vector Graphics Library with Plugin System\"}]]\n"])</script><script>self.__next_f.push([1,"a:null\n"])</script></body></html>

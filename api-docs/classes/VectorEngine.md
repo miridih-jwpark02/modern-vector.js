@@ -11,7 +11,7 @@ category: classes
 
 # Class: VectorEngine
 
-Defined in: [engine.ts:9](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/engine.ts#L9)
+Defined in: [engine.ts:9](https://github.com/miridih-jwpark02/modern-vector.js/blob/5221f2fc49f67dd4433b667bc6d0e95a648486aa/packages/core/src/core/engine.ts#L9)
 
 Vector Graphics Engine implementation
 
@@ -25,7 +25,7 @@ Vector Graphics Engine implementation
 
 > **new VectorEngine**(): [`VectorEngine`](VectorEngine.md)
 
-Defined in: [engine.ts:16](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/engine.ts#L16)
+Defined in: [engine.ts:16](https://github.com/miridih-jwpark02/modern-vector.js/blob/5221f2fc49f67dd4433b667bc6d0e95a648486aa/packages/core/src/core/engine.ts#L16)
 
 #### Returns
 
@@ -37,7 +37,7 @@ Defined in: [engine.ts:16](https://github.com/miridih-jwpark02/modern-vector.js/
 
 > `readonly` **events**: [`EventService`](../interfaces/EventService.md)
 
-Defined in: [engine.ts:13](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/engine.ts#L13)
+Defined in: [engine.ts:13](https://github.com/miridih-jwpark02/modern-vector.js/blob/5221f2fc49f67dd4433b667bc6d0e95a648486aa/packages/core/src/core/engine.ts#L13)
 
 Event service
 
@@ -51,7 +51,7 @@ Event service
 
 > `readonly` **renderer**: [`RendererService`](../interfaces/RendererService.md)
 
-Defined in: [engine.ts:12](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/engine.ts#L12)
+Defined in: [engine.ts:12](https://github.com/miridih-jwpark02/modern-vector.js/blob/5221f2fc49f67dd4433b667bc6d0e95a648486aa/packages/core/src/core/engine.ts#L12)
 
 Renderer service
 
@@ -65,7 +65,7 @@ Renderer service
 
 > `readonly` **scene**: [`SceneService`](../interfaces/SceneService.md)
 
-Defined in: [engine.ts:14](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/engine.ts#L14)
+Defined in: [engine.ts:14](https://github.com/miridih-jwpark02/modern-vector.js/blob/5221f2fc49f67dd4433b667bc6d0e95a648486aa/packages/core/src/core/engine.ts#L14)
 
 Scene service
 
@@ -79,7 +79,7 @@ Scene service
 
 > **getPlugin**\<`T`\>(`id`): `null` \| `T`
 
-Defined in: [engine.ts:66](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/engine.ts#L66)
+Defined in: [engine.ts:66](https://github.com/miridih-jwpark02/modern-vector.js/blob/5221f2fc49f67dd4433b667bc6d0e95a648486aa/packages/core/src/core/engine.ts#L66)
 
 Get a plugin by ID
 
@@ -111,7 +111,7 @@ The plugin instance or null if not found
 
 > **remove**(`pluginId`): `void`
 
-Defined in: [engine.ts:46](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/engine.ts#L46)
+Defined in: [engine.ts:46](https://github.com/miridih-jwpark02/modern-vector.js/blob/5221f2fc49f67dd4433b667bc6d0e95a648486aa/packages/core/src/core/engine.ts#L46)
 
 Remove a plugin from the engine
 
@@ -137,7 +137,7 @@ ID of the plugin to remove
 
 > **use**(`plugin`): `void`
 
-Defined in: [engine.ts:27](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/engine.ts#L27)
+Defined in: [engine.ts:27](https://github.com/miridih-jwpark02/modern-vector.js/blob/5221f2fc49f67dd4433b667bc6d0e95a648486aa/packages/core/src/core/engine.ts#L27)
 
 Install a plugin into the engine
 

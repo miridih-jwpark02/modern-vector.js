@@ -1,0 +1,190 @@
+1:"$Sreact.fragment"
+3:I[9638,["177","static/chunks/app/layout-86465bc224ae2e10.js"],"ThemeProvider"]
+4:I[3952,["177","static/chunks/app/layout-86465bc224ae2e10.js"],"GitHubPagesRedirect"]
+5:I[9507,[],""]
+6:I[2639,[],""]
+9:I[1432,[],"OutletBoundary"]
+b:I[1432,[],"MetadataBoundary"]
+d:I[1432,[],"ViewportBoundary"]
+f:I[9398,[],""]
+:HL["/modern-vector.js/_next/static/media/119cf01b445a4dc3-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/modern-vector.js/_next/static/media/12f0acdcae926a24-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/modern-vector.js/_next/static/media/4aeaaf124a5054bc-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/modern-vector.js/_next/static/media/b6885b7a9c09d162-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/modern-vector.js/_next/static/media/cfa29e4f0aabf12a-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/modern-vector.js/_next/static/media/dd3e76c51ce1a360-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/modern-vector.js/_next/static/media/e00e15f44d7b58c0-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/modern-vector.js/_next/static/media/e725ed3d1f6bc360-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/modern-vector.js/_next/static/media/fc2b22d5c5b14cbb-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/modern-vector.js/_next/static/css/a0071d00f84115dd.css","style"]
+2:T1281,
+            /* 다크 모드에서 highlight.js 스타일 */
+            .dark .hljs {
+              background: #1e1e1e;
+              color: #dcdcdc;
+            }
+            .dark .hljs-keyword,
+            .dark .hljs-selector-tag,
+            .dark .hljs-tag,
+            .dark .hljs-name {
+              color: #569cd6;
+            }
+            .dark .hljs-attribute,
+            .dark .hljs-literal,
+            .dark .hljs-number,
+            .dark .hljs-keyword {
+              color: #b5cea8;
+            }
+            .dark .hljs-string,
+            .dark .hljs-doctag {
+              color: #ce9178;
+            }
+            .dark .hljs-built_in,
+            .dark .hljs-builtin-name {
+              color: #4ec9b0;
+            }
+            .dark .hljs-comment,
+            .dark .hljs-quote {
+              color: #6a9955;
+            }
+            
+            /* 코드 블록 스타일 개선 */
+            .prose pre {
+              margin: 1.5em 0;
+              border-radius: 0.375rem;
+              padding: 1rem;
+              overflow-x: auto;
+            }
+            
+            .prose code {
+              font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+              font-size: 0.9em;
+            }
+            
+            /* 링크 스타일 개선 */
+            .prose a {
+              text-decoration: none;
+              transition: color 0.2s ease;
+            }
+            
+            .prose a:hover {
+              text-decoration: underline;
+            }
+            
+            /* 테이블 스타일 개선 */
+            .prose table {
+              width: 100%;
+              border-collapse: collapse;
+              margin: 1.5em 0;
+            }
+            
+            .prose table th,
+            .prose table td {
+              padding: 0.75rem;
+              border: 1px solid hsl(var(--border));
+            }
+            
+            .prose table th {
+              background-color: hsl(var(--muted));
+              font-weight: 600;
+            }
+            
+            .dark .prose table th {
+              background-color: hsl(var(--muted));
+            }
+            
+            /* 헤더 스타일 개선 */
+            .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+              scroll-margin-top: 5rem;
+              position: relative;
+            }
+            
+            .prose h1 {
+              font-size: 2.25rem;
+              margin-top: 2.5rem;
+              margin-bottom: 1.5rem;
+              font-weight: 700;
+            }
+            
+            .prose h2 {
+              font-size: 1.875rem;
+              margin-top: 2rem;
+              margin-bottom: 1rem;
+              font-weight: 600;
+              border-bottom: 1px solid hsl(var(--border));
+              padding-bottom: 0.5rem;
+            }
+            
+            .prose h3 {
+              font-size: 1.5rem;
+              margin-top: 1.5rem;
+              margin-bottom: 0.75rem;
+              font-weight: 600;
+            }
+            
+            /* 목록 스타일 개선 */
+            .prose ul, .prose ol {
+              margin: 1.25em 0;
+              padding-left: 1.625em;
+            }
+            
+            .prose li {
+              margin-bottom: 0.5em;
+            }
+            
+            /* 인용구 스타일 개선 */
+            .prose blockquote {
+              border-left: 4px solid hsl(var(--border));
+              padding-left: 1rem;
+              font-style: italic;
+              margin: 1.5em 0;
+              color: hsl(var(--muted-foreground));
+            }
+            
+            /* 다크 모드 텍스트 색상 개선 */
+            .dark .prose {
+              color: hsl(var(--foreground));
+            }
+            
+            .dark .prose h1,
+            .dark .prose h2,
+            .dark .prose h3,
+            .dark .prose h4,
+            .dark .prose h5,
+            .dark .prose h6 {
+              color: hsl(var(--foreground));
+            }
+            
+            .dark .prose p,
+            .dark .prose ul,
+            .dark .prose ol,
+            .dark .prose li {
+              color: hsl(var(--foreground));
+            }
+            
+            .dark .prose strong {
+              color: hsl(var(--foreground));
+            }
+            
+            .dark .prose table td {
+              color: hsl(var(--foreground));
+            }
+            
+            .dark .prose table th {
+              color: hsl(var(--foreground));
+            }
+            
+            /* 다크 모드에서 API 네비게이션 스타일 */
+            .dark .api-nav-link {
+              color: hsl(var(--foreground));
+            }
+          0:{"P":null,"b":"6sp2ENyHN8Im5U1B7fgQ_","p":"/modern-vector.js","c":["","docs","api-docs","generation"],"i":false,"f":[[["",{"children":["docs",{"children":[["slug","api-docs/generation","c"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/modern-vector.js/_next/static/css/a0071d00f84115dd.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"ko","suppressHydrationWarning":true,"className":"__variable_c60a13","children":[["$","head",null,{"children":["$","style",null,{"children":"$2"}]}],["$","body",null,{"className":"font-pretendard","children":["$","$L3",null,{"attribute":"class","defaultTheme":"system","enableSystem":true,"disableTransitionOnChange":true,"children":[["$","$L4",null,{}],["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[],[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]]],"forbidden":"$undefined","unauthorized":"$undefined"}]]}]}]]}]]}],{"children":["docs",["$","$1","c",{"children":[null,"$L7"]}],{"children":[["slug","api-docs/generation","c"],["$","$1","c",{"children":[null,["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","docs","children","$0:f:0:1:2:children:2:children:0","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":["__PAGE__",["$","$1","c",{"children":["$L8",null,["$","$L9",null,{"children":"$La"}]]}],{},null,false]},null,false]},null,false]},null,false],["$","$1","h",{"children":[null,["$","$1","flM8cUfbuFeNCim6c2LqY",{"children":[["$","$Lb",null,{"children":"$Lc"}],["$","$Ld",null,{"children":"$Le"}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}]]}],false]],"m":"$undefined","G":["$f","$undefined"],"s":false,"S":true}
+10:I[4763,["770","static/chunks/770-57321866e8f48bfb.js","816","static/chunks/816-eea2b2ef59921a13.js","508","static/chunks/508-5bb57ed481e1e5a5.js","435","static/chunks/435-ef317aca933735f6.js","499","static/chunks/app/docs/layout-d625de0b562528ec.js"],"MobileNav"]
+11:I[5770,["770","static/chunks/770-57321866e8f48bfb.js","816","static/chunks/816-eea2b2ef59921a13.js","40","static/chunks/app/docs/page-4fe432206ff5e2d2.js"],""]
+12:I[2000,["770","static/chunks/770-57321866e8f48bfb.js","816","static/chunks/816-eea2b2ef59921a13.js","508","static/chunks/508-5bb57ed481e1e5a5.js","435","static/chunks/435-ef317aca933735f6.js","499","static/chunks/app/docs/layout-d625de0b562528ec.js"],"DocsNavigation"]
+7:["$","div",null,{"className":"flex min-h-screen flex-col","children":[["$","header",null,{"className":"sticky top-0 z-40 w-full border-b bg-background","children":["$","div",null,{"className":"container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0","children":[["$","div",null,{"className":"flex items-center space-x-4","children":[["$","$L10",null,{"currentSlug":"$undefined"}],["$","$L11",null,{"href":"/","className":"flex items-center space-x-2","children":["$","span",null,{"className":"inline-block font-bold","children":"Modern Vector.js"}]}]]}],["$","nav",null,{"className":"hidden md:flex gap-6","children":[["$","$L11",null,{"href":"/docs","className":"flex items-center text-sm font-medium text-foreground transition-colors hover:text-foreground","children":"Documentation"}],["$","$L11",null,{"href":"/api-docs","className":"flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground","children":"API Reference"}],["$","$L11",null,{"href":"/examples","className":"flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground","children":"Examples"}]]}]]}]}],["$","div",null,{"className":"container flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10 py-8","children":[["$","aside",null,{"className":"fixed top-24 z-30 -ml-2 hidden h-[calc(100vh-6rem)] w-full shrink-0 md:sticky md:block","children":["$","div",null,{"className":"h-full py-6 pr-6 lg:py-8","children":["$","$L12",null,{"currentSlug":"$undefined"}]}]}],["$","main",null,{"className":"relative py-6 lg:gap-10 lg:py-8","children":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","docs","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]}]]}],["$","footer",null,{"className":"border-t py-6 md:py-0","children":["$","div",null,{"className":"container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row","children":["$","p",null,{"className":"text-center text-sm leading-loose text-muted-foreground md:text-left","children":"Built with Next.js, Tailwind CSS, and shadcn/ui."}]}]}]]}]
+8:["$","div",null,{"className":"max-w-3xl mx-auto","children":[["$","h1",null,{"className":"text-3xl font-bold mb-4","children":"API 문서 생성"}],["$","p",null,{"className":"text-muted-foreground mb-8","children":"TypeDoc을 사용하여 Modern Vector.js API 문서를 생성하는 방법"}],["$","div",null,{"className":"prose dark:prose-invert max-w-none","children":"$L13"}]]}]
+13:[["$","h1",null,{"children":"API 문서 생성"}],"\n",["$","p",null,{"children":"Modern Vector.js는 TypeDoc을 사용하여 TypeScript 코드에서 API 문서를 자동으로 생성합니다. 이 문서에서는 API 문서 생성 방법과 문서 사이트에 통합하는 방법에 대해 설명합니다."}],"\n",["$","h2",null,{"children":"TypeDoc 설정"}],"\n",["$","h3",null,{"children":"설치"}],"\n",["$","p",null,{"children":["TypeDoc은 개발 의존성으로 설치되어 있습니다. ",["$","code",null,{"children":"package.json"}]," 파일에 다음과 같이 설정되어 있습니다:"]}],"\n",["$","pre",null,{"children":["$","code",null,{"className":"language-json","children":"{\n  \"devDependencies\": {\n    \"typedoc\": \"^0.25.0\",\n    \"typedoc-plugin-markdown\": \"^3.17.0\"\n  }\n}\n"}]}],"\n",["$","h3",null,{"children":"설정 파일"}],"\n",["$","p",null,{"children":["TypeDoc 설정은 ",["$","code",null,{"children":"packages/core/typedoc.json"}]," 파일에 정의되어 있습니다:"]}],"\n",["$","pre",null,{"children":["$","code",null,{"className":"language-json","children":"{\n  \"entryPoints\": [\"./src/index.ts\"],\n  \"out\": \"../docs-site/public/api-docs\",\n  \"plugin\": [\"typedoc-plugin-markdown\"],\n  \"theme\": \"markdown\",\n  \"readme\": \"none\",\n  \"excludePrivate\": true,\n  \"excludeProtected\": true,\n  \"excludeInternal\": true,\n  \"excludeExternals\": true,\n  \"githubPages\": false,\n  \"sort\": [\"source-order\"],\n  \"categorizeByGroup\": true,\n  \"categoryOrder\": [\"Core\", \"Services\", \"Plugins\", \"*\"]\n}\n"}]}],"\n",["$","p",null,{"children":"주요 설정:"}],"\n",["$","ul",null,{"children":["\n",["$","li",null,{"children":[["$","code",null,{"children":"entryPoints"}],": 문서화할 진입점 파일"]}],"\n",["$","li",null,{"children":[["$","code",null,{"children":"out"}],": 생성된 문서의 출력 디렉토리"]}],"\n",["$","li",null,{"children":[["$","code",null,{"children":"plugin"}],": 사용할 플러그인 (마크다운 형식으로 출력)"]}],"\n",["$","li",null,{"children":[["$","code",null,{"children":"excludePrivate"}],", ",["$","code",null,{"children":"excludeProtected"}],", ",["$","code",null,{"children":"excludeInternal"}],": 비공개, 보호된, 내부 멤버 제외"]}],"\n",["$","li",null,{"children":[["$","code",null,{"children":"categoryOrder"}],": 카테고리 정렬 순서"]}],"\n"]}],"\n",["$","h2",null,{"children":"문서 생성 스크립트"}],"\n",["$","p",null,{"children":["API 문서 생성을 위한 스크립트는 ",["$","code",null,{"children":"packages/docs-site/scripts/generate-docs.js"}]," 파일에 정의되어 있습니다:"]}],"\n",["$","pre",null,{"children":["$","code",null,{"className":"language-javascript","children":"const { execSync } = require('child_process');\nconst path = require('path');\nconst fs = require('fs');\n\n// 코어 패키지 경로\nconst corePath = path.resolve(__dirname, '../../core');\n\n// TypeDoc 실행\nconsole.log('Generating API documentation...');\ntry {\n  execSync('pnpm typedoc', { cwd: corePath, stdio: 'inherit' });\n  console.log('API documentation generated successfully!');\n} catch (error) {\n  console.error('Error generating API documentation:', error);\n  process.exit(1);\n}\n"}]}],"\n",["$","p",null,{"children":["이 스크립트는 core 패키지 디렉토리에서 ",["$","code",null,{"children":"pnpm typedoc"}]," 명령을 실행하여 API 문서를 생성합니다."]}],"\n",["$","h2",null,{"children":"문서 생성 명령"}],"\n",["$","p",null,{"children":"API 문서를 생성하려면 다음 명령을 실행합니다:"}],"\n",["$","pre",null,{"children":["$","code",null,{"className":"language-bash","children":"# docs-site 디렉토리에서\npnpm run generate-docs\n"}]}],"\n",["$","p",null,{"children":["이 명령은 ",["$","code",null,{"children":"package.json"}]," 파일에 다음과 같이 정의되어 있습니다:"]}],"\n",["$","pre",null,{"children":["$","code",null,{"className":"language-json","children":"{\n  \"scripts\": {\n    \"generate-docs\": \"node scripts/generate-docs.js\"\n  }\n}\n"}]}],"\n",["$","h2",null,{"children":"TSDoc 주석 작성 가이드"}],"\n",["$","p",null,{"children":"TypeDoc은 TSDoc 형식의 주석을 사용하여 API 문서를 생성합니다. 다음은 TSDoc 주석 작성 가이드입니다:"}],"\n",["$","h3",null,{"children":"클래스 문서화"}],"\n",["$","pre",null,{"children":["$","code",null,{"className":"language-typescript","children":"/**\n * Vector Engine 구현 클래스\n * \n * 플러그인 기반 벡터 그래픽 시스템의 핵심 엔진입니다.\n * \n * @example\n * ```typescript\n * const engine = new VectorEngine();\n * engine.use(new CanvasRenderer());\n * ```\n */\nexport class VectorEngineImpl implements VectorEngine {\n  // ...\n}\n"}]}],"\n",["$","h3",null,{"children":"메서드 문서화"}],"\n",["$","pre",null,{"children":["$","code",null,{"className":"language-typescript","children":"/**\n * 플러그인을 엔진에 등록합니다.\n * \n * @param plugin - 등록할 Plugin 인스턴스\n * @throws {Error} 이미 동일한 ID의 플러그인이 등록된 경우\n * @returns 등록된 플러그인 인스턴스\n */\npublic use(plugin: Plugin): Plugin {\n  // ...\n}\n"}]}],"\n",["$","h3",null,{"children":"인터페이스 문서화"}],"\n",["$","pre",null,{"children":["$","code",null,{"className":"language-typescript","children":"/**\n * 벡터 엔진의 플러그인 인터페이스\n * \n * 모든 플러그인은 이 인터페이스를 구현해야 합니다.\n */\nexport interface Plugin {\n  /**\n   * 플러그인의 고유 식별자\n   */\n  readonly id: string;\n  \n  /**\n   * 플러그인의 버전\n   */\n  readonly version: string;\n  \n  /**\n   * 플러그인의 의존성 목록\n   */\n  readonly dependencies?: string[];\n  \n  /**\n   * 플러그인을 엔진에 설치합니다.\n   * \n   * @param engine - 벡터 엔진 인스턴스\n   */\n  install(engine: VectorEngine): void;\n  \n  /**\n   * 플러그인을 엔진에서 제거합니다.\n   * \n   * @param engine - 벡터 엔진 인스턴스\n   */\n  uninstall(engine: VectorEngine): void;\n}\n"}]}],"\n",["$","h3",null,{"children":"타입 문서화"}],"\n",["$","pre",null,{"children":["$","code",null,{"className":"language-typescript","children":"/**\n * 이벤트 핸들러 함수 타입\n * \n * @typeParam T - 이벤트 데이터 타입\n * @param data - 이벤트 데이터\n */\nexport type EventHandler<T = any> = (data: T) => void;\n"}]}],"\n",["$","h2",null,{"children":"문서 사이트 통합"}],"\n",["$","p",null,{"children":["생성된 API 문서는 ",["$","code",null,{"children":"packages/docs-site/public/api-docs"}]," 디렉토리에 저장됩니다. 이 문서는 Next.js 애플리케이션에서 다음과 같이 통합됩니다:"]}],"\n",["$","h3",null,{"children":"API 문서 페이지"}],"\n",["$","p",null,{"children":[["$","code",null,{"children":"src/app/api/page.tsx"}]," 파일에서 API 문서 목록을 표시합니다:"]}],"\n",["$","pre",null,{"children":["$","code",null,{"className":"language-tsx","children":"import { getApiDocsList } from '@/lib/api-docs';\n\nexport default function ApiDocsPage() {\n  const apiDocs = getApiDocsList();\n  \n  return (\n    <div>\n      <h1>API 문서</h1>\n      <ul>\n        {apiDocs.map((doc) => (\n          <li key={doc.path}>\n            <a href={`/api/${doc.path}`}>{doc.title}</a>\n          </li>\n        ))}\n      </ul>\n    </div>\n  );\n}\n"}]}],"\n",["$","h3",null,{"children":"API 문서 유틸리티"}],"\n",["$","p",null,{"children":[["$","code",null,{"children":"src/lib/api-docs.ts"}]," 파일에서 API 문서 목록을 가져오는 함수를 정의합니다:"]}],"\n",["$","pre",null,{"children":["$","code",null,{"className":"language-typescript","children":"import fs from 'fs';\nimport path from 'path';\n\nexport function getApiDocsList() {\n  const apiDocsDir = path.join(process.cwd(), 'public/api-docs');\n  const files = fs.readdirSync(apiDocsDir);\n  \n  return files\n    .filter(file => file.endsWith('.md'))\n    .map(file => {\n      const content = fs.readFileSync(path.join(apiDocsDir, file), 'utf-8');\n      const titleMatch = content.match(/^# (.+)$/m);\n      const title = titleMatch ? titleMatch[1] : file.replace('.md', '');\n      \n      return {\n        path: file.replace('.md', ''),\n        title\n      };\n    });\n}\n"}]}],"\n",["$","h2",null,{"children":"빌드 프로세스 통합"}],"\n",["$","p",null,{"children":["API 문서 생성은 빌드 프로세스에 통합되어 있습니다. ",["$","code",null,{"children":"package.json"}]," 파일에 다음과 같이 정의되어 있습니다:"]}],"\n",["$","pre",null,{"children":["$","code",null,{"className":"language-json","children":"{\n  \"scripts\": {\n    \"build\": \"pnpm run generate-docs && next build\"\n  }\n}\n"}]}],"\n",["$","p",null,{"children":["이렇게 하면 ",["$","code",null,{"children":"pnpm run build"}]," 명령을 실행할 때 API 문서가 자동으로 생성됩니다."]}],"\n",["$","h2",null,{"children":"문제 해결"}],"\n",["$","h3",null,{"children":"문서 생성 실패"}],"\n",["$","p",null,{"children":"API 문서 생성이 실패하는 경우:"}],"\n",["$","ol",null,{"children":["\n",["$","li",null,{"children":"TypeScript 코드에 오류가 없는지 확인"}],"\n",["$","li",null,{"children":"TypeDoc 버전이 호환되는지 확인"}],"\n",["$","li",null,{"children":[["$","code",null,{"children":"typedoc.json"}]," 설정이 올바른지 확인"]}],"\n"]}],"\n",["$","h3",null,{"children":"문서 내용 누락"}],"\n",["$","p",null,{"children":"일부 API 문서 내용이 누락된 경우:"}],"\n",["$","ol",null,{"children":["\n",["$","li",null,{"children":"TSDoc 주석이 올바르게 작성되었는지 확인"}],"\n",["$","li",null,{"children":[["$","code",null,{"children":"typedoc.json"}]," 설정에서 ",["$","code",null,{"children":"excludePrivate"}],", ",["$","code",null,{"children":"excludeProtected"}]," 등의 설정 확인"]}],"\n",["$","li",null,{"children":["문서화하려는 항목이 ",["$","code",null,{"children":"index.ts"}],"에서 내보내졌는지 확인"]}],"\n"]}],"\n",["$","h3",null,{"children":"스타일 문제"}],"\n",["$","p",null,{"children":"생성된 마크다운 문서의 스타일에 문제가 있는 경우:"}],"\n",["$","ol",null,{"children":["\n",["$","li",null,{"children":[["$","code",null,{"children":"typedoc-plugin-markdown"}]," 플러그인 버전 확인"]}],"\n",["$","li",null,{"children":"마크다운 렌더링 컴포넌트 확인"}],"\n"]}]]
+e:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+c:[["$","meta","0",{"charSet":"utf-8"}],["$","title","1",{"children":"Modern Vector.js Documentation"}],["$","meta","2",{"name":"description","content":"Documentation for Modern Vector.js - A Modern Vector Graphics Library with Plugin System"}]]
+a:null

@@ -1,0 +1,350 @@
+<!DOCTYPE html><html lang="ko" class="__variable_c60a13"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="preload" href="/modern-vector.js/_next/static/media/119cf01b445a4dc3-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" href="/modern-vector.js/_next/static/media/12f0acdcae926a24-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" href="/modern-vector.js/_next/static/media/4aeaaf124a5054bc-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" href="/modern-vector.js/_next/static/media/b6885b7a9c09d162-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" href="/modern-vector.js/_next/static/media/cfa29e4f0aabf12a-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" href="/modern-vector.js/_next/static/media/dd3e76c51ce1a360-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" href="/modern-vector.js/_next/static/media/e00e15f44d7b58c0-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" href="/modern-vector.js/_next/static/media/e725ed3d1f6bc360-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" href="/modern-vector.js/_next/static/media/fc2b22d5c5b14cbb-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="stylesheet" href="/modern-vector.js/_next/static/css/a0071d00f84115dd.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/modern-vector.js/_next/static/chunks/webpack-215bff7debead481.js"/><script src="/modern-vector.js/_next/static/chunks/87c73c54-2306ec92ae4d95bb.js" async=""></script><script src="/modern-vector.js/_next/static/chunks/855-33ac0ebca547994c.js" async=""></script><script src="/modern-vector.js/_next/static/chunks/main-app-db9d2c8506281af9.js" async=""></script><script src="/modern-vector.js/_next/static/chunks/app/layout-86465bc224ae2e10.js" async=""></script><script src="/modern-vector.js/_next/static/chunks/770-57321866e8f48bfb.js" async=""></script><script src="/modern-vector.js/_next/static/chunks/816-eea2b2ef59921a13.js" async=""></script><script src="/modern-vector.js/_next/static/chunks/508-5bb57ed481e1e5a5.js" async=""></script><script src="/modern-vector.js/_next/static/chunks/435-ef317aca933735f6.js" async=""></script><script src="/modern-vector.js/_next/static/chunks/app/docs/layout-d625de0b562528ec.js" async=""></script><script src="/modern-vector.js/_next/static/chunks/app/docs/page-4fe432206ff5e2d2.js" async=""></script><meta name="next-size-adjust" content=""/><title>Modern Vector.js Documentation</title><meta name="description" content="Documentation for Modern Vector.js - A Modern Vector Graphics Library with Plugin System"/><style>
+            /* 다크 모드에서 highlight.js 스타일 */
+            .dark .hljs {
+              background: #1e1e1e;
+              color: #dcdcdc;
+            }
+            .dark .hljs-keyword,
+            .dark .hljs-selector-tag,
+            .dark .hljs-tag,
+            .dark .hljs-name {
+              color: #569cd6;
+            }
+            .dark .hljs-attribute,
+            .dark .hljs-literal,
+            .dark .hljs-number,
+            .dark .hljs-keyword {
+              color: #b5cea8;
+            }
+            .dark .hljs-string,
+            .dark .hljs-doctag {
+              color: #ce9178;
+            }
+            .dark .hljs-built_in,
+            .dark .hljs-builtin-name {
+              color: #4ec9b0;
+            }
+            .dark .hljs-comment,
+            .dark .hljs-quote {
+              color: #6a9955;
+            }
+            
+            /* 코드 블록 스타일 개선 */
+            .prose pre {
+              margin: 1.5em 0;
+              border-radius: 0.375rem;
+              padding: 1rem;
+              overflow-x: auto;
+            }
+            
+            .prose code {
+              font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+              font-size: 0.9em;
+            }
+            
+            /* 링크 스타일 개선 */
+            .prose a {
+              text-decoration: none;
+              transition: color 0.2s ease;
+            }
+            
+            .prose a:hover {
+              text-decoration: underline;
+            }
+            
+            /* 테이블 스타일 개선 */
+            .prose table {
+              width: 100%;
+              border-collapse: collapse;
+              margin: 1.5em 0;
+            }
+            
+            .prose table th,
+            .prose table td {
+              padding: 0.75rem;
+              border: 1px solid hsl(var(--border));
+            }
+            
+            .prose table th {
+              background-color: hsl(var(--muted));
+              font-weight: 600;
+            }
+            
+            .dark .prose table th {
+              background-color: hsl(var(--muted));
+            }
+            
+            /* 헤더 스타일 개선 */
+            .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+              scroll-margin-top: 5rem;
+              position: relative;
+            }
+            
+            .prose h1 {
+              font-size: 2.25rem;
+              margin-top: 2.5rem;
+              margin-bottom: 1.5rem;
+              font-weight: 700;
+            }
+            
+            .prose h2 {
+              font-size: 1.875rem;
+              margin-top: 2rem;
+              margin-bottom: 1rem;
+              font-weight: 600;
+              border-bottom: 1px solid hsl(var(--border));
+              padding-bottom: 0.5rem;
+            }
+            
+            .prose h3 {
+              font-size: 1.5rem;
+              margin-top: 1.5rem;
+              margin-bottom: 0.75rem;
+              font-weight: 600;
+            }
+            
+            /* 목록 스타일 개선 */
+            .prose ul, .prose ol {
+              margin: 1.25em 0;
+              padding-left: 1.625em;
+            }
+            
+            .prose li {
+              margin-bottom: 0.5em;
+            }
+            
+            /* 인용구 스타일 개선 */
+            .prose blockquote {
+              border-left: 4px solid hsl(var(--border));
+              padding-left: 1rem;
+              font-style: italic;
+              margin: 1.5em 0;
+              color: hsl(var(--muted-foreground));
+            }
+            
+            /* 다크 모드 텍스트 색상 개선 */
+            .dark .prose {
+              color: hsl(var(--foreground));
+            }
+            
+            .dark .prose h1,
+            .dark .prose h2,
+            .dark .prose h3,
+            .dark .prose h4,
+            .dark .prose h5,
+            .dark .prose h6 {
+              color: hsl(var(--foreground));
+            }
+            
+            .dark .prose p,
+            .dark .prose ul,
+            .dark .prose ol,
+            .dark .prose li {
+              color: hsl(var(--foreground));
+            }
+            
+            .dark .prose strong {
+              color: hsl(var(--foreground));
+            }
+            
+            .dark .prose table td {
+              color: hsl(var(--foreground));
+            }
+            
+            .dark .prose table th {
+              color: hsl(var(--foreground));
+            }
+            
+            /* 다크 모드에서 API 네비게이션 스타일 */
+            .dark .api-nav-link {
+              color: hsl(var(--foreground));
+            }
+          </style><script src="/modern-vector.js/_next/static/chunks/polyfills-42372ed130431b0a.js" noModule=""></script></head><body class="font-pretendard"><script>((e,t,r,n,o,a,i,u)=>{let s=document.documentElement,c=["light","dark"];function l(t){(Array.isArray(e)?e:[e]).forEach(e=>{let r="class"===e,n=r&&a?o.map(e=>a[e]||e):o;r?(s.classList.remove(...n),s.classList.add(t)):s.setAttribute(e,t)}),u&&c.includes(t)&&(s.style.colorScheme=t)}if(n)l(n);else try{let e=localStorage.getItem(t)||r,n=i&&"system"===e?window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light":e;l(n)}catch(e){}})("class","theme","system",null,["light","dark"],null,true,true)</script><!--$!--><template data-dgst="BAILOUT_TO_CLIENT_SIDE_RENDERING"></template><!--/$--><div class="flex min-h-screen flex-col"><header class="sticky top-0 z-40 w-full border-b bg-background"><div class="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0"><div class="flex items-center space-x-4"><button class="inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:text-accent-foreground h-10 py-2 mr-2 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:R2mulb:" data-state="closed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu h-6 w-6"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg><span class="sr-only">Toggle Menu</span></button><a class="flex items-center space-x-2" href="/modern-vector.js"><span class="inline-block font-bold">Modern Vector.js</span></a></div><nav class="hidden md:flex gap-6"><a class="flex items-center text-sm font-medium text-foreground transition-colors hover:text-foreground" href="/modern-vector.js/docs">Documentation</a><a class="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground" href="/modern-vector.js/api-docs">API Reference</a><a class="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground" href="/modern-vector.js/examples">Examples</a></nav></div></header><div class="container flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10 py-8"><aside class="fixed top-24 z-30 -ml-2 hidden h-[calc(100vh-6rem)] w-full shrink-0 md:sticky md:block"><div class="h-full py-6 pr-6 lg:py-8"><div class="w-full"><div class="mb-6"><h4 class="font-medium mb-2 text-sm text-foreground">Getting Started</h4><ul class="space-y-1"><li><a class="text-sm block py-1 px-2 rounded-md text-muted-foreground hover:text-foreground" href="/modern-vector.js/docs/getting-started/project-structure">프로젝트 구조</a></li></ul></div><div class="mb-6"><h4 class="font-medium mb-2 text-sm text-foreground">Core Concepts</h4><ul class="space-y-1"><li><a class="text-sm block py-1 px-2 rounded-md text-muted-foreground hover:text-foreground" href="/modern-vector.js/docs/core-concepts/plugin-system">플러그인 시스템</a></li></ul></div><div class="mb-6"><h4 class="font-medium mb-2 text-sm text-foreground">Api Reference</h4><ul class="space-y-1"><li><a class="text-sm block py-1 px-2 rounded-md text-muted-foreground hover:text-foreground" href="/modern-vector.js/docs/api-reference">API 레퍼런스</a></li><li><a class="text-sm block py-1 px-2 rounded-md text-muted-foreground hover:text-foreground" href="/modern-vector.js/docs/api-reference/core/plugin">Plugin</a></li><li><a class="text-sm block py-1 px-2 rounded-md text-muted-foreground hover:text-foreground" href="/modern-vector.js/docs/api-reference/core/service">Service</a></li><li><a class="text-sm block py-1 px-2 rounded-md text-muted-foreground hover:text-foreground" href="/modern-vector.js/docs/api-reference/core/vector-engine">VectorEngine</a></li><li><a class="text-sm block py-1 px-2 rounded-md text-muted-foreground hover:text-foreground" href="/modern-vector.js/docs/api-reference/math/vector">Vector</a></li><li><a class="text-sm block py-1 px-2 rounded-md text-muted-foreground hover:text-foreground" href="/modern-vector.js/docs/api-reference/renderers/canvas-renderer">CanvasRenderer</a></li><li><a class="text-sm block py-1 px-2 rounded-md text-muted-foreground hover:text-foreground" href="/modern-vector.js/docs/api-reference/shapes/shape">Shape</a></li></ul></div><div class="mb-6"><h4 class="font-medium mb-2 text-sm text-foreground">Api Docs</h4><ul class="space-y-1"><li><a class="text-sm block py-1 px-2 rounded-md text-muted-foreground hover:text-foreground" href="/modern-vector.js/docs/api-docs/generation">API 문서 생성</a></li></ul></div><div class="mb-6"><h4 class="font-medium mb-2 text-sm text-foreground">Deployment</h4><ul class="space-y-1"><li><a class="text-sm block py-1 px-2 rounded-md text-muted-foreground hover:text-foreground" href="/modern-vector.js/docs/deployment/github-pages">GitHub Pages 배포</a></li></ul></div></div></div></aside><main class="relative py-6 lg:gap-10 lg:py-8"><div class="max-w-3xl mx-auto"><h1 class="text-3xl font-bold mb-4">Service</h1><p class="text-muted-foreground mb-8">Modern Vector.js의 서비스 시스템에 대한 API 문서</p><div class="prose dark:prose-invert max-w-none"><h1>Service 시스템</h1>
+<p>Modern Vector.js의 서비스 시스템은 플러그인 간 통신과 기능 공유를 위한 메커니즘을 제공합니다. 서비스는 특정 기능이나 리소스에 대한 접근을 제공하는 객체로, 플러그인이나 애플리케이션 코드에서 사용할 수 있습니다.</p>
+<h2>개요</h2>
+<p>서비스 시스템은 다음과 같은 주요 기능을 제공합니다:</p>
+<ol>
+<li><strong>플러그인 간 통신</strong>: 플러그인은 서비스를 통해 다른 플러그인과 통신할 수 있습니다.</li>
+<li><strong>기능 공유</strong>: 플러그인은 자신의 기능을 서비스로 노출하여 다른 플러그인이나 애플리케이션 코드에서 사용할 수 있게 합니다.</li>
+<li><strong>의존성 관리</strong>: 서비스는 플러그인 간의 직접적인 의존성을 줄이는 데 도움이 됩니다.</li>
+</ol>
+<h2>서비스 등록 및 사용</h2>
+<h3>서비스 등록</h3>
+<pre><code class="language-typescript">// VectorEngine 인스턴스에 서비스 등록
+engine.registerService&lt;T&gt;(serviceId: string, service: T): VectorEngine
+</code></pre>
+<h4>매개변수</h4>
+<ul>
+<li><code>serviceId</code>: 서비스의 고유 식별자</li>
+<li><code>service</code>: 등록할 서비스 객체</li>
+</ul>
+<h4>반환값</h4>
+<p>메서드 체이닝을 위한 VectorEngine 인스턴스</p>
+<h3>서비스 조회</h3>
+<pre><code class="language-typescript">// 서비스 조회
+engine.getService&lt;T&gt;(serviceId: string): T | undefined
+</code></pre>
+<h4>매개변수</h4>
+<ul>
+<li><code>serviceId</code>: 조회할 서비스의 식별자</li>
+</ul>
+<h4>반환값</h4>
+<p>서비스 객체 또는 서비스가 없는 경우 undefined</p>
+<h2>서비스 인터페이스</h2>
+<p>서비스는 특별한 인터페이스를 구현할 필요가 없습니다. 어떤 객체든 서비스로 등록할 수 있습니다. 그러나 일관성을 위해 서비스 인터페이스를 정의하는 것이 좋습니다.</p>
+<pre><code class="language-typescript">// 로거 서비스 인터페이스 예시
+interface LoggerService {
+  log(message: string, level?: LogLevel): void;
+  error(message: string, error?: Error): void;
+  warn(message: string): void;
+  info(message: string): void;
+  debug(message: string): void;
+}
+
+// 렌더링 서비스 인터페이스 예시
+interface RenderService {
+  render(scene: Scene): void;
+  clear(): void;
+  resize(width: number, height: number): void;
+  getContext(): RenderContext;
+}
+</code></pre>
+<h2>예제</h2>
+<h3>서비스 등록 예제</h3>
+<pre><code class="language-typescript">import { Plugin, VectorEngine } from &#x27;modern-vector&#x27;;
+
+// 로거 서비스 인터페이스
+interface LoggerService {
+  log(message: string, level?: string): void;
+  error(message: string, error?: Error): void;
+  warn(message: string): void;
+  info(message: string): void;
+  debug(message: string): void;
+}
+
+// 로거 플러그인 구현
+class LoggerPlugin implements Plugin {
+  readonly id = &#x27;logger&#x27;;
+  readonly version = &#x27;1.0.0&#x27;;
+  
+  install(engine: VectorEngine): void {
+    // 로거 서비스 구현
+    const loggerService: LoggerService = {
+      log: (message, level = &#x27;info&#x27;) =&gt; {
+        console.log(`[${level.toUpperCase()}] ${message}`);
+      },
+      error: (message, error) =&gt; {
+        console.error(`[ERROR] ${message}`, error);
+      },
+      warn: (message) =&gt; {
+        console.warn(`[WARN] ${message}`);
+      },
+      info: (message) =&gt; {
+        console.info(`[INFO] ${message}`);
+      },
+      debug: (message) =&gt; {
+        console.debug(`[DEBUG] ${message}`);
+      }
+    };
+    
+    // 서비스 등록
+    engine.registerService&lt;LoggerService&gt;(&#x27;logger&#x27;, loggerService);
+  }
+  
+  uninstall(engine: VectorEngine): void {
+    // 정리 작업 (필요한 경우)
+  }
+}
+</code></pre>
+<h3>서비스 사용 예제</h3>
+<pre><code class="language-typescript">import { Plugin, VectorEngine } from &#x27;modern-vector&#x27;;
+
+// 다른 플러그인에서 로거 서비스 사용
+class ShapePlugin implements Plugin {
+  readonly id = &#x27;shape&#x27;;
+  readonly version = &#x27;1.0.0&#x27;;
+  readonly dependencies = [&#x27;logger&#x27;]; // 로거 플러그인에 의존
+  
+  install(engine: VectorEngine): void {
+    // 로거 서비스 가져오기
+    const logger = engine.getService&lt;LoggerService&gt;(&#x27;logger&#x27;);
+    
+    if (!logger) {
+      throw new Error(&#x27;Logger service is required&#x27;);
+    }
+    
+    // 로거 서비스 사용
+    logger.info(&#x27;ShapePlugin installed&#x27;);
+    
+    // 도형 관련 서비스 등록
+    engine.registerService(&#x27;shape&#x27;, {
+      createRectangle: (x, y, width, height) =&gt; {
+        logger.debug(`Creating rectangle at (${x}, ${y}) with size ${width}x${height}`);
+        // 사각형 생성 로직
+        return { type: &#x27;rectangle&#x27;, x, y, width, height };
+      },
+      createCircle: (x, y, radius) =&gt; {
+        logger.debug(`Creating circle at (${x}, ${y}) with radius ${radius}`);
+        // 원 생성 로직
+        return { type: &#x27;circle&#x27;, x, y, radius };
+      }
+    });
+  }
+  
+  uninstall(engine: VectorEngine): void {
+    const logger = engine.getService&lt;LoggerService&gt;(&#x27;logger&#x27;);
+    if (logger) {
+      logger.info(&#x27;ShapePlugin uninstalled&#x27;);
+    }
+  }
+}
+</code></pre>
+<h3>애플리케이션 코드에서 서비스 사용</h3>
+<pre><code class="language-typescript">import { VectorEngine } from &#x27;modern-vector&#x27;;
+import { LoggerPlugin } from &#x27;./plugins/logger-plugin&#x27;;
+import { ShapePlugin } from &#x27;./plugins/shape-plugin&#x27;;
+
+// 엔진 인스턴스 생성
+const engine = new VectorEngine();
+
+// 플러그인 등록
+engine.use(new LoggerPlugin())
+      .use(new ShapePlugin());
+
+// 서비스 사용
+const logger = engine.getService&lt;LoggerService&gt;(&#x27;logger&#x27;);
+const shapeService = engine.getService(&#x27;shape&#x27;);
+
+if (logger &amp;&amp; shapeService) {
+  logger.info(&#x27;Creating shapes&#x27;);
+  
+  // 도형 생성
+  const rectangle = shapeService.createRectangle(10, 10, 100, 50);
+  const circle = shapeService.createCircle(150, 150, 30);
+  
+  logger.info(&#x27;Shapes created&#x27;);
+}
+</code></pre>
+<h2>모범 사례</h2>
+<ol>
+<li>
+<p><strong>명확한 서비스 인터페이스 정의</strong>: 서비스의 인터페이스를 명확하게 정의하여 사용자가 서비스의 기능을 쉽게 이해할 수 있도록 합니다.</p>
+</li>
+<li>
+<p><strong>서비스 ID 네이밍 규칙</strong>: 서비스 ID는 고유하고 의미 있는 이름을 사용하세요. 가능하면 네임스페이스를 사용하여 충돌을 방지하세요 (예: <code>@company/feature</code>).</p>
+</li>
+<li>
+<p><strong>서비스 의존성 처리</strong>: 서비스가 다른 서비스에 의존하는 경우, 해당 서비스가 존재하는지 확인하고 적절하게 처리하세요.</p>
+</li>
+<li>
+<p><strong>타입 안전성 유지</strong>: TypeScript의 제네릭을 활용하여 서비스 등록 및 조회 시 타입 안전성을 유지하세요.</p>
+</li>
+<li>
+<p><strong>서비스 생명주기 관리</strong>: 플러그인이 제거될 때 해당 플러그인이 등록한 서비스도 정리되어야 합니다.</p>
+</li>
+</ol>
+<h2>관련 API</h2>
+<ul>
+<li><a href="/docs/api-reference/core/vector-engine">VectorEngine</a> - 서비스 등록 및 조회 메서드를 제공하는 핵심 엔진</li>
+<li><a href="/docs/api-reference/core/plugin">Plugin</a> - 서비스를 등록하고 사용하는 플러그인 인터페이스</li>
+</ul></div></div></main></div><footer class="border-t py-6 md:py-0"><div class="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row"><p class="text-center text-sm leading-loose text-muted-foreground md:text-left">Built with Next.js, Tailwind CSS, and shadcn/ui.</p></div></footer></div><script src="/modern-vector.js/_next/static/chunks/webpack-215bff7debead481.js" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n3:I[9638,[\"177\",\"static/chunks/app/layout-86465bc224ae2e10.js\"],\"ThemeProvider\"]\n4:I[3952,[\"177\",\"static/chunks/app/layout-86465bc224ae2e10.js\"],\"GitHubPagesRedirect\"]\n5:I[9507,[],\"\"]\n6:I[2639,[],\"\"]\n9:I[1432,[],\"OutletBoundary\"]\nb:I[1432,[],\"MetadataBoundary\"]\nd:I[1432,[],\"ViewportBoundary\"]\nf:I[9398,[],\"\"]\n:HL[\"/modern-vector.js/_next/static/media/119cf01b445a4dc3-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/modern-vector.js/_next/static/media/12f0acdcae926a24-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/modern-vector.js/_next/static/media/4aeaaf124a5054bc-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/modern-vector.js/_next/static/media/b6885b7a9c09d162-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/modern-vector.js/_next/static/media/cfa29e4f0aabf12a-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/modern-vector.js/_next/static/media/dd3e76c51ce1a360-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/modern-vector.js/_next/static/media/e00e15f44d7b58c0-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/modern-vector.js/_next/static/media/e725ed3d1f6bc360-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/modern-vector.js/_next/static/media/fc2b22d5c5b14cbb-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/modern-vector.js/_next/static/css/a0071d00f84115dd.css\",\"style\"]\n2:T1281,"])</script><script>self.__next_f.push([1,"\n            /* 다크 모드에서 highlight.js 스타일 */\n            .dark .hljs {\n              background: #1e1e1e;\n              color: #dcdcdc;\n            }\n            .dark .hljs-keyword,\n            .dark .hljs-selector-tag,\n            .dark .hljs-tag,\n            .dark .hljs-name {\n              color: #569cd6;\n            }\n            .dark .hljs-attribute,\n            .dark .hljs-literal,\n            .dark .hljs-number,\n            .dark .hljs-keyword {\n              color: #b5cea8;\n            }\n            .dark .hljs-string,\n            .dark .hljs-doctag {\n              color: #ce9178;\n            }\n            .dark .hljs-built_in,\n            .dark .hljs-builtin-name {\n              color: #4ec9b0;\n            }\n            .dark .hljs-comment,\n            .dark .hljs-quote {\n              color: #6a9955;\n            }\n            \n            /* 코드 블록 스타일 개선 */\n            .prose pre {\n              margin: 1.5em 0;\n              border-radius: 0.375rem;\n              padding: 1rem;\n              overflow-x: auto;\n            }\n            \n            .prose code {\n              font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace;\n              font-size: 0.9em;\n            }\n            \n            /* 링크 스타일 개선 */\n            .prose a {\n              text-decoration: none;\n              transition: color 0.2s ease;\n            }\n            \n            .prose a:hover {\n              text-decoration: underline;\n            }\n            \n            /* 테이블 스타일 개선 */\n            .prose table {\n              width: 100%;\n              border-collapse: collapse;\n              margin: 1.5em 0;\n            }\n            \n            .prose table th,\n            .prose table td {\n              padding: 0.75rem;\n              border: 1px solid hsl(var(--border));\n            }\n            \n            .prose table th {\n              background-color: hsl(var(--muted));\n              font-weight: 600;\n            }\n            \n            .dark .prose table th {\n              background-color: hsl(var(--muted));\n            }\n            \n            /* 헤더 스타일 개선 */\n            .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {\n              scroll-margin-top: 5rem;\n              position: relative;\n            }\n            \n            .prose h1 {\n              font-size: 2.25rem;\n              margin-top: 2.5rem;\n              margin-bottom: 1.5rem;\n              font-weight: 700;\n            }\n            \n            .prose h2 {\n              font-size: 1.875rem;\n              margin-top: 2rem;\n              margin-bottom: 1rem;\n              font-weight: 600;\n              border-bottom: 1px solid hsl(var(--border));\n              padding-bottom: 0.5rem;\n            }\n            \n            .prose h3 {\n              font-size: 1.5rem;\n              margin-top: 1.5rem;\n              margin-bottom: 0.75rem;\n              font-weight: 600;\n            }\n            \n            /* 목록 스타일 개선 */\n            .prose ul, .prose ol {\n              margin: 1.25em 0;\n              padding-left: 1.625em;\n            }\n            \n            .prose li {\n              margin-bottom: 0.5em;\n            }\n            \n            /* 인용구 스타일 개선 */\n            .prose blockquote {\n              border-left: 4px solid hsl(var(--border));\n              padding-left: 1rem;\n              font-style: italic;\n              margin: 1.5em 0;\n              color: hsl(var(--muted-foreground));\n            }\n            \n            /* 다크 모드 텍스트 색상 개선 */\n            .dark .prose {\n              color: hsl(var(--foreground));\n            }\n            \n            .dark .prose h1,\n            .dark .prose h2,\n            .dark .prose h3,\n            .dark .prose h4,\n            .dark .prose h5,\n            .dark .prose h6 {\n              color: hsl(var(--foreground));\n            }\n            \n            .dark .prose p,\n            .dark .prose ul,\n            .dark .prose ol,\n            .dark .prose li {\n              color: hsl(var(--foreground));\n            }\n            \n            .dark .prose strong {\n              color: hsl(var(--foreground));\n            }\n            \n            .dark .prose table td {\n              color: hsl(var(--foreground));\n            }\n            \n            .dark .prose table th {\n              color: hsl(var(--foreground));\n            }\n            \n            /* 다크 모드에서 API 네비게이션 스타일 */\n            .dark .api-nav-link {\n              color: hsl(var(--foreground));\n            }\n          "])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"b\":\"6sp2ENyHN8Im5U1B7fgQ_\",\"p\":\"/modern-vector.js\",\"c\":[\"\",\"docs\",\"api-reference\",\"core\",\"service\"],\"i\":false,\"f\":[[[\"\",{\"children\":[\"docs\",{\"children\":[[\"slug\",\"api-reference/core/service\",\"c\"],{\"children\":[\"__PAGE__\",{}]}]}]},\"$undefined\",\"$undefined\",true],[\"\",[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/modern-vector.js/_next/static/css/a0071d00f84115dd.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}]],[\"$\",\"html\",null,{\"lang\":\"ko\",\"suppressHydrationWarning\":true,\"className\":\"__variable_c60a13\",\"children\":[[\"$\",\"head\",null,{\"children\":[\"$\",\"style\",null,{\"children\":\"$2\"}]}],[\"$\",\"body\",null,{\"className\":\"font-pretendard\",\"children\":[\"$\",\"$L3\",null,{\"attribute\":\"class\",\"defaultTheme\":\"system\",\"enableSystem\":true,\"disableTransitionOnChange\":true,\"children\":[[\"$\",\"$L4\",null,{}],[\"$\",\"$L5\",null,{\"parallelRouterKey\":\"children\",\"segmentPath\":[\"children\"],\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L6\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[],[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}]}]]}]]}],{\"children\":[\"docs\",[\"$\",\"$1\",\"c\",{\"children\":[null,\"$L7\"]}],{\"children\":[[\"slug\",\"api-reference/core/service\",\"c\"],[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L5\",null,{\"parallelRouterKey\":\"children\",\"segmentPath\":[\"children\",\"docs\",\"children\",\"$0:f:0:1:2:children:2:children:0\",\"children\"],\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L6\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[\"__PAGE__\",[\"$\",\"$1\",\"c\",{\"children\":[\"$L8\",null,[\"$\",\"$L9\",null,{\"children\":\"$La\"}]]}],{},null,false]},null,false]},null,false]},null,false],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$1\",\"Qg6e0ed_uv6tZrRMbRFJU\",{\"children\":[[\"$\",\"$Lb\",null,{\"children\":\"$Lc\"}],[\"$\",\"$Ld\",null,{\"children\":\"$Le\"}],[\"$\",\"meta\",null,{\"name\":\"next-size-adjust\",\"content\":\"\"}]]}]]}],false]],\"m\":\"$undefined\",\"G\":[\"$f\",\"$undefined\"],\"s\":false,\"S\":true}\n"])</script><script>self.__next_f.push([1,"10:I[4763,[\"770\",\"static/chunks/770-57321866e8f48bfb.js\",\"816\",\"static/chunks/816-eea2b2ef59921a13.js\",\"508\",\"static/chunks/508-5bb57ed481e1e5a5.js\",\"435\",\"static/chunks/435-ef317aca933735f6.js\",\"499\",\"static/chunks/app/docs/layout-d625de0b562528ec.js\"],\"MobileNav\"]\n11:I[5770,[\"770\",\"static/chunks/770-57321866e8f48bfb.js\",\"816\",\"static/chunks/816-eea2b2ef59921a13.js\",\"40\",\"static/chunks/app/docs/page-4fe432206ff5e2d2.js\"],\"\"]\n12:I[2000,[\"770\",\"static/chunks/770-57321866e8f48bfb.js\",\"816\",\"static/chunks/816-eea2b2ef59921a13.js\",\"508\",\"static/chunks/508-5bb57ed481e1e5a5.js\",\"435\",\"static/chunks/435-ef317aca933735f6.js\",\"499\",\"static/chunks/app/docs/layout-d625de0b562528ec.js\"],\"DocsNavigation\"]\n"])</script><script>self.__next_f.push([1,"7:[\"$\",\"div\",null,{\"className\":\"flex min-h-screen flex-col\",\"children\":[[\"$\",\"header\",null,{\"className\":\"sticky top-0 z-40 w-full border-b bg-background\",\"children\":[\"$\",\"div\",null,{\"className\":\"container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0\",\"children\":[[\"$\",\"div\",null,{\"className\":\"flex items-center space-x-4\",\"children\":[[\"$\",\"$L10\",null,{\"currentSlug\":\"$undefined\"}],[\"$\",\"$L11\",null,{\"href\":\"/\",\"className\":\"flex items-center space-x-2\",\"children\":[\"$\",\"span\",null,{\"className\":\"inline-block font-bold\",\"children\":\"Modern Vector.js\"}]}]]}],[\"$\",\"nav\",null,{\"className\":\"hidden md:flex gap-6\",\"children\":[[\"$\",\"$L11\",null,{\"href\":\"/docs\",\"className\":\"flex items-center text-sm font-medium text-foreground transition-colors hover:text-foreground\",\"children\":\"Documentation\"}],[\"$\",\"$L11\",null,{\"href\":\"/api-docs\",\"className\":\"flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground\",\"children\":\"API Reference\"}],[\"$\",\"$L11\",null,{\"href\":\"/examples\",\"className\":\"flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground\",\"children\":\"Examples\"}]]}]]}]}],[\"$\",\"div\",null,{\"className\":\"container flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10 py-8\",\"children\":[[\"$\",\"aside\",null,{\"className\":\"fixed top-24 z-30 -ml-2 hidden h-[calc(100vh-6rem)] w-full shrink-0 md:sticky md:block\",\"children\":[\"$\",\"div\",null,{\"className\":\"h-full py-6 pr-6 lg:py-8\",\"children\":[\"$\",\"$L12\",null,{\"currentSlug\":\"$undefined\"}]}]}],[\"$\",\"main\",null,{\"className\":\"relative py-6 lg:gap-10 lg:py-8\",\"children\":[\"$\",\"$L5\",null,{\"parallelRouterKey\":\"children\",\"segmentPath\":[\"children\",\"docs\",\"children\"],\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L6\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}],[\"$\",\"footer\",null,{\"className\":\"border-t py-6 md:py-0\",\"children\":[\"$\",\"div\",null,{\"className\":\"container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row\",\"children\":[\"$\",\"p\",null,{\"className\":\"text-center text-sm leading-loose text-muted-foreground md:text-left\",\"children\":\"Built with Next.js, Tailwind CSS, and shadcn/ui.\"}]}]}]]}]\n"])</script><script>self.__next_f.push([1,"8:[\"$\",\"div\",null,{\"className\":\"max-w-3xl mx-auto\",\"children\":[[\"$\",\"h1\",null,{\"className\":\"text-3xl font-bold mb-4\",\"children\":\"Service\"}],[\"$\",\"p\",null,{\"className\":\"text-muted-foreground mb-8\",\"children\":\"Modern Vector.js의 서비스 시스템에 대한 API 문서\"}],[\"$\",\"div\",null,{\"className\":\"prose dark:prose-invert max-w-none\",\"children\":\"$L13\"}]]}]\n"])</script><script>self.__next_f.push([1,"14:T4aa,import { Plugin, VectorEngine } from 'modern-vector';\n\n// 로거 서비스 인터페이스\ninterface LoggerService {\n  log(message: string, level?: string): void;\n  error(message: string, error?: Error): void;\n  warn(message: string): void;\n  info(message: string): void;\n  debug(message: string): void;\n}\n\n// 로거 플러그인 구현\nclass LoggerPlugin implements Plugin {\n  readonly id = 'logger';\n  readonly version = '1.0.0';\n  \n  install(engine: VectorEngine): void {\n    // 로거 서비스 구현\n    const loggerService: LoggerService = {\n      log: (message, level = 'info') =\u003e {\n        console.log(`[${level.toUpperCase()}] ${message}`);\n      },\n      error: (message, error) =\u003e {\n        console.error(`[ERROR] ${message}`, error);\n      },\n      warn: (message) =\u003e {\n        console.warn(`[WARN] ${message}`);\n      },\n      info: (message) =\u003e {\n        console.info(`[INFO] ${message}`);\n      },\n      debug: (message) =\u003e {\n        console.debug(`[DEBUG] ${message}`);\n      }\n    };\n    \n    // 서비스 등록\n    engine.registerService\u003cLoggerService\u003e('logger', loggerService);\n  }\n  \n  uninstall(engine: VectorEngine): void {\n    // 정리 작업 (필요한 경우)\n  }\n}\n15:T514,import { Plugin, VectorEngine } from 'modern-vector';\n\n// 다른 플러그인에서 로거 서비스 사용\nclass ShapePlugin implements Plugin {\n  readonly id = 'shape';\n  readonly version = '1.0.0';\n  readonly dependencies = ['logger']; // 로거 플러그인에 의존\n  \n  install(engine: VectorEngine): void {\n    // 로거 서비스 가져오기\n    const logger = engine.getService\u003cLoggerService\u003e('logger');\n    \n    if (!logger) {\n      throw new Error('Logger service is required');\n    }\n    \n    // 로거 서비스 사용\n    logger.info('ShapePlugin installed');\n    \n    // 도형 관련 서비스 등록\n    engine.registerService('shape', {\n      createRectangle: (x, y, width, height) =\u003e {\n        logger.debug(`Creating rectangle at (${x}, ${y}) with size ${width}x${height}`);\n        // 사각형 생성 로직\n       "])</script><script>self.__next_f.push([1," return { type: 'rectangle', x, y, width, height };\n      },\n      createCircle: (x, y, radius) =\u003e {\n        logger.debug(`Creating circle at (${x}, ${y}) with radius ${radius}`);\n        // 원 생성 로직\n        return { type: 'circle', x, y, radius };\n      }\n    });\n  }\n  \n  uninstall(engine: VectorEngine): void {\n    const logger = engine.getService\u003cLoggerService\u003e('logger');\n    if (logger) {\n      logger.info('ShapePlugin uninstalled');\n    }\n  }\n}\n"])</script><script>self.__next_f.push([1,"13:[[\"$\",\"h1\",null,{\"children\":\"Service 시스템\"}],\"\\n\",[\"$\",\"p\",null,{\"children\":\"Modern Vector.js의 서비스 시스템은 플러그인 간 통신과 기능 공유를 위한 메커니즘을 제공합니다. 서비스는 특정 기능이나 리소스에 대한 접근을 제공하는 객체로, 플러그인이나 애플리케이션 코드에서 사용할 수 있습니다.\"}],\"\\n\",[\"$\",\"h2\",null,{\"children\":\"개요\"}],\"\\n\",[\"$\",\"p\",null,{\"children\":\"서비스 시스템은 다음과 같은 주요 기능을 제공합니다:\"}],\"\\n\",[\"$\",\"ol\",null,{\"children\":[\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"strong\",null,{\"children\":\"플러그인 간 통신\"}],\": 플러그인은 서비스를 통해 다른 플러그인과 통신할 수 있습니다.\"]}],\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"strong\",null,{\"children\":\"기능 공유\"}],\": 플러그인은 자신의 기능을 서비스로 노출하여 다른 플러그인이나 애플리케이션 코드에서 사용할 수 있게 합니다.\"]}],\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"strong\",null,{\"children\":\"의존성 관리\"}],\": 서비스는 플러그인 간의 직접적인 의존성을 줄이는 데 도움이 됩니다.\"]}],\"\\n\"]}],\"\\n\",[\"$\",\"h2\",null,{\"children\":\"서비스 등록 및 사용\"}],\"\\n\",[\"$\",\"h3\",null,{\"children\":\"서비스 등록\"}],\"\\n\",[\"$\",\"pre\",null,{\"children\":[\"$\",\"code\",null,{\"className\":\"language-typescript\",\"children\":\"// VectorEngine 인스턴스에 서비스 등록\\nengine.registerService\u003cT\u003e(serviceId: string, service: T): VectorEngine\\n\"}]}],\"\\n\",[\"$\",\"h4\",null,{\"children\":\"매개변수\"}],\"\\n\",[\"$\",\"ul\",null,{\"children\":[\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"code\",null,{\"children\":\"serviceId\"}],\": 서비스의 고유 식별자\"]}],\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"code\",null,{\"children\":\"service\"}],\": 등록할 서비스 객체\"]}],\"\\n\"]}],\"\\n\",[\"$\",\"h4\",null,{\"children\":\"반환값\"}],\"\\n\",[\"$\",\"p\",null,{\"children\":\"메서드 체이닝을 위한 VectorEngine 인스턴스\"}],\"\\n\",[\"$\",\"h3\",null,{\"children\":\"서비스 조회\"}],\"\\n\",[\"$\",\"pre\",null,{\"children\":[\"$\",\"code\",null,{\"className\":\"language-typescript\",\"children\":\"// 서비스 조회\\nengine.getService\u003cT\u003e(serviceId: string): T | undefined\\n\"}]}],\"\\n\",[\"$\",\"h4\",null,{\"children\":\"매개변수\"}],\"\\n\",[\"$\",\"ul\",null,{\"children\":[\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"code\",null,{\"children\":\"serviceId\"}],\": 조회할 서비스의 식별자\"]}],\"\\n\"]}],\"\\n\",[\"$\",\"h4\",null,{\"children\":\"반환값\"}],\"\\n\",[\"$\",\"p\",null,{\"children\":\"서비스 객체 또는 서비스가 없는 경우 undefined\"}],\"\\n\",[\"$\",\"h2\",null,{\"children\":\"서비스 인터페이스\"}],\"\\n\",[\"$\",\"p\",null,{\"children\":\"서비스는 특별한 인터페이스를 구현할 필요가 없습니다. 어떤 객체든 서비스로 등록할 수 있습니다. 그러나 일관성을 위해 서비스 인터페이스를 정의하는 것이 좋습니다.\"}],\"\\n\",[\"$\",\"pre\",null,{\"children\":[\"$\",\"code\",null,{\"className\":\"language-typescript\",\"children\":\"// 로거 서비스 인터페이스 예시\\ninterface LoggerService {\\n  log(message: string, level?: LogLevel): void;\\n  error(message: string, error?: Error): void;\\n  warn(message: string): void;\\n  info(message: string): void;\\n  debug(message: string): void;\\n}\\n\\n// 렌더링 서비스 인터페이스 예시\\ninterface RenderService {\\n  render(scene: Scene): void;\\n  clear(): void;\\n  resize(width: number, height: number): void;\\n  getContext(): RenderContext;\\n}\\n\"}]}],\"\\n\",[\"$\",\"h2\",null,{\"children\":\"예제\"}],\"\\n\",[\"$\",\"h3\",null,{\"children\":\"서비스 등록 예제\"}],\"\\n\",[\"$\",\"pre\",null,{\"children\":[\"$\",\"code\",null,{\"className\":\"language-typescript\",\"children\":\"$14\"}]}],\"\\n\",[\"$\",\"h3\",null,{\"children\":\"서비스 사용 예제\"}],\"\\n\",[\"$\",\"pre\",null,{\"children\":[\"$\",\"code\",null,{\"className\":\"language-typescript\",\"children\":\"$15\"}]}],\"\\n\",[\"$\",\"h3\",null,{\"children\":\"애플리케이션 코드에서 서비스 사용\"}],\"\\n\",[\"$\",\"pre\",null,{\"children\":[\"$\",\"code\",null,{\"className\":\"language-typescript\",\"children\":\"import { VectorEngine } from 'modern-vector';\\nimport { LoggerPlugin } from './plugins/logger-plugin';\\nimport { ShapePlugin } from './plugins/shape-plugin';\\n\\n// 엔진 인스턴스 생성\\nconst engine = new VectorEngine();\\n\\n// 플러그인 등록\\nengine.use(new LoggerPlugin())\\n      .use(new ShapePlugin());\\n\\n// 서비스 사용\\nconst logger = engine.getService\u003cLoggerService\u003e('logger');\\nconst shapeService = engine.getService('shape');\\n\\nif (logger \u0026\u0026 shapeService) {\\n  logger.info('Creating shapes');\\n  \\n  // 도형 생성\\n  const rectangle = shapeService.createRectangle(10, 10, 100, 50);\\n  const circle = shapeService.createCircle(150, 150, 30);\\n  \\n  logger.info('Shapes created');\\n}\\n\"}]}],\"\\n\",[\"$\",\"h2\",null,{\"children\":\"모범 사례\"}],\"\\n\",[\"$\",\"ol\",null,{\"children\":[\"\\n\",[\"$\",\"li\",null,{\"children\":[\"\\n\",[\"$\",\"p\",null,{\"children\":[[\"$\",\"strong\",null,{\"children\":\"명확한 서비스 인터페이스 정의\"}],\": 서비스의 인터페이스를 명확하게 정의하여 사용자가 서비스의 기능을 쉽게 이해할 수 있도록 합니다.\"]}],\"\\n\"]}],\"\\n\",[\"$\",\"li\",null,{\"children\":[\"\\n\",[\"$\",\"p\",null,{\"children\":[[\"$\",\"strong\",null,{\"children\":\"서비스 ID 네이밍 규칙\"}],\": 서비스 ID는 고유하고 의미 있는 이름을 사용하세요. 가능하면 네임스페이스를 사용하여 충돌을 방지하세요 (예: \",[\"$\",\"code\",null,{\"children\":\"@company/feature\"}],\").\"]}],\"\\n\"]}],\"\\n\",[\"$\",\"li\",null,{\"children\":[\"\\n\",[\"$\",\"p\",null,{\"children\":[[\"$\",\"strong\",null,{\"children\":\"서비스 의존성 처리\"}],\": 서비스가 다른 서비스에 의존하는 경우, 해당 서비스가 존재하는지 확인하고 적절하게 처리하세요.\"]}],\"\\n\"]}],\"\\n\",[\"$\",\"li\",null,{\"children\":[\"\\n\",[\"$\",\"p\",null,{\"children\":[[\"$\",\"strong\",null,{\"children\":\"타입 안전성 유지\"}],\": TypeScript의 제네릭을 활용하여 서비스 등록 및 조회 시 타입 안전성을 유지하세요.\"]}],\"\\n\"]}],\"\\n\",[\"$\",\"li\",null,{\"children\":[\"\\n\",[\"$\",\"p\",null,{\"children\":[[\"$\",\"strong\",null,{\"children\":\"서비스 생명주기 관리\"}],\": 플러그인이 제거될 때 해당 플러그인이 등록한 서비스도 정리되어야 합니다.\"]}],\"\\n\"]}],\"\\n\"]}],\"\\n\",[\"$\",\"h2\",null,{\"children\":\"관련 API\"}],\"\\n\",[\"$\",\"ul\",null,{\"children\":[\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"a\",null,{\"href\":\"/docs/api-reference/core/vector-engine\",\"children\":\"VectorEngine\"}],\" - 서비스 등록 및 조회 메서드를 제공하는 핵심 엔진\"]}],\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"a\",null,{\"href\":\"/docs/api-reference/core/plugin\",\"children\":\"Plugin\"}],\" - 서비스를 등록하고 사용하는 플러그인 인터페이스\"]}],\"\\n\"]}]]\n"])</script><script>self.__next_f.push([1,"e:[[\"$\",\"meta\",\"0\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\nc:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"title\",\"1\",{\"children\":\"Modern Vector.js Documentation\"}],[\"$\",\"meta\",\"2\",{\"name\":\"description\",\"content\":\"Documentation for Modern Vector.js - A Modern Vector Graphics Library with Plugin System\"}]]\n"])</script><script>self.__next_f.push([1,"a:null\n"])</script></body></html>

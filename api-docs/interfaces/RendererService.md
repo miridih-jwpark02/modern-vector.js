@@ -11,7 +11,7 @@ category: interfaces
 
 # Interface: RendererService
 
-Defined in: [types/index.ts:125](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/types/index.ts#L125)
+Defined in: [types/index.ts:125](https://github.com/miridih-jwpark02/modern-vector.js/blob/5221f2fc49f67dd4433b667bc6d0e95a648486aa/packages/core/src/core/types/index.ts#L125)
 
 Service for managing renderers
 
@@ -23,7 +23,7 @@ Service for managing renderers
 
 > **register**(`renderer`): `void`
 
-Defined in: [types/index.ts:131](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/types/index.ts#L131)
+Defined in: [types/index.ts:131](https://github.com/miridih-jwpark02/modern-vector.js/blob/5221f2fc49f67dd4433b667bc6d0e95a648486aa/packages/core/src/core/types/index.ts#L131)
 
 렌더러 등록
 
@@ -45,7 +45,7 @@ Defined in: [types/index.ts:131](https://github.com/miridih-jwpark02/modern-vect
 
 > **render**(`scene`): `void`
 
-Defined in: [types/index.ts:145](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/types/index.ts#L145)
+Defined in: [types/index.ts:145](https://github.com/miridih-jwpark02/modern-vector.js/blob/5221f2fc49f67dd4433b667bc6d0e95a648486aa/packages/core/src/core/types/index.ts#L145)
 
 장면 렌더링
 
@@ -67,7 +67,7 @@ Defined in: [types/index.ts:145](https://github.com/miridih-jwpark02/modern-vect
 
 > **setActive**(`rendererId`): `void`
 
-Defined in: [types/index.ts:138](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/types/index.ts#L138)
+Defined in: [types/index.ts:138](https://github.com/miridih-jwpark02/modern-vector.js/blob/5221f2fc49f67dd4433b667bc6d0e95a648486aa/packages/core/src/core/types/index.ts#L138)
 
 활성 렌더러 설정
 

@@ -1,0 +1,329 @@
+<!DOCTYPE html><html lang="ko" class="__variable_c60a13"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="preload" href="/modern-vector.js/_next/static/media/119cf01b445a4dc3-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" href="/modern-vector.js/_next/static/media/12f0acdcae926a24-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" href="/modern-vector.js/_next/static/media/4aeaaf124a5054bc-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" href="/modern-vector.js/_next/static/media/b6885b7a9c09d162-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" href="/modern-vector.js/_next/static/media/cfa29e4f0aabf12a-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" href="/modern-vector.js/_next/static/media/dd3e76c51ce1a360-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" href="/modern-vector.js/_next/static/media/e00e15f44d7b58c0-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" href="/modern-vector.js/_next/static/media/e725ed3d1f6bc360-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" href="/modern-vector.js/_next/static/media/fc2b22d5c5b14cbb-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="stylesheet" href="/modern-vector.js/_next/static/css/a0071d00f84115dd.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/modern-vector.js/_next/static/chunks/webpack-215bff7debead481.js"/><script src="/modern-vector.js/_next/static/chunks/87c73c54-2306ec92ae4d95bb.js" async=""></script><script src="/modern-vector.js/_next/static/chunks/855-33ac0ebca547994c.js" async=""></script><script src="/modern-vector.js/_next/static/chunks/main-app-db9d2c8506281af9.js" async=""></script><script src="/modern-vector.js/_next/static/chunks/app/layout-86465bc224ae2e10.js" async=""></script><script src="/modern-vector.js/_next/static/chunks/770-57321866e8f48bfb.js" async=""></script><script src="/modern-vector.js/_next/static/chunks/816-eea2b2ef59921a13.js" async=""></script><script src="/modern-vector.js/_next/static/chunks/508-5bb57ed481e1e5a5.js" async=""></script><script src="/modern-vector.js/_next/static/chunks/435-ef317aca933735f6.js" async=""></script><script src="/modern-vector.js/_next/static/chunks/app/docs/layout-d625de0b562528ec.js" async=""></script><script src="/modern-vector.js/_next/static/chunks/app/docs/page-4fe432206ff5e2d2.js" async=""></script><meta name="next-size-adjust" content=""/><title>Modern Vector.js Documentation</title><meta name="description" content="Documentation for Modern Vector.js - A Modern Vector Graphics Library with Plugin System"/><style>
+            /* 다크 모드에서 highlight.js 스타일 */
+            .dark .hljs {
+              background: #1e1e1e;
+              color: #dcdcdc;
+            }
+            .dark .hljs-keyword,
+            .dark .hljs-selector-tag,
+            .dark .hljs-tag,
+            .dark .hljs-name {
+              color: #569cd6;
+            }
+            .dark .hljs-attribute,
+            .dark .hljs-literal,
+            .dark .hljs-number,
+            .dark .hljs-keyword {
+              color: #b5cea8;
+            }
+            .dark .hljs-string,
+            .dark .hljs-doctag {
+              color: #ce9178;
+            }
+            .dark .hljs-built_in,
+            .dark .hljs-builtin-name {
+              color: #4ec9b0;
+            }
+            .dark .hljs-comment,
+            .dark .hljs-quote {
+              color: #6a9955;
+            }
+            
+            /* 코드 블록 스타일 개선 */
+            .prose pre {
+              margin: 1.5em 0;
+              border-radius: 0.375rem;
+              padding: 1rem;
+              overflow-x: auto;
+            }
+            
+            .prose code {
+              font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+              font-size: 0.9em;
+            }
+            
+            /* 링크 스타일 개선 */
+            .prose a {
+              text-decoration: none;
+              transition: color 0.2s ease;
+            }
+            
+            .prose a:hover {
+              text-decoration: underline;
+            }
+            
+            /* 테이블 스타일 개선 */
+            .prose table {
+              width: 100%;
+              border-collapse: collapse;
+              margin: 1.5em 0;
+            }
+            
+            .prose table th,
+            .prose table td {
+              padding: 0.75rem;
+              border: 1px solid hsl(var(--border));
+            }
+            
+            .prose table th {
+              background-color: hsl(var(--muted));
+              font-weight: 600;
+            }
+            
+            .dark .prose table th {
+              background-color: hsl(var(--muted));
+            }
+            
+            /* 헤더 스타일 개선 */
+            .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+              scroll-margin-top: 5rem;
+              position: relative;
+            }
+            
+            .prose h1 {
+              font-size: 2.25rem;
+              margin-top: 2.5rem;
+              margin-bottom: 1.5rem;
+              font-weight: 700;
+            }
+            
+            .prose h2 {
+              font-size: 1.875rem;
+              margin-top: 2rem;
+              margin-bottom: 1rem;
+              font-weight: 600;
+              border-bottom: 1px solid hsl(var(--border));
+              padding-bottom: 0.5rem;
+            }
+            
+            .prose h3 {
+              font-size: 1.5rem;
+              margin-top: 1.5rem;
+              margin-bottom: 0.75rem;
+              font-weight: 600;
+            }
+            
+            /* 목록 스타일 개선 */
+            .prose ul, .prose ol {
+              margin: 1.25em 0;
+              padding-left: 1.625em;
+            }
+            
+            .prose li {
+              margin-bottom: 0.5em;
+            }
+            
+            /* 인용구 스타일 개선 */
+            .prose blockquote {
+              border-left: 4px solid hsl(var(--border));
+              padding-left: 1rem;
+              font-style: italic;
+              margin: 1.5em 0;
+              color: hsl(var(--muted-foreground));
+            }
+            
+            /* 다크 모드 텍스트 색상 개선 */
+            .dark .prose {
+              color: hsl(var(--foreground));
+            }
+            
+            .dark .prose h1,
+            .dark .prose h2,
+            .dark .prose h3,
+            .dark .prose h4,
+            .dark .prose h5,
+            .dark .prose h6 {
+              color: hsl(var(--foreground));
+            }
+            
+            .dark .prose p,
+            .dark .prose ul,
+            .dark .prose ol,
+            .dark .prose li {
+              color: hsl(var(--foreground));
+            }
+            
+            .dark .prose strong {
+              color: hsl(var(--foreground));
+            }
+            
+            .dark .prose table td {
+              color: hsl(var(--foreground));
+            }
+            
+            .dark .prose table th {
+              color: hsl(var(--foreground));
+            }
+            
+            /* 다크 모드에서 API 네비게이션 스타일 */
+            .dark .api-nav-link {
+              color: hsl(var(--foreground));
+            }
+          </style><script src="/modern-vector.js/_next/static/chunks/polyfills-42372ed130431b0a.js" noModule=""></script></head><body class="font-pretendard"><script>((e,t,r,n,o,a,i,u)=>{let s=document.documentElement,c=["light","dark"];function l(t){(Array.isArray(e)?e:[e]).forEach(e=>{let r="class"===e,n=r&&a?o.map(e=>a[e]||e):o;r?(s.classList.remove(...n),s.classList.add(t)):s.setAttribute(e,t)}),u&&c.includes(t)&&(s.style.colorScheme=t)}if(n)l(n);else try{let e=localStorage.getItem(t)||r,n=i&&"system"===e?window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light":e;l(n)}catch(e){}})("class","theme","system",null,["light","dark"],null,true,true)</script><!--$!--><template data-dgst="BAILOUT_TO_CLIENT_SIDE_RENDERING"></template><!--/$--><div class="flex min-h-screen flex-col"><header class="sticky top-0 z-40 w-full border-b bg-background"><div class="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0"><div class="flex items-center space-x-4"><button class="inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:text-accent-foreground h-10 py-2 mr-2 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:R2mulb:" data-state="closed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu h-6 w-6"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg><span class="sr-only">Toggle Menu</span></button><a class="flex items-center space-x-2" href="/modern-vector.js"><span class="inline-block font-bold">Modern Vector.js</span></a></div><nav class="hidden md:flex gap-6"><a class="flex items-center text-sm font-medium text-foreground transition-colors hover:text-foreground" href="/modern-vector.js/docs">Documentation</a><a class="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground" href="/modern-vector.js/api-docs">API Reference</a><a class="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground" href="/modern-vector.js/examples">Examples</a></nav></div></header><div class="container flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10 py-8"><aside class="fixed top-24 z-30 -ml-2 hidden h-[calc(100vh-6rem)] w-full shrink-0 md:sticky md:block"><div class="h-full py-6 pr-6 lg:py-8"><div class="w-full"><div class="mb-6"><h4 class="font-medium mb-2 text-sm text-foreground">Getting Started</h4><ul class="space-y-1"><li><a class="text-sm block py-1 px-2 rounded-md text-muted-foreground hover:text-foreground" href="/modern-vector.js/docs/getting-started/project-structure">프로젝트 구조</a></li></ul></div><div class="mb-6"><h4 class="font-medium mb-2 text-sm text-foreground">Core Concepts</h4><ul class="space-y-1"><li><a class="text-sm block py-1 px-2 rounded-md text-muted-foreground hover:text-foreground" href="/modern-vector.js/docs/core-concepts/plugin-system">플러그인 시스템</a></li></ul></div><div class="mb-6"><h4 class="font-medium mb-2 text-sm text-foreground">Api Reference</h4><ul class="space-y-1"><li><a class="text-sm block py-1 px-2 rounded-md text-muted-foreground hover:text-foreground" href="/modern-vector.js/docs/api-reference">API 레퍼런스</a></li><li><a class="text-sm block py-1 px-2 rounded-md text-muted-foreground hover:text-foreground" href="/modern-vector.js/docs/api-reference/core/plugin">Plugin</a></li><li><a class="text-sm block py-1 px-2 rounded-md text-muted-foreground hover:text-foreground" href="/modern-vector.js/docs/api-reference/core/service">Service</a></li><li><a class="text-sm block py-1 px-2 rounded-md text-muted-foreground hover:text-foreground" href="/modern-vector.js/docs/api-reference/core/vector-engine">VectorEngine</a></li><li><a class="text-sm block py-1 px-2 rounded-md text-muted-foreground hover:text-foreground" href="/modern-vector.js/docs/api-reference/math/vector">Vector</a></li><li><a class="text-sm block py-1 px-2 rounded-md text-muted-foreground hover:text-foreground" href="/modern-vector.js/docs/api-reference/renderers/canvas-renderer">CanvasRenderer</a></li><li><a class="text-sm block py-1 px-2 rounded-md text-muted-foreground hover:text-foreground" href="/modern-vector.js/docs/api-reference/shapes/shape">Shape</a></li></ul></div><div class="mb-6"><h4 class="font-medium mb-2 text-sm text-foreground">Api Docs</h4><ul class="space-y-1"><li><a class="text-sm block py-1 px-2 rounded-md text-muted-foreground hover:text-foreground" href="/modern-vector.js/docs/api-docs/generation">API 문서 생성</a></li></ul></div><div class="mb-6"><h4 class="font-medium mb-2 text-sm text-foreground">Deployment</h4><ul class="space-y-1"><li><a class="text-sm block py-1 px-2 rounded-md text-muted-foreground hover:text-foreground" href="/modern-vector.js/docs/deployment/github-pages">GitHub Pages 배포</a></li></ul></div></div></div></aside><main class="relative py-6 lg:gap-10 lg:py-8"><div class="max-w-3xl mx-auto"><h1 class="text-3xl font-bold mb-4">Vector</h1><p class="text-muted-foreground mb-8">벡터 연산을 위한 클래스 및 함수에 대한 API 문서</p><div class="prose dark:prose-invert max-w-none"><h1>Vector</h1>
+<p><code>Vector</code> 클래스는 2D 및 3D 벡터 연산을 위한 유틸리티를 제공합니다. 이 클래스는 점, 방향, 속도 등을 표현하는 데 사용되며, 벡터 수학 연산을 위한 다양한 메서드를 제공합니다.</p>
+<h2>구문</h2>
+<pre><code class="language-typescript">class Vector {
+  constructor(x?: number, y?: number, z?: number);
+  
+  // 속성
+  x: number;
+  y: number;
+  z: number;
+  
+  // 기본 연산
+  set(x: number, y: number, z?: number): this;
+  copy(v: Vector): this;
+  clone(): Vector;
+  
+  // 벡터 연산
+  add(v: Vector): this;
+  addScalar(s: number): this;
+  subtract(v: Vector): this;
+  subtractScalar(s: number): this;
+  multiply(v: Vector): this;
+  multiplyScalar(s: number): this;
+  divide(v: Vector): this;
+  divideScalar(s: number): this;
+  
+  // 벡터 속성
+  length(): number;
+  lengthSquared(): number;
+  distance(v: Vector): number;
+  distanceSquared(v: Vector): number;
+  normalize(): this;
+  
+  // 벡터 변환
+  negate(): this;
+  inverse(): this;
+  
+  // 벡터 연산
+  dot(v: Vector): number;
+  cross(v: Vector): Vector;
+  
+  // 벡터 변환
+  applyMatrix(m: Matrix): this;
+  applyQuaternion(q: Quaternion): this;
+  
+  // 유틸리티
+  equals(v: Vector, epsilon?: number): boolean;
+  toString(): string;
+  toArray(): [number, number, number];
+  
+  // 정적 메서드
+  static add(a: Vector, b: Vector): Vector;
+  static subtract(a: Vector, b: Vector): Vector;
+  static multiply(a: Vector, b: Vector): Vector;
+  static divide(a: Vector, b: Vector): Vector;
+  static dot(a: Vector, b: Vector): number;
+  static cross(a: Vector, b: Vector): Vector;
+}
+</code></pre>
+<h2>생성자</h2>
+<h3><code>constructor(x?: number, y?: number, z?: number)</code></h3>
+<p>새로운 Vector 인스턴스를 생성합니다.</p>
+<h4>매개변수</h4>
+<ul>
+<li><code>x</code> (선택사항): x 좌표. 기본값: 0</li>
+<li><code>y</code> (선택사항): y 좌표. 기본값: 0</li>
+<li><code>z</code> (선택사항): z 좌표. 기본값: 0</li>
+</ul>
+<h2>속성</h2>
+<h3><code>x: number</code></h3>
+<p>벡터의 x 좌표</p>
+<h3><code>y: number</code></h3>
+<p>벡터의 y 좌표</p>
+<h3><code>z: number</code></h3>
+<p>벡터의 z 좌표</p>
+<h2>메서드</h2>
+<h3>기본 연산</h3>
+<h4><code>set(x: number, y: number, z?: number): this</code></h4>
+<p>벡터의 좌표를 설정합니다.</p>
+<ul>
+<li><strong>매개변수</strong>:<!-- -->
+<ul>
+<li><code>x</code>: 새 x 좌표</li>
+<li><code>y</code>: 새 y 좌표</li>
+<li><code>z</code> (선택사항): 새 z 좌표. 기본값: 0</li>
+</ul>
+</li>
+<li><strong>반환값</strong>: 메서드 체이닝을 위한 현재 인스턴스</li>
+</ul>
+<h4><code>copy(v: Vector): this</code></h4>
+<p>다른 벡터의 좌표를 현재 벡터로 복사합니다.</p>
+<ul>
+<li><strong>매개변수</strong>: <code>v</code> - 복사할 벡터</li>
+<li><strong>반환값</strong>: 메서드 체이닝을 위한 현재 인스턴스</li>
+</ul>
+<h4><code>clone(): Vector</code></h4>
+<p>현재 벡터의 복제본을 생성합니다.</p>
+<ul>
+<li><strong>반환값</strong>: 새로운 Vector 인스턴스</li>
+</ul>
+<h3>벡터 연산</h3>
+<h4><code>add(v: Vector): this</code></h4>
+<p>현재 벡터에 다른 벡터를 더합니다.</p>
+<ul>
+<li><strong>매개변수</strong>: <code>v</code> - 더할 벡터</li>
+<li><strong>반환값</strong>: 메서드 체이닝을 위한 현재 인스턴스</li>
+</ul>
+<h4><code>addScalar(s: number): this</code></h4>
+<p>현재 벡터의 모든 좌표에 스칼라 값을 더합니다.</p>
+<ul>
+<li><strong>매개변수</strong>: <code>s</code> - 더할 스칼라 값</li>
+<li><strong>반환값</strong>: 메서드 체이닝을 위한 현재 인스턴스</li>
+</ul>
+<h4><code>subtract(v: Vector): this</code></h4>
+<p>현재 벡터에서 다른 벡터를 뺍니다.</p>
+<ul>
+<li><strong>매개변수</strong>: <code>v</code> - 뺄 벡터</li>
+<li><strong>반환값</strong>: 메서드 체이닝을 위한 현재 인스턴스</li>
+</ul>
+<h4><code>subtractScalar(s: number): this</code></h4>
+<p>현재 벡터의 모든 좌표에서 스칼라 값을 뺍니다.</p>
+<ul>
+<li><strong>매개변수</strong>: <code>s</code> - 뺄 스칼라 값</li>
+<li><strong>반환값</strong>: 메서드 체이닝을 위한 현재 인스턴스</li>
+</ul>
+<h2>예제</h2>
+<h3>기본 사용법</h3>
+<pre><code class="language-typescript">import { Vector } from &#x27;modern-vector&#x27;;
+
+// 벡터 생성
+const v1 = new Vector(1, 2, 3);
+const v2 = new Vector(4, 5, 6);
+
+// 벡터 연산
+const v3 = v1.clone().add(v2);
+console.log(v3.toString()); // &quot;Vector(5, 7, 9)&quot;
+
+// 벡터 정규화
+const direction = new Vector(3, 4, 0).normalize();
+console.log(direction.length()); // 1
+console.log(direction.toString()); // &quot;Vector(0.6, 0.8, 0)&quot;
+
+// 벡터 내적
+const dotProduct = v1.dot(v2);
+console.log(dotProduct); // 32
+
+// 벡터 외적
+const crossProduct = v1.clone().cross(v2);
+console.log(crossProduct.toString()); // &quot;Vector(-3, 6, -3)&quot;
+</code></pre>
+<h3>벡터 변환</h3>
+<pre><code class="language-typescript">import { Vector, Matrix } from &#x27;modern-vector&#x27;;
+
+// 벡터 생성
+const position = new Vector(10, 20, 30);
+
+// 행렬 변환
+const transformMatrix = Matrix.createRotationZ(Math.PI / 4); // 45도 회전
+position.applyMatrix(transformMatrix);
+
+console.log(position.toString()); // 회전된 위치
+</code></pre>
+<h2>관련 API</h2>
+<ul>
+<li><a href="/docs/api-reference/math/matrix">Matrix</a> - 행렬 연산</li>
+<li><a href="/docs/api-reference/math/quaternion">Quaternion</a> - 쿼터니언 연산</li>
+<li><a href="/docs/api-reference/math/transform">Transform</a> - 변환 유틸리티</li>
+</ul></div></div></main></div><footer class="border-t py-6 md:py-0"><div class="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row"><p class="text-center text-sm leading-loose text-muted-foreground md:text-left">Built with Next.js, Tailwind CSS, and shadcn/ui.</p></div></footer></div><script src="/modern-vector.js/_next/static/chunks/webpack-215bff7debead481.js" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n3:I[9638,[\"177\",\"static/chunks/app/layout-86465bc224ae2e10.js\"],\"ThemeProvider\"]\n4:I[3952,[\"177\",\"static/chunks/app/layout-86465bc224ae2e10.js\"],\"GitHubPagesRedirect\"]\n5:I[9507,[],\"\"]\n6:I[2639,[],\"\"]\n9:I[1432,[],\"OutletBoundary\"]\nb:I[1432,[],\"MetadataBoundary\"]\nd:I[1432,[],\"ViewportBoundary\"]\nf:I[9398,[],\"\"]\n:HL[\"/modern-vector.js/_next/static/media/119cf01b445a4dc3-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/modern-vector.js/_next/static/media/12f0acdcae926a24-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/modern-vector.js/_next/static/media/4aeaaf124a5054bc-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/modern-vector.js/_next/static/media/b6885b7a9c09d162-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/modern-vector.js/_next/static/media/cfa29e4f0aabf12a-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/modern-vector.js/_next/static/media/dd3e76c51ce1a360-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/modern-vector.js/_next/static/media/e00e15f44d7b58c0-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/modern-vector.js/_next/static/media/e725ed3d1f6bc360-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/modern-vector.js/_next/static/media/fc2b22d5c5b14cbb-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/modern-vector.js/_next/static/css/a0071d00f84115dd.css\",\"style\"]\n2:T1281,"])</script><script>self.__next_f.push([1,"\n            /* 다크 모드에서 highlight.js 스타일 */\n            .dark .hljs {\n              background: #1e1e1e;\n              color: #dcdcdc;\n            }\n            .dark .hljs-keyword,\n            .dark .hljs-selector-tag,\n            .dark .hljs-tag,\n            .dark .hljs-name {\n              color: #569cd6;\n            }\n            .dark .hljs-attribute,\n            .dark .hljs-literal,\n            .dark .hljs-number,\n            .dark .hljs-keyword {\n              color: #b5cea8;\n            }\n            .dark .hljs-string,\n            .dark .hljs-doctag {\n              color: #ce9178;\n            }\n            .dark .hljs-built_in,\n            .dark .hljs-builtin-name {\n              color: #4ec9b0;\n            }\n            .dark .hljs-comment,\n            .dark .hljs-quote {\n              color: #6a9955;\n            }\n            \n            /* 코드 블록 스타일 개선 */\n            .prose pre {\n              margin: 1.5em 0;\n              border-radius: 0.375rem;\n              padding: 1rem;\n              overflow-x: auto;\n            }\n            \n            .prose code {\n              font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace;\n              font-size: 0.9em;\n            }\n            \n            /* 링크 스타일 개선 */\n            .prose a {\n              text-decoration: none;\n              transition: color 0.2s ease;\n            }\n            \n            .prose a:hover {\n              text-decoration: underline;\n            }\n            \n            /* 테이블 스타일 개선 */\n            .prose table {\n              width: 100%;\n              border-collapse: collapse;\n              margin: 1.5em 0;\n            }\n            \n            .prose table th,\n            .prose table td {\n              padding: 0.75rem;\n              border: 1px solid hsl(var(--border));\n            }\n            \n            .prose table th {\n              background-color: hsl(var(--muted));\n              font-weight: 600;\n            }\n            \n            .dark .prose table th {\n              background-color: hsl(var(--muted));\n            }\n            \n            /* 헤더 스타일 개선 */\n            .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {\n              scroll-margin-top: 5rem;\n              position: relative;\n            }\n            \n            .prose h1 {\n              font-size: 2.25rem;\n              margin-top: 2.5rem;\n              margin-bottom: 1.5rem;\n              font-weight: 700;\n            }\n            \n            .prose h2 {\n              font-size: 1.875rem;\n              margin-top: 2rem;\n              margin-bottom: 1rem;\n              font-weight: 600;\n              border-bottom: 1px solid hsl(var(--border));\n              padding-bottom: 0.5rem;\n            }\n            \n            .prose h3 {\n              font-size: 1.5rem;\n              margin-top: 1.5rem;\n              margin-bottom: 0.75rem;\n              font-weight: 600;\n            }\n            \n            /* 목록 스타일 개선 */\n            .prose ul, .prose ol {\n              margin: 1.25em 0;\n              padding-left: 1.625em;\n            }\n            \n            .prose li {\n              margin-bottom: 0.5em;\n            }\n            \n            /* 인용구 스타일 개선 */\n            .prose blockquote {\n              border-left: 4px solid hsl(var(--border));\n              padding-left: 1rem;\n              font-style: italic;\n              margin: 1.5em 0;\n              color: hsl(var(--muted-foreground));\n            }\n            \n            /* 다크 모드 텍스트 색상 개선 */\n            .dark .prose {\n              color: hsl(var(--foreground));\n            }\n            \n            .dark .prose h1,\n            .dark .prose h2,\n            .dark .prose h3,\n            .dark .prose h4,\n            .dark .prose h5,\n            .dark .prose h6 {\n              color: hsl(var(--foreground));\n            }\n            \n            .dark .prose p,\n            .dark .prose ul,\n            .dark .prose ol,\n            .dark .prose li {\n              color: hsl(var(--foreground));\n            }\n            \n            .dark .prose strong {\n              color: hsl(var(--foreground));\n            }\n            \n            .dark .prose table td {\n              color: hsl(var(--foreground));\n            }\n            \n            .dark .prose table th {\n              color: hsl(var(--foreground));\n            }\n            \n            /* 다크 모드에서 API 네비게이션 스타일 */\n            .dark .api-nav-link {\n              color: hsl(var(--foreground));\n            }\n          "])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"b\":\"6sp2ENyHN8Im5U1B7fgQ_\",\"p\":\"/modern-vector.js\",\"c\":[\"\",\"docs\",\"api-reference\",\"math\",\"vector\"],\"i\":false,\"f\":[[[\"\",{\"children\":[\"docs\",{\"children\":[[\"slug\",\"api-reference/math/vector\",\"c\"],{\"children\":[\"__PAGE__\",{}]}]}]},\"$undefined\",\"$undefined\",true],[\"\",[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/modern-vector.js/_next/static/css/a0071d00f84115dd.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}]],[\"$\",\"html\",null,{\"lang\":\"ko\",\"suppressHydrationWarning\":true,\"className\":\"__variable_c60a13\",\"children\":[[\"$\",\"head\",null,{\"children\":[\"$\",\"style\",null,{\"children\":\"$2\"}]}],[\"$\",\"body\",null,{\"className\":\"font-pretendard\",\"children\":[\"$\",\"$L3\",null,{\"attribute\":\"class\",\"defaultTheme\":\"system\",\"enableSystem\":true,\"disableTransitionOnChange\":true,\"children\":[[\"$\",\"$L4\",null,{}],[\"$\",\"$L5\",null,{\"parallelRouterKey\":\"children\",\"segmentPath\":[\"children\"],\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L6\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[],[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}]}]]}]]}],{\"children\":[\"docs\",[\"$\",\"$1\",\"c\",{\"children\":[null,\"$L7\"]}],{\"children\":[[\"slug\",\"api-reference/math/vector\",\"c\"],[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L5\",null,{\"parallelRouterKey\":\"children\",\"segmentPath\":[\"children\",\"docs\",\"children\",\"$0:f:0:1:2:children:2:children:0\",\"children\"],\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L6\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[\"__PAGE__\",[\"$\",\"$1\",\"c\",{\"children\":[\"$L8\",null,[\"$\",\"$L9\",null,{\"children\":\"$La\"}]]}],{},null,false]},null,false]},null,false]},null,false],[\"$\",\"$1\",\"h\",{\"children\":[null,[\"$\",\"$1\",\"a6PIOcZSsbTqlubaNzIP6\",{\"children\":[[\"$\",\"$Lb\",null,{\"children\":\"$Lc\"}],[\"$\",\"$Ld\",null,{\"children\":\"$Le\"}],[\"$\",\"meta\",null,{\"name\":\"next-size-adjust\",\"content\":\"\"}]]}]]}],false]],\"m\":\"$undefined\",\"G\":[\"$f\",\"$undefined\"],\"s\":false,\"S\":true}\n"])</script><script>self.__next_f.push([1,"10:I[4763,[\"770\",\"static/chunks/770-57321866e8f48bfb.js\",\"816\",\"static/chunks/816-eea2b2ef59921a13.js\",\"508\",\"static/chunks/508-5bb57ed481e1e5a5.js\",\"435\",\"static/chunks/435-ef317aca933735f6.js\",\"499\",\"static/chunks/app/docs/layout-d625de0b562528ec.js\"],\"MobileNav\"]\n11:I[5770,[\"770\",\"static/chunks/770-57321866e8f48bfb.js\",\"816\",\"static/chunks/816-eea2b2ef59921a13.js\",\"40\",\"static/chunks/app/docs/page-4fe432206ff5e2d2.js\"],\"\"]\n12:I[2000,[\"770\",\"static/chunks/770-57321866e8f48bfb.js\",\"816\",\"static/chunks/816-eea2b2ef59921a13.js\",\"508\",\"static/chunks/508-5bb57ed481e1e5a5.js\",\"435\",\"static/chunks/435-ef317aca933735f6.js\",\"499\",\"static/chunks/app/docs/layout-d625de0b562528ec.js\"],\"DocsNavigation\"]\n"])</script><script>self.__next_f.push([1,"7:[\"$\",\"div\",null,{\"className\":\"flex min-h-screen flex-col\",\"children\":[[\"$\",\"header\",null,{\"className\":\"sticky top-0 z-40 w-full border-b bg-background\",\"children\":[\"$\",\"div\",null,{\"className\":\"container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0\",\"children\":[[\"$\",\"div\",null,{\"className\":\"flex items-center space-x-4\",\"children\":[[\"$\",\"$L10\",null,{\"currentSlug\":\"$undefined\"}],[\"$\",\"$L11\",null,{\"href\":\"/\",\"className\":\"flex items-center space-x-2\",\"children\":[\"$\",\"span\",null,{\"className\":\"inline-block font-bold\",\"children\":\"Modern Vector.js\"}]}]]}],[\"$\",\"nav\",null,{\"className\":\"hidden md:flex gap-6\",\"children\":[[\"$\",\"$L11\",null,{\"href\":\"/docs\",\"className\":\"flex items-center text-sm font-medium text-foreground transition-colors hover:text-foreground\",\"children\":\"Documentation\"}],[\"$\",\"$L11\",null,{\"href\":\"/api-docs\",\"className\":\"flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground\",\"children\":\"API Reference\"}],[\"$\",\"$L11\",null,{\"href\":\"/examples\",\"className\":\"flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground\",\"children\":\"Examples\"}]]}]]}]}],[\"$\",\"div\",null,{\"className\":\"container flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10 py-8\",\"children\":[[\"$\",\"aside\",null,{\"className\":\"fixed top-24 z-30 -ml-2 hidden h-[calc(100vh-6rem)] w-full shrink-0 md:sticky md:block\",\"children\":[\"$\",\"div\",null,{\"className\":\"h-full py-6 pr-6 lg:py-8\",\"children\":[\"$\",\"$L12\",null,{\"currentSlug\":\"$undefined\"}]}]}],[\"$\",\"main\",null,{\"className\":\"relative py-6 lg:gap-10 lg:py-8\",\"children\":[\"$\",\"$L5\",null,{\"parallelRouterKey\":\"children\",\"segmentPath\":[\"children\",\"docs\",\"children\"],\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L6\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}],[\"$\",\"footer\",null,{\"className\":\"border-t py-6 md:py-0\",\"children\":[\"$\",\"div\",null,{\"className\":\"container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row\",\"children\":[\"$\",\"p\",null,{\"className\":\"text-center text-sm leading-loose text-muted-foreground md:text-left\",\"children\":\"Built with Next.js, Tailwind CSS, and shadcn/ui.\"}]}]}]]}]\n"])</script><script>self.__next_f.push([1,"8:[\"$\",\"div\",null,{\"className\":\"max-w-3xl mx-auto\",\"children\":[[\"$\",\"h1\",null,{\"className\":\"text-3xl font-bold mb-4\",\"children\":\"Vector\"}],[\"$\",\"p\",null,{\"className\":\"text-muted-foreground mb-8\",\"children\":\"벡터 연산을 위한 클래스 및 함수에 대한 API 문서\"}],[\"$\",\"div\",null,{\"className\":\"prose dark:prose-invert max-w-none\",\"children\":\"$L13\"}]]}]\n"])</script><script>self.__next_f.push([1,"14:T529,class Vector {\n  constructor(x?: number, y?: number, z?: number);\n  \n  // 속성\n  x: number;\n  y: number;\n  z: number;\n  \n  // 기본 연산\n  set(x: number, y: number, z?: number): this;\n  copy(v: Vector): this;\n  clone(): Vector;\n  \n  // 벡터 연산\n  add(v: Vector): this;\n  addScalar(s: number): this;\n  subtract(v: Vector): this;\n  subtractScalar(s: number): this;\n  multiply(v: Vector): this;\n  multiplyScalar(s: number): this;\n  divide(v: Vector): this;\n  divideScalar(s: number): this;\n  \n  // 벡터 속성\n  length(): number;\n  lengthSquared(): number;\n  distance(v: Vector): number;\n  distanceSquared(v: Vector): number;\n  normalize(): this;\n  \n  // 벡터 변환\n  negate(): this;\n  inverse(): this;\n  \n  // 벡터 연산\n  dot(v: Vector): number;\n  cross(v: Vector): Vector;\n  \n  // 벡터 변환\n  applyMatrix(m: Matrix): this;\n  applyQuaternion(q: Quaternion): this;\n  \n  // 유틸리티\n  equals(v: Vector, epsilon?: number): boolean;\n  toString(): string;\n  toArray(): [number, number, number];\n  \n  // 정적 메서드\n  static add(a: Vector, b: Vector): Vector;\n  static subtract(a: Vector, b: Vector): Vector;\n  static multiply(a: Vector, b: Vector): Vector;\n  static divide(a: Vector, b: Vector): Vector;\n  static dot(a: Vector, b: Vector): number;\n  static cross(a: Vector, b: Vector): Vector;\n}\n"])</script><script>self.__next_f.push([1,"13:[[\"$\",\"h1\",null,{\"children\":\"Vector\"}],\"\\n\",[\"$\",\"p\",null,{\"children\":[[\"$\",\"code\",null,{\"children\":\"Vector\"}],\" 클래스는 2D 및 3D 벡터 연산을 위한 유틸리티를 제공합니다. 이 클래스는 점, 방향, 속도 등을 표현하는 데 사용되며, 벡터 수학 연산을 위한 다양한 메서드를 제공합니다.\"]}],\"\\n\",[\"$\",\"h2\",null,{\"children\":\"구문\"}],\"\\n\",[\"$\",\"pre\",null,{\"children\":[\"$\",\"code\",null,{\"className\":\"language-typescript\",\"children\":\"$14\"}]}],\"\\n\",[\"$\",\"h2\",null,{\"children\":\"생성자\"}],\"\\n\",[\"$\",\"h3\",null,{\"children\":[\"$\",\"code\",null,{\"children\":\"constructor(x?: number, y?: number, z?: number)\"}]}],\"\\n\",[\"$\",\"p\",null,{\"children\":\"새로운 Vector 인스턴스를 생성합니다.\"}],\"\\n\",[\"$\",\"h4\",null,{\"children\":\"매개변수\"}],\"\\n\",[\"$\",\"ul\",null,{\"children\":[\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"code\",null,{\"children\":\"x\"}],\" (선택사항): x 좌표. 기본값: 0\"]}],\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"code\",null,{\"children\":\"y\"}],\" (선택사항): y 좌표. 기본값: 0\"]}],\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"code\",null,{\"children\":\"z\"}],\" (선택사항): z 좌표. 기본값: 0\"]}],\"\\n\"]}],\"\\n\",[\"$\",\"h2\",null,{\"children\":\"속성\"}],\"\\n\",[\"$\",\"h3\",null,{\"children\":[\"$\",\"code\",null,{\"children\":\"x: number\"}]}],\"\\n\",[\"$\",\"p\",null,{\"children\":\"벡터의 x 좌표\"}],\"\\n\",[\"$\",\"h3\",null,{\"children\":[\"$\",\"code\",null,{\"children\":\"y: number\"}]}],\"\\n\",[\"$\",\"p\",null,{\"children\":\"벡터의 y 좌표\"}],\"\\n\",[\"$\",\"h3\",null,{\"children\":[\"$\",\"code\",null,{\"children\":\"z: number\"}]}],\"\\n\",[\"$\",\"p\",null,{\"children\":\"벡터의 z 좌표\"}],\"\\n\",[\"$\",\"h2\",null,{\"children\":\"메서드\"}],\"\\n\",[\"$\",\"h3\",null,{\"children\":\"기본 연산\"}],\"\\n\",[\"$\",\"h4\",null,{\"children\":[\"$\",\"code\",null,{\"children\":\"set(x: number, y: number, z?: number): this\"}]}],\"\\n\",[\"$\",\"p\",null,{\"children\":\"벡터의 좌표를 설정합니다.\"}],\"\\n\",[\"$\",\"ul\",null,{\"children\":[\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"strong\",null,{\"children\":\"매개변수\"}],\":\",\"\\n\",[\"$\",\"ul\",null,{\"children\":[\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"code\",null,{\"children\":\"x\"}],\": 새 x 좌표\"]}],\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"code\",null,{\"children\":\"y\"}],\": 새 y 좌표\"]}],\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"code\",null,{\"children\":\"z\"}],\" (선택사항): 새 z 좌표. 기본값: 0\"]}],\"\\n\"]}],\"\\n\"]}],\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"strong\",null,{\"children\":\"반환값\"}],\": 메서드 체이닝을 위한 현재 인스턴스\"]}],\"\\n\"]}],\"\\n\",[\"$\",\"h4\",null,{\"children\":[\"$\",\"code\",null,{\"children\":\"copy(v: Vector): this\"}]}],\"\\n\",[\"$\",\"p\",null,{\"children\":\"다른 벡터의 좌표를 현재 벡터로 복사합니다.\"}],\"\\n\",[\"$\",\"ul\",null,{\"children\":[\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"strong\",null,{\"children\":\"매개변수\"}],\": \",[\"$\",\"code\",null,{\"children\":\"v\"}],\" - 복사할 벡터\"]}],\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"strong\",null,{\"children\":\"반환값\"}],\": 메서드 체이닝을 위한 현재 인스턴스\"]}],\"\\n\"]}],\"\\n\",[\"$\",\"h4\",null,{\"children\":[\"$\",\"code\",null,{\"children\":\"clone(): Vector\"}]}],\"\\n\",[\"$\",\"p\",null,{\"children\":\"현재 벡터의 복제본을 생성합니다.\"}],\"\\n\",[\"$\",\"ul\",null,{\"children\":[\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"strong\",null,{\"children\":\"반환값\"}],\": 새로운 Vector 인스턴스\"]}],\"\\n\"]}],\"\\n\",[\"$\",\"h3\",null,{\"children\":\"벡터 연산\"}],\"\\n\",[\"$\",\"h4\",null,{\"children\":[\"$\",\"code\",null,{\"children\":\"add(v: Vector): this\"}]}],\"\\n\",[\"$\",\"p\",null,{\"children\":\"현재 벡터에 다른 벡터를 더합니다.\"}],\"\\n\",[\"$\",\"ul\",null,{\"children\":[\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"strong\",null,{\"children\":\"매개변수\"}],\": \",[\"$\",\"code\",null,{\"children\":\"v\"}],\" - 더할 벡터\"]}],\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"strong\",null,{\"children\":\"반환값\"}],\": 메서드 체이닝을 위한 현재 인스턴스\"]}],\"\\n\"]}],\"\\n\",[\"$\",\"h4\",null,{\"children\":[\"$\",\"code\",null,{\"children\":\"addScalar(s: number): this\"}]}],\"\\n\",[\"$\",\"p\",null,{\"children\":\"현재 벡터의 모든 좌표에 스칼라 값을 더합니다.\"}],\"\\n\",[\"$\",\"ul\",null,{\"children\":[\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"strong\",null,{\"children\":\"매개변수\"}],\": \",[\"$\",\"code\",null,{\"children\":\"s\"}],\" - 더할 스칼라 값\"]}],\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"strong\",null,{\"children\":\"반환값\"}],\": 메서드 체이닝을 위한 현재 인스턴스\"]}],\"\\n\"]}],\"\\n\",[\"$\",\"h4\",null,{\"children\":[\"$\",\"code\",null,{\"children\":\"subtract(v: Vector): this\"}]}],\"\\n\",[\"$\",\"p\",null,{\"children\":\"현재 벡터에서 다른 벡터를 뺍니다.\"}],\"\\n\",[\"$\",\"ul\",null,{\"children\":[\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"strong\",null,{\"children\":\"매개변수\"}],\": \",[\"$\",\"code\",null,{\"children\":\"v\"}],\" - 뺄 벡터\"]}],\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"strong\",null,{\"children\":\"반환값\"}],\": 메서드 체이닝을 위한 현재 인스턴스\"]}],\"\\n\"]}],\"\\n\",[\"$\",\"h4\",null,{\"children\":[\"$\",\"code\",null,{\"children\":\"subtractScalar(s: number): this\"}]}],\"\\n\",[\"$\",\"p\",null,{\"children\":\"현재 벡터의 모든 좌표에서 스칼라 값을 뺍니다.\"}],\"\\n\",[\"$\",\"ul\",null,{\"children\":[\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"strong\",null,{\"children\":\"매개변수\"}],\": \",[\"$\",\"code\",null,{\"children\":\"s\"}],\" - 뺄 스칼라 값\"]}],\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"strong\",null,{\"children\":\"반환값\"}],\": 메서드 체이닝을 위한 현재 인스턴스\"]}],\"\\n\"]}],\"\\n\",[\"$\",\"h2\",null,{\"children\":\"예제\"}],\"\\n\",[\"$\",\"h3\",null,{\"children\":\"기본 사용법\"}],\"\\n\",[\"$\",\"pre\",null,{\"children\":[\"$\",\"code\",null,{\"className\":\"language-typescript\",\"children\":\"import { Vector } from 'modern-vector';\\n\\n// 벡터 생성\\nconst v1 = new Vector(1, 2, 3);\\nconst v2 = new Vector(4, 5, 6);\\n\\n// 벡터 연산\\nconst v3 = v1.clone().add(v2);\\nconsole.log(v3.toString()); // \\\"Vector(5, 7, 9)\\\"\\n\\n// 벡터 정규화\\nconst direction = new Vector(3, 4, 0).normalize();\\nconsole.log(direction.length()); // 1\\nconsole.log(direction.toString()); // \\\"Vector(0.6, 0.8, 0)\\\"\\n\\n// 벡터 내적\\nconst dotProduct = v1.dot(v2);\\nconsole.log(dotProduct); // 32\\n\\n// 벡터 외적\\nconst crossProduct = v1.clone().cross(v2);\\nconsole.log(crossProduct.toString()); // \\\"Vector(-3, 6, -3)\\\"\\n\"}]}],\"\\n\",[\"$\",\"h3\",null,{\"children\":\"벡터 변환\"}],\"\\n\",[\"$\",\"pre\",null,{\"children\":[\"$\",\"code\",null,{\"className\":\"language-typescript\",\"children\":\"import { Vector, Matrix } from 'modern-vector';\\n\\n// 벡터 생성\\nconst position = new Vector(10, 20, 30);\\n\\n// 행렬 변환\\nconst transformMatrix = Matrix.createRotationZ(Math.PI / 4); // 45도 회전\\nposition.applyMatrix(transformMatrix);\\n\\nconsole.log(position.toString()); // 회전된 위치\\n\"}]}],\"\\n\",[\"$\",\"h2\",null,{\"children\":\"관련 API\"}],\"\\n\",[\"$\",\"ul\",null,{\"children\":[\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"a\",null,{\"href\":\"/docs/api-reference/math/matrix\",\"children\":\"Matrix\"}],\" - 행렬 연산\"]}],\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"a\",null,{\"href\":\"/docs/api-reference/math/quaternion\",\"children\":\"Quaternion\"}],\" - 쿼터니언 연산\"]}],\"\\n\",[\"$\",\"li\",null,{\"children\":[[\"$\",\"a\",null,{\"href\":\"/docs/api-reference/math/transform\",\"children\":\"Transform\"}],\" - 변환 유틸리티\"]}],\"\\n\"]}]]\n"])</script><script>self.__next_f.push([1,"e:[[\"$\",\"meta\",\"0\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\nc:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"title\",\"1\",{\"children\":\"Modern Vector.js Documentation\"}],[\"$\",\"meta\",\"2\",{\"name\":\"description\",\"content\":\"Documentation for Modern Vector.js - A Modern Vector Graphics Library with Plugin System\"}]]\n"])</script><script>self.__next_f.push([1,"a:null\n"])</script></body></html>

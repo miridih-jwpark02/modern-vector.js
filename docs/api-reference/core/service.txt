@@ -1,0 +1,275 @@
+1:"$Sreact.fragment"
+3:I[9638,["177","static/chunks/app/layout-86465bc224ae2e10.js"],"ThemeProvider"]
+4:I[3952,["177","static/chunks/app/layout-86465bc224ae2e10.js"],"GitHubPagesRedirect"]
+5:I[9507,[],""]
+6:I[2639,[],""]
+9:I[1432,[],"OutletBoundary"]
+b:I[1432,[],"MetadataBoundary"]
+d:I[1432,[],"ViewportBoundary"]
+f:I[9398,[],""]
+:HL["/modern-vector.js/_next/static/media/119cf01b445a4dc3-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/modern-vector.js/_next/static/media/12f0acdcae926a24-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/modern-vector.js/_next/static/media/4aeaaf124a5054bc-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/modern-vector.js/_next/static/media/b6885b7a9c09d162-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/modern-vector.js/_next/static/media/cfa29e4f0aabf12a-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/modern-vector.js/_next/static/media/dd3e76c51ce1a360-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/modern-vector.js/_next/static/media/e00e15f44d7b58c0-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/modern-vector.js/_next/static/media/e725ed3d1f6bc360-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/modern-vector.js/_next/static/media/fc2b22d5c5b14cbb-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/modern-vector.js/_next/static/css/a0071d00f84115dd.css","style"]
+2:T1281,
+            /* 다크 모드에서 highlight.js 스타일 */
+            .dark .hljs {
+              background: #1e1e1e;
+              color: #dcdcdc;
+            }
+            .dark .hljs-keyword,
+            .dark .hljs-selector-tag,
+            .dark .hljs-tag,
+            .dark .hljs-name {
+              color: #569cd6;
+            }
+            .dark .hljs-attribute,
+            .dark .hljs-literal,
+            .dark .hljs-number,
+            .dark .hljs-keyword {
+              color: #b5cea8;
+            }
+            .dark .hljs-string,
+            .dark .hljs-doctag {
+              color: #ce9178;
+            }
+            .dark .hljs-built_in,
+            .dark .hljs-builtin-name {
+              color: #4ec9b0;
+            }
+            .dark .hljs-comment,
+            .dark .hljs-quote {
+              color: #6a9955;
+            }
+            
+            /* 코드 블록 스타일 개선 */
+            .prose pre {
+              margin: 1.5em 0;
+              border-radius: 0.375rem;
+              padding: 1rem;
+              overflow-x: auto;
+            }
+            
+            .prose code {
+              font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+              font-size: 0.9em;
+            }
+            
+            /* 링크 스타일 개선 */
+            .prose a {
+              text-decoration: none;
+              transition: color 0.2s ease;
+            }
+            
+            .prose a:hover {
+              text-decoration: underline;
+            }
+            
+            /* 테이블 스타일 개선 */
+            .prose table {
+              width: 100%;
+              border-collapse: collapse;
+              margin: 1.5em 0;
+            }
+            
+            .prose table th,
+            .prose table td {
+              padding: 0.75rem;
+              border: 1px solid hsl(var(--border));
+            }
+            
+            .prose table th {
+              background-color: hsl(var(--muted));
+              font-weight: 600;
+            }
+            
+            .dark .prose table th {
+              background-color: hsl(var(--muted));
+            }
+            
+            /* 헤더 스타일 개선 */
+            .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+              scroll-margin-top: 5rem;
+              position: relative;
+            }
+            
+            .prose h1 {
+              font-size: 2.25rem;
+              margin-top: 2.5rem;
+              margin-bottom: 1.5rem;
+              font-weight: 700;
+            }
+            
+            .prose h2 {
+              font-size: 1.875rem;
+              margin-top: 2rem;
+              margin-bottom: 1rem;
+              font-weight: 600;
+              border-bottom: 1px solid hsl(var(--border));
+              padding-bottom: 0.5rem;
+            }
+            
+            .prose h3 {
+              font-size: 1.5rem;
+              margin-top: 1.5rem;
+              margin-bottom: 0.75rem;
+              font-weight: 600;
+            }
+            
+            /* 목록 스타일 개선 */
+            .prose ul, .prose ol {
+              margin: 1.25em 0;
+              padding-left: 1.625em;
+            }
+            
+            .prose li {
+              margin-bottom: 0.5em;
+            }
+            
+            /* 인용구 스타일 개선 */
+            .prose blockquote {
+              border-left: 4px solid hsl(var(--border));
+              padding-left: 1rem;
+              font-style: italic;
+              margin: 1.5em 0;
+              color: hsl(var(--muted-foreground));
+            }
+            
+            /* 다크 모드 텍스트 색상 개선 */
+            .dark .prose {
+              color: hsl(var(--foreground));
+            }
+            
+            .dark .prose h1,
+            .dark .prose h2,
+            .dark .prose h3,
+            .dark .prose h4,
+            .dark .prose h5,
+            .dark .prose h6 {
+              color: hsl(var(--foreground));
+            }
+            
+            .dark .prose p,
+            .dark .prose ul,
+            .dark .prose ol,
+            .dark .prose li {
+              color: hsl(var(--foreground));
+            }
+            
+            .dark .prose strong {
+              color: hsl(var(--foreground));
+            }
+            
+            .dark .prose table td {
+              color: hsl(var(--foreground));
+            }
+            
+            .dark .prose table th {
+              color: hsl(var(--foreground));
+            }
+            
+            /* 다크 모드에서 API 네비게이션 스타일 */
+            .dark .api-nav-link {
+              color: hsl(var(--foreground));
+            }
+          0:{"P":null,"b":"6sp2ENyHN8Im5U1B7fgQ_","p":"/modern-vector.js","c":["","docs","api-reference","core","service"],"i":false,"f":[[["",{"children":["docs",{"children":[["slug","api-reference/core/service","c"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/modern-vector.js/_next/static/css/a0071d00f84115dd.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"ko","suppressHydrationWarning":true,"className":"__variable_c60a13","children":[["$","head",null,{"children":["$","style",null,{"children":"$2"}]}],["$","body",null,{"className":"font-pretendard","children":["$","$L3",null,{"attribute":"class","defaultTheme":"system","enableSystem":true,"disableTransitionOnChange":true,"children":[["$","$L4",null,{}],["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[],[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]]],"forbidden":"$undefined","unauthorized":"$undefined"}]]}]}]]}]]}],{"children":["docs",["$","$1","c",{"children":[null,"$L7"]}],{"children":[["slug","api-reference/core/service","c"],["$","$1","c",{"children":[null,["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","docs","children","$0:f:0:1:2:children:2:children:0","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":["__PAGE__",["$","$1","c",{"children":["$L8",null,["$","$L9",null,{"children":"$La"}]]}],{},null,false]},null,false]},null,false]},null,false],["$","$1","h",{"children":[null,["$","$1","Qg6e0ed_uv6tZrRMbRFJU",{"children":[["$","$Lb",null,{"children":"$Lc"}],["$","$Ld",null,{"children":"$Le"}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}]]}],false]],"m":"$undefined","G":["$f","$undefined"],"s":false,"S":true}
+10:I[4763,["770","static/chunks/770-57321866e8f48bfb.js","816","static/chunks/816-eea2b2ef59921a13.js","508","static/chunks/508-5bb57ed481e1e5a5.js","435","static/chunks/435-ef317aca933735f6.js","499","static/chunks/app/docs/layout-d625de0b562528ec.js"],"MobileNav"]
+11:I[5770,["770","static/chunks/770-57321866e8f48bfb.js","816","static/chunks/816-eea2b2ef59921a13.js","40","static/chunks/app/docs/page-4fe432206ff5e2d2.js"],""]
+12:I[2000,["770","static/chunks/770-57321866e8f48bfb.js","816","static/chunks/816-eea2b2ef59921a13.js","508","static/chunks/508-5bb57ed481e1e5a5.js","435","static/chunks/435-ef317aca933735f6.js","499","static/chunks/app/docs/layout-d625de0b562528ec.js"],"DocsNavigation"]
+7:["$","div",null,{"className":"flex min-h-screen flex-col","children":[["$","header",null,{"className":"sticky top-0 z-40 w-full border-b bg-background","children":["$","div",null,{"className":"container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0","children":[["$","div",null,{"className":"flex items-center space-x-4","children":[["$","$L10",null,{"currentSlug":"$undefined"}],["$","$L11",null,{"href":"/","className":"flex items-center space-x-2","children":["$","span",null,{"className":"inline-block font-bold","children":"Modern Vector.js"}]}]]}],["$","nav",null,{"className":"hidden md:flex gap-6","children":[["$","$L11",null,{"href":"/docs","className":"flex items-center text-sm font-medium text-foreground transition-colors hover:text-foreground","children":"Documentation"}],["$","$L11",null,{"href":"/api-docs","className":"flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground","children":"API Reference"}],["$","$L11",null,{"href":"/examples","className":"flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground","children":"Examples"}]]}]]}]}],["$","div",null,{"className":"container flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10 py-8","children":[["$","aside",null,{"className":"fixed top-24 z-30 -ml-2 hidden h-[calc(100vh-6rem)] w-full shrink-0 md:sticky md:block","children":["$","div",null,{"className":"h-full py-6 pr-6 lg:py-8","children":["$","$L12",null,{"currentSlug":"$undefined"}]}]}],["$","main",null,{"className":"relative py-6 lg:gap-10 lg:py-8","children":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","docs","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]}]]}],["$","footer",null,{"className":"border-t py-6 md:py-0","children":["$","div",null,{"className":"container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row","children":["$","p",null,{"className":"text-center text-sm leading-loose text-muted-foreground md:text-left","children":"Built with Next.js, Tailwind CSS, and shadcn/ui."}]}]}]]}]
+8:["$","div",null,{"className":"max-w-3xl mx-auto","children":[["$","h1",null,{"className":"text-3xl font-bold mb-4","children":"Service"}],["$","p",null,{"className":"text-muted-foreground mb-8","children":"Modern Vector.js의 서비스 시스템에 대한 API 문서"}],["$","div",null,{"className":"prose dark:prose-invert max-w-none","children":"$L13"}]]}]
+14:T4aa,import { Plugin, VectorEngine } from 'modern-vector';
+
+// 로거 서비스 인터페이스
+interface LoggerService {
+  log(message: string, level?: string): void;
+  error(message: string, error?: Error): void;
+  warn(message: string): void;
+  info(message: string): void;
+  debug(message: string): void;
+}
+
+// 로거 플러그인 구현
+class LoggerPlugin implements Plugin {
+  readonly id = 'logger';
+  readonly version = '1.0.0';
+  
+  install(engine: VectorEngine): void {
+    // 로거 서비스 구현
+    const loggerService: LoggerService = {
+      log: (message, level = 'info') => {
+        console.log(`[${level.toUpperCase()}] ${message}`);
+      },
+      error: (message, error) => {
+        console.error(`[ERROR] ${message}`, error);
+      },
+      warn: (message) => {
+        console.warn(`[WARN] ${message}`);
+      },
+      info: (message) => {
+        console.info(`[INFO] ${message}`);
+      },
+      debug: (message) => {
+        console.debug(`[DEBUG] ${message}`);
+      }
+    };
+    
+    // 서비스 등록
+    engine.registerService<LoggerService>('logger', loggerService);
+  }
+  
+  uninstall(engine: VectorEngine): void {
+    // 정리 작업 (필요한 경우)
+  }
+}
+15:T514,import { Plugin, VectorEngine } from 'modern-vector';
+
+// 다른 플러그인에서 로거 서비스 사용
+class ShapePlugin implements Plugin {
+  readonly id = 'shape';
+  readonly version = '1.0.0';
+  readonly dependencies = ['logger']; // 로거 플러그인에 의존
+  
+  install(engine: VectorEngine): void {
+    // 로거 서비스 가져오기
+    const logger = engine.getService<LoggerService>('logger');
+    
+    if (!logger) {
+      throw new Error('Logger service is required');
+    }
+    
+    // 로거 서비스 사용
+    logger.info('ShapePlugin installed');
+    
+    // 도형 관련 서비스 등록
+    engine.registerService('shape', {
+      createRectangle: (x, y, width, height) => {
+        logger.debug(`Creating rectangle at (${x}, ${y}) with size ${width}x${height}`);
+        // 사각형 생성 로직
+        return { type: 'rectangle', x, y, width, height };
+      },
+      createCircle: (x, y, radius) => {
+        logger.debug(`Creating circle at (${x}, ${y}) with radius ${radius}`);
+        // 원 생성 로직
+        return { type: 'circle', x, y, radius };
+      }
+    });
+  }
+  
+  uninstall(engine: VectorEngine): void {
+    const logger = engine.getService<LoggerService>('logger');
+    if (logger) {
+      logger.info('ShapePlugin uninstalled');
+    }
+  }
+}
+13:[["$","h1",null,{"children":"Service 시스템"}],"\n",["$","p",null,{"children":"Modern Vector.js의 서비스 시스템은 플러그인 간 통신과 기능 공유를 위한 메커니즘을 제공합니다. 서비스는 특정 기능이나 리소스에 대한 접근을 제공하는 객체로, 플러그인이나 애플리케이션 코드에서 사용할 수 있습니다."}],"\n",["$","h2",null,{"children":"개요"}],"\n",["$","p",null,{"children":"서비스 시스템은 다음과 같은 주요 기능을 제공합니다:"}],"\n",["$","ol",null,{"children":["\n",["$","li",null,{"children":[["$","strong",null,{"children":"플러그인 간 통신"}],": 플러그인은 서비스를 통해 다른 플러그인과 통신할 수 있습니다."]}],"\n",["$","li",null,{"children":[["$","strong",null,{"children":"기능 공유"}],": 플러그인은 자신의 기능을 서비스로 노출하여 다른 플러그인이나 애플리케이션 코드에서 사용할 수 있게 합니다."]}],"\n",["$","li",null,{"children":[["$","strong",null,{"children":"의존성 관리"}],": 서비스는 플러그인 간의 직접적인 의존성을 줄이는 데 도움이 됩니다."]}],"\n"]}],"\n",["$","h2",null,{"children":"서비스 등록 및 사용"}],"\n",["$","h3",null,{"children":"서비스 등록"}],"\n",["$","pre",null,{"children":["$","code",null,{"className":"language-typescript","children":"// VectorEngine 인스턴스에 서비스 등록\nengine.registerService<T>(serviceId: string, service: T): VectorEngine\n"}]}],"\n",["$","h4",null,{"children":"매개변수"}],"\n",["$","ul",null,{"children":["\n",["$","li",null,{"children":[["$","code",null,{"children":"serviceId"}],": 서비스의 고유 식별자"]}],"\n",["$","li",null,{"children":[["$","code",null,{"children":"service"}],": 등록할 서비스 객체"]}],"\n"]}],"\n",["$","h4",null,{"children":"반환값"}],"\n",["$","p",null,{"children":"메서드 체이닝을 위한 VectorEngine 인스턴스"}],"\n",["$","h3",null,{"children":"서비스 조회"}],"\n",["$","pre",null,{"children":["$","code",null,{"className":"language-typescript","children":"// 서비스 조회\nengine.getService<T>(serviceId: string): T | undefined\n"}]}],"\n",["$","h4",null,{"children":"매개변수"}],"\n",["$","ul",null,{"children":["\n",["$","li",null,{"children":[["$","code",null,{"children":"serviceId"}],": 조회할 서비스의 식별자"]}],"\n"]}],"\n",["$","h4",null,{"children":"반환값"}],"\n",["$","p",null,{"children":"서비스 객체 또는 서비스가 없는 경우 undefined"}],"\n",["$","h2",null,{"children":"서비스 인터페이스"}],"\n",["$","p",null,{"children":"서비스는 특별한 인터페이스를 구현할 필요가 없습니다. 어떤 객체든 서비스로 등록할 수 있습니다. 그러나 일관성을 위해 서비스 인터페이스를 정의하는 것이 좋습니다."}],"\n",["$","pre",null,{"children":["$","code",null,{"className":"language-typescript","children":"// 로거 서비스 인터페이스 예시\ninterface LoggerService {\n  log(message: string, level?: LogLevel): void;\n  error(message: string, error?: Error): void;\n  warn(message: string): void;\n  info(message: string): void;\n  debug(message: string): void;\n}\n\n// 렌더링 서비스 인터페이스 예시\ninterface RenderService {\n  render(scene: Scene): void;\n  clear(): void;\n  resize(width: number, height: number): void;\n  getContext(): RenderContext;\n}\n"}]}],"\n",["$","h2",null,{"children":"예제"}],"\n",["$","h3",null,{"children":"서비스 등록 예제"}],"\n",["$","pre",null,{"children":["$","code",null,{"className":"language-typescript","children":"$14"}]}],"\n",["$","h3",null,{"children":"서비스 사용 예제"}],"\n",["$","pre",null,{"children":["$","code",null,{"className":"language-typescript","children":"$15"}]}],"\n",["$","h3",null,{"children":"애플리케이션 코드에서 서비스 사용"}],"\n",["$","pre",null,{"children":["$","code",null,{"className":"language-typescript","children":"import { VectorEngine } from 'modern-vector';\nimport { LoggerPlugin } from './plugins/logger-plugin';\nimport { ShapePlugin } from './plugins/shape-plugin';\n\n// 엔진 인스턴스 생성\nconst engine = new VectorEngine();\n\n// 플러그인 등록\nengine.use(new LoggerPlugin())\n      .use(new ShapePlugin());\n\n// 서비스 사용\nconst logger = engine.getService<LoggerService>('logger');\nconst shapeService = engine.getService('shape');\n\nif (logger && shapeService) {\n  logger.info('Creating shapes');\n  \n  // 도형 생성\n  const rectangle = shapeService.createRectangle(10, 10, 100, 50);\n  const circle = shapeService.createCircle(150, 150, 30);\n  \n  logger.info('Shapes created');\n}\n"}]}],"\n",["$","h2",null,{"children":"모범 사례"}],"\n",["$","ol",null,{"children":["\n",["$","li",null,{"children":["\n",["$","p",null,{"children":[["$","strong",null,{"children":"명확한 서비스 인터페이스 정의"}],": 서비스의 인터페이스를 명확하게 정의하여 사용자가 서비스의 기능을 쉽게 이해할 수 있도록 합니다."]}],"\n"]}],"\n",["$","li",null,{"children":["\n",["$","p",null,{"children":[["$","strong",null,{"children":"서비스 ID 네이밍 규칙"}],": 서비스 ID는 고유하고 의미 있는 이름을 사용하세요. 가능하면 네임스페이스를 사용하여 충돌을 방지하세요 (예: ",["$","code",null,{"children":"@company/feature"}],")."]}],"\n"]}],"\n",["$","li",null,{"children":["\n",["$","p",null,{"children":[["$","strong",null,{"children":"서비스 의존성 처리"}],": 서비스가 다른 서비스에 의존하는 경우, 해당 서비스가 존재하는지 확인하고 적절하게 처리하세요."]}],"\n"]}],"\n",["$","li",null,{"children":["\n",["$","p",null,{"children":[["$","strong",null,{"children":"타입 안전성 유지"}],": TypeScript의 제네릭을 활용하여 서비스 등록 및 조회 시 타입 안전성을 유지하세요."]}],"\n"]}],"\n",["$","li",null,{"children":["\n",["$","p",null,{"children":[["$","strong",null,{"children":"서비스 생명주기 관리"}],": 플러그인이 제거될 때 해당 플러그인이 등록한 서비스도 정리되어야 합니다."]}],"\n"]}],"\n"]}],"\n",["$","h2",null,{"children":"관련 API"}],"\n",["$","ul",null,{"children":["\n",["$","li",null,{"children":[["$","a",null,{"href":"/docs/api-reference/core/vector-engine","children":"VectorEngine"}]," - 서비스 등록 및 조회 메서드를 제공하는 핵심 엔진"]}],"\n",["$","li",null,{"children":[["$","a",null,{"href":"/docs/api-reference/core/plugin","children":"Plugin"}]," - 서비스를 등록하고 사용하는 플러그인 인터페이스"]}],"\n"]}]]
+e:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+c:[["$","meta","0",{"charSet":"utf-8"}],["$","title","1",{"children":"Modern Vector.js Documentation"}],["$","meta","2",{"name":"description","content":"Documentation for Modern Vector.js - A Modern Vector Graphics Library with Plugin System"}]]
+a:null

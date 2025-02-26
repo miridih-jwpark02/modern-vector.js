@@ -11,7 +11,7 @@ category: interfaces
 
 # Interface: Renderer
 
-Defined in: [types/index.ts:255](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/types/index.ts#L255)
+Defined in: [types/index.ts:255](https://github.com/miridih-jwpark02/modern-vector.js/blob/5221f2fc49f67dd4433b667bc6d0e95a648486aa/packages/core/src/core/types/index.ts#L255)
 
 Base renderer interface
 
@@ -23,7 +23,7 @@ Base renderer interface
 
 > `readonly` **capabilities**: [`RendererCapabilities`](RendererCapabilities.md)
 
-Defined in: [types/index.ts:259](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/types/index.ts#L259)
+Defined in: [types/index.ts:259](https://github.com/miridih-jwpark02/modern-vector.js/blob/5221f2fc49f67dd4433b667bc6d0e95a648486aa/packages/core/src/core/types/index.ts#L259)
 
 Renderer의 기능
 
@@ -33,7 +33,7 @@ Renderer의 기능
 
 > `readonly` **id**: `string`
 
-Defined in: [types/index.ts:257](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/types/index.ts#L257)
+Defined in: [types/index.ts:257](https://github.com/miridih-jwpark02/modern-vector.js/blob/5221f2fc49f67dd4433b667bc6d0e95a648486aa/packages/core/src/core/types/index.ts#L257)
 
 Renderer의 고유 ID
 
@@ -43,7 +43,7 @@ Renderer의 고유 ID
 
 > **dispose**(): `void`
 
-Defined in: [types/index.ts:275](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/types/index.ts#L275)
+Defined in: [types/index.ts:275](https://github.com/miridih-jwpark02/modern-vector.js/blob/5221f2fc49f67dd4433b667bc6d0e95a648486aa/packages/core/src/core/types/index.ts#L275)
 
 리소스 정리
 
@@ -59,7 +59,7 @@ Renderer가 사용한 리소스를 정리합니다.
 
 > **render**(`scene`): `void`
 
-Defined in: [types/index.ts:268](https://github.com/miridih-jwpark02/modern-vector.js/blob/818f2928b755ec9abdaa6d7fd383f3e23236512e/packages/core/src/core/types/index.ts#L268)
+Defined in: [types/index.ts:268](https://github.com/miridih-jwpark02/modern-vector.js/blob/5221f2fc49f67dd4433b667bc6d0e95a648486aa/packages/core/src/core/types/index.ts#L268)
 
 Scene 렌더링
 
