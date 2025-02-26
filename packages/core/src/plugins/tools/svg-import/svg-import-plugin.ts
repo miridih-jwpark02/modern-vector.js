@@ -1,6 +1,7 @@
 import { Plugin, VectorEngine, SceneNode } from '../../../core/types';
 import { ShapePlugin } from '../../core/shapes/shape-plugin';
 import { ShapeOptions } from '../../core/shapes/types';
+import { GroupPlugin } from '../../core/group';
 import {
   SVGImportOptions,
   SVGImportToolPluginInterface,
@@ -22,7 +23,7 @@ export class SVGImportToolPlugin implements Plugin, SVGImportToolPluginInterface
   readonly version = '1.0.0';
 
   /** Dependencies required by this plugin */
-  readonly dependencies = ['shape'];
+  readonly dependencies = ['shape-plugin', 'group-plugin'];
 
   /** Default import options */
   private defaultOptions: SVGImportOptions = {
@@ -160,6 +161,11 @@ export class SVGImportToolPlugin implements Plugin, SVGImportToolPluginInterface
       data: {},
     } as unknown as SceneNode);
 
+    // 데이터 객체가 확실히 초기화되었는지 확인
+    if (!rootGroup.data) {
+      rootGroup.data = {};
+    }
+
     // Extract viewBox if present and if preserveViewBox is true
     if (options.preserveViewBox && svgElement.hasAttribute('viewBox')) {
       const viewBoxAttr = svgElement.getAttribute('viewBox')?.split(/\s+/).map(Number);
@@ -255,7 +261,7 @@ export class SVGImportToolPlugin implements Plugin, SVGImportToolPluginInterface
     const style = this.extractStyleAttributes(element);
 
     // Create rectangle shape
-    const shapePlugin = this.engine?.getPlugin<ShapePlugin>('shape');
+    const shapePlugin = this.engine?.getPlugin<ShapePlugin>('shape-plugin');
     if (shapePlugin) {
       const shapeOptions: ShapeOptions = {
         x,
@@ -281,13 +287,31 @@ export class SVGImportToolPlugin implements Plugin, SVGImportToolPluginInterface
    * @private
    */
   private processCircleElement(
-    _element: Element,
-    _parentNode: SceneNode,
-    _options: SVGImportOptions
+    element: Element,
+    parentNode: SceneNode,
+    options: SVGImportOptions
   ): void {
-    // Implementation would be similar to processRectElement
-    // Extract cx, cy, r attributes and create circle shape
-    console.log('Processing circle element - implementation needed');
+    // Extract attributes with defaults
+    const cx = parseFloat(element.getAttribute('cx') || '0') * (options.scale || 1);
+    const cy = parseFloat(element.getAttribute('cy') || '0') * (options.scale || 1);
+    const r = parseFloat(element.getAttribute('r') || '0') * (options.scale || 1);
+
+    // Extract style attributes
+    const style = this.extractStyleAttributes(element);
+
+    // Create circle shape
+    const shapePlugin = this.engine?.getPlugin<ShapePlugin>('shape-plugin');
+    if (shapePlugin) {
+      const shapeOptions: ShapeOptions = {
+        x: cx - r, // Convert center coordinates to top-left
+        y: cy - r,
+        radius: r,
+        ...style,
+      };
+
+      const circle = shapePlugin.createShape('circle', shapeOptions);
+      parentNode.addChild(circle as unknown as SceneNode);
+    }
   }
 
   /**
@@ -321,12 +345,33 @@ export class SVGImportToolPlugin implements Plugin, SVGImportToolPluginInterface
    * @private
    */
   private processLineElement(
-    _element: Element,
-    _parentNode: SceneNode,
-    _options: SVGImportOptions
+    element: Element,
+    parentNode: SceneNode,
+    options: SVGImportOptions
   ): void {
-    // Implementation would extract x1, y1, x2, y2 attributes and create line shape
-    console.log('Processing line element - implementation needed');
+    // Extract attributes with defaults
+    const x1 = parseFloat(element.getAttribute('x1') || '0') * (options.scale || 1);
+    const y1 = parseFloat(element.getAttribute('y1') || '0') * (options.scale || 1);
+    const x2 = parseFloat(element.getAttribute('x2') || '0') * (options.scale || 1);
+    const y2 = parseFloat(element.getAttribute('y2') || '0') * (options.scale || 1);
+
+    // Extract style attributes
+    const style = this.extractStyleAttributes(element);
+
+    // Create line shape
+    const shapePlugin = this.engine?.getPlugin<ShapePlugin>('shape-plugin');
+    if (shapePlugin) {
+      const shapeOptions: ShapeOptions = {
+        x1,
+        y1,
+        x2,
+        y2,
+        ...style,
+      };
+
+      const line = shapePlugin.createShape('line', shapeOptions);
+      parentNode.addChild(line as unknown as SceneNode);
+    }
   }
 
   /**
@@ -402,22 +447,32 @@ export class SVGImportToolPlugin implements Plugin, SVGImportToolPluginInterface
     options: SVGImportOptions
   ): void {
     if (options.flattenGroups) {
-      // If flattening groups, process children directly under parent
+      // 그룹 평탄화 시 자식 요소를 직접 부모에 추가
       this.processChildElements(element, parentNode, options);
     } else {
-      // Create a group node
-      const groupNode = parentNode.addChild({
-        type: 'group',
-        id: element.id || 'group',
-      } as unknown as SceneNode);
+      // GroupPlugin 활용
+      const groupPlugin = this.engine?.getPlugin<GroupPlugin>('group-plugin');
+      if (groupPlugin) {
+        const group = groupPlugin.createGroup();
+        parentNode.addChild(group as unknown as SceneNode);
 
-      // Process transform attribute if present
-      if (element.hasAttribute('transform')) {
-        // Implementation would parse transform attribute and apply to group
+        // 자식 요소 처리
+        this.processChildElements(element, group as unknown as SceneNode, options);
+      } else {
+        // 기존 방식으로 폴백
+        const groupNode = parentNode.addChild({
+          type: 'group',
+          id: element.id || 'group',
+          data: {},
+        } as unknown as SceneNode);
+
+        // 데이터 객체가 확실히 초기화되었는지 확인
+        if (!groupNode.data) {
+          groupNode.data = {};
+        }
+
+        this.processChildElements(element, groupNode, options);
       }
-
-      // Process children
-      this.processChildElements(element, groupNode, options);
     }
   }
 
