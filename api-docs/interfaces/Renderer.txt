@@ -1,0 +1,2052 @@
+1:"$Sreact.fragment"
+3:I[9638,["177","static/chunks/app/layout-2e88fd66be818834.js"],"ThemeProvider"]
+4:I[3952,["177","static/chunks/app/layout-2e88fd66be818834.js"],"GitHubPagesRedirect"]
+5:I[9507,[],""]
+6:I[2639,[],""]
+7:"$Sreact.suspense"
+8:I[7169,["770","static/chunks/770-57321866e8f48bfb.js","287","static/chunks/app/api-docs/page-e6fd256c346aa827.js"],"ApiNavLinks"]
+1e:I[970,["770","static/chunks/770-57321866e8f48bfb.js","829","static/chunks/app/api-docs/%5B...slug%5D/page-47cc05b1c04e6d85.js"],"default"]
+1f:I[1432,[],"OutletBoundary"]
+21:I[1432,[],"MetadataBoundary"]
+23:I[1432,[],"ViewportBoundary"]
+25:I[9398,[],""]
+:HL["/modern-vector.js/_next/static/media/a34f9d1faa5f3315-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/modern-vector.js/_next/static/css/8343f4fba40a086f.css","style"]
+2:T1281,
+            /* 다크 모드에서 highlight.js 스타일 */
+            .dark .hljs {
+              background: #1e1e1e;
+              color: #dcdcdc;
+            }
+            .dark .hljs-keyword,
+            .dark .hljs-selector-tag,
+            .dark .hljs-tag,
+            .dark .hljs-name {
+              color: #569cd6;
+            }
+            .dark .hljs-attribute,
+            .dark .hljs-literal,
+            .dark .hljs-number,
+            .dark .hljs-keyword {
+              color: #b5cea8;
+            }
+            .dark .hljs-string,
+            .dark .hljs-doctag {
+              color: #ce9178;
+            }
+            .dark .hljs-built_in,
+            .dark .hljs-builtin-name {
+              color: #4ec9b0;
+            }
+            .dark .hljs-comment,
+            .dark .hljs-quote {
+              color: #6a9955;
+            }
+            
+            /* 코드 블록 스타일 개선 */
+            .prose pre {
+              margin: 1.5em 0;
+              border-radius: 0.375rem;
+              padding: 1rem;
+              overflow-x: auto;
+            }
+            
+            .prose code {
+              font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+              font-size: 0.9em;
+            }
+            
+            /* 링크 스타일 개선 */
+            .prose a {
+              text-decoration: none;
+              transition: color 0.2s ease;
+            }
+            
+            .prose a:hover {
+              text-decoration: underline;
+            }
+            
+            /* 테이블 스타일 개선 */
+            .prose table {
+              width: 100%;
+              border-collapse: collapse;
+              margin: 1.5em 0;
+            }
+            
+            .prose table th,
+            .prose table td {
+              padding: 0.75rem;
+              border: 1px solid hsl(var(--border));
+            }
+            
+            .prose table th {
+              background-color: hsl(var(--muted));
+              font-weight: 600;
+            }
+            
+            .dark .prose table th {
+              background-color: hsl(var(--muted));
+            }
+            
+            /* 헤더 스타일 개선 */
+            .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+              scroll-margin-top: 5rem;
+              position: relative;
+            }
+            
+            .prose h1 {
+              font-size: 2.25rem;
+              margin-top: 2.5rem;
+              margin-bottom: 1.5rem;
+              font-weight: 700;
+            }
+            
+            .prose h2 {
+              font-size: 1.875rem;
+              margin-top: 2rem;
+              margin-bottom: 1rem;
+              font-weight: 600;
+              border-bottom: 1px solid hsl(var(--border));
+              padding-bottom: 0.5rem;
+            }
+            
+            .prose h3 {
+              font-size: 1.5rem;
+              margin-top: 1.5rem;
+              margin-bottom: 0.75rem;
+              font-weight: 600;
+            }
+            
+            /* 목록 스타일 개선 */
+            .prose ul, .prose ol {
+              margin: 1.25em 0;
+              padding-left: 1.625em;
+            }
+            
+            .prose li {
+              margin-bottom: 0.5em;
+            }
+            
+            /* 인용구 스타일 개선 */
+            .prose blockquote {
+              border-left: 4px solid hsl(var(--border));
+              padding-left: 1rem;
+              font-style: italic;
+              margin: 1.5em 0;
+              color: hsl(var(--muted-foreground));
+            }
+            
+            /* 다크 모드 텍스트 색상 개선 */
+            .dark .prose {
+              color: hsl(var(--foreground));
+            }
+            
+            .dark .prose h1,
+            .dark .prose h2,
+            .dark .prose h3,
+            .dark .prose h4,
+            .dark .prose h5,
+            .dark .prose h6 {
+              color: hsl(var(--foreground));
+            }
+            
+            .dark .prose p,
+            .dark .prose ul,
+            .dark .prose ol,
+            .dark .prose li {
+              color: hsl(var(--foreground));
+            }
+            
+            .dark .prose strong {
+              color: hsl(var(--foreground));
+            }
+            
+            .dark .prose table td {
+              color: hsl(var(--foreground));
+            }
+            
+            .dark .prose table th {
+              color: hsl(var(--foreground));
+            }
+            
+            /* 다크 모드에서 API 네비게이션 스타일 */
+            .dark .api-nav-link {
+              color: hsl(var(--foreground));
+            }
+          9:Tbbb,
+[**Modern Vector.js v0.1.0**](../README.md)
+
+***
+
+[Modern Vector.js](../README.md) / VectorEngine
+
+# Class: VectorEngine
+
+Defined in: [engine.ts:9](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/engine.ts#L9)
+
+Vector Graphics Engine implementation
+
+## Implements
+
+- `VectorEngine`
+
+## Constructors
+
+### new VectorEngine()
+
+> **new VectorEngine**(): [`VectorEngine`](VectorEngine.md)
+
+Defined in: [engine.ts:16](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/engine.ts#L16)
+
+#### Returns
+
+[`VectorEngine`](VectorEngine.md)
+
+## Properties
+
+### events
+
+> `readonly` **events**: [`EventService`](../interfaces/EventService.md)
+
+Defined in: [engine.ts:13](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/engine.ts#L13)
+
+Event service
+
+#### Implementation of
+
+`VectorEngine.events`
+
+***
+
+### renderer
+
+> `readonly` **renderer**: [`RendererService`](../interfaces/RendererService.md)
+
+Defined in: [engine.ts:12](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/engine.ts#L12)
+
+Renderer service
+
+#### Implementation of
+
+`VectorEngine.renderer`
+
+***
+
+### scene
+
+> `readonly` **scene**: [`SceneService`](../interfaces/SceneService.md)
+
+Defined in: [engine.ts:14](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/engine.ts#L14)
+
+Scene service
+
+#### Implementation of
+
+`VectorEngine.scene`
+
+## Methods
+
+### getPlugin()
+
+> **getPlugin**\<`T`\>(`id`): `null` \| `T`
+
+Defined in: [engine.ts:66](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/engine.ts#L66)
+
+Get a plugin by ID
+
+#### Type Parameters
+
+• **T** *extends* [`Plugin`](../interfaces/Plugin.md)
+
+#### Parameters
+
+##### id
+
+`string`
+
+Plugin ID
+
+#### Returns
+
+`null` \| `T`
+
+The plugin instance or null if not found
+
+#### Implementation of
+
+`VectorEngine.getPlugin`
+
+***
+
+### remove()
+
+> **remove**(`pluginId`): `void`
+
+Defined in: [engine.ts:46](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/engine.ts#L46)
+
+Remove a plugin from the engine
+
+#### Parameters
+
+##### pluginId
+
+`string`
+
+ID of the plugin to remove
+
+#### Returns
+
+`void`
+
+#### Implementation of
+
+`VectorEngine.remove`
+
+***
+
+### use()
+
+> **use**(`plugin`): `void`
+
+Defined in: [engine.ts:27](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/engine.ts#L27)
+
+Install a plugin into the engine
+
+#### Parameters
+
+##### plugin
+
+[`Plugin`](../interfaces/Plugin.md)
+
+The plugin to install
+
+#### Returns
+
+`void`
+
+#### Throws
+
+Error if plugin dependencies are not met
+
+#### Implementation of
+
+`VectorEngine.use`
+a:T1072,<p><a href="../README.md"><strong>Modern Vector.js v0.1.0</strong></a></p>
+<hr>
+<p><a href="../README.md">Modern Vector.js</a> / VectorEngine</p>
+<h1>Class: VectorEngine</h1>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/engine.ts#L9">engine.ts:9</a></p>
+<p>Vector Graphics Engine implementation</p>
+<h2>Implements</h2>
+<ul>
+<li><code>VectorEngine</code></li>
+</ul>
+<h2>Constructors</h2>
+<h3>new VectorEngine()</h3>
+<blockquote>
+<p><strong>new VectorEngine</strong>(): <a href="VectorEngine.md"><code>VectorEngine</code></a></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/engine.ts#L16">engine.ts:16</a></p>
+<h4>Returns</h4>
+<p><a href="VectorEngine.md"><code>VectorEngine</code></a></p>
+<h2>Properties</h2>
+<h3>events</h3>
+<blockquote>
+<p><code>readonly</code> <strong>events</strong>: <a href="../interfaces/EventService.md"><code>EventService</code></a></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/engine.ts#L13">engine.ts:13</a></p>
+<p>Event service</p>
+<h4>Implementation of</h4>
+<p><code>VectorEngine.events</code></p>
+<hr>
+<h3>renderer</h3>
+<blockquote>
+<p><code>readonly</code> <strong>renderer</strong>: <a href="../interfaces/RendererService.md"><code>RendererService</code></a></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/engine.ts#L12">engine.ts:12</a></p>
+<p>Renderer service</p>
+<h4>Implementation of</h4>
+<p><code>VectorEngine.renderer</code></p>
+<hr>
+<h3>scene</h3>
+<blockquote>
+<p><code>readonly</code> <strong>scene</strong>: <a href="../interfaces/SceneService.md"><code>SceneService</code></a></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/engine.ts#L14">engine.ts:14</a></p>
+<p>Scene service</p>
+<h4>Implementation of</h4>
+<p><code>VectorEngine.scene</code></p>
+<h2>Methods</h2>
+<h3>getPlugin()</h3>
+<blockquote>
+<p><strong>getPlugin</strong>&#x3C;<code>T</code>>(<code>id</code>): <code>null</code> | <code>T</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/engine.ts#L66">engine.ts:66</a></p>
+<p>Get a plugin by ID</p>
+<h4>Type Parameters</h4>
+<p>• <strong>T</strong> <em>extends</em> <a href="../interfaces/Plugin.md"><code>Plugin</code></a></p>
+<h4>Parameters</h4>
+<h5>id</h5>
+<p><code>string</code></p>
+<p>Plugin ID</p>
+<h4>Returns</h4>
+<p><code>null</code> | <code>T</code></p>
+<p>The plugin instance or null if not found</p>
+<h4>Implementation of</h4>
+<p><code>VectorEngine.getPlugin</code></p>
+<hr>
+<h3>remove()</h3>
+<blockquote>
+<p><strong>remove</strong>(<code>pluginId</code>): <code>void</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/engine.ts#L46">engine.ts:46</a></p>
+<p>Remove a plugin from the engine</p>
+<h4>Parameters</h4>
+<h5>pluginId</h5>
+<p><code>string</code></p>
+<p>ID of the plugin to remove</p>
+<h4>Returns</h4>
+<p><code>void</code></p>
+<h4>Implementation of</h4>
+<p><code>VectorEngine.remove</code></p>
+<hr>
+<h3>use()</h3>
+<blockquote>
+<p><strong>use</strong>(<code>plugin</code>): <code>void</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/engine.ts#L27">engine.ts:27</a></p>
+<p>Install a plugin into the engine</p>
+<h4>Parameters</h4>
+<h5>plugin</h5>
+<p><a href="../interfaces/Plugin.md"><code>Plugin</code></a></p>
+<p>The plugin to install</p>
+<h4>Returns</h4>
+<p><code>void</code></p>
+<h4>Throws</h4>
+<p>Error if plugin dependencies are not met</p>
+<h4>Implementation of</h4>
+<p><code>VectorEngine.use</code></p>b:T714,
+[**Modern Vector.js v0.1.0**](../README.md)
+
+***
+
+[Modern Vector.js](../README.md) / EventEmitter
+
+# Interface: EventEmitter
+
+Defined in: [types/index.ts:94](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L94)
+
+Event emitter interface for handling events
+
+이벤트를 발생시키고 처리하기 위한 인터페이스입니다.
+
+## Extended by
+
+- [`EventService`](EventService.md)
+- [`Scene`](Scene.md)
+- [`SceneNode`](SceneNode.md)
+
+## Methods
+
+### emit()
+
+> **emit**(`event`, `data`): `void`
+
+Defined in: [types/index.ts:117](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L117)
+
+이벤트 발생
+
+#### Parameters
+
+##### event
+
+`string`
+
+발생시킬 이벤트 이름
+
+##### data
+
+`any`
+
+이벤트와 함께 전달할 데이터
+
+#### Returns
+
+`void`
+
+***
+
+### off()
+
+> **off**(`event`, `handler`): `void`
+
+Defined in: [types/index.ts:109](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L109)
+
+이벤트 리스너 제거
+
+#### Parameters
+
+##### event
+
+`string`
+
+이벤트 이름
+
+##### handler
+
+[`EventHandler`](../type-aliases/EventHandler.md)
+
+제거할 이벤트 핸들러 함수
+
+#### Returns
+
+`void`
+
+***
+
+### on()
+
+> **on**(`event`, `handler`): `void`
+
+Defined in: [types/index.ts:101](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L101)
+
+이벤트 리스너 등록
+
+#### Parameters
+
+##### event
+
+`string`
+
+이벤트 이름
+
+##### handler
+
+[`EventHandler`](../type-aliases/EventHandler.md)
+
+이벤트 핸들러 함수
+
+#### Returns
+
+`void`
+c:T9f9,<p><a href="../README.md"><strong>Modern Vector.js v0.1.0</strong></a></p>
+<hr>
+<p><a href="../README.md">Modern Vector.js</a> / EventEmitter</p>
+<h1>Interface: EventEmitter</h1>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L94">types/index.ts:94</a></p>
+<p>Event emitter interface for handling events</p>
+<p>이벤트를 발생시키고 처리하기 위한 인터페이스입니다.</p>
+<h2>Extended by</h2>
+<ul>
+<li><a href="EventService.md"><code>EventService</code></a></li>
+<li><a href="Scene.md"><code>Scene</code></a></li>
+<li><a href="SceneNode.md"><code>SceneNode</code></a></li>
+</ul>
+<h2>Methods</h2>
+<h3>emit()</h3>
+<blockquote>
+<p><strong>emit</strong>(<code>event</code>, <code>data</code>): <code>void</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L117">types/index.ts:117</a></p>
+<p>이벤트 발생</p>
+<h4>Parameters</h4>
+<h5>event</h5>
+<p><code>string</code></p>
+<p>발생시킬 이벤트 이름</p>
+<h5>data</h5>
+<p><code>any</code></p>
+<p>이벤트와 함께 전달할 데이터</p>
+<h4>Returns</h4>
+<p><code>void</code></p>
+<hr>
+<h3>off()</h3>
+<blockquote>
+<p><strong>off</strong>(<code>event</code>, <code>handler</code>): <code>void</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L109">types/index.ts:109</a></p>
+<p>이벤트 리스너 제거</p>
+<h4>Parameters</h4>
+<h5>event</h5>
+<p><code>string</code></p>
+<p>이벤트 이름</p>
+<h5>handler</h5>
+<p><a href="../type-aliases/EventHandler.md"><code>EventHandler</code></a></p>
+<p>제거할 이벤트 핸들러 함수</p>
+<h4>Returns</h4>
+<p><code>void</code></p>
+<hr>
+<h3>on()</h3>
+<blockquote>
+<p><strong>on</strong>(<code>event</code>, <code>handler</code>): <code>void</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L101">types/index.ts:101</a></p>
+<p>이벤트 리스너 등록</p>
+<h4>Parameters</h4>
+<h5>event</h5>
+<p><code>string</code></p>
+<p>이벤트 이름</p>
+<h5>handler</h5>
+<p><a href="../type-aliases/EventHandler.md"><code>EventHandler</code></a></p>
+<p>이벤트 핸들러 함수</p>
+<h4>Returns</h4>
+<p><code>void</code></p>d:T9b9,
+[**Modern Vector.js v0.1.0**](../README.md)
+
+***
+
+[Modern Vector.js](../README.md) / EventService
+
+# Interface: EventService
+
+Defined in: [types/index.ts:153](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L153)
+
+Service for managing events with namespacing support
+
+네임스페이스를 지원하는 이벤트 관리 서비스 인터페이스입니다.
+
+## Extends
+
+- [`EventEmitter`](EventEmitter.md)
+
+## Methods
+
+### createNamespace()
+
+> **createNamespace**(`name`): [`EventEmitter`](EventEmitter.md)
+
+Defined in: [types/index.ts:160](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L160)
+
+이벤트 네임스페이스 생성
+
+#### Parameters
+
+##### name
+
+`string`
+
+네임스페이스 이름
+
+#### Returns
+
+[`EventEmitter`](EventEmitter.md)
+
+생성된 이벤트 이미터
+
+***
+
+### emit()
+
+> **emit**(`event`, `data`): `void`
+
+Defined in: [types/index.ts:117](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L117)
+
+이벤트 발생
+
+#### Parameters
+
+##### event
+
+`string`
+
+발생시킬 이벤트 이름
+
+##### data
+
+`any`
+
+이벤트와 함께 전달할 데이터
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[`EventEmitter`](EventEmitter.md).[`emit`](EventEmitter.md#emit)
+
+***
+
+### off()
+
+> **off**(`event`, `handler`): `void`
+
+Defined in: [types/index.ts:109](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L109)
+
+이벤트 리스너 제거
+
+#### Parameters
+
+##### event
+
+`string`
+
+이벤트 이름
+
+##### handler
+
+[`EventHandler`](../type-aliases/EventHandler.md)
+
+제거할 이벤트 핸들러 함수
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[`EventEmitter`](EventEmitter.md).[`off`](EventEmitter.md#off)
+
+***
+
+### on()
+
+> **on**(`event`, `handler`): `void`
+
+Defined in: [types/index.ts:101](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L101)
+
+이벤트 리스너 등록
+
+#### Parameters
+
+##### event
+
+`string`
+
+이벤트 이름
+
+##### handler
+
+[`EventHandler`](../type-aliases/EventHandler.md)
+
+이벤트 핸들러 함수
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[`EventEmitter`](EventEmitter.md).[`on`](EventEmitter.md#on)
+e:Tdac,<p><a href="../README.md"><strong>Modern Vector.js v0.1.0</strong></a></p>
+<hr>
+<p><a href="../README.md">Modern Vector.js</a> / EventService</p>
+<h1>Interface: EventService</h1>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L153">types/index.ts:153</a></p>
+<p>Service for managing events with namespacing support</p>
+<p>네임스페이스를 지원하는 이벤트 관리 서비스 인터페이스입니다.</p>
+<h2>Extends</h2>
+<ul>
+<li><a href="EventEmitter.md"><code>EventEmitter</code></a></li>
+</ul>
+<h2>Methods</h2>
+<h3>createNamespace()</h3>
+<blockquote>
+<p><strong>createNamespace</strong>(<code>name</code>): <a href="EventEmitter.md"><code>EventEmitter</code></a></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L160">types/index.ts:160</a></p>
+<p>이벤트 네임스페이스 생성</p>
+<h4>Parameters</h4>
+<h5>name</h5>
+<p><code>string</code></p>
+<p>네임스페이스 이름</p>
+<h4>Returns</h4>
+<p><a href="EventEmitter.md"><code>EventEmitter</code></a></p>
+<p>생성된 이벤트 이미터</p>
+<hr>
+<h3>emit()</h3>
+<blockquote>
+<p><strong>emit</strong>(<code>event</code>, <code>data</code>): <code>void</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L117">types/index.ts:117</a></p>
+<p>이벤트 발생</p>
+<h4>Parameters</h4>
+<h5>event</h5>
+<p><code>string</code></p>
+<p>발생시킬 이벤트 이름</p>
+<h5>data</h5>
+<p><code>any</code></p>
+<p>이벤트와 함께 전달할 데이터</p>
+<h4>Returns</h4>
+<p><code>void</code></p>
+<h4>Inherited from</h4>
+<p><a href="EventEmitter.md"><code>EventEmitter</code></a>.<a href="EventEmitter.md#emit"><code>emit</code></a></p>
+<hr>
+<h3>off()</h3>
+<blockquote>
+<p><strong>off</strong>(<code>event</code>, <code>handler</code>): <code>void</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L109">types/index.ts:109</a></p>
+<p>이벤트 리스너 제거</p>
+<h4>Parameters</h4>
+<h5>event</h5>
+<p><code>string</code></p>
+<p>이벤트 이름</p>
+<h5>handler</h5>
+<p><a href="../type-aliases/EventHandler.md"><code>EventHandler</code></a></p>
+<p>제거할 이벤트 핸들러 함수</p>
+<h4>Returns</h4>
+<p><code>void</code></p>
+<h4>Inherited from</h4>
+<p><a href="EventEmitter.md"><code>EventEmitter</code></a>.<a href="EventEmitter.md#off"><code>off</code></a></p>
+<hr>
+<h3>on()</h3>
+<blockquote>
+<p><strong>on</strong>(<code>event</code>, <code>handler</code>): <code>void</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L101">types/index.ts:101</a></p>
+<p>이벤트 리스너 등록</p>
+<h4>Parameters</h4>
+<h5>event</h5>
+<p><code>string</code></p>
+<p>이벤트 이름</p>
+<h5>handler</h5>
+<p><a href="../type-aliases/EventHandler.md"><code>EventHandler</code></a></p>
+<p>이벤트 핸들러 함수</p>
+<h4>Returns</h4>
+<p><code>void</code></p>
+<h4>Inherited from</h4>
+<p><a href="EventEmitter.md"><code>EventEmitter</code></a>.<a href="EventEmitter.md#on"><code>on</code></a></p>f:T80f,
+[**Modern Vector.js v0.1.0**](../README.md)
+
+***
+
+[Modern Vector.js](../README.md) / Plugin
+
+# Interface: Plugin
+
+Defined in: [types/index.ts:13](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L13)
+
+Plugin interface for the vector graphics engine
+
+벡터 그래픽 엔진을 위한 플러그인 인터페이스
+
+## Properties
+
+### dependencies?
+
+> `readonly` `optional` **dependencies**: `string`[]
+
+Defined in: [types/index.ts:19](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L19)
+
+Optional array of plugin IDs that this plugin depends on
+
+***
+
+### id
+
+> `readonly` **id**: `string`
+
+Defined in: [types/index.ts:15](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L15)
+
+Unique identifier for the plugin
+
+***
+
+### version
+
+> `readonly` **version**: `string`
+
+Defined in: [types/index.ts:17](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L17)
+
+Semantic version of the plugin
+
+## Methods
+
+### install()
+
+> **install**(`engine`): `void`
+
+Defined in: [types/index.ts:28](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L28)
+
+Install the plugin into the engine
+
+엔진에 플러그인을 설치합니다.
+
+#### Parameters
+
+##### engine
+
+`VectorEngine`
+
+The vector engine instance
+
+#### Returns
+
+`void`
+
+***
+
+### uninstall()
+
+> **uninstall**(`engine`): `void`
+
+Defined in: [types/index.ts:37](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L37)
+
+Uninstall the plugin from the engine
+
+엔진에서 플러그인을 제거합니다.
+
+#### Parameters
+
+##### engine
+
+`VectorEngine`
+
+The vector engine instance
+
+#### Returns
+
+`void`
+10:Tab2,<p><a href="../README.md"><strong>Modern Vector.js v0.1.0</strong></a></p>
+<hr>
+<p><a href="../README.md">Modern Vector.js</a> / Plugin</p>
+<h1>Interface: Plugin</h1>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L13">types/index.ts:13</a></p>
+<p>Plugin interface for the vector graphics engine</p>
+<p>벡터 그래픽 엔진을 위한 플러그인 인터페이스</p>
+<h2>Properties</h2>
+<h3>dependencies?</h3>
+<blockquote>
+<p><code>readonly</code> <code>optional</code> <strong>dependencies</strong>: <code>string</code>[]</p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L19">types/index.ts:19</a></p>
+<p>Optional array of plugin IDs that this plugin depends on</p>
+<hr>
+<h3>id</h3>
+<blockquote>
+<p><code>readonly</code> <strong>id</strong>: <code>string</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L15">types/index.ts:15</a></p>
+<p>Unique identifier for the plugin</p>
+<hr>
+<h3>version</h3>
+<blockquote>
+<p><code>readonly</code> <strong>version</strong>: <code>string</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L17">types/index.ts:17</a></p>
+<p>Semantic version of the plugin</p>
+<h2>Methods</h2>
+<h3>install()</h3>
+<blockquote>
+<p><strong>install</strong>(<code>engine</code>): <code>void</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L28">types/index.ts:28</a></p>
+<p>Install the plugin into the engine</p>
+<p>엔진에 플러그인을 설치합니다.</p>
+<h4>Parameters</h4>
+<h5>engine</h5>
+<p><code>VectorEngine</code></p>
+<p>The vector engine instance</p>
+<h4>Returns</h4>
+<p><code>void</code></p>
+<hr>
+<h3>uninstall()</h3>
+<blockquote>
+<p><strong>uninstall</strong>(<code>engine</code>): <code>void</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L37">types/index.ts:37</a></p>
+<p>Uninstall the plugin from the engine</p>
+<p>엔진에서 플러그인을 제거합니다.</p>
+<h4>Parameters</h4>
+<h5>engine</h5>
+<p><code>VectorEngine</code></p>
+<p>The vector engine instance</p>
+<h4>Returns</h4>
+<p><code>void</code></p>11:T671,
+[**Modern Vector.js v0.1.0**](../README.md)
+
+***
+
+[Modern Vector.js](../README.md) / Renderer
+
+# Interface: Renderer
+
+Defined in: [types/index.ts:255](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L255)
+
+Base renderer interface
+
+다양한 렌더링 백엔드를 위한 기본 인터페이스입니다.
+
+## Properties
+
+### capabilities
+
+> `readonly` **capabilities**: [`RendererCapabilities`](RendererCapabilities.md)
+
+Defined in: [types/index.ts:259](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L259)
+
+Renderer의 기능
+
+***
+
+### id
+
+> `readonly` **id**: `string`
+
+Defined in: [types/index.ts:257](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L257)
+
+Renderer의 고유 ID
+
+## Methods
+
+### dispose()
+
+> **dispose**(): `void`
+
+Defined in: [types/index.ts:275](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L275)
+
+리소스 정리
+
+Renderer가 사용한 리소스를 정리합니다.
+
+#### Returns
+
+`void`
+
+***
+
+### render()
+
+> **render**(`scene`): `void`
+
+Defined in: [types/index.ts:268](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L268)
+
+Scene 렌더링
+
+주어진 Scene을 렌더링합니다.
+
+#### Parameters
+
+##### scene
+
+[`Scene`](Scene.md)
+
+렌더링할 Scene
+
+#### Returns
+
+`void`
+12:T89b,<p><a href="../README.md"><strong>Modern Vector.js v0.1.0</strong></a></p>
+<hr>
+<p><a href="../README.md">Modern Vector.js</a> / Renderer</p>
+<h1>Interface: Renderer</h1>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L255">types/index.ts:255</a></p>
+<p>Base renderer interface</p>
+<p>다양한 렌더링 백엔드를 위한 기본 인터페이스입니다.</p>
+<h2>Properties</h2>
+<h3>capabilities</h3>
+<blockquote>
+<p><code>readonly</code> <strong>capabilities</strong>: <a href="RendererCapabilities.md"><code>RendererCapabilities</code></a></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L259">types/index.ts:259</a></p>
+<p>Renderer의 기능</p>
+<hr>
+<h3>id</h3>
+<blockquote>
+<p><code>readonly</code> <strong>id</strong>: <code>string</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L257">types/index.ts:257</a></p>
+<p>Renderer의 고유 ID</p>
+<h2>Methods</h2>
+<h3>dispose()</h3>
+<blockquote>
+<p><strong>dispose</strong>(): <code>void</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L275">types/index.ts:275</a></p>
+<p>리소스 정리</p>
+<p>Renderer가 사용한 리소스를 정리합니다.</p>
+<h4>Returns</h4>
+<p><code>void</code></p>
+<hr>
+<h3>render()</h3>
+<blockquote>
+<p><strong>render</strong>(<code>scene</code>): <code>void</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L268">types/index.ts:268</a></p>
+<p>Scene 렌더링</p>
+<p>주어진 Scene을 렌더링합니다.</p>
+<h4>Parameters</h4>
+<h5>scene</h5>
+<p><a href="Scene.md"><code>Scene</code></a></p>
+<p>렌더링할 Scene</p>
+<h4>Returns</h4>
+<p><code>void</code></p>13:T5d3,
+[**Modern Vector.js v0.1.0**](../README.md)
+
+***
+
+[Modern Vector.js](../README.md) / RendererCapabilities
+
+# Interface: RendererCapabilities
+
+Defined in: [types/index.ts:283](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L283)
+
+Renderer capabilities interface
+
+렌더러의 기능과 제한사항을 정의하는 인터페이스입니다.
+
+## Properties
+
+### maxTextureSize
+
+> `readonly` **maxTextureSize**: `number`
+
+Defined in: [types/index.ts:285](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L285)
+
+최대 텍스처 크기
+
+***
+
+### supports3D
+
+> `readonly` **supports3D**: `boolean`
+
+Defined in: [types/index.ts:291](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L291)
+
+3D 지원 여부
+
+***
+
+### supportsSVG
+
+> `readonly` **supportsSVG**: `boolean`
+
+Defined in: [types/index.ts:287](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L287)
+
+SVG 지원 여부
+
+***
+
+### supportsWebGL
+
+> `readonly` **supportsWebGL**: `boolean`
+
+Defined in: [types/index.ts:289](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L289)
+
+WebGL 지원 여부
+14:T79d,<p><a href="../README.md"><strong>Modern Vector.js v0.1.0</strong></a></p>
+<hr>
+<p><a href="../README.md">Modern Vector.js</a> / RendererCapabilities</p>
+<h1>Interface: RendererCapabilities</h1>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L283">types/index.ts:283</a></p>
+<p>Renderer capabilities interface</p>
+<p>렌더러의 기능과 제한사항을 정의하는 인터페이스입니다.</p>
+<h2>Properties</h2>
+<h3>maxTextureSize</h3>
+<blockquote>
+<p><code>readonly</code> <strong>maxTextureSize</strong>: <code>number</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L285">types/index.ts:285</a></p>
+<p>최대 텍스처 크기</p>
+<hr>
+<h3>supports3D</h3>
+<blockquote>
+<p><code>readonly</code> <strong>supports3D</strong>: <code>boolean</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L291">types/index.ts:291</a></p>
+<p>3D 지원 여부</p>
+<hr>
+<h3>supportsSVG</h3>
+<blockquote>
+<p><code>readonly</code> <strong>supportsSVG</strong>: <code>boolean</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L287">types/index.ts:287</a></p>
+<p>SVG 지원 여부</p>
+<hr>
+<h3>supportsWebGL</h3>
+<blockquote>
+<p><code>readonly</code> <strong>supportsWebGL</strong>: <code>boolean</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L289">types/index.ts:289</a></p>
+<p>WebGL 지원 여부</p>15:T5b9,
+[**Modern Vector.js v0.1.0**](../README.md)
+
+***
+
+[Modern Vector.js](../README.md) / RendererService
+
+# Interface: RendererService
+
+Defined in: [types/index.ts:125](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L125)
+
+Service for managing renderers
+
+렌더러를 관리하는 서비스 인터페이스입니다.
+
+## Methods
+
+### register()
+
+> **register**(`renderer`): `void`
+
+Defined in: [types/index.ts:131](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L131)
+
+렌더러 등록
+
+#### Parameters
+
+##### renderer
+
+[`Renderer`](Renderer.md)
+
+등록할 렌더러
+
+#### Returns
+
+`void`
+
+***
+
+### render()
+
+> **render**(`scene`): `void`
+
+Defined in: [types/index.ts:145](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L145)
+
+장면 렌더링
+
+#### Parameters
+
+##### scene
+
+[`Scene`](Scene.md)
+
+렌더링할 장면
+
+#### Returns
+
+`void`
+
+***
+
+### setActive()
+
+> **setActive**(`rendererId`): `void`
+
+Defined in: [types/index.ts:138](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L138)
+
+활성 렌더러 설정
+
+#### Parameters
+
+##### rendererId
+
+`string`
+
+활성화할 렌더러의 ID
+
+#### Returns
+
+`void`
+16:T7cc,<p><a href="../README.md"><strong>Modern Vector.js v0.1.0</strong></a></p>
+<hr>
+<p><a href="../README.md">Modern Vector.js</a> / RendererService</p>
+<h1>Interface: RendererService</h1>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L125">types/index.ts:125</a></p>
+<p>Service for managing renderers</p>
+<p>렌더러를 관리하는 서비스 인터페이스입니다.</p>
+<h2>Methods</h2>
+<h3>register()</h3>
+<blockquote>
+<p><strong>register</strong>(<code>renderer</code>): <code>void</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L131">types/index.ts:131</a></p>
+<p>렌더러 등록</p>
+<h4>Parameters</h4>
+<h5>renderer</h5>
+<p><a href="Renderer.md"><code>Renderer</code></a></p>
+<p>등록할 렌더러</p>
+<h4>Returns</h4>
+<p><code>void</code></p>
+<hr>
+<h3>render()</h3>
+<blockquote>
+<p><strong>render</strong>(<code>scene</code>): <code>void</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L145">types/index.ts:145</a></p>
+<p>장면 렌더링</p>
+<h4>Parameters</h4>
+<h5>scene</h5>
+<p><a href="Scene.md"><code>Scene</code></a></p>
+<p>렌더링할 장면</p>
+<h4>Returns</h4>
+<p><code>void</code></p>
+<hr>
+<h3>setActive()</h3>
+<blockquote>
+<p><strong>setActive</strong>(<code>rendererId</code>): <code>void</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L138">types/index.ts:138</a></p>
+<p>활성 렌더러 설정</p>
+<h4>Parameters</h4>
+<h5>rendererId</h5>
+<p><code>string</code></p>
+<p>활성화할 렌더러의 ID</p>
+<h4>Returns</h4>
+<p><code>void</code></p>17:Tb19,
+[**Modern Vector.js v0.1.0**](../README.md)
+
+***
+
+[Modern Vector.js](../README.md) / Scene
+
+# Interface: Scene
+
+Defined in: [types/index.ts:196](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L196)
+
+Scene interface representing a container for shapes
+
+Shape들을 포함하는 장면 인터페이스입니다.
+
+## Extends
+
+- [`EventEmitter`](EventEmitter.md)
+
+## Properties
+
+### plugins
+
+> `readonly` **plugins**: `Map`\<`string`, [`Plugin`](Plugin.md)\>
+
+Defined in: [types/index.ts:202](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L202)
+
+장면에 등록된 플러그인 맵
+
+***
+
+### renderer
+
+> `readonly` **renderer**: [`Renderer`](Renderer.md)
+
+Defined in: [types/index.ts:200](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L200)
+
+장면의 렌더러
+
+***
+
+### root
+
+> `readonly` **root**: [`SceneNode`](SceneNode.md)
+
+Defined in: [types/index.ts:198](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L198)
+
+장면의 루트 노드
+
+## Methods
+
+### emit()
+
+> **emit**(`event`, `data`): `void`
+
+Defined in: [types/index.ts:117](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L117)
+
+이벤트 발생
+
+#### Parameters
+
+##### event
+
+`string`
+
+발생시킬 이벤트 이름
+
+##### data
+
+`any`
+
+이벤트와 함께 전달할 데이터
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[`EventEmitter`](EventEmitter.md).[`emit`](EventEmitter.md#emit)
+
+***
+
+### off()
+
+> **off**(`event`, `handler`): `void`
+
+Defined in: [types/index.ts:109](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L109)
+
+이벤트 리스너 제거
+
+#### Parameters
+
+##### event
+
+`string`
+
+이벤트 이름
+
+##### handler
+
+[`EventHandler`](../type-aliases/EventHandler.md)
+
+제거할 이벤트 핸들러 함수
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[`EventEmitter`](EventEmitter.md).[`off`](EventEmitter.md#off)
+
+***
+
+### on()
+
+> **on**(`event`, `handler`): `void`
+
+Defined in: [types/index.ts:101](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L101)
+
+이벤트 리스너 등록
+
+#### Parameters
+
+##### event
+
+`string`
+
+이벤트 이름
+
+##### handler
+
+[`EventHandler`](../type-aliases/EventHandler.md)
+
+이벤트 핸들러 함수
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[`EventEmitter`](EventEmitter.md).[`on`](EventEmitter.md#on)
+18:Tfb9,<p><a href="../README.md"><strong>Modern Vector.js v0.1.0</strong></a></p>
+<hr>
+<p><a href="../README.md">Modern Vector.js</a> / Scene</p>
+<h1>Interface: Scene</h1>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L196">types/index.ts:196</a></p>
+<p>Scene interface representing a container for shapes</p>
+<p>Shape들을 포함하는 장면 인터페이스입니다.</p>
+<h2>Extends</h2>
+<ul>
+<li><a href="EventEmitter.md"><code>EventEmitter</code></a></li>
+</ul>
+<h2>Properties</h2>
+<h3>plugins</h3>
+<blockquote>
+<p><code>readonly</code> <strong>plugins</strong>: <code>Map</code>&#x3C;<code>string</code>, <a href="Plugin.md"><code>Plugin</code></a>></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L202">types/index.ts:202</a></p>
+<p>장면에 등록된 플러그인 맵</p>
+<hr>
+<h3>renderer</h3>
+<blockquote>
+<p><code>readonly</code> <strong>renderer</strong>: <a href="Renderer.md"><code>Renderer</code></a></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L200">types/index.ts:200</a></p>
+<p>장면의 렌더러</p>
+<hr>
+<h3>root</h3>
+<blockquote>
+<p><code>readonly</code> <strong>root</strong>: <a href="SceneNode.md"><code>SceneNode</code></a></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L198">types/index.ts:198</a></p>
+<p>장면의 루트 노드</p>
+<h2>Methods</h2>
+<h3>emit()</h3>
+<blockquote>
+<p><strong>emit</strong>(<code>event</code>, <code>data</code>): <code>void</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L117">types/index.ts:117</a></p>
+<p>이벤트 발생</p>
+<h4>Parameters</h4>
+<h5>event</h5>
+<p><code>string</code></p>
+<p>발생시킬 이벤트 이름</p>
+<h5>data</h5>
+<p><code>any</code></p>
+<p>이벤트와 함께 전달할 데이터</p>
+<h4>Returns</h4>
+<p><code>void</code></p>
+<h4>Inherited from</h4>
+<p><a href="EventEmitter.md"><code>EventEmitter</code></a>.<a href="EventEmitter.md#emit"><code>emit</code></a></p>
+<hr>
+<h3>off()</h3>
+<blockquote>
+<p><strong>off</strong>(<code>event</code>, <code>handler</code>): <code>void</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L109">types/index.ts:109</a></p>
+<p>이벤트 리스너 제거</p>
+<h4>Parameters</h4>
+<h5>event</h5>
+<p><code>string</code></p>
+<p>이벤트 이름</p>
+<h5>handler</h5>
+<p><a href="../type-aliases/EventHandler.md"><code>EventHandler</code></a></p>
+<p>제거할 이벤트 핸들러 함수</p>
+<h4>Returns</h4>
+<p><code>void</code></p>
+<h4>Inherited from</h4>
+<p><a href="EventEmitter.md"><code>EventEmitter</code></a>.<a href="EventEmitter.md#off"><code>off</code></a></p>
+<hr>
+<h3>on()</h3>
+<blockquote>
+<p><strong>on</strong>(<code>event</code>, <code>handler</code>): <code>void</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L101">types/index.ts:101</a></p>
+<p>이벤트 리스너 등록</p>
+<h4>Parameters</h4>
+<h5>event</h5>
+<p><code>string</code></p>
+<p>이벤트 이름</p>
+<h5>handler</h5>
+<p><a href="../type-aliases/EventHandler.md"><code>EventHandler</code></a></p>
+<p>이벤트 핸들러 함수</p>
+<h4>Returns</h4>
+<p><code>void</code></p>
+<h4>Inherited from</h4>
+<p><a href="EventEmitter.md"><code>EventEmitter</code></a>.<a href="EventEmitter.md#on"><code>on</code></a></p>19:T11eb,
+[**Modern Vector.js v0.1.0**](../README.md)
+
+***
+
+[Modern Vector.js](../README.md) / SceneNode
+
+# Interface: SceneNode
+
+Defined in: [types/index.ts:210](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L210)
+
+SceneNode interface representing a node in the scene graph
+
+장면 그래프의 노드를 나타내는 인터페이스입니다.
+
+## Extends
+
+- [`EventEmitter`](EventEmitter.md)
+
+## Properties
+
+### children
+
+> `readonly` **children**: [`SceneNode`](SceneNode.md)[]
+
+Defined in: [types/index.ts:216](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L216)
+
+자식 노드 목록
+
+***
+
+### data
+
+> **data**: `any`
+
+Defined in: [types/index.ts:218](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L218)
+
+노드에 연결된 데이터
+
+***
+
+### id
+
+> `readonly` **id**: `string`
+
+Defined in: [types/index.ts:212](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L212)
+
+노드의 고유 ID
+
+***
+
+### parent
+
+> **parent**: `null` \| [`SceneNode`](SceneNode.md)
+
+Defined in: [types/index.ts:214](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L214)
+
+부모 노드
+
+## Methods
+
+### addChild()
+
+> **addChild**(`child`): [`SceneNode`](SceneNode.md)
+
+Defined in: [types/index.ts:226](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L226)
+
+자식 노드 추가
+
+#### Parameters
+
+##### child
+
+[`SceneNode`](SceneNode.md)
+
+추가할 자식 노드
+
+#### Returns
+
+[`SceneNode`](SceneNode.md)
+
+추가된 자식 노드
+
+***
+
+### clearChildren()
+
+> **clearChildren**(): `void`
+
+Defined in: [types/index.ts:239](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L239)
+
+모든 자식 노드 제거
+
+#### Returns
+
+`void`
+
+***
+
+### emit()
+
+> **emit**(`event`, `data`): `void`
+
+Defined in: [types/index.ts:117](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L117)
+
+이벤트 발생
+
+#### Parameters
+
+##### event
+
+`string`
+
+발생시킬 이벤트 이름
+
+##### data
+
+`any`
+
+이벤트와 함께 전달할 데이터
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[`EventEmitter`](EventEmitter.md).[`emit`](EventEmitter.md#emit)
+
+***
+
+### findChildById()
+
+> **findChildById**(`id`): `null` \| [`SceneNode`](SceneNode.md)
+
+Defined in: [types/index.ts:247](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L247)
+
+ID로 자식 노드 찾기
+
+#### Parameters
+
+##### id
+
+`string`
+
+찾을 노드의 ID
+
+#### Returns
+
+`null` \| [`SceneNode`](SceneNode.md)
+
+찾은 노드 또는 null
+
+***
+
+### off()
+
+> **off**(`event`, `handler`): `void`
+
+Defined in: [types/index.ts:109](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L109)
+
+이벤트 리스너 제거
+
+#### Parameters
+
+##### event
+
+`string`
+
+이벤트 이름
+
+##### handler
+
+[`EventHandler`](../type-aliases/EventHandler.md)
+
+제거할 이벤트 핸들러 함수
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[`EventEmitter`](EventEmitter.md).[`off`](EventEmitter.md#off)
+
+***
+
+### on()
+
+> **on**(`event`, `handler`): `void`
+
+Defined in: [types/index.ts:101](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L101)
+
+이벤트 리스너 등록
+
+#### Parameters
+
+##### event
+
+`string`
+
+이벤트 이름
+
+##### handler
+
+[`EventHandler`](../type-aliases/EventHandler.md)
+
+이벤트 핸들러 함수
+
+#### Returns
+
+`void`
+
+#### Inherited from
+
+[`EventEmitter`](EventEmitter.md).[`on`](EventEmitter.md#on)
+
+***
+
+### removeChild()
+
+> **removeChild**(`child`): `boolean`
+
+Defined in: [types/index.ts:234](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L234)
+
+자식 노드 제거
+
+#### Parameters
+
+##### child
+
+[`SceneNode`](SceneNode.md)
+
+제거할 자식 노드
+
+#### Returns
+
+`boolean`
+
+제거 성공 여부
+1a:T192d,<p><a href="../README.md"><strong>Modern Vector.js v0.1.0</strong></a></p>
+<hr>
+<p><a href="../README.md">Modern Vector.js</a> / SceneNode</p>
+<h1>Interface: SceneNode</h1>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L210">types/index.ts:210</a></p>
+<p>SceneNode interface representing a node in the scene graph</p>
+<p>장면 그래프의 노드를 나타내는 인터페이스입니다.</p>
+<h2>Extends</h2>
+<ul>
+<li><a href="EventEmitter.md"><code>EventEmitter</code></a></li>
+</ul>
+<h2>Properties</h2>
+<h3>children</h3>
+<blockquote>
+<p><code>readonly</code> <strong>children</strong>: <a href="SceneNode.md"><code>SceneNode</code></a>[]</p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L216">types/index.ts:216</a></p>
+<p>자식 노드 목록</p>
+<hr>
+<h3>data</h3>
+<blockquote>
+<p><strong>data</strong>: <code>any</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L218">types/index.ts:218</a></p>
+<p>노드에 연결된 데이터</p>
+<hr>
+<h3>id</h3>
+<blockquote>
+<p><code>readonly</code> <strong>id</strong>: <code>string</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L212">types/index.ts:212</a></p>
+<p>노드의 고유 ID</p>
+<hr>
+<h3>parent</h3>
+<blockquote>
+<p><strong>parent</strong>: <code>null</code> | <a href="SceneNode.md"><code>SceneNode</code></a></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L214">types/index.ts:214</a></p>
+<p>부모 노드</p>
+<h2>Methods</h2>
+<h3>addChild()</h3>
+<blockquote>
+<p><strong>addChild</strong>(<code>child</code>): <a href="SceneNode.md"><code>SceneNode</code></a></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L226">types/index.ts:226</a></p>
+<p>자식 노드 추가</p>
+<h4>Parameters</h4>
+<h5>child</h5>
+<p><a href="SceneNode.md"><code>SceneNode</code></a></p>
+<p>추가할 자식 노드</p>
+<h4>Returns</h4>
+<p><a href="SceneNode.md"><code>SceneNode</code></a></p>
+<p>추가된 자식 노드</p>
+<hr>
+<h3>clearChildren()</h3>
+<blockquote>
+<p><strong>clearChildren</strong>(): <code>void</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L239">types/index.ts:239</a></p>
+<p>모든 자식 노드 제거</p>
+<h4>Returns</h4>
+<p><code>void</code></p>
+<hr>
+<h3>emit()</h3>
+<blockquote>
+<p><strong>emit</strong>(<code>event</code>, <code>data</code>): <code>void</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L117">types/index.ts:117</a></p>
+<p>이벤트 발생</p>
+<h4>Parameters</h4>
+<h5>event</h5>
+<p><code>string</code></p>
+<p>발생시킬 이벤트 이름</p>
+<h5>data</h5>
+<p><code>any</code></p>
+<p>이벤트와 함께 전달할 데이터</p>
+<h4>Returns</h4>
+<p><code>void</code></p>
+<h4>Inherited from</h4>
+<p><a href="EventEmitter.md"><code>EventEmitter</code></a>.<a href="EventEmitter.md#emit"><code>emit</code></a></p>
+<hr>
+<h3>findChildById()</h3>
+<blockquote>
+<p><strong>findChildById</strong>(<code>id</code>): <code>null</code> | <a href="SceneNode.md"><code>SceneNode</code></a></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L247">types/index.ts:247</a></p>
+<p>ID로 자식 노드 찾기</p>
+<h4>Parameters</h4>
+<h5>id</h5>
+<p><code>string</code></p>
+<p>찾을 노드의 ID</p>
+<h4>Returns</h4>
+<p><code>null</code> | <a href="SceneNode.md"><code>SceneNode</code></a></p>
+<p>찾은 노드 또는 null</p>
+<hr>
+<h3>off()</h3>
+<blockquote>
+<p><strong>off</strong>(<code>event</code>, <code>handler</code>): <code>void</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L109">types/index.ts:109</a></p>
+<p>이벤트 리스너 제거</p>
+<h4>Parameters</h4>
+<h5>event</h5>
+<p><code>string</code></p>
+<p>이벤트 이름</p>
+<h5>handler</h5>
+<p><a href="../type-aliases/EventHandler.md"><code>EventHandler</code></a></p>
+<p>제거할 이벤트 핸들러 함수</p>
+<h4>Returns</h4>
+<p><code>void</code></p>
+<h4>Inherited from</h4>
+<p><a href="EventEmitter.md"><code>EventEmitter</code></a>.<a href="EventEmitter.md#off"><code>off</code></a></p>
+<hr>
+<h3>on()</h3>
+<blockquote>
+<p><strong>on</strong>(<code>event</code>, <code>handler</code>): <code>void</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L101">types/index.ts:101</a></p>
+<p>이벤트 리스너 등록</p>
+<h4>Parameters</h4>
+<h5>event</h5>
+<p><code>string</code></p>
+<p>이벤트 이름</p>
+<h5>handler</h5>
+<p><a href="../type-aliases/EventHandler.md"><code>EventHandler</code></a></p>
+<p>이벤트 핸들러 함수</p>
+<h4>Returns</h4>
+<p><code>void</code></p>
+<h4>Inherited from</h4>
+<p><a href="EventEmitter.md"><code>EventEmitter</code></a>.<a href="EventEmitter.md#on"><code>on</code></a></p>
+<hr>
+<h3>removeChild()</h3>
+<blockquote>
+<p><strong>removeChild</strong>(<code>child</code>): <code>boolean</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L234">types/index.ts:234</a></p>
+<p>자식 노드 제거</p>
+<h4>Parameters</h4>
+<h5>child</h5>
+<p><a href="SceneNode.md"><code>SceneNode</code></a></p>
+<p>제거할 자식 노드</p>
+<h4>Returns</h4>
+<p><code>boolean</code></p>
+<p>제거 성공 여부</p>1b:T567,
+[**Modern Vector.js v0.1.0**](../README.md)
+
+***
+
+[Modern Vector.js](../README.md) / SceneService
+
+# Interface: SceneService
+
+Defined in: [types/index.ts:168](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L168)
+
+Service for managing scenes
+
+장면을 관리하는 서비스 인터페이스입니다.
+
+## Methods
+
+### create()
+
+> **create**(): [`Scene`](Scene.md)
+
+Defined in: [types/index.ts:174](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L174)
+
+새 장면 생성
+
+#### Returns
+
+[`Scene`](Scene.md)
+
+생성된 장면
+
+***
+
+### getActive()
+
+> **getActive**(): [`Scene`](Scene.md)
+
+Defined in: [types/index.ts:181](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L181)
+
+활성 장면 가져오기
+
+#### Returns
+
+[`Scene`](Scene.md)
+
+현재 활성화된 장면
+
+***
+
+### setActive()
+
+> **setActive**(`scene`): `void`
+
+Defined in: [types/index.ts:188](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L188)
+
+활성 장면 설정
+
+#### Parameters
+
+##### scene
+
+[`Scene`](Scene.md)
+
+활성화할 장면
+
+#### Returns
+
+`void`
+1c:T759,<p><a href="../README.md"><strong>Modern Vector.js v0.1.0</strong></a></p>
+<hr>
+<p><a href="../README.md">Modern Vector.js</a> / SceneService</p>
+<h1>Interface: SceneService</h1>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L168">types/index.ts:168</a></p>
+<p>Service for managing scenes</p>
+<p>장면을 관리하는 서비스 인터페이스입니다.</p>
+<h2>Methods</h2>
+<h3>create()</h3>
+<blockquote>
+<p><strong>create</strong>(): <a href="Scene.md"><code>Scene</code></a></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L174">types/index.ts:174</a></p>
+<p>새 장면 생성</p>
+<h4>Returns</h4>
+<p><a href="Scene.md"><code>Scene</code></a></p>
+<p>생성된 장면</p>
+<hr>
+<h3>getActive()</h3>
+<blockquote>
+<p><strong>getActive</strong>(): <a href="Scene.md"><code>Scene</code></a></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L181">types/index.ts:181</a></p>
+<p>활성 장면 가져오기</p>
+<h4>Returns</h4>
+<p><a href="Scene.md"><code>Scene</code></a></p>
+<p>현재 활성화된 장면</p>
+<hr>
+<h3>setActive()</h3>
+<blockquote>
+<p><strong>setActive</strong>(<code>scene</code>): <code>void</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L188">types/index.ts:188</a></p>
+<p>활성 장면 설정</p>
+<h4>Parameters</h4>
+<h5>scene</h5>
+<p><a href="Scene.md"><code>Scene</code></a></p>
+<p>활성화할 장면</p>
+<h4>Returns</h4>
+<p><code>void</code></p>1d:T89b,<p><a href="../README.md"><strong>Modern Vector.js v0.1.0</strong></a></p>
+<hr>
+<p><a href="../README.md">Modern Vector.js</a> / Renderer</p>
+<h1>Interface: Renderer</h1>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L255">types/index.ts:255</a></p>
+<p>Base renderer interface</p>
+<p>다양한 렌더링 백엔드를 위한 기본 인터페이스입니다.</p>
+<h2>Properties</h2>
+<h3>capabilities</h3>
+<blockquote>
+<p><code>readonly</code> <strong>capabilities</strong>: <a href="RendererCapabilities.md"><code>RendererCapabilities</code></a></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L259">types/index.ts:259</a></p>
+<p>Renderer의 기능</p>
+<hr>
+<h3>id</h3>
+<blockquote>
+<p><code>readonly</code> <strong>id</strong>: <code>string</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L257">types/index.ts:257</a></p>
+<p>Renderer의 고유 ID</p>
+<h2>Methods</h2>
+<h3>dispose()</h3>
+<blockquote>
+<p><strong>dispose</strong>(): <code>void</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L275">types/index.ts:275</a></p>
+<p>리소스 정리</p>
+<p>Renderer가 사용한 리소스를 정리합니다.</p>
+<h4>Returns</h4>
+<p><code>void</code></p>
+<hr>
+<h3>render()</h3>
+<blockquote>
+<p><strong>render</strong>(<code>scene</code>): <code>void</code></p>
+</blockquote>
+<p>Defined in: <a href="https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L268">types/index.ts:268</a></p>
+<p>Scene 렌더링</p>
+<p>주어진 Scene을 렌더링합니다.</p>
+<h4>Parameters</h4>
+<h5>scene</h5>
+<p><a href="Scene.md"><code>Scene</code></a></p>
+<p>렌더링할 Scene</p>
+<h4>Returns</h4>
+<p><code>void</code></p>0:{"P":null,"b":"VG6Ac3nzg1KiyrFRpaMZQ","p":"/modern-vector.js","c":["","api-docs","interfaces","Renderer"],"i":false,"f":[[["",{"children":["api-docs",{"children":[["slug","interfaces/Renderer","c"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/modern-vector.js/_next/static/css/8343f4fba40a086f.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"en","suppressHydrationWarning":true,"children":[["$","head",null,{"children":["$","style",null,{"children":"$2"}]}],["$","body",null,{"className":"__className_f56c8a","children":["$","$L3",null,{"attribute":"class","defaultTheme":"system","enableSystem":true,"disableTransitionOnChange":true,"children":[["$","$L4",null,{}],["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[],[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]]],"forbidden":"$undefined","unauthorized":"$undefined"}]]}]}]]}]]}],{"children":["api-docs",["$","$1","c",{"children":[null,["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","api-docs","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["slug","interfaces/Renderer","c"],["$","$1","c",{"children":[null,["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","api-docs","children","$0:f:0:1:2:children:2:children:0","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":["__PAGE__",["$","$1","c",{"children":[["$","div",null,{"className":"flex flex-col md:flex-row","children":[["$","aside",null,{"className":"w-full md:w-64 p-4 border-r border-border bg-card","children":["$","nav",null,{"className":"api-nav","children":["$","$7",null,{"fallback":["$","div",null,{"children":"Loading..."}],"children":["$","$L8",null,{"categories":{"classes":[{"title":"VectorEngine","category":"classes","body":{"raw":"$9","html":"$a"},"_id":"api-docs/classes/VectorEngine.md","_raw":{"sourceFilePath":"api-docs/classes/VectorEngine.md","sourceFileName":"VectorEngine.md","sourceFileDir":"api-docs/classes","contentType":"markdown","flattenedPath":"api-docs/classes/VectorEngine"},"type":"ApiDoc","slug":"classes/VectorEngine","url":"/api-docs/classes/VectorEngine"}],"interfaces":[{"title":"EventEmitter","category":"interfaces","body":{"raw":"$b","html":"$c"},"_id":"api-docs/interfaces/EventEmitter.md","_raw":{"sourceFilePath":"api-docs/interfaces/EventEmitter.md","sourceFileName":"EventEmitter.md","sourceFileDir":"api-docs/interfaces","contentType":"markdown","flattenedPath":"api-docs/interfaces/EventEmitter"},"type":"ApiDoc","slug":"interfaces/EventEmitter","url":"/api-docs/interfaces/EventEmitter"},{"title":"EventService","category":"interfaces","body":{"raw":"$d","html":"$e"},"_id":"api-docs/interfaces/EventService.md","_raw":{"sourceFilePath":"api-docs/interfaces/EventService.md","sourceFileName":"EventService.md","sourceFileDir":"api-docs/interfaces","contentType":"markdown","flattenedPath":"api-docs/interfaces/EventService"},"type":"ApiDoc","slug":"interfaces/EventService","url":"/api-docs/interfaces/EventService"},{"title":"Plugin","category":"interfaces","body":{"raw":"$f","html":"$10"},"_id":"api-docs/interfaces/Plugin.md","_raw":{"sourceFilePath":"api-docs/interfaces/Plugin.md","sourceFileName":"Plugin.md","sourceFileDir":"api-docs/interfaces","contentType":"markdown","flattenedPath":"api-docs/interfaces/Plugin"},"type":"ApiDoc","slug":"interfaces/Plugin","url":"/api-docs/interfaces/Plugin"},{"title":"Renderer","category":"interfaces","body":{"raw":"$11","html":"$12"},"_id":"api-docs/interfaces/Renderer.md","_raw":{"sourceFilePath":"api-docs/interfaces/Renderer.md","sourceFileName":"Renderer.md","sourceFileDir":"api-docs/interfaces","contentType":"markdown","flattenedPath":"api-docs/interfaces/Renderer"},"type":"ApiDoc","slug":"interfaces/Renderer","url":"/api-docs/interfaces/Renderer"},{"title":"RendererCapabilities","category":"interfaces","body":{"raw":"$13","html":"$14"},"_id":"api-docs/interfaces/RendererCapabilities.md","_raw":{"sourceFilePath":"api-docs/interfaces/RendererCapabilities.md","sourceFileName":"RendererCapabilities.md","sourceFileDir":"api-docs/interfaces","contentType":"markdown","flattenedPath":"api-docs/interfaces/RendererCapabilities"},"type":"ApiDoc","slug":"interfaces/RendererCapabilities","url":"/api-docs/interfaces/RendererCapabilities"},{"title":"RendererService","category":"interfaces","body":{"raw":"$15","html":"$16"},"_id":"api-docs/interfaces/RendererService.md","_raw":{"sourceFilePath":"api-docs/interfaces/RendererService.md","sourceFileName":"RendererService.md","sourceFileDir":"api-docs/interfaces","contentType":"markdown","flattenedPath":"api-docs/interfaces/RendererService"},"type":"ApiDoc","slug":"interfaces/RendererService","url":"/api-docs/interfaces/RendererService"},{"title":"Scene","category":"interfaces","body":{"raw":"$17","html":"$18"},"_id":"api-docs/interfaces/Scene.md","_raw":{"sourceFilePath":"api-docs/interfaces/Scene.md","sourceFileName":"Scene.md","sourceFileDir":"api-docs/interfaces","contentType":"markdown","flattenedPath":"api-docs/interfaces/Scene"},"type":"ApiDoc","slug":"interfaces/Scene","url":"/api-docs/interfaces/Scene"},{"title":"SceneNode","category":"interfaces","body":{"raw":"$19","html":"$1a"},"_id":"api-docs/interfaces/SceneNode.md","_raw":{"sourceFilePath":"api-docs/interfaces/SceneNode.md","sourceFileName":"SceneNode.md","sourceFileDir":"api-docs/interfaces","contentType":"markdown","flattenedPath":"api-docs/interfaces/SceneNode"},"type":"ApiDoc","slug":"interfaces/SceneNode","url":"/api-docs/interfaces/SceneNode"},{"title":"SceneService","category":"interfaces","body":{"raw":"$1b","html":"$1c"},"_id":"api-docs/interfaces/SceneService.md","_raw":{"sourceFilePath":"api-docs/interfaces/SceneService.md","sourceFileName":"SceneService.md","sourceFileDir":"api-docs/interfaces","contentType":"markdown","flattenedPath":"api-docs/interfaces/SceneService"},"type":"ApiDoc","slug":"interfaces/SceneService","url":"/api-docs/interfaces/SceneService"}],"type-aliases":[{"title":"EventHandler","category":"type-aliases","body":{"raw":"\n[**Modern Vector.js v0.1.0**](../README.md)\n\n***\n\n[Modern Vector.js](../README.md) / EventHandler\n\n# Type Alias: EventHandler()\n\n> **EventHandler**: (`data`) => `void`\n\nDefined in: [types/index.ts:87](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L87)\n\nEvent handler type definition\n\n이벤트 핸들러 함수 타입입니다.\n\n## Parameters\n\n### data\n\n`any`\n\n## Returns\n\n`void`\n","html":"<p><a href=\"../README.md\"><strong>Modern Vector.js v0.1.0</strong></a></p>\n<hr>\n<p><a href=\"../README.md\">Modern Vector.js</a> / EventHandler</p>\n<h1>Type Alias: EventHandler()</h1>\n<blockquote>\n<p><strong>EventHandler</strong>: (<code>data</code>) => <code>void</code></p>\n</blockquote>\n<p>Defined in: <a href=\"https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L87\">types/index.ts:87</a></p>\n<p>Event handler type definition</p>\n<p>이벤트 핸들러 함수 타입입니다.</p>\n<h2>Parameters</h2>\n<h3>data</h3>\n<p><code>any</code></p>\n<h2>Returns</h2>\n<p><code>void</code></p>"},"_id":"api-docs/type-aliases/EventHandler.md","_raw":{"sourceFilePath":"api-docs/type-aliases/EventHandler.md","sourceFileName":"EventHandler.md","sourceFileDir":"api-docs/type-aliases","contentType":"markdown","flattenedPath":"api-docs/type-aliases/EventHandler"},"type":"ApiDoc","slug":"type-aliases/EventHandler","url":"/api-docs/type-aliases/EventHandler"}]}}]}]}]}],["$","main",null,{"className":"flex-1 p-6","children":["$","div",null,{"className":"grid grid-cols-1 lg:grid-cols-4 gap-6","children":[["$","article",null,{"className":"prose dark:prose-invert max-w-none lg:col-span-3","children":[["$","h1",null,{"children":"Renderer"}],["$","div",null,{"dangerouslySetInnerHTML":{"__html":"$1d"}}]]}],["$","div",null,{"className":"hidden lg:block","children":["$","div",null,{"className":"sticky top-20","children":["$","$L1e",null,{"className":"mt-6"}]}]}]]}]}]]}],null,["$","$L1f",null,{"children":"$L20"}]]}],{},null,false]},null,false]},null,false]},null,false],["$","$1","h",{"children":[null,["$","$1","X_1FKkiHOBTd_0FK8GivZ",{"children":[["$","$L21",null,{"children":"$L22"}],["$","$L23",null,{"children":"$L24"}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}]]}],false]],"m":"$undefined","G":["$25","$undefined"],"s":false,"S":true}
+24:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+22:[["$","meta","0",{"charSet":"utf-8"}],["$","title","1",{"children":"Renderer | API Documentation"}],["$","meta","2",{"name":"description","content":"Modern Vector.js API Documentation"}]]
+20:null
