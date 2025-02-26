@@ -1,5 +1,5 @@
 import { Plugin, VectorEngine, SceneNode } from '../../../core/types';
-import { ShapePlugin } from '../../core/shapes/shape-plugin';
+import { ShapePlugin } from '../../core/shapes';
 import { ShapeOptions } from '../../core/shapes/types';
 import { GroupPlugin } from '../../core/group';
 import {
@@ -23,7 +23,7 @@ export class SVGImportToolPlugin implements Plugin, SVGImportToolPluginInterface
   readonly version = '1.0.0';
 
   /** Dependencies required by this plugin */
-  readonly dependencies = ['shape-plugin', 'group-plugin'];
+  readonly dependencies = ['shape', 'group'];
 
   /** Default import options */
   private defaultOptions: SVGImportOptions = {
@@ -65,6 +65,7 @@ export class SVGImportToolPlugin implements Plugin, SVGImportToolPluginInterface
   uninstall(engine: VectorEngine): void {
     // Remove plugin methods from the engine
     const engineExtended = engine as unknown as SVGImportToolPluginExtension;
+    // TypeScript에서는 delete 연산자를 사용할 때 타입 안전성을 위해 any로 변환해야 함
     delete (engineExtended as any).svgImport;
     this.engine = null;
   }
@@ -155,11 +156,23 @@ export class SVGImportToolPlugin implements Plugin, SVGImportToolPluginInterface
 
     // Create a root group for the imported SVG
     const scene = this.engine.scene.getActive();
+
+    // SceneNode 인터페이스에 맞는 최소한의 속성만 사용
     const rootGroup = scene.root.addChild({
-      type: 'group',
       id: 'imported-svg',
+      parent: null,
+      children: [],
       data: {},
-    } as unknown as SceneNode);
+      addChild: () => {
+        throw new Error('Not implemented');
+      },
+      removeChild: () => false,
+      clearChildren: () => {},
+      findChildById: () => null,
+      on: () => {},
+      off: () => {},
+      emit: () => {},
+    });
 
     // 데이터 객체가 확실히 초기화되었는지 확인
     if (!rootGroup.data) {
@@ -261,7 +274,7 @@ export class SVGImportToolPlugin implements Plugin, SVGImportToolPluginInterface
     const style = this.extractStyleAttributes(element);
 
     // Create rectangle shape
-    const shapePlugin = this.engine?.getPlugin<ShapePlugin>('shape-plugin');
+    const shapePlugin = this.engine?.getPlugin<ShapePlugin>('shape');
     if (shapePlugin) {
       const shapeOptions: ShapeOptions = {
         x,
@@ -272,7 +285,23 @@ export class SVGImportToolPlugin implements Plugin, SVGImportToolPluginInterface
       };
 
       const rect = shapePlugin.createShape('rectangle', shapeOptions);
-      parentNode.addChild(rect as unknown as SceneNode);
+
+      // SceneNode 인터페이스에 맞는 최소한의 속성만 사용
+      parentNode.addChild({
+        id: rect.id,
+        parent: null,
+        children: [],
+        data: rect,
+        addChild: () => {
+          throw new Error('Not implemented');
+        },
+        removeChild: () => false,
+        clearChildren: () => {},
+        findChildById: () => null,
+        on: () => {},
+        off: () => {},
+        emit: () => {},
+      });
     }
   }
 
@@ -300,7 +329,7 @@ export class SVGImportToolPlugin implements Plugin, SVGImportToolPluginInterface
     const style = this.extractStyleAttributes(element);
 
     // Create circle shape
-    const shapePlugin = this.engine?.getPlugin<ShapePlugin>('shape-plugin');
+    const shapePlugin = this.engine?.getPlugin<ShapePlugin>('shape');
     if (shapePlugin) {
       const shapeOptions: ShapeOptions = {
         x: cx - r, // Convert center coordinates to top-left
@@ -310,7 +339,23 @@ export class SVGImportToolPlugin implements Plugin, SVGImportToolPluginInterface
       };
 
       const circle = shapePlugin.createShape('circle', shapeOptions);
-      parentNode.addChild(circle as unknown as SceneNode);
+
+      // SceneNode 인터페이스에 맞는 최소한의 속성만 사용
+      parentNode.addChild({
+        id: circle.id,
+        parent: null,
+        children: [],
+        data: circle,
+        addChild: () => {
+          throw new Error('Not implemented');
+        },
+        removeChild: () => false,
+        clearChildren: () => {},
+        findChildById: () => null,
+        on: () => {},
+        off: () => {},
+        emit: () => {},
+      });
     }
   }
 
@@ -359,7 +404,7 @@ export class SVGImportToolPlugin implements Plugin, SVGImportToolPluginInterface
     const style = this.extractStyleAttributes(element);
 
     // Create line shape
-    const shapePlugin = this.engine?.getPlugin<ShapePlugin>('shape-plugin');
+    const shapePlugin = this.engine?.getPlugin<ShapePlugin>('shape');
     if (shapePlugin) {
       const shapeOptions: ShapeOptions = {
         x1,
@@ -370,7 +415,23 @@ export class SVGImportToolPlugin implements Plugin, SVGImportToolPluginInterface
       };
 
       const line = shapePlugin.createShape('line', shapeOptions);
-      parentNode.addChild(line as unknown as SceneNode);
+
+      // SceneNode 인터페이스에 맞는 최소한의 속성만 사용
+      parentNode.addChild({
+        id: line.id,
+        parent: null,
+        children: [],
+        data: line,
+        addChild: () => {
+          throw new Error('Not implemented');
+        },
+        removeChild: () => false,
+        clearChildren: () => {},
+        findChildById: () => null,
+        on: () => {},
+        off: () => {},
+        emit: () => {},
+      });
     }
   }
 
@@ -451,20 +512,47 @@ export class SVGImportToolPlugin implements Plugin, SVGImportToolPluginInterface
       this.processChildElements(element, parentNode, options);
     } else {
       // GroupPlugin 활용
-      const groupPlugin = this.engine?.getPlugin<GroupPlugin>('group-plugin');
+      const groupPlugin = this.engine?.getPlugin<GroupPlugin>('group');
       if (groupPlugin) {
         const group = groupPlugin.createGroup();
-        parentNode.addChild(group as unknown as SceneNode);
+
+        // SceneNode 인터페이스에 맞는 최소한의 속성만 사용
+        const groupNode = parentNode.addChild({
+          id: group.id,
+          parent: null,
+          children: [],
+          data: group,
+          addChild: () => {
+            throw new Error('Not implemented');
+          },
+          removeChild: () => false,
+          clearChildren: () => {},
+          findChildById: () => null,
+          on: () => {},
+          off: () => {},
+          emit: () => {},
+        });
 
         // 자식 요소 처리
-        this.processChildElements(element, group as unknown as SceneNode, options);
+        this.processChildElements(element, groupNode, options);
       } else {
         // 기존 방식으로 폴백
+        // SceneNode 인터페이스에 맞는 최소한의 속성만 사용
         const groupNode = parentNode.addChild({
-          type: 'group',
           id: element.id || 'group',
+          parent: null,
+          children: [],
           data: {},
-        } as unknown as SceneNode);
+          addChild: () => {
+            throw new Error('Not implemented');
+          },
+          removeChild: () => false,
+          clearChildren: () => {},
+          findChildById: () => null,
+          on: () => {},
+          off: () => {},
+          emit: () => {},
+        });
 
         // 데이터 객체가 확실히 초기화되었는지 확인
         if (!groupNode.data) {
