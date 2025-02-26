@@ -1,8 +1,8 @@
 /**
  * Canvas Renderer 구현
- * 
+ *
  * HTML Canvas를 사용하여 Shape들을 렌더링하는 Renderer 구현입니다.
- * 
+ *
  * @packageDocumentation
  * @module Renderers.Canvas
  */
@@ -13,36 +13,36 @@ import { Shape } from '../../core/shapes/types';
 
 /**
  * Canvas renderer implementation
- * 
+ *
  * HTML Canvas API를 사용하여 벡터 그래픽을 렌더링합니다.
  */
 export class CanvasRenderer implements Renderer {
   /** Renderer의 고유 ID */
   readonly id = 'canvas';
-  
+
   /** Renderer의 기능 */
   readonly capabilities: RendererCapabilities = {
     maxTextureSize: 4096,
     supportsSVG: false,
     supportsWebGL: false,
-    supports3D: false
+    supports3D: false,
   };
 
   /** Canvas element */
   private canvas: HTMLCanvasElement;
-  
+
   /** Canvas 2D context */
   private context: CanvasRenderingContext2D;
-  
+
   /** Renderer options */
   private options: Required<CanvasRendererOptions>;
-  
+
   /** 현재 display 크기 */
   private displaySize: { width: number; height: number } = { width: 0, height: 0 };
 
   /**
    * Canvas Renderer 생성
-   * 
+   *
    * @param options - Canvas Renderer 옵션
    */
   constructor(options: CanvasRendererOptions = {}) {
@@ -50,19 +50,19 @@ export class CanvasRenderer implements Renderer {
       context: {
         canvas: options.context?.canvas || document.createElement('canvas'),
         contextType: options.context?.contextType || '2d',
-        contextAttributes: options.context?.contextAttributes || {}
+        contextAttributes: options.context?.contextAttributes || {},
       },
       antialias: options.antialias ?? true,
       alpha: options.alpha ?? true,
       autoClear: options.autoClear ?? true,
       backgroundColor: options.backgroundColor || 'transparent',
-      pixelRatio: options.pixelRatio || 1
+      pixelRatio: options.pixelRatio || 1,
     };
 
     this.canvas = this.options.context.canvas;
     const context = this.canvas.getContext('2d', {
       alpha: this.options.alpha,
-      ...this.options.context.contextAttributes
+      ...this.options.context.contextAttributes,
     });
 
     if (!context) {
@@ -83,7 +83,7 @@ export class CanvasRenderer implements Renderer {
 
   /**
    * Canvas element 가져오기
-   * 
+   *
    * @returns Canvas element
    */
   getCanvas(): HTMLCanvasElement {
@@ -92,7 +92,7 @@ export class CanvasRenderer implements Renderer {
 
   /**
    * Canvas context 가져오기
-   * 
+   *
    * @returns Canvas 2D context
    */
   getContext(): CanvasRenderingContext2D {
@@ -101,10 +101,10 @@ export class CanvasRenderer implements Renderer {
 
   /**
    * Canvas 크기 설정
-   * 
+   *
    * 디스플레이 크기와 실제 캔버스 크기를 설정합니다.
    * pixelRatio를 적용하여 고해상도 디스플레이에서도 선명하게 표시됩니다.
-   * 
+   *
    * @param width - Canvas 너비
    * @param height - Canvas 높이
    */
@@ -114,7 +114,7 @@ export class CanvasRenderer implements Renderer {
     // Set display size
     this.displaySize = {
       width,
-      height
+      height,
     };
 
     // Set actual size in memory
@@ -134,9 +134,9 @@ export class CanvasRenderer implements Renderer {
 
   /**
    * Scene 렌더링
-   * 
+   *
    * Scene의 모든 Shape을 Canvas에 렌더링합니다.
-   * 
+   *
    * @param scene - 렌더링할 Scene
    */
   render(scene: Scene): void {
@@ -160,9 +160,9 @@ export class CanvasRenderer implements Renderer {
 
   /**
    * Shape 렌더링
-   * 
+   *
    * 개별 Shape을 Canvas에 렌더링합니다.
-   * 
+   *
    * @param shape - 렌더링할 Shape
    */
   private renderShape(shape: Shape): void {
@@ -172,9 +172,12 @@ export class CanvasRenderer implements Renderer {
     // Apply transform
     const matrix = shape.transform.values;
     this.context.transform(
-      matrix[0], matrix[3], // a, b
-      matrix[1], matrix[4], // c, d
-      matrix[2], matrix[5]  // e, f
+      matrix[0],
+      matrix[3], // a, b
+      matrix[1],
+      matrix[4], // c, d
+      matrix[2],
+      matrix[5] // e, f
     );
 
     // Apply style
@@ -231,7 +234,7 @@ export class CanvasRenderer implements Renderer {
 
   /**
    * Rectangle 렌더링
-   * 
+   *
    * @param shape - 렌더링할 Rectangle
    */
   private renderRectangle(shape: Shape): void {
@@ -246,7 +249,7 @@ export class CanvasRenderer implements Renderer {
 
   /**
    * Circle 렌더링
-   * 
+   *
    * @param shape - 렌더링할 Circle
    */
   private renderCircle(shape: Shape): void {
@@ -257,7 +260,7 @@ export class CanvasRenderer implements Renderer {
 
     this.context.beginPath();
     this.context.arc(centerX, centerY, radius, 0, Math.PI * 2);
-    
+
     if (shape.style.fillColor) {
       this.context.fill();
     }
@@ -268,7 +271,7 @@ export class CanvasRenderer implements Renderer {
 
   /**
    * Line 렌더링
-   * 
+   *
    * @param shape - 렌더링할 Line
    */
   private renderLine(shape: Shape): void {
@@ -276,7 +279,7 @@ export class CanvasRenderer implements Renderer {
     this.context.beginPath();
     this.context.moveTo(bounds.x, bounds.y);
     this.context.lineTo(bounds.x + bounds.width, bounds.y + bounds.height);
-    
+
     if (shape.style.strokeColor) {
       this.context.stroke();
     }
@@ -284,7 +287,7 @@ export class CanvasRenderer implements Renderer {
 
   /**
    * Path 렌더링
-   * 
+   *
    * @param shape - 렌더링할 Path
    */
   private renderPath(shape: Shape): void {
@@ -298,12 +301,7 @@ export class CanvasRenderer implements Renderer {
         this.context.lineTo(point.x, point.y);
       } else if (point.type === 'quadratic' && point.controlPoint) {
         // 2차 베지어 곡선 그리기
-        this.context.quadraticCurveTo(
-          point.controlPoint.x,
-          point.controlPoint.y,
-          point.x,
-          point.y
-        );
+        this.context.quadraticCurveTo(point.controlPoint.x, point.controlPoint.y, point.x, point.y);
       } else if (point.type === 'cubic' && point.controlPoint1 && point.controlPoint2) {
         // 3차 베지어 곡선 그리기
         this.context.bezierCurveTo(
@@ -332,7 +330,7 @@ export class CanvasRenderer implements Renderer {
 
   /**
    * Text 렌더링
-   * 
+   *
    * @param shape - 렌더링할 Text
    */
   private renderText(shape: Shape): void {
@@ -359,13 +357,13 @@ export class CanvasRenderer implements Renderer {
 
   /**
    * Canvas 클리어
-   * 
+   *
    * Canvas의 모든 내용을 지웁니다.
    */
   clear(): void {
     this.context.save();
     this.context.setTransform(1, 0, 0, 1, 0, 0);
-    
+
     if (this.options.backgroundColor === 'transparent') {
       this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     } else {
@@ -378,7 +376,7 @@ export class CanvasRenderer implements Renderer {
 
   /**
    * 리소스 정리
-   * 
+   *
    * Canvas를 정리하고 필요한 경우 DOM에서 제거합니다.
    */
   dispose(): void {
@@ -392,4 +390,4 @@ export class CanvasRenderer implements Renderer {
       }
     }
   }
-} 
+}

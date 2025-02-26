@@ -69,4 +69,4 @@ export class ShapePlugin implements Plugin, IShapePlugin {
   hasShape(type: string): boolean {
     return this.factories.has(type);
   }
-} 
+}

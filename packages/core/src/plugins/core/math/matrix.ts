@@ -3,9 +3,7 @@
  * 행렬의 불변성을 보장하기 위해 모든 연산은 새로운 행렬을 반환
  */
 export class Matrix3x3 {
-  private constructor(
-    private _values: number[]
-  ) {
+  private constructor(private _values: number[]) {
     if (_values.length !== 9) {
       throw new Error('Matrix3x3 requires exactly 9 values');
     }
@@ -25,11 +23,7 @@ export class Matrix3x3 {
    */
   static create(values?: number[]): Matrix3x3 {
     if (!values) {
-      return new Matrix3x3([
-        1, 0, 0,
-        0, 1, 0,
-        0, 0, 1
-      ]);
+      return new Matrix3x3([1, 0, 0, 0, 1, 0, 0, 0, 1]);
     }
     return new Matrix3x3([...values]);
   }
@@ -41,11 +35,7 @@ export class Matrix3x3 {
    * @returns A new translation matrix
    */
   static translation(tx: number, ty: number): Matrix3x3 {
-    return new Matrix3x3([
-      1, 0, tx,
-      0, 1, ty,
-      0, 0, 1
-    ]);
+    return new Matrix3x3([1, 0, tx, 0, 1, ty, 0, 0, 1]);
   }
 
   /**
@@ -56,11 +46,7 @@ export class Matrix3x3 {
   static rotation(angle: number): Matrix3x3 {
     const cos = Math.cos(angle);
     const sin = Math.sin(angle);
-    return new Matrix3x3([
-      cos, -sin, 0,
-      sin, cos, 0,
-      0, 0, 1
-    ]);
+    return new Matrix3x3([cos, -sin, 0, sin, cos, 0, 0, 0, 1]);
   }
 
   /**
@@ -70,11 +56,7 @@ export class Matrix3x3 {
    * @returns A new scale matrix
    */
   static scale(sx: number, sy: number): Matrix3x3 {
-    return new Matrix3x3([
-      sx, 0, 0,
-      0, sy, 0,
-      0, 0, 1
-    ]);
+    return new Matrix3x3([sx, 0, 0, 0, sy, 0, 0, 0, 1]);
   }
 
   /**
@@ -106,11 +88,9 @@ export class Matrix3x3 {
    */
   determinant(): number {
     const [a00, a01, a02, a10, a11, a12, a20, a21, a22] = this._values;
-    
+
     return (
-      a00 * (a11 * a22 - a12 * a21) -
-      a01 * (a10 * a22 - a12 * a20) +
-      a02 * (a10 * a21 - a11 * a20)
+      a00 * (a11 * a22 - a12 * a21) - a01 * (a10 * a22 - a12 * a20) + a02 * (a10 * a21 - a11 * a20)
     );
   }
 
@@ -126,7 +106,7 @@ export class Matrix3x3 {
     }
 
     const [a00, a01, a02, a10, a11, a12, a20, a21, a22] = this._values;
-    
+
     // Calculate cofactor matrix
     const b00 = a11 * a22 - a12 * a21;
     const b01 = a02 * a21 - a01 * a22;
@@ -141,9 +121,15 @@ export class Matrix3x3 {
     // Divide by determinant
     const invDet = 1 / det;
     return new Matrix3x3([
-      b00 * invDet, b01 * invDet, b02 * invDet,
-      b10 * invDet, b11 * invDet, b12 * invDet,
-      b20 * invDet, b21 * invDet, b22 * invDet
+      b00 * invDet,
+      b01 * invDet,
+      b02 * invDet,
+      b10 * invDet,
+      b11 * invDet,
+      b12 * invDet,
+      b20 * invDet,
+      b21 * invDet,
+      b22 * invDet,
     ]);
   }
-} 
+}

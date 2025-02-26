@@ -157,18 +157,18 @@ describe('Vector2D', () => {
     it('should not modify original vectors in any operation', () => {
       const v1 = Vector2D.create(1, 2);
       const v2 = Vector2D.create(3, 4);
-      
+
       v1.add(v2);
       v1.subtract(v2);
       v1.scale(2);
       v1.normalize();
       v1.rotate(Math.PI);
       v1.perpendicular();
-      
+
       expect(v1.x).toBe(1);
       expect(v1.y).toBe(2);
       expect(v2.x).toBe(3);
       expect(v2.y).toBe(4);
     });
   });
-}); 
+});

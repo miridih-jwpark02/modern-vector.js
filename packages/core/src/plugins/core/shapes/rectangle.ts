@@ -29,7 +29,7 @@ export class Rectangle extends AbstractShape {
 
   constructor(options: RectangleOptions = {}) {
     super('rectangle', options);
-    
+
     this._x = options.x || 0;
     this._y = options.y || 0;
     this._width = options.width || 0;
@@ -41,7 +41,7 @@ export class Rectangle extends AbstractShape {
       x: this._x,
       y: this._y,
       width: this._width,
-      height: this._height
+      height: this._height,
     };
   }
 
@@ -51,7 +51,7 @@ export class Rectangle extends AbstractShape {
       Vector2D.create(this._x, this._y),
       Vector2D.create(this._x + this._width, this._y),
       Vector2D.create(this._x + this._width, this._y + this._height),
-      Vector2D.create(this._x, this._y + this._height)
+      Vector2D.create(this._x, this._y + this._height),
     ].map(p => {
       const transformed = this.transform.multiply(Matrix3x3.translation(p.x, p.y));
       return Vector2D.create(transformed.values[2], transformed.values[5]);
@@ -69,7 +69,7 @@ export class Rectangle extends AbstractShape {
       x: minX,
       y: minY,
       width: maxX - minX,
-      height: maxY - minY
+      height: maxY - minY,
     };
   }
 
@@ -81,7 +81,7 @@ export class Rectangle extends AbstractShape {
       x: this._x,
       y: this._y,
       width: this._width,
-      height: this._height
+      height: this._height,
     });
   }
 
@@ -94,19 +94,19 @@ export class Rectangle extends AbstractShape {
         case 'center':
           origin = {
             x: this._x + this._width / 2,
-            y: this._y + this._height / 2
+            y: this._y + this._height / 2,
           };
           break;
         case 'custom':
           origin = this.customScaleOrigin || {
             x: this._x,
-            y: this._y
+            y: this._y,
           };
           break;
         default:
           origin = {
             x: this._x,
-            y: this._y
+            y: this._y,
           };
       }
       return new Rectangle({
@@ -118,7 +118,7 @@ export class Rectangle extends AbstractShape {
         width: this._width,
         height: this._height,
         scaleOrigin: this.scaleOrigin,
-        customScaleOriginPoint: this.customScaleOrigin
+        customScaleOriginPoint: this.customScaleOrigin,
       });
     }
 
@@ -132,7 +132,7 @@ export class Rectangle extends AbstractShape {
       width: this._width,
       height: this._height,
       scaleOrigin: this.scaleOrigin,
-      customScaleOriginPoint: this.customScaleOrigin
+      customScaleOriginPoint: this.customScaleOrigin,
     });
   }
 
@@ -144,10 +144,7 @@ export class Rectangle extends AbstractShape {
     const y = local.values[5];
 
     return (
-      x >= this._x &&
-      x <= this._x + this._width &&
-      y >= this._y &&
-      y <= this._y + this._height
+      x >= this._x && x <= this._x + this._width && y >= this._y && y <= this._y + this._height
     );
   }
 
@@ -175,7 +172,7 @@ export class Rectangle extends AbstractShape {
       { x: bounds.x + bounds.width, y: bounds.y, type: 'line' },
       { x: bounds.x + bounds.width, y: bounds.y + bounds.height, type: 'line' },
       { x: bounds.x, y: bounds.y + bounds.height, type: 'line' },
-      { x: bounds.x, y: bounds.y, type: 'line' }
+      { x: bounds.x, y: bounds.y, type: 'line' },
     ];
   }
 }
@@ -187,4 +184,4 @@ export class RectangleFactory implements ShapeFactory<Rectangle> {
   create(options: RectangleOptions): Rectangle {
     return new Rectangle(options);
   }
-} 
+}

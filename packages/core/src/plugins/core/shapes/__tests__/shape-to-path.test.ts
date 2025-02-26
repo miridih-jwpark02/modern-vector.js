@@ -13,11 +13,11 @@ describe('Shape to Path Conversion', () => {
         x: 0,
         y: 0,
         width: 100,
-        height: 50
+        height: 50,
       });
 
       const path = rect.toPath();
-      expect(path).toHaveLength(5);  // 4 corners + closing point
+      expect(path).toHaveLength(5); // 4 corners + closing point
       expect(path[0]).toEqual({ x: 0, y: 0, type: 'move' });
       expect(path[1]).toEqual({ x: 100, y: 0, type: 'line' });
       expect(path[2]).toEqual({ x: 100, y: 50, type: 'line' });
@@ -31,7 +31,7 @@ describe('Shape to Path Conversion', () => {
         y: 0,
         width: 100,
         height: 50,
-        transform: Matrix3x3.translation(10, 20)
+        transform: Matrix3x3.translation(10, 20),
       });
 
       const path = rect.toPath();
@@ -45,33 +45,33 @@ describe('Shape to Path Conversion', () => {
       const circle = new Circle({
         centerX: 100,
         centerY: 100,
-        radius: 50
+        radius: 50,
       });
 
-      const path = circle.toPath(4);  // 4 segments for easy testing
-      expect(path).toHaveLength(6);  // 4 points + start/end point
+      const path = circle.toPath(4); // 4 segments for easy testing
+      expect(path).toHaveLength(6); // 4 points + start/end point
       expect(path[0].type).toBe('move');
       expect(path[1].type).toBe('line');
       expect(path[5].type).toBe('line');
 
       // Check if points form a square (4 segments)
-      expect(path[0].x).toBeCloseTo(150);  // Right
+      expect(path[0].x).toBeCloseTo(150); // Right
       expect(path[0].y).toBeCloseTo(100);
       expect(path[0].type).toBe('move');
 
-      expect(path[1].x).toBeCloseTo(100);  // Bottom
+      expect(path[1].x).toBeCloseTo(100); // Bottom
       expect(path[1].y).toBeCloseTo(150);
       expect(path[1].type).toBe('line');
 
-      expect(path[2].x).toBeCloseTo(50);   // Left
+      expect(path[2].x).toBeCloseTo(50); // Left
       expect(path[2].y).toBeCloseTo(100);
       expect(path[2].type).toBe('line');
 
-      expect(path[3].x).toBeCloseTo(100);  // Top
+      expect(path[3].x).toBeCloseTo(100); // Top
       expect(path[3].y).toBeCloseTo(50);
       expect(path[3].type).toBe('line');
 
-      expect(path[5].x).toBeCloseTo(150);  // Close
+      expect(path[5].x).toBeCloseTo(150); // Close
       expect(path[5].y).toBeCloseTo(100);
       expect(path[5].type).toBe('line');
     });
@@ -81,7 +81,7 @@ describe('Shape to Path Conversion', () => {
         centerX: 100,
         centerY: 100,
         radius: 50,
-        transform: Matrix3x3.translation(10, 20)
+        transform: Matrix3x3.translation(10, 20),
       });
 
       const path = circle.toPath(4);
@@ -101,7 +101,7 @@ describe('Shape to Path Conversion', () => {
         x1: 0,
         y1: 0,
         x2: 100,
-        y2: 50
+        y2: 50,
       });
 
       const path = line.toPath();
@@ -116,7 +116,7 @@ describe('Shape to Path Conversion', () => {
         y1: 0,
         x2: 100,
         y2: 50,
-        transform: Matrix3x3.translation(10, 20)
+        transform: Matrix3x3.translation(10, 20),
       });
 
       const path = line.toPath();
@@ -132,11 +132,11 @@ describe('Shape to Path Conversion', () => {
         y: 0,
         text: 'Hello',
         font: 'Arial',
-        fontSize: 16
+        fontSize: 16,
       });
 
       const path = text.toPath();
-      expect(path).toHaveLength(5);  // 4 corners + closing point
+      expect(path).toHaveLength(5); // 4 corners + closing point
       expect(path[0].type).toBe('move');
       expect(path[1].type).toBe('line');
       expect(path[4].type).toBe('line');
@@ -149,12 +149,12 @@ describe('Shape to Path Conversion', () => {
         text: 'Hello',
         font: 'Arial',
         fontSize: 16,
-        transform: Matrix3x3.translation(10, 20)
+        transform: Matrix3x3.translation(10, 20),
       });
 
       const path = text.toPath();
-      expect(path[0].x).toBe(10);  // Translated x
-      expect(path[0].y).toBe(20);  // Translated y
+      expect(path[0].x).toBe(10); // Translated x
+      expect(path[0].y).toBe(20); // Translated y
     });
   });
-}); 
+});

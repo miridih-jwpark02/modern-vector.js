@@ -48,4 +48,4 @@ export class DefaultEventService extends BaseEventEmitter implements EventServic
     }
     return this.namespaces.get(name)!;
   }
-} 
+}

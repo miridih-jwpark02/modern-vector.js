@@ -94,10 +94,7 @@ export class Vector2D {
   rotate(angle: number): Vector2D {
     const cos = Math.cos(angle);
     const sin = Math.sin(angle);
-    return new Vector2D(
-      this.x * cos - this.y * sin,
-      this.x * sin + this.y * cos
-    );
+    return new Vector2D(this.x * cos - this.y * sin, this.x * sin + this.y * cos);
   }
 
   /**
@@ -119,4 +116,4 @@ export class Vector2D {
   distanceTo(other: Vector2D): number {
     return this.subtract(other).length;
   }
-} 
+}

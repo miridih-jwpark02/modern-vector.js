@@ -6,7 +6,7 @@ import {
   findPathIntersections,
   getPathWindingDirection,
   isPointInPath,
-  performPathBooleanOperation
+  performPathBooleanOperation,
 } from '../boolean-operations';
 import { Vector2D } from '../../../math/vector';
 
@@ -17,14 +17,14 @@ describe('Path Boolean Operations', () => {
         { x: 0, y: 0, type: 'move' },
         { x: 100, y: 0, type: 'line' },
         { x: 100, y: 100, type: 'line' },
-        { x: 0, y: 100, type: 'line' }
+        { x: 0, y: 100, type: 'line' },
       ];
 
       const segments = pathToSegments(points);
       expect(segments).toHaveLength(3);
       expect(segments[0]).toEqual({
         start: { x: 0, y: 0, type: 'move' },
-        end: { x: 100, y: 0, type: 'line' }
+        end: { x: 100, y: 0, type: 'line' },
       });
     });
 
@@ -33,7 +33,7 @@ describe('Path Boolean Operations', () => {
         { x: 0, y: 0, type: 'move' },
         { x: 100, y: 0, type: 'line' },
         { x: 200, y: 0, type: 'move' },
-        { x: 300, y: 0, type: 'line' }
+        { x: 300, y: 0, type: 'line' },
       ];
 
       const segments = pathToSegments(points);
@@ -45,11 +45,11 @@ describe('Path Boolean Operations', () => {
     it('should find intersection between two segments', () => {
       const seg1: PathSegment = {
         start: { x: 0, y: 0, type: 'move' as const },
-        end: { x: 100, y: 100, type: 'line' as const }
+        end: { x: 100, y: 100, type: 'line' as const },
       };
       const seg2: PathSegment = {
         start: { x: 0, y: 100, type: 'move' as const },
-        end: { x: 100, y: 0, type: 'line' as const }
+        end: { x: 100, y: 0, type: 'line' as const },
       };
 
       const intersection = findSegmentIntersection(seg1, seg2);
@@ -61,11 +61,11 @@ describe('Path Boolean Operations', () => {
     it('should return null for parallel segments', () => {
       const seg1: PathSegment = {
         start: { x: 0, y: 0, type: 'move' as const },
-        end: { x: 100, y: 0, type: 'line' as const }
+        end: { x: 100, y: 0, type: 'line' as const },
       };
       const seg2: PathSegment = {
         start: { x: 0, y: 100, type: 'move' as const },
-        end: { x: 100, y: 100, type: 'line' as const }
+        end: { x: 100, y: 100, type: 'line' as const },
       };
 
       const intersection = findSegmentIntersection(seg1, seg2);
@@ -75,11 +75,11 @@ describe('Path Boolean Operations', () => {
     it('should return null for non-intersecting segments', () => {
       const seg1: PathSegment = {
         start: { x: 0, y: 0, type: 'move' as const },
-        end: { x: 50, y: 50, type: 'line' as const }
+        end: { x: 50, y: 50, type: 'line' as const },
       };
       const seg2: PathSegment = {
         start: { x: 60, y: 60, type: 'move' as const },
-        end: { x: 100, y: 100, type: 'line' as const }
+        end: { x: 100, y: 100, type: 'line' as const },
       };
 
       const intersection = findSegmentIntersection(seg1, seg2);
@@ -91,11 +91,11 @@ describe('Path Boolean Operations', () => {
     it('should find all intersections between two paths', () => {
       const path1: PathPoint[] = [
         { x: 0, y: 0, type: 'move' },
-        { x: 100, y: 100, type: 'line' }
+        { x: 100, y: 100, type: 'line' },
       ];
       const path2: PathPoint[] = [
         { x: 0, y: 100, type: 'move' },
-        { x: 100, y: 0, type: 'line' }
+        { x: 100, y: 0, type: 'line' },
       ];
 
       const intersections = findPathIntersections(path1, path2);
@@ -107,11 +107,11 @@ describe('Path Boolean Operations', () => {
     it('should handle paths with no intersections', () => {
       const path1: PathPoint[] = [
         { x: 0, y: 0, type: 'move' },
-        { x: 50, y: 50, type: 'line' }
+        { x: 50, y: 50, type: 'line' },
       ];
       const path2: PathPoint[] = [
         { x: 60, y: 60, type: 'move' },
-        { x: 100, y: 100, type: 'line' }
+        { x: 100, y: 100, type: 'line' },
       ];
 
       const intersections = findPathIntersections(path1, path2);
@@ -126,7 +126,7 @@ describe('Path Boolean Operations', () => {
         { x: 100, y: 0, type: 'line' },
         { x: 100, y: 100, type: 'line' },
         { x: 0, y: 100, type: 'line' },
-        { x: 0, y: 0, type: 'line' }
+        { x: 0, y: 0, type: 'line' },
       ];
 
       const direction = getPathWindingDirection(points);
@@ -139,7 +139,7 @@ describe('Path Boolean Operations', () => {
         { x: 0, y: 100, type: 'line' },
         { x: 100, y: 100, type: 'line' },
         { x: 100, y: 0, type: 'line' },
-        { x: 0, y: 0, type: 'line' }
+        { x: 0, y: 0, type: 'line' },
       ];
 
       const direction = getPathWindingDirection(points);
@@ -154,7 +154,7 @@ describe('Path Boolean Operations', () => {
         { x: 100, y: 0, type: 'line' },
         { x: 100, y: 100, type: 'line' },
         { x: 0, y: 100, type: 'line' },
-        { x: 0, y: 0, type: 'line' }
+        { x: 0, y: 0, type: 'line' },
       ];
 
       const point = Vector2D.create(50, 50);
@@ -167,7 +167,7 @@ describe('Path Boolean Operations', () => {
         { x: 100, y: 0, type: 'line' },
         { x: 100, y: 100, type: 'line' },
         { x: 0, y: 100, type: 'line' },
-        { x: 0, y: 0, type: 'line' }
+        { x: 0, y: 0, type: 'line' },
       ];
 
       const point = Vector2D.create(150, 150);
@@ -181,7 +181,7 @@ describe('Path Boolean Operations', () => {
       { x: 100, y: 0, type: 'line' },
       { x: 100, y: 100, type: 'line' },
       { x: 0, y: 100, type: 'line' },
-      { x: 0, y: 0, type: 'line' }
+      { x: 0, y: 0, type: 'line' },
     ];
 
     const rect2: PathPoint[] = [
@@ -189,7 +189,7 @@ describe('Path Boolean Operations', () => {
       { x: 150, y: 50, type: 'line' },
       { x: 150, y: 150, type: 'line' },
       { x: 50, y: 150, type: 'line' },
-      { x: 50, y: 50, type: 'line' }
+      { x: 50, y: 50, type: 'line' },
     ];
 
     it('should perform union operation', () => {
@@ -218,11 +218,11 @@ describe('Path Boolean Operations', () => {
         { x: 300, y: 200, type: 'line' },
         { x: 300, y: 300, type: 'line' },
         { x: 200, y: 300, type: 'line' },
-        { x: 200, y: 200, type: 'line' }
+        { x: 200, y: 200, type: 'line' },
       ];
 
       const result = performPathBooleanOperation(rect1, rect3, 'union');
       expect(result.length).toBe(rect1.length + rect3.length);
     });
   });
-}); 
+});

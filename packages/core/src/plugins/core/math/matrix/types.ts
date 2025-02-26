@@ -75,4 +75,4 @@ export interface MatrixResult {
    * Error message if not successful
    */
   error?: string;
-} 
+}

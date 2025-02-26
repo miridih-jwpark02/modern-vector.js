@@ -15,7 +15,7 @@ describe('MathPlugin', () => {
       getPlugin: vi.fn(),
       renderer: {} as any,
       events: {} as any,
-      scene: {} as any
+      scene: {} as any,
     };
   });
 
@@ -62,4 +62,4 @@ describe('MathPlugin', () => {
       expect(plugin.geometry).toBeDefined();
     });
   });
-}); 
+});

@@ -64,4 +64,4 @@ export interface VectorBackend {
    * @returns Array of values representing the rotated vector
    */
   rotate(values: number[], angle: number): number[];
-} 
+}

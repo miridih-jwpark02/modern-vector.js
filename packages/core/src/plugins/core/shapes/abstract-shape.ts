@@ -61,17 +61,17 @@ export abstract class AbstractShape implements Shape {
    */
   protected getScaleOriginPoint(): { x: number; y: number } {
     const localBounds = this.getLocalBounds();
-    
+
     switch (this.scaleOrigin) {
       case 'center':
         return {
           x: localBounds.x + localBounds.width / 2,
-          y: localBounds.y + localBounds.height / 2
+          y: localBounds.y + localBounds.height / 2,
         };
       case 'topLeft':
         return {
           x: localBounds.x,
-          y: localBounds.y
+          y: localBounds.y,
         };
       case 'custom':
         return this.customScaleOrigin || this.getScaleOriginPoint();
@@ -127,14 +127,15 @@ export abstract class AbstractShape implements Shape {
    * Scale 행렬 추출
    * @param matrix - Scale을 추출할 행렬 (기본값: this.transform)
    */
-  protected getTransformScale(matrix: Matrix3x3 = this.transform): { scaleX: number; scaleY: number } {
+  protected getTransformScale(matrix: Matrix3x3 = this.transform): {
+    scaleX: number;
+    scaleY: number;
+  } {
     const scaleX = Math.sqrt(
-      matrix.values[0] * matrix.values[0] +
-      matrix.values[1] * matrix.values[1]
+      matrix.values[0] * matrix.values[0] + matrix.values[1] * matrix.values[1]
     );
     const scaleY = Math.sqrt(
-      matrix.values[3] * matrix.values[3] +
-      matrix.values[4] * matrix.values[4]
+      matrix.values[3] * matrix.values[3] + matrix.values[4] * matrix.values[4]
     );
     return { scaleX, scaleY };
   }
@@ -152,11 +153,11 @@ export abstract class AbstractShape implements Shape {
   ): Matrix3x3 {
     const originTransform = Matrix3x3.translation(originX, originY);
     const inverseOriginTransform = Matrix3x3.translation(-originX, -originY);
-    
+
     // 변환 순서: 기존 변환 -> 원점으로 이동 -> 스케일 적용 -> 원점 복귀
     return originTransform
       .multiply(matrix)
       .multiply(inverseOriginTransform)
       .multiply(this.transform);
   }
-} 
+}

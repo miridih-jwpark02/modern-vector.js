@@ -1,6 +1,6 @@
 import { Vector2D } from '../math/vector';
 import { Matrix3x3 } from '../math/matrix';
-import { Shape, ShapeStyle, Bounds, ShapeFactory, ShapeOptions } from './types';
+import { Shape, Bounds, ShapeFactory, ShapeOptions } from './types';
 import { AbstractShape } from './abstract-shape';
 import { PathPoint } from './path/types';
 
@@ -26,7 +26,7 @@ export class Circle extends AbstractShape {
 
   constructor(options: CircleOptions = {}) {
     super('circle', options);
-    
+
     this._centerX = options.centerX || 0;
     this._centerY = options.centerY || 0;
     this._radius = options.radius || 0;
@@ -37,7 +37,7 @@ export class Circle extends AbstractShape {
       x: this._centerX - this._radius,
       y: this._centerY - this._radius,
       width: this._radius * 2,
-      height: this._radius * 2
+      height: this._radius * 2,
     };
   }
 
@@ -55,7 +55,7 @@ export class Circle extends AbstractShape {
       x: transformedX - transformedRadius,
       y: transformedY - transformedRadius,
       width: transformedRadius * 2,
-      height: transformedRadius * 2
+      height: transformedRadius * 2,
     };
   }
 
@@ -66,7 +66,7 @@ export class Circle extends AbstractShape {
       style: { ...this.style },
       centerX: this._centerX,
       centerY: this._centerY,
-      radius: this._radius
+      radius: this._radius,
     });
   }
 
@@ -79,19 +79,19 @@ export class Circle extends AbstractShape {
         case 'center':
           origin = {
             x: this._centerX,
-            y: this._centerY
+            y: this._centerY,
           };
           break;
         case 'custom':
           origin = this.customScaleOrigin || {
             x: this._centerX - this._radius,
-            y: this._centerY - this._radius
+            y: this._centerY - this._radius,
           };
           break;
         default:
           origin = {
             x: this._centerX - this._radius,
-            y: this._centerY - this._radius
+            y: this._centerY - this._radius,
           };
       }
       return new Circle({
@@ -102,7 +102,7 @@ export class Circle extends AbstractShape {
         centerY: this._centerY,
         radius: this._radius,
         scaleOrigin: this.scaleOrigin,
-        customScaleOriginPoint: this.customScaleOrigin
+        customScaleOriginPoint: this.customScaleOrigin,
       });
     }
 
@@ -115,13 +115,15 @@ export class Circle extends AbstractShape {
       centerY: this._centerY,
       radius: this._radius,
       scaleOrigin: this.scaleOrigin,
-      customScaleOriginPoint: this.customScaleOrigin
+      customScaleOriginPoint: this.customScaleOrigin,
     });
   }
 
   containsPoint(point: Vector2D): boolean {
     // Transform center point to world coordinates
-    const worldCenter = this.transform.multiply(Matrix3x3.translation(this._centerX, this._centerY));
+    const worldCenter = this.transform.multiply(
+      Matrix3x3.translation(this._centerX, this._centerY)
+    );
     const centerX = worldCenter.values[2];
     const centerY = worldCenter.values[5];
 
@@ -153,7 +155,7 @@ export class Circle extends AbstractShape {
 
   /**
    * Circle을 Path로 변환
-   * 
+   *
    * @param segments - 직선 근사 사용할 경우 선분의 수 (베지어 곡선 사용 시 무시됨)
    * @param useBezier - 베지어 곡선 사용 여부 (기본값: true)
    * @returns Path points
@@ -164,63 +166,63 @@ export class Circle extends AbstractShape {
     const centerY = bounds.y + bounds.height / 2;
     const radius = bounds.width / 2;
     const points: PathPoint[] = [];
-    
+
     // 베지어 곡선을 사용하는 경우 (기본값)
     if (useBezier) {
       // 원을 3차 베지어 곡선으로 정확하게 그리기 위한 제어점 계수
       // 수학적으로 원을 정확하게 근사하기 위한 상수 값: 4/3 * tan(π/8) ≈ 0.5522847498
       const c = radius * 0.552284749831;
-      
+
       // 시작점 (우측)
       points.push({
         x: centerX + radius,
         y: centerY,
-        type: 'move'
+        type: 'move',
       });
-      
+
       // 제1사분면 (우상단)
       points.push({
         x: centerX,
         y: centerY - radius,
         type: 'cubic',
         controlPoint1: { x: centerX + radius, y: centerY - c },
-        controlPoint2: { x: centerX + c, y: centerY - radius }
+        controlPoint2: { x: centerX + c, y: centerY - radius },
       });
-      
+
       // 제2사분면 (좌상단)
       points.push({
         x: centerX - radius,
         y: centerY,
         type: 'cubic',
         controlPoint1: { x: centerX - c, y: centerY - radius },
-        controlPoint2: { x: centerX - radius, y: centerY - c }
+        controlPoint2: { x: centerX - radius, y: centerY - c },
       });
-      
+
       // 제3사분면 (좌하단)
       points.push({
         x: centerX,
         y: centerY + radius,
         type: 'cubic',
         controlPoint1: { x: centerX - radius, y: centerY + c },
-        controlPoint2: { x: centerX - c, y: centerY + radius }
+        controlPoint2: { x: centerX - c, y: centerY + radius },
       });
-      
+
       // 제4사분면 (우하단) - 시작점으로 돌아감
       points.push({
         x: centerX + radius,
         y: centerY,
         type: 'cubic',
         controlPoint1: { x: centerX + c, y: centerY + radius },
-        controlPoint2: { x: centerX + radius, y: centerY + c }
+        controlPoint2: { x: centerX + radius, y: centerY + c },
       });
-    } 
+    }
     // 직선 세그먼트를 사용하는 방식
     else {
       // 첫 점은 move
       points.push({
         x: centerX + radius,
         y: centerY,
-        type: 'move'
+        type: 'move',
       });
 
       // 나머지 점들은 line
@@ -229,11 +231,11 @@ export class Circle extends AbstractShape {
         points.push({
           x: centerX + radius * Math.cos(angle),
           y: centerY + radius * Math.sin(angle),
-          type: 'line'
+          type: 'line',
         });
       }
     }
-    
+
     return points;
   }
 }
@@ -245,4 +247,4 @@ export class CircleFactory implements ShapeFactory<Circle> {
   create(options: CircleOptions): Circle {
     return new Circle(options);
   }
-} 
+}

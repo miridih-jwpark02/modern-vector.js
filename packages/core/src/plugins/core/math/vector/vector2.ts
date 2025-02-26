@@ -108,4 +108,4 @@ export class Vector2 {
     vector.values[1] = values[1];
     return vector;
   }
-} 
+}

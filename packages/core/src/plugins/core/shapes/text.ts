@@ -38,7 +38,7 @@ export class Text extends AbstractShape {
 
   constructor(options: TextOptions = {}) {
     super('text', options);
-    
+
     this._x = options.x || 0;
     this._y = options.y || 0;
     this._text = options.text || '';
@@ -120,7 +120,7 @@ export class Text extends AbstractShape {
       x,
       y,
       width,
-      height
+      height,
     };
   }
 
@@ -132,7 +132,7 @@ export class Text extends AbstractShape {
       Vector2D.create(localBounds.x, localBounds.y),
       Vector2D.create(localBounds.x + localBounds.width, localBounds.y),
       Vector2D.create(localBounds.x + localBounds.width, localBounds.y + localBounds.height),
-      Vector2D.create(localBounds.x, localBounds.y + localBounds.height)
+      Vector2D.create(localBounds.x, localBounds.y + localBounds.height),
     ].map(p => {
       const transformed = this.transform.multiply(Matrix3x3.translation(p.x, p.y));
       return Vector2D.create(transformed.values[2], transformed.values[5]);
@@ -150,7 +150,7 @@ export class Text extends AbstractShape {
       x: minX,
       y: minY,
       width: maxX - minX,
-      height: maxY - minY
+      height: maxY - minY,
     };
   }
 
@@ -167,7 +167,7 @@ export class Text extends AbstractShape {
       textAlign: this._textAlign,
       textBaseline: this._textBaseline,
       scaleOrigin: this.scaleOrigin,
-      customScaleOriginPoint: this.customScaleOrigin
+      customScaleOriginPoint: this.customScaleOrigin,
     });
   }
 
@@ -181,19 +181,19 @@ export class Text extends AbstractShape {
         case 'center':
           origin = {
             x: bounds.x + bounds.width / 2,
-            y: bounds.y + bounds.height / 2
+            y: bounds.y + bounds.height / 2,
           };
           break;
         case 'custom':
           origin = this.customScaleOrigin || {
             x: bounds.x,
-            y: bounds.y
+            y: bounds.y,
           };
           break;
         default:
           origin = {
             x: bounds.x,
-            y: bounds.y
+            y: bounds.y,
           };
       }
       return new Text({
@@ -208,7 +208,7 @@ export class Text extends AbstractShape {
         textAlign: this._textAlign,
         textBaseline: this._textBaseline,
         scaleOrigin: this.scaleOrigin,
-        customScaleOriginPoint: this.customScaleOrigin
+        customScaleOriginPoint: this.customScaleOrigin,
       });
     }
 
@@ -225,7 +225,7 @@ export class Text extends AbstractShape {
       textAlign: this._textAlign,
       textBaseline: this._textBaseline,
       scaleOrigin: this.scaleOrigin,
-      customScaleOriginPoint: this.customScaleOrigin
+      customScaleOriginPoint: this.customScaleOrigin,
     });
   }
 
@@ -274,7 +274,7 @@ export class Text extends AbstractShape {
       { x: bounds.x + bounds.width, y: bounds.y, type: 'line' },
       { x: bounds.x + bounds.width, y: bounds.y + bounds.height, type: 'line' },
       { x: bounds.x, y: bounds.y + bounds.height, type: 'line' },
-      { x: bounds.x, y: bounds.y, type: 'line' }
+      { x: bounds.x, y: bounds.y, type: 'line' },
     ];
   }
 }
@@ -286,4 +286,4 @@ export class TextFactory implements ShapeFactory<Text> {
   create(options: TextOptions): Text {
     return new Text(options);
   }
-} 
+}

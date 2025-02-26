@@ -1,0 +1,62 @@
+---
+description:
+globs:
+---
+
+# Modern Vector.js 문서 위치 가이드
+
+Modern Vector.js 프로젝트의 문서는 다음 위치에서 찾을 수 있습니다:
+
+## 1. 공식 문서 사이트
+
+프로젝트의 주요 문서는 `packages/docs-site` 디렉토리에 있는 Next.js 기반 문서 사이트에 있습니다:
+
+- **소스 코드**: `packages/docs-site/src/app/docs/`
+  - 이 디렉토리에는 MDX 형식의 문서 파일이 카테고리별로 구성되어 있습니다.
+  - 각 문서는 해당 기능이나 개념에 대한 설명, 예제, API 참조를 포함합니다.
+
+- **빌드된 문서**: `packages/docs-site/public/docs/`
+  - 이 디렉토리에는 ContentLayer로 처리된 문서 파일이 있습니다.
+  - 다음 카테고리로 구성되어 있습니다:
+    - `getting-started/`: 시작하기 가이드
+    - `core-concepts/`: 핵심 개념 설명
+    - `api-reference/`: API 레퍼런스 문서
+    - `api-docs/`: TypeDoc으로 생성된 API 문서
+    - `deployment/`: 배포 관련 문서
+
+## 2. API 문서
+
+API 문서는 TypeDoc을 사용하여 자동 생성됩니다:
+
+- **소스 코드 주석**: `packages/core/src/`
+  - 소스 코드에 있는 TSDoc 주석은 API 문서 생성에 사용됩니다.
+  - 클래스, 인터페이스, 메서드 등에 대한 설명이 포함되어 있습니다.
+
+- **생성된 API 문서**: `packages/docs-site/public/api-docs/`
+  - TypeDoc으로 생성된 API 문서가 이 디렉토리에 저장됩니다.
+  - 클래스, 인터페이스, 타입 등의 카테고리로 구성되어 있습니다.
+
+## 3. 예제 코드
+
+실제 사용 예제는 다음 위치에서 찾을 수 있습니다:
+
+- **예제 페이지**: `packages/docs-site/src/app/examples/`
+  - 다양한 기능을 보여주는 인터랙티브 예제가 포함되어 있습니다.
+  - 각 예제는 코드와 설명을 함께 제공합니다.
+
+## 4. 패키지 README 파일
+
+각 패키지의 루트 디렉토리에 있는 README.md 파일:
+
+- **코어 패키지**: `packages/core/README.md`
+  - 코어 라이브러리의 개요, 설치 방법, 기본 사용법이 포함되어 있습니다.
+
+- **문서 사이트 패키지**: `packages/docs-site/README.md`
+  - 문서 사이트 실행 및 개발 방법이 포함되어 있습니다.
+
+## 5. 프로젝트 구조 문서
+
+프로젝트 구조에 대한 문서는 다음 위치에서 찾을 수 있습니다:
+
+- `packages/docs-site/public/docs/getting-started/project-structure.md`
+  - 프로젝트의 전체 구조와 각 디렉토리의 역할에 대한 설명이 포함되어 있습니다.

@@ -8,10 +8,17 @@ export class GLMatrixBackend implements MatrixBackend {
   create(values?: number[]): number[] {
     const matrix = mat3.create();
     if (values) {
-      mat3.set(matrix, 
-        values[0], values[1], values[2],
-        values[3], values[4], values[5],
-        values[6], values[7], values[8]
+      mat3.set(
+        matrix,
+        values[0],
+        values[1],
+        values[2],
+        values[3],
+        values[4],
+        values[5],
+        values[6],
+        values[7],
+        values[8]
       );
     }
     return Array.from(matrix);
@@ -51,12 +58,12 @@ export class GLMatrixBackend implements MatrixBackend {
   inverse(values: number[]): number[] {
     const matrix = new Float32Array(values);
     const result = mat3.create();
-    
+
     if (Math.abs(mat3.determinant(matrix)) < 1e-6) {
       throw new Error('Matrix is not invertible');
     }
-    
+
     mat3.invert(result, matrix);
     return Array.from(result);
   }
-} 
+}

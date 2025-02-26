@@ -36,28 +36,28 @@ describe('CanvasRenderer', () => {
     Object.defineProperties(context, {
       fillStyle: {
         get: vi.fn(() => '#000000'),
-        set: vi.fn()
+        set: vi.fn(),
       },
       strokeStyle: {
         get: vi.fn(() => '#000000'),
-        set: vi.fn()
+        set: vi.fn(),
       },
       font: {
         get: vi.fn(() => '10px sans-serif'),
-        set: vi.fn()
+        set: vi.fn(),
       },
       textAlign: {
         get: vi.fn(() => 'left'),
-        set: vi.fn()
+        set: vi.fn(),
       },
       textBaseline: {
         get: vi.fn(() => 'alphabetic'),
-        set: vi.fn()
-      }
+        set: vi.fn(),
+      },
     });
 
     renderer = new CanvasRenderer({
-      context: { canvas }
+      context: { canvas },
     });
   });
 
@@ -98,7 +98,7 @@ describe('CanvasRenderer', () => {
 
       const renderer = new CanvasRenderer({
         context: { canvas },
-        pixelRatio: 2
+        pixelRatio: 2,
       });
 
       renderer.setSize(100, 200);
@@ -119,12 +119,12 @@ describe('CanvasRenderer', () => {
         x: 0,
         y: 0,
         width: 100,
-        height: 100
+        height: 100,
       },
       style: {
-        fillColor: '#ff0000',  // red
-        strokeColor: '#000000',  // black
-        strokeWidth: 1
+        fillColor: '#ff0000', // red
+        strokeColor: '#000000', // black
+        strokeWidth: 1,
       },
       clone: () => createMockShape(),
       applyTransform: () => createMockShape(),
@@ -132,17 +132,17 @@ describe('CanvasRenderer', () => {
       intersects: () => false,
       setScaleOrigin: () => {},
       toPath: () => [],
-      ...overrides
+      ...overrides,
     });
 
     const createMockScene = (shapes: Shape[]): Scene => {
       const mockRoot = {
         children: shapes.map(shape => ({
           ...shape,
-          nodeType: 1,  // ELEMENT_NODE
+          nodeType: 1, // ELEMENT_NODE
           nodeName: 'DIV',
-          data: shape
-        }))
+          data: shape,
+        })),
       } as unknown as SceneNode;
       return {
         root: mockRoot,
@@ -150,7 +150,7 @@ describe('CanvasRenderer', () => {
         plugins: new Map(),
         on: () => {},
         off: () => {},
-        emit: () => {}
+        emit: () => {},
       };
     };
 
@@ -176,8 +176,8 @@ describe('CanvasRenderer', () => {
 
     it('should apply style', () => {
       renderer.render(mockScene);
-      expect(context.fillStyle).toBe('#000000');  // Mock value
-      expect(context.strokeStyle).toBe('#000000');  // Mock value
+      expect(context.fillStyle).toBe('#000000'); // Mock value
+      expect(context.strokeStyle).toBe('#000000'); // Mock value
       expect(context.lineWidth).toBe(1);
     });
 
@@ -206,13 +206,15 @@ describe('CanvasRenderer', () => {
     });
 
     it('should render path', () => {
-      mockScene = createMockScene([createMockShape({
-        type: 'path',
-        points: [
-          { x: 0, y: 0, type: 'move' },
-          { x: 100, y: 100, type: 'line' }
-        ]
-      })]);
+      mockScene = createMockScene([
+        createMockShape({
+          type: 'path',
+          points: [
+            { x: 0, y: 0, type: 'move' },
+            { x: 100, y: 100, type: 'line' },
+          ],
+        }),
+      ]);
       renderer.render(mockScene);
       expect(context.beginPath).toHaveBeenCalled();
       expect(context.moveTo).toHaveBeenCalledWith(0, 0);
@@ -222,18 +224,20 @@ describe('CanvasRenderer', () => {
     });
 
     it('should render text', () => {
-      mockScene = createMockScene([createMockShape({
-        type: 'text',
-        text: 'Hello',
-        font: 'Arial',
-        fontSize: 16,
-        textAlign: 'center',
-        textBaseline: 'middle'
-      })]);
+      mockScene = createMockScene([
+        createMockShape({
+          type: 'text',
+          text: 'Hello',
+          font: 'Arial',
+          fontSize: 16,
+          textAlign: 'center',
+          textBaseline: 'middle',
+        }),
+      ]);
       renderer.render(mockScene);
-      expect(context.font).toBe('10px sans-serif');  // Mock value
-      expect(context.textAlign).toBe('left');  // Mock value
-      expect(context.textBaseline).toBe('alphabetic');  // Mock value
+      expect(context.font).toBe('10px sans-serif'); // Mock value
+      expect(context.textAlign).toBe('left'); // Mock value
+      expect(context.textBaseline).toBe('alphabetic'); // Mock value
       expect(context.fillText).toHaveBeenCalledWith('Hello', 0, 0);
       expect(context.strokeText).toHaveBeenCalledWith('Hello', 0, 0);
     });
@@ -262,4 +266,4 @@ describe('CanvasRenderer', () => {
       expect(remove).not.toHaveBeenCalled();
     });
   });
-}); 
+});

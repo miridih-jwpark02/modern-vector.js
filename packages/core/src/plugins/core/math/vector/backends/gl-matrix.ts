@@ -57,4 +57,4 @@ export class GLVectorBackend implements VectorBackend {
     vec2.rotate(result, vector, [0, 0], angle);
     return Array.from(result);
   }
-} 
+}

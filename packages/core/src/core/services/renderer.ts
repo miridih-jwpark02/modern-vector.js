@@ -16,7 +16,7 @@ export class DefaultRendererService implements RendererService {
       throw new Error(`Renderer with id ${renderer.id} is already registered`);
     }
     this.renderers.set(renderer.id, renderer);
-    
+
     // Set as active if it's the first renderer
     if (!this.activeRenderer) {
       this.activeRenderer = renderer;
@@ -45,4 +45,4 @@ export class DefaultRendererService implements RendererService {
     }
     this.activeRenderer.render(scene);
   }
-} 
+}

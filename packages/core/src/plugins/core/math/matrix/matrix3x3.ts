@@ -8,9 +8,7 @@ import { GLMatrixBackend } from './backends/gl-matrix';
 export class Matrix3x3 {
   private static backend: MatrixBackend = new GLMatrixBackend();
 
-  private constructor(
-    private _values: number[]
-  ) {
+  private constructor(private _values: number[]) {
     if (_values.length !== 9) {
       throw new Error('Matrix3x3 requires exactly 9 values');
     }
@@ -100,4 +98,4 @@ export class Matrix3x3 {
     const result = Matrix3x3.backend.inverse(this._values);
     return new Matrix3x3(result);
   }
-} 
+}

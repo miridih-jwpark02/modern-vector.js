@@ -12,7 +12,7 @@ describe('SVGRenderer', () => {
     // SVG element 생성
     svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     renderer = new SVGRenderer({
-      context: { svg }
+      context: { svg },
     });
   });
 
@@ -46,7 +46,7 @@ describe('SVGRenderer', () => {
 
     it('should handle pixel ratio', () => {
       const renderer = new SVGRenderer({
-        pixelRatio: 2
+        pixelRatio: 2,
       });
       renderer.setSize(100, 200);
       expect(renderer.getSVG().getAttribute('width')).toBe('200');
@@ -65,12 +65,12 @@ describe('SVGRenderer', () => {
         x: 0,
         y: 0,
         width: 100,
-        height: 100
+        height: 100,
       },
       style: {
-        fillColor: '#ff0000',  // red
-        strokeColor: '#000000',  // black
-        strokeWidth: 1
+        fillColor: '#ff0000', // red
+        strokeColor: '#000000', // black
+        strokeWidth: 1,
       },
       clone: () => createMockShape(),
       applyTransform: () => createMockShape(),
@@ -78,17 +78,17 @@ describe('SVGRenderer', () => {
       intersects: () => false,
       setScaleOrigin: () => {},
       toPath: () => [],
-      ...overrides
+      ...overrides,
     });
 
     const createMockScene = (shapes: Shape[]): Scene => {
       const mockRoot = {
         children: shapes.map(shape => ({
           ...shape,
-          nodeType: 1,  // ELEMENT_NODE
+          nodeType: 1, // ELEMENT_NODE
           nodeName: 'DIV',
-          data: shape
-        }))
+          data: shape,
+        })),
       } as unknown as SceneNode;
       return {
         root: mockRoot,
@@ -96,7 +96,7 @@ describe('SVGRenderer', () => {
         plugins: new Map(),
         on: () => {},
         off: () => {},
-        emit: () => {}
+        emit: () => {},
       };
     };
 
@@ -145,13 +145,15 @@ describe('SVGRenderer', () => {
     });
 
     it('should render path', () => {
-      mockScene = createMockScene([createMockShape({
-        type: 'path',
-        points: [
-          { x: 0, y: 0, type: 'move' },
-          { x: 100, y: 100, type: 'line' }
-        ]
-      })]);
+      mockScene = createMockScene([
+        createMockShape({
+          type: 'path',
+          points: [
+            { x: 0, y: 0, type: 'move' },
+            { x: 100, y: 100, type: 'line' },
+          ],
+        }),
+      ]);
       renderer.render(mockScene);
       const path = svg.querySelector('path');
       expect(path).toBeDefined();
@@ -159,14 +161,16 @@ describe('SVGRenderer', () => {
     });
 
     it('should render text', () => {
-      mockScene = createMockScene([createMockShape({
-        type: 'text',
-        text: 'Hello',
-        font: 'Arial',
-        fontSize: 16,
-        textAlign: 'center',
-        textBaseline: 'middle'
-      })]);
+      mockScene = createMockScene([
+        createMockShape({
+          type: 'text',
+          text: 'Hello',
+          font: 'Arial',
+          fontSize: 16,
+          textAlign: 'center',
+          textBaseline: 'middle',
+        }),
+      ]);
       renderer.render(mockScene);
       const text = svg.querySelector('text');
       expect(text).toBeDefined();
@@ -179,9 +183,11 @@ describe('SVGRenderer', () => {
 
     it('should apply transform', () => {
       const transform = Matrix3x3.translation(10, 20);
-      mockScene = createMockScene([createMockShape({
-        transform
-      })]);
+      mockScene = createMockScene([
+        createMockShape({
+          transform,
+        }),
+      ]);
       renderer.render(mockScene);
       const rect = svg.querySelector('rect');
       expect(rect?.getAttribute('transform')).toBe('matrix(1,0,0,1,10,20)');
@@ -212,4 +218,4 @@ describe('SVGRenderer', () => {
       expect(remove).not.toHaveBeenCalled();
     });
   });
-}); 
+});

@@ -1,4 +1,12 @@
-import { SceneService, Scene, VectorEngine, EventEmitter, Plugin, Renderer, SceneNode } from '../types';
+import {
+  SceneService,
+  Scene,
+  VectorEngine,
+  EventEmitter,
+  Plugin,
+  Renderer,
+  SceneNode,
+} from '../types';
 import { DefaultSceneNode } from './scene-node';
 
 /**
@@ -51,12 +59,12 @@ export class DefaultSceneService implements SceneService {
   create(): Scene {
     const scene = new DefaultScene(this.engine, this.engine.events.createNamespace('scene'));
     this.scenes.add(scene);
-    
+
     // Set as active if it's the first scene
     if (!this.activeScene) {
       this.activeScene = scene;
     }
-    
+
     return scene;
   }
 
@@ -81,4 +89,4 @@ export class DefaultSceneService implements SceneService {
     }
     this.activeScene = scene;
   }
-} 
+}

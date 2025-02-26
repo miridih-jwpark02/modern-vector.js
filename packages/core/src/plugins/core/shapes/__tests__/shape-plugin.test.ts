@@ -18,7 +18,7 @@ describe('ShapePlugin', () => {
       getPlugin: vi.fn(),
       renderer: {} as any,
       events: {} as any,
-      scene: {} as any
+      scene: {} as any,
     };
   });
 
@@ -46,14 +46,14 @@ describe('ShapePlugin', () => {
         x: 10,
         y: 20,
         width: 100,
-        height: 50
+        height: 50,
       });
       expect(rect).toBeInstanceOf(Rectangle);
       expect(rect.bounds).toEqual({
         x: 10,
         y: 20,
         width: 100,
-        height: 50
+        height: 50,
       });
     });
 
@@ -65,14 +65,14 @@ describe('ShapePlugin', () => {
       const circle = plugin.createShape<Circle>('circle', {
         centerX: 100,
         centerY: 100,
-        radius: 50
+        radius: 50,
       });
       expect(circle).toBeInstanceOf(Circle);
       expect(circle.bounds).toEqual({
         x: 50,
         y: 50,
         width: 100,
-        height: 100
+        height: 100,
       });
     });
   });
@@ -180,4 +180,4 @@ describe('ShapePlugin', () => {
       expect(plugin.hasShape('circle')).toBe(false);
     });
   });
-}); 
+});

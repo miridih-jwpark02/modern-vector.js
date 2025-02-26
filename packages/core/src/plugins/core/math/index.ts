@@ -24,7 +24,7 @@ export class MathPlugin implements Plugin {
   readonly version = '1.0.0';
 
   private vectorOps: VectorOperations = {
-    create: Vector2D.create
+    create: Vector2D.create,
   };
 
   private matrixOps: MatrixOperations = {
@@ -67,4 +67,4 @@ export class MathPlugin implements Plugin {
 }
 
 // Export Vector2D for direct use
-export { Vector2D }; 
+export { Vector2D };
