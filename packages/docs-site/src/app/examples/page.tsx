@@ -1,5 +1,5 @@
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 /**
  * Examples page component
@@ -45,7 +45,7 @@ export default function ExamplesPage() {
               Explore examples of what you can build with Modern Vector.js
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Basic Shapes Example */}
             <div className="border rounded-lg overflow-hidden">
@@ -62,18 +62,81 @@ export default function ExamplesPage() {
                 </Button>
               </div>
             </div>
-            
+
+            {/* SVG Import Tool Plugin Example */}
+            <div className="border rounded-lg overflow-hidden">
+              <div className="aspect-video bg-muted flex items-center justify-center">
+                <svg
+                  width="120"
+                  height="120"
+                  viewBox="0 0 120 120"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect
+                    x="30"
+                    y="30"
+                    width="60"
+                    height="60"
+                    fill="rgba(59, 130, 246, 0.5)"
+                    stroke="#1d4ed8"
+                    strokeWidth="2"
+                  />
+                  <circle
+                    cx="60"
+                    cy="60"
+                    r="20"
+                    fill="rgba(239, 68, 68, 0.5)"
+                    stroke="#b91c1c"
+                    strokeWidth="2"
+                  />
+                  <polygon
+                    points="60,20 70,40 90,40 75,55 80,75 60,65 40,75 45,55 30,40 50,40"
+                    fill="rgba(245, 158, 11, 0.5)"
+                    stroke="#92400e"
+                    strokeWidth="2"
+                  />
+                </svg>
+              </div>
+              <div className="p-4">
+                <h3 className="font-bold">SVG Import Tool</h3>
+                <p className="text-sm text-muted-foreground mt-1 mb-3">
+                  SVG 파일을 가져와서 벡터 그래픽으로 변환하는 방법을 알아봅니다.
+                </p>
+                <Button variant="outline" size="sm" asChild>
+                  <Link href="/examples/svg-import">View Example</Link>
+                </Button>
+              </div>
+            </div>
+
             {/* Circle toPath Example */}
             <div className="border rounded-lg overflow-hidden">
               <div className="aspect-video bg-muted flex items-center justify-center">
-                <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg
+                  width="120"
+                  height="120"
+                  viewBox="0 0 120 120"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
                   {/* Circle */}
-                  <circle cx="60" cy="60" r="40" fill="rgba(65, 105, 225, 0.2)" stroke="royalblue" strokeWidth="2" />
-                  
+                  <circle
+                    cx="60"
+                    cy="60"
+                    r="40"
+                    fill="rgba(65, 105, 225, 0.2)"
+                    stroke="royalblue"
+                    strokeWidth="2"
+                  />
+
                   {/* Path circle (bezier) */}
-                  <path d="M100,60 C100,82.09 82.09,100 60,100 C37.91,100 20,82.09 20,60 C20,37.91 37.91,20 60,20 C82.09,20 100,37.91 100,60 Z" 
-                    fill="rgba(220, 20, 60, 0.2)" stroke="crimson" strokeWidth="2" />
-                  
+                  <path
+                    d="M100,60 C100,82.09 82.09,100 60,100 C37.91,100 20,82.09 20,60 C20,37.91 37.91,20 60,20 C82.09,20 100,37.91 100,60 Z"
+                    fill="rgba(220, 20, 60, 0.2)"
+                    stroke="crimson"
+                    strokeWidth="2"
+                  />
+
                   {/* Path points visualization */}
                   <circle cx="100" cy="60" r="3" fill="white" stroke="black" strokeWidth="1" />
                   <circle cx="60" cy="100" r="3" fill="white" stroke="black" strokeWidth="1" />
@@ -84,28 +147,57 @@ export default function ExamplesPage() {
               <div className="p-4">
                 <h3 className="font-bold">Circle toPath Method</h3>
                 <p className="text-sm text-muted-foreground mt-1 mb-3">
-                  Circle.toPath 메서드를 사용하여 원을 Path 객체로 변환하고 다양한 렌더링 방법을 비교해보세요.
+                  Circle.toPath 메서드를 사용하여 원을 Path 객체로 변환하고 다양한 렌더링 방법을
+                  비교해보세요.
                 </p>
                 <Button variant="outline" size="sm" asChild>
                   <Link href="/examples/circle-rendering">View Example</Link>
                 </Button>
               </div>
             </div>
-            
+
             {/* Bezier Curves Example */}
             <div className="border rounded-lg overflow-hidden">
               <div className="aspect-video bg-muted flex items-center justify-center">
-                <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg
+                  width="120"
+                  height="120"
+                  viewBox="0 0 120 120"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
                   {/* Control lines */}
-                  <line x1="20" y1="60" x2="60" y2="20" stroke="#94a3b8" strokeWidth="1" strokeDasharray="4" />
-                  <line x1="60" y1="20" x2="100" y2="60" stroke="#94a3b8" strokeWidth="1" strokeDasharray="4" />
-                  
+                  <line
+                    x1="20"
+                    y1="60"
+                    x2="60"
+                    y2="20"
+                    stroke="#94a3b8"
+                    strokeWidth="1"
+                    strokeDasharray="4"
+                  />
+                  <line
+                    x1="60"
+                    y1="20"
+                    x2="100"
+                    y2="60"
+                    stroke="#94a3b8"
+                    strokeWidth="1"
+                    strokeDasharray="4"
+                  />
+
                   {/* Bezier curve */}
-                  <path d="M20,60 Q60,20 100,60" stroke="#3b82f6" strokeWidth="4" fill="none" strokeLinecap="round" />
-                  
+                  <path
+                    d="M20,60 Q60,20 100,60"
+                    stroke="#3b82f6"
+                    strokeWidth="4"
+                    fill="none"
+                    strokeLinecap="round"
+                  />
+
                   {/* Control point */}
                   <circle cx="60" cy="20" r="6" fill="#f59e0b" stroke="white" strokeWidth="2" />
-                  
+
                   {/* Start and end points */}
                   <circle cx="20" cy="60" r="6" fill="#ef4444" stroke="white" strokeWidth="2" />
                   <circle cx="100" cy="60" r="6" fill="#ef4444" stroke="white" strokeWidth="2" />
@@ -121,12 +213,23 @@ export default function ExamplesPage() {
                 </Button>
               </div>
             </div>
-            
+
             {/* Path Drawing Example */}
             <div className="border rounded-lg overflow-hidden">
               <div className="aspect-video bg-muted flex items-center justify-center">
-                <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M20,20 Q60,10 100,20 T100,60 T60,100 T20,60 Z" stroke="#3b82f6" strokeWidth="3" fill="none" />
+                <svg
+                  width="120"
+                  height="120"
+                  viewBox="0 0 120 120"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M20,20 Q60,10 100,20 T100,60 T60,100 T20,60 Z"
+                    stroke="#3b82f6"
+                    strokeWidth="3"
+                    fill="none"
+                  />
                 </svg>
               </div>
               <div className="p-4">
@@ -139,7 +242,7 @@ export default function ExamplesPage() {
                 </Button>
               </div>
             </div>
-            
+
             {/* Animations Example */}
             <div className="border rounded-lg overflow-hidden">
               <div className="aspect-video bg-muted flex items-center justify-center">
@@ -155,7 +258,7 @@ export default function ExamplesPage() {
                 </Button>
               </div>
             </div>
-            
+
             {/* Interactive Graphics Example */}
             <div className="border rounded-lg overflow-hidden">
               <div className="aspect-video bg-muted flex items-center justify-center">
@@ -171,11 +274,17 @@ export default function ExamplesPage() {
                 </Button>
               </div>
             </div>
-            
+
             {/* Data Visualization Example */}
             <div className="border rounded-lg overflow-hidden">
               <div className="aspect-video bg-muted flex items-center justify-center">
-                <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg
+                  width="120"
+                  height="120"
+                  viewBox="0 0 120 120"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
                   <rect x="20" y="80" width="15" height="30" fill="#3b82f6" />
                   <rect x="45" y="60" width="15" height="50" fill="#3b82f6" />
                   <rect x="70" y="40" width="15" height="70" fill="#3b82f6" />
@@ -192,7 +301,7 @@ export default function ExamplesPage() {
                 </Button>
               </div>
             </div>
-            
+
             {/* Custom Plugins Example */}
             <div className="border rounded-lg overflow-hidden">
               <div className="aspect-video bg-muted flex items-center justify-center">
@@ -209,11 +318,12 @@ export default function ExamplesPage() {
               </div>
             </div>
           </div>
-          
+
           <div className="border rounded-lg p-6 mt-8">
             <h2 className="text-2xl font-bold mb-4">Run Examples Locally</h2>
             <p className="mb-4">
-              All examples are available in the GitHub repository. You can clone the repository and run them locally:
+              All examples are available in the GitHub repository. You can clone the repository and
+              run them locally:
             </p>
             <div className="bg-muted p-3 rounded-md font-mono text-sm mb-4">
               git clone https://github.com/username/modern-vector.js.git
@@ -236,4 +346,4 @@ export default function ExamplesPage() {
       </footer>
     </div>
   );
-} 
+}
