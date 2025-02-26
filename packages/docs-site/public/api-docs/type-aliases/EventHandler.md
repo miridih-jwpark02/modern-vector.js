@@ -13,7 +13,7 @@ category: type-aliases
 
 > **EventHandler**: (`data`) => `void`
 
-Defined in: [types/index.ts:87](https://github.com/miridih-jwpark02/modern-vector.js/blob/c2231def466b19fc2591bcf6d1ba9b3cb4795c03/packages/core/src/core/types/index.ts#L87)
+Defined in: [types/index.ts:87](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L87)
 
 Event handler type definition
 

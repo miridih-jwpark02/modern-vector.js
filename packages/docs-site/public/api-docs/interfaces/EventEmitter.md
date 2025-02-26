@@ -11,7 +11,7 @@ category: interfaces
 
 # Interface: EventEmitter
 
-Defined in: [types/index.ts:94](https://github.com/miridih-jwpark02/modern-vector.js/blob/c2231def466b19fc2591bcf6d1ba9b3cb4795c03/packages/core/src/core/types/index.ts#L94)
+Defined in: [types/index.ts:94](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L94)
 
 Event emitter interface for handling events
 
@@ -29,7 +29,7 @@ Event emitter interface for handling events
 
 > **emit**(`event`, `data`): `void`
 
-Defined in: [types/index.ts:117](https://github.com/miridih-jwpark02/modern-vector.js/blob/c2231def466b19fc2591bcf6d1ba9b3cb4795c03/packages/core/src/core/types/index.ts#L117)
+Defined in: [types/index.ts:117](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L117)
 
 이벤트 발생
 
@@ -57,7 +57,7 @@ Defined in: [types/index.ts:117](https://github.com/miridih-jwpark02/modern-vect
 
 > **off**(`event`, `handler`): `void`
 
-Defined in: [types/index.ts:109](https://github.com/miridih-jwpark02/modern-vector.js/blob/c2231def466b19fc2591bcf6d1ba9b3cb4795c03/packages/core/src/core/types/index.ts#L109)
+Defined in: [types/index.ts:109](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L109)
 
 이벤트 리스너 제거
 
@@ -85,7 +85,7 @@ Defined in: [types/index.ts:109](https://github.com/miridih-jwpark02/modern-vect
 
 > **on**(`event`, `handler`): `void`
 
-Defined in: [types/index.ts:101](https://github.com/miridih-jwpark02/modern-vector.js/blob/c2231def466b19fc2591bcf6d1ba9b3cb4795c03/packages/core/src/core/types/index.ts#L101)
+Defined in: [types/index.ts:101](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L101)
 
 이벤트 리스너 등록
 

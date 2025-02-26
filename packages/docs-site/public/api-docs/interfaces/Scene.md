@@ -11,7 +11,7 @@ category: interfaces
 
 # Interface: Scene
 
-Defined in: [types/index.ts:196](https://github.com/miridih-jwpark02/modern-vector.js/blob/c2231def466b19fc2591bcf6d1ba9b3cb4795c03/packages/core/src/core/types/index.ts#L196)
+Defined in: [types/index.ts:196](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L196)
 
 Scene interface representing a container for shapes
 
@@ -27,7 +27,7 @@ Shape들을 포함하는 장면 인터페이스입니다.
 
 > `readonly` **plugins**: `Map`\<`string`, [`Plugin`](Plugin.md)\>
 
-Defined in: [types/index.ts:202](https://github.com/miridih-jwpark02/modern-vector.js/blob/c2231def466b19fc2591bcf6d1ba9b3cb4795c03/packages/core/src/core/types/index.ts#L202)
+Defined in: [types/index.ts:202](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L202)
 
 장면에 등록된 플러그인 맵
 
@@ -37,7 +37,7 @@ Defined in: [types/index.ts:202](https://github.com/miridih-jwpark02/modern-vect
 
 > `readonly` **renderer**: [`Renderer`](Renderer.md)
 
-Defined in: [types/index.ts:200](https://github.com/miridih-jwpark02/modern-vector.js/blob/c2231def466b19fc2591bcf6d1ba9b3cb4795c03/packages/core/src/core/types/index.ts#L200)
+Defined in: [types/index.ts:200](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L200)
 
 장면의 렌더러
 
@@ -47,7 +47,7 @@ Defined in: [types/index.ts:200](https://github.com/miridih-jwpark02/modern-vect
 
 > `readonly` **root**: [`SceneNode`](SceneNode.md)
 
-Defined in: [types/index.ts:198](https://github.com/miridih-jwpark02/modern-vector.js/blob/c2231def466b19fc2591bcf6d1ba9b3cb4795c03/packages/core/src/core/types/index.ts#L198)
+Defined in: [types/index.ts:198](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L198)
 
 장면의 루트 노드
 
@@ -57,7 +57,7 @@ Defined in: [types/index.ts:198](https://github.com/miridih-jwpark02/modern-vect
 
 > **emit**(`event`, `data`): `void`
 
-Defined in: [types/index.ts:117](https://github.com/miridih-jwpark02/modern-vector.js/blob/c2231def466b19fc2591bcf6d1ba9b3cb4795c03/packages/core/src/core/types/index.ts#L117)
+Defined in: [types/index.ts:117](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L117)
 
 이벤트 발생
 
@@ -89,7 +89,7 @@ Defined in: [types/index.ts:117](https://github.com/miridih-jwpark02/modern-vect
 
 > **off**(`event`, `handler`): `void`
 
-Defined in: [types/index.ts:109](https://github.com/miridih-jwpark02/modern-vector.js/blob/c2231def466b19fc2591bcf6d1ba9b3cb4795c03/packages/core/src/core/types/index.ts#L109)
+Defined in: [types/index.ts:109](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L109)
 
 이벤트 리스너 제거
 
@@ -121,7 +121,7 @@ Defined in: [types/index.ts:109](https://github.com/miridih-jwpark02/modern-vect
 
 > **on**(`event`, `handler`): `void`
 
-Defined in: [types/index.ts:101](https://github.com/miridih-jwpark02/modern-vector.js/blob/c2231def466b19fc2591bcf6d1ba9b3cb4795c03/packages/core/src/core/types/index.ts#L101)
+Defined in: [types/index.ts:101](https://github.com/miridih-jwpark02/modern-vector.js/blob/312167d62a717a0944239670c1130d0801cfdeb2/packages/core/src/core/types/index.ts#L101)
 
 이벤트 리스너 등록
 
