@@ -3,6 +3,13 @@ import { Text, TextFactory } from '../text';
 import { Vector2D } from '../../math/vector';
 import { Matrix3x3 } from '../../math/matrix';
 
+// Mock document object for non-browser environments
+if (typeof document === 'undefined') {
+  global.document = {
+    createElement: () => {},
+  } as any;
+}
+
 // Mock canvas and context
 const mockContext = {
   font: '',
@@ -338,11 +345,13 @@ describe('Text', () => {
       expect(clone.bounds).toEqual(original.bounds);
       expect(clone.style).toEqual(original.style);
       expect(clone.transform.values).toEqual(original.transform.values);
-      expect(clone.text).toBe(original.text);
-      expect(clone.font).toBe(original.font);
-      expect(clone.fontSize).toBe(original.fontSize);
-      expect(clone.textAlign).toBe(original.textAlign);
-      expect(clone.textBaseline).toBe(original.textBaseline);
+
+      // Text 관련 속성은 타입 캐스팅을 사용하여 접근
+      expect((clone as Text).text).toBe((original as Text).text);
+      expect((clone as Text).font).toBe((original as Text).font);
+      expect((clone as Text).fontSize).toBe((original as Text).fontSize);
+      expect((clone as Text).textAlign).toBe((original as Text).textAlign);
+      expect((clone as Text).textBaseline).toBe((original as Text).textBaseline);
     });
   });
 });

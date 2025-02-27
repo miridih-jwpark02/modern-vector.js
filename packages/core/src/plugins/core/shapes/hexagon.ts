@@ -1,6 +1,6 @@
 import { Vector2D } from '../math/vector';
 import { Matrix3x3 } from '../math/matrix';
-import { Shape, ShapeStyle, Bounds, ShapeFactory, ShapeOptions } from './types';
+import { Shape, Bounds, ShapeFactory, ShapeOptions } from './types';
 import { AbstractShape } from './abstract-shape';
 import { PathPoint } from './path/types';
 

@@ -50,6 +50,8 @@ interface Shape extends SceneNode {
 }
 ```
 
+참고: `SceneNode` 인터페이스는 이벤트 처리를 위한 `EventEmitter` 메서드(`on`, `off`, `emit` 등)와 부모-자식 관계 관리를 위한 메서드(`addChild`, `removeChild` 등)를 포함합니다.
+
 ### Bounds
 
 `Bounds` 인터페이스는 도형의 경계 상자를 나타냅니다.
@@ -205,7 +207,7 @@ engine.use(new ShapePlugin());
 const shapePlugin = engine.getPlugin<ShapePlugin>('shape');
 
 // 사각형 생성
-const rect = shapePlugin.createShape('rectangle', {
+const rect = shapePlugin.createShape<Shape>('rectangle', {
   x: 50,
   y: 50,
   width: 100,
@@ -218,7 +220,7 @@ const rect = shapePlugin.createShape('rectangle', {
 });
 
 // 원 생성
-const circle = shapePlugin.createShape('circle', {
+const circle = shapePlugin.createShape<Shape>('circle', {
   centerX: 200,
   centerY: 100,
   radius: 40,
@@ -229,7 +231,7 @@ const circle = shapePlugin.createShape('circle', {
 });
 
 // 선 생성
-const line = shapePlugin.createShape('line', {
+const line = shapePlugin.createShape<Shape>('line', {
   x1: 300,
   y1: 50,
   x2: 400,
@@ -273,7 +275,7 @@ engine.scene.addChild(combined);
 
 ```typescript
 // 점이 도형 내부에 있는지 확인
-const isPointInside = circle.containsPoint(Vector2D.create(190, 100));
+const isPointInside = circle.containsPoint({ x: 190, y: 100 });
 console.log('점이 원 안에 있는가:', isPointInside);
 
 // 도형 간 충돌 여부 확인
@@ -285,7 +287,7 @@ console.log('사각형과 원이 충돌하는가:', doShapesCollide);
 
 ```typescript
 // 사용자 정의 도형 팩토리 생성
-class CustomShapeFactory implements ShapeFactory {
+class CustomShapeFactory implements ShapeFactory<Shape> {
   create(options: ShapeOptions): Shape {
     // 사용자 정의 도형 생성 로직
     const customShape = new CustomShape(options);
@@ -297,7 +299,7 @@ class CustomShapeFactory implements ShapeFactory {
 shapePlugin.registerShape('custom', new CustomShapeFactory());
 
 // 사용자 정의 도형 생성
-const custom = shapePlugin.createShape('custom', {
+const custom = shapePlugin.createShape<Shape>('custom', {
   // 사용자 정의 옵션
 });
 
@@ -323,7 +325,7 @@ const groupPlugin = engine.getPlugin<GroupPlugin>('group');
 const face = groupPlugin.createGroup();
 
 // 얼굴 윤곽선 (원)
-const headCircle = shapePlugin.createShape('circle', {
+const headCircle = shapePlugin.createShape<Shape>('circle', {
   centerX: 100,
   centerY: 100,
   radius: 50,
@@ -335,7 +337,7 @@ const headCircle = shapePlugin.createShape('circle', {
 });
 
 // 왼쪽 눈
-const leftEye = shapePlugin.createShape('circle', {
+const leftEye = shapePlugin.createShape<Shape>('circle', {
   centerX: 80,
   centerY: 80,
   radius: 8,
@@ -347,7 +349,7 @@ const leftEye = shapePlugin.createShape('circle', {
 });
 
 // 오른쪽 눈
-const rightEye = shapePlugin.createShape('circle', {
+const rightEye = shapePlugin.createShape<Shape>('circle', {
   centerX: 120,
   centerY: 80,
   radius: 8,
@@ -359,7 +361,7 @@ const rightEye = shapePlugin.createShape('circle', {
 });
 
 // 눈동자
-const leftPupil = shapePlugin.createShape('circle', {
+const leftPupil = shapePlugin.createShape<Shape>('circle', {
   centerX: 80,
   centerY: 80,
   radius: 3,
@@ -368,7 +370,7 @@ const leftPupil = shapePlugin.createShape('circle', {
   }
 });
 
-const rightPupil = shapePlugin.createShape('circle', {
+const rightPupil = shapePlugin.createShape<Shape>('circle', {
   centerX: 120,
   centerY: 80,
   radius: 3,
@@ -378,7 +380,7 @@ const rightPupil = shapePlugin.createShape('circle', {
 });
 
 // 입 (선으로 간단히 표현)
-const mouth = shapePlugin.createShape('path', {
+const mouth = shapePlugin.createShape<Shape>('path', {
   points: [
     { x: 80, y: 120, type: 'move' },
     { x: 100, y: 130, type: 'curve', controlPoint1: { x: 90, y: 125 } },
@@ -412,7 +414,7 @@ Transform을 활용한 간단한 애니메이션을 구현할 수 있습니다:
 
 ```typescript
 // 회전하는 사각형 생성
-const rect = shapePlugin.createShape('rectangle', {
+const rect = shapePlugin.createShape<Shape>('rectangle', {
   x: 100,
   y: 100,
   width: 80,
@@ -458,7 +460,7 @@ animate();
 
 ```typescript
 // 클릭 가능한 버튼 생성
-const button = shapePlugin.createShape('rectangle', {
+const button = shapePlugin.createShape<Shape>('rectangle', {
   x: 50,
   y: 50,
   width: 100,
@@ -471,7 +473,7 @@ const button = shapePlugin.createShape('rectangle', {
 });
 
 // 버튼 텍스트 생성
-const buttonText = shapePlugin.createShape('text', {
+const buttonText = shapePlugin.createShape<Shape>('text', {
   x: 100,
   y: 75,
   text: '클릭하세요',
@@ -497,7 +499,8 @@ buttonGroup.on('click', () => {
   console.log('버튼이 클릭되었습니다!');
   // 클릭 시 버튼 색상 변경
   const newButton = button.clone();
-  newButton.style.fillColor = '#e74c3c';
+  // 타입 단언을 사용하여 style 속성에 접근
+  (newButton.style as ShapeStyle).fillColor = '#e74c3c';
   
   // 기존 버튼 교체
   buttonGroup.removeChild(button);
@@ -516,16 +519,16 @@ buttonGroup.on('click', () => {
 
 ```typescript
 // 자주 사용되는 도형 미리 생성 및 캐싱
-const cachedShapes = new Map();
+const cachedShapes = new Map<string, Shape>();
 
-function getCachedShape(type, options) {
+function getCachedShape(type: string, options: ShapeOptions): Shape {
   const key = `${type}-${JSON.stringify(options)}`;
   
   if (!cachedShapes.has(key)) {
     cachedShapes.set(key, shapePlugin.createShape(type, options));
   }
   
-  return cachedShapes.get(key).clone(); // 복제본 반환
+  return cachedShapes.get(key)!.clone(); // 복제본 반환
 }
 
 // 캐시된 도형 사용
@@ -542,12 +545,12 @@ const complexObject = groupPlugin.createGroup();
 
 // 여러 도형 추가
 for (let i = 0; i < 20; i++) {
-  const shape = shapePlugin.createShape('circle', {
+  const shape = shapePlugin.createShape<Shape>('circle', {
     centerX: Math.random() * 200,
     centerY: Math.random() * 200,
     radius: 5 + Math.random() * 10,
     style: {
-      fillColor: `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`
+      fillColor: `rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)})`
     }
   });
   
@@ -571,7 +574,7 @@ engine.scene.addChild(complexObject);
 
 ```typescript
 // 나쁜 예: 사각형을 Path로 구현
-const badRectangle = shapePlugin.createShape('path', {
+const badRectangle = shapePlugin.createShape<Shape>('path', {
   points: [
     { x: 0, y: 0, type: 'move' },
     { x: 100, y: 0, type: 'line' },
@@ -583,7 +586,7 @@ const badRectangle = shapePlugin.createShape('path', {
 });
 
 // 좋은 예: Rectangle 사용
-const goodRectangle = shapePlugin.createShape('rectangle', {
+const goodRectangle = shapePlugin.createShape<Shape>('rectangle', {
   x: 0,
   y: 0,
   width: 100,

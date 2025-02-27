@@ -6,7 +6,7 @@ import { VectorEngine } from '../../../../core/types';
 import { Shape, ShapeFactory } from '../types';
 import { PathPoint } from '../path/types';
 import { Matrix3x3 } from '../../math/matrix';
-import { Vector2D } from '../../math/vector';
+import { Plugin } from '../../../../core/types';
 
 describe('ShapePlugin', () => {
   let plugin: ShapePlugin;
@@ -17,7 +17,7 @@ describe('ShapePlugin', () => {
     mockEngine = {
       use: vi.fn(),
       remove: vi.fn(),
-      getPlugin: vi.fn(),
+      getPlugin: vi.fn() as unknown as <T extends Plugin>(id: string) => T | null,
       renderer: {} as any,
       events: {} as any,
       scene: {} as any,

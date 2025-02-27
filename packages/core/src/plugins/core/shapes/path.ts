@@ -1,8 +1,9 @@
 import { Vector2D } from '../math/vector';
 import { Matrix3x3 } from '../math/matrix';
-import { Shape, ShapeStyle, Bounds, ShapeFactory, ShapeOptions } from './types';
+import { Shape, Bounds, ShapeFactory, ShapeOptions } from './types';
 import { AbstractShape } from './abstract-shape';
 import { PathPoint, Point2D } from './path/types';
+import { EventEmitter } from '../../../core/types';
 
 /**
  * Path shape options
@@ -20,14 +21,122 @@ export interface PathOptions extends ShapeOptions {
 export class Path extends AbstractShape {
   private _points: PathPoint[];
 
-  constructor(options: PathOptions = {}) {
-    super('path', options);
+  // 스케일 관련 속성 추가
+  protected _scaleOrigin: 'center' | 'topLeft' | 'custom' = 'topLeft';
+  protected _customScaleOrigin?: { x: number; y: number };
 
-    this._points = options.points || [];
+  constructor(options: PathOptions = {}) {
+    // 초기값 설정
+    const points = options.points || [];
+
+    // 경계 상자 계산
+    const bounds = Path.calculateBounds(points);
+
+    // EventEmitter 모킹
+    const eventEmitter: EventEmitter = {
+      on: (_event: string, _handler: any) => {},
+      off: (_event: string, _handler: any) => {},
+      emit: (_event: string, _data: any) => {},
+    };
+
+    // AbstractShape 생성자에 인자 전달
+    super(
+      options.id || crypto.randomUUID(),
+      'path',
+      options.transform || Matrix3x3.create(),
+      bounds,
+      options.style || {},
+      eventEmitter
+    );
+
+    this._points = [...points];
+
+    // 스케일 옵션 초기화
+    if (options.scaleOrigin) {
+      this._scaleOrigin = options.scaleOrigin;
+    }
+
+    if (options.customScaleOriginPoint) {
+      this._customScaleOrigin = options.customScaleOriginPoint;
+    }
 
     // closed 옵션이 true인 경우 경로 닫기
     if (options.closed) {
       this.closePath();
+    }
+  }
+
+  /**
+   * 경로 점들로부터 bounds 계산
+   */
+  private static calculateBounds(points: PathPoint[]): Bounds {
+    if (points.length === 0) {
+      return { x: 0, y: 0, width: 0, height: 0 };
+    }
+
+    // 모든 점의 x, y 좌표로부터 최소/최대 계산
+    let minX = Infinity;
+    let minY = Infinity;
+    let maxX = -Infinity;
+    let maxY = -Infinity;
+
+    for (const point of points) {
+      minX = Math.min(minX, point.x);
+      minY = Math.min(minY, point.y);
+      maxX = Math.max(maxX, point.x);
+      maxY = Math.max(maxY, point.y);
+
+      // 2차 베지어 곡선 제어점 확인
+      if (point.type === 'quadratic' && point.controlPoint) {
+        minX = Math.min(minX, point.controlPoint.x);
+        minY = Math.min(minY, point.controlPoint.y);
+        maxX = Math.max(maxX, point.controlPoint.x);
+        maxY = Math.max(maxY, point.controlPoint.y);
+      }
+
+      // 3차 베지어 곡선 제어점 확인
+      if (point.type === 'cubic') {
+        if (point.controlPoint1) {
+          minX = Math.min(minX, point.controlPoint1.x);
+          minY = Math.min(minY, point.controlPoint1.y);
+          maxX = Math.max(maxX, point.controlPoint1.x);
+          maxY = Math.max(maxY, point.controlPoint1.y);
+        }
+
+        if (point.controlPoint2) {
+          minX = Math.min(minX, point.controlPoint2.x);
+          minY = Math.min(minY, point.controlPoint2.y);
+          maxX = Math.max(maxX, point.controlPoint2.x);
+          maxY = Math.max(maxY, point.controlPoint2.y);
+        }
+      }
+    }
+
+    return {
+      x: minX,
+      y: minY,
+      width: maxX - minX,
+      height: maxY - minY,
+    };
+  }
+
+  // scaleOrigin 게터 추가
+  get scaleOrigin(): 'center' | 'topLeft' | 'custom' {
+    return this._scaleOrigin;
+  }
+
+  // customScaleOrigin 게터 추가
+  get customScaleOrigin(): { x: number; y: number } | undefined {
+    return this._customScaleOrigin;
+  }
+
+  // 원래 있던 setScaleOrigin 메서드 오버라이드
+  setScaleOrigin(origin: 'center' | 'topLeft' | 'custom', point?: { x: number; y: number }): void {
+    this._scaleOrigin = origin;
+    if (origin === 'custom' && point) {
+      this._customScaleOrigin = point;
+    } else {
+      this._customScaleOrigin = undefined;
     }
   }
 
@@ -785,7 +894,6 @@ export class Path extends AbstractShape {
 
     for (let i = 1; i < this._points.length; i++) {
       const currentPoint = this._points[i];
-      const prevPoint = this._points[i - 1];
 
       // 각 포인트 추가
       allPoints.push(currentPoint);
@@ -793,7 +901,7 @@ export class Path extends AbstractShape {
       // 베지어 곡선의 경우 극점 찾아서 추가
       if (currentPoint.type === 'quadratic' && currentPoint.controlPoint) {
         const extremaParams = this.findQuadraticExtrema(
-          prevPoint,
+          currentPoint,
           currentPoint.controlPoint,
           currentPoint
         );
@@ -801,7 +909,7 @@ export class Path extends AbstractShape {
         // 극점에서의 좌표 계산하여 추가
         for (const t of extremaParams) {
           allPoints.push(
-            this.evaluateQuadraticBezier(prevPoint, currentPoint.controlPoint, currentPoint, t)
+            this.evaluateQuadraticBezier(currentPoint, currentPoint.controlPoint, currentPoint, t)
           );
         }
       } else if (
@@ -810,7 +918,7 @@ export class Path extends AbstractShape {
         currentPoint.controlPoint2
       ) {
         const extremaParams = this.findCubicExtrema(
-          prevPoint,
+          currentPoint,
           currentPoint.controlPoint1,
           currentPoint.controlPoint2,
           currentPoint
@@ -820,7 +928,7 @@ export class Path extends AbstractShape {
         for (const t of extremaParams) {
           allPoints.push(
             this.evaluateCubicBezier(
-              prevPoint,
+              currentPoint,
               currentPoint.controlPoint1,
               currentPoint.controlPoint2,
               currentPoint,
@@ -872,9 +980,7 @@ export class Path extends AbstractShape {
 
     for (let i = 1; i < this._points.length; i++) {
       const currentPoint = this._points[i];
-      const prevPoint = this._points[i - 1];
 
-      // 현재 점 변환하여 추가
       const transformed = this.transform.multiply(
         Matrix3x3.translation(currentPoint.x, currentPoint.y)
       );

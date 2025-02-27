@@ -3,6 +3,7 @@ import { Matrix3x3 } from '../math/matrix';
 import { Shape, Bounds, ShapeFactory, ShapeOptions } from './types';
 import { AbstractShape } from './abstract-shape';
 import { PathPoint } from './path/types';
+import { EventEmitter } from '../../../core/types';
 
 /**
  * Circle shape options
@@ -24,12 +25,73 @@ export class Circle extends AbstractShape {
   private _centerY: number;
   private _radius: number;
 
-  constructor(options: CircleOptions = {}) {
-    super('circle', options);
+  // 스케일 관련 속성 추가
+  protected _scaleOrigin: 'center' | 'topLeft' | 'custom' = 'topLeft';
+  protected _customScaleOrigin?: { x: number; y: number };
 
-    this._centerX = options.centerX || 0;
-    this._centerY = options.centerY || 0;
-    this._radius = options.radius || 0;
+  constructor(options: CircleOptions = {}) {
+    // 기본 값 설정
+    const centerX = options.centerX || 0;
+    const centerY = options.centerY || 0;
+    const radius = options.radius || 0;
+
+    // 경계 상자 계산
+    const bounds: Bounds = {
+      x: centerX - radius,
+      y: centerY - radius,
+      width: radius * 2,
+      height: radius * 2,
+    };
+
+    // EventEmitter 모킹
+    const eventEmitter: EventEmitter = {
+      on: (_event: string, _handler: any) => {},
+      off: (_event: string, _handler: any) => {},
+      emit: (_event: string, _data: any) => {},
+    };
+
+    // AbstractShape 생성자에 필요한 모든 인자 전달
+    super(
+      options.id || crypto.randomUUID(),
+      'circle',
+      options.transform || Matrix3x3.create(),
+      bounds,
+      options.style || {},
+      eventEmitter
+    );
+
+    this._centerX = centerX;
+    this._centerY = centerY;
+    this._radius = radius;
+
+    // 스케일 옵션 초기화
+    if (options.scaleOrigin) {
+      this._scaleOrigin = options.scaleOrigin;
+    }
+
+    if (options.customScaleOriginPoint) {
+      this._customScaleOrigin = options.customScaleOriginPoint;
+    }
+  }
+
+  // scaleOrigin 게터 추가
+  get scaleOrigin(): 'center' | 'topLeft' | 'custom' {
+    return this._scaleOrigin;
+  }
+
+  // customScaleOrigin 게터 추가
+  get customScaleOrigin(): { x: number; y: number } | undefined {
+    return this._customScaleOrigin;
+  }
+
+  // 원래 있던 setScaleOrigin 메서드 오버라이드
+  setScaleOrigin(origin: 'center' | 'topLeft' | 'custom', point?: { x: number; y: number }): void {
+    this._scaleOrigin = origin;
+    if (origin === 'custom' && point) {
+      this._customScaleOrigin = point;
+    } else {
+      this._customScaleOrigin = undefined;
+    }
   }
 
   protected getLocalBounds(): Bounds {

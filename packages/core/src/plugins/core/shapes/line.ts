@@ -1,8 +1,9 @@
 import { Vector2D } from '../math/vector';
 import { Matrix3x3 } from '../math/matrix';
-import { Shape, ShapeStyle, Bounds, ShapeFactory, ShapeOptions } from './types';
+import { Shape, Bounds, ShapeFactory, ShapeOptions } from './types';
 import { AbstractShape } from './abstract-shape';
 import { PathPoint } from './path/types';
+import { EventEmitter } from '../../../core/types';
 
 /**
  * Line shape options
@@ -27,13 +28,75 @@ export class Line extends AbstractShape {
   private _x2: number;
   private _y2: number;
 
-  constructor(options: LineOptions = {}) {
-    super('line', options);
+  // 스케일 관련 속성 추가
+  protected _scaleOrigin: 'center' | 'topLeft' | 'custom' = 'topLeft';
+  protected _customScaleOrigin?: { x: number; y: number };
 
-    this._x1 = options.x1 || 0;
-    this._y1 = options.y1 || 0;
-    this._x2 = options.x2 || 0;
-    this._y2 = options.y2 || 0;
+  constructor(options: LineOptions = {}) {
+    // 기본 값 설정
+    const x1 = options.x1 || 0;
+    const y1 = options.y1 || 0;
+    const x2 = options.x2 || 0;
+    const y2 = options.y2 || 0;
+
+    // 초기 bounds 계산
+    const bounds: Bounds = {
+      x: Math.min(x1, x2),
+      y: Math.min(y1, y2),
+      width: Math.abs(x2 - x1),
+      height: Math.abs(y2 - y1),
+    };
+
+    // EventEmitter 모킹
+    const eventEmitter: EventEmitter = {
+      on: (_event: string, _handler: any) => {},
+      off: (_event: string, _handler: any) => {},
+      emit: (_event: string, _data: any) => {},
+    };
+
+    // AbstractShape 생성자에 인자 전달
+    super(
+      options.id || crypto.randomUUID(),
+      'line',
+      options.transform || Matrix3x3.create(),
+      bounds,
+      options.style || {},
+      eventEmitter
+    );
+
+    this._x1 = x1;
+    this._y1 = y1;
+    this._x2 = x2;
+    this._y2 = y2;
+
+    // 스케일 옵션 초기화
+    if (options.scaleOrigin) {
+      this._scaleOrigin = options.scaleOrigin;
+    }
+
+    if (options.customScaleOriginPoint) {
+      this._customScaleOrigin = options.customScaleOriginPoint;
+    }
+  }
+
+  // scaleOrigin 게터 추가
+  get scaleOrigin(): 'center' | 'topLeft' | 'custom' {
+    return this._scaleOrigin;
+  }
+
+  // customScaleOrigin 게터 추가
+  get customScaleOrigin(): { x: number; y: number } | undefined {
+    return this._customScaleOrigin;
+  }
+
+  // 원래 있던 setScaleOrigin 메서드 오버라이드
+  setScaleOrigin(origin: 'center' | 'topLeft' | 'custom', point?: { x: number; y: number }): void {
+    this._scaleOrigin = origin;
+    if (origin === 'custom' && point) {
+      this._customScaleOrigin = point;
+    } else {
+      this._customScaleOrigin = undefined;
+    }
   }
 
   protected getLocalBounds(): Bounds {
