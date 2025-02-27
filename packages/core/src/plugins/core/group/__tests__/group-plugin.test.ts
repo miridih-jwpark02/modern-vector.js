@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
 import { DefaultGroupPlugin } from '../';
-import { Group, DefaultGroup } from '../';
+import { DefaultGroup } from '../';
 import { VectorEngine, Plugin, SceneNode } from '../../../../core/types';
 import { Matrix3x3 } from '../../math/matrix';
 

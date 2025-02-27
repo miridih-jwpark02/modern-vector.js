@@ -62,7 +62,7 @@ Modern Vector.js의 플러그인은 다음과 같은 카테고리로 나뉩니�
 코어 플러그인은 기본적인 벡터 그래픽 기능을 제공합니다:
 
 - **MathPlugin**: 벡터, 행렬, 기하학 연산 제공
-- **ShapePlugin**: 기본 도형 생성 및 관리
+- **ShapePlugin**: 사각형, 원, 선, 경로, 텍스트, 육각형 등 다양한 기본 도형 생성 및 관리
 - **TransformPlugin**: 변환(이동, 회전, 크기 조절 등) 기능 제공
 - **GroupPlugin**: 여러 요소를 그룹화하여 하나의 단위로 관리
 
@@ -445,6 +445,62 @@ gridPlugin.setOptions({
 // 렌더링
 engine.renderer.render();
 ```
+
+## 코어 플러그인 상세 설명
+
+### ShapePlugin
+
+ShapePlugin은 다양한 벡터 도형을 생성하고 관리하는 데 사용됩니다. 이 플러그인은 기본적으로 다음과 같은 도형 타입을 제공합니다:
+
+- **Rectangle**: 사각형 도형
+- **Circle**: 원형 도형
+- **Line**: 선 도형
+- **Path**: 복잡한 경로 도형
+- **Text**: 텍스트 도형
+- **Hexagon**: 육각형 도형
+
+#### 주요 기능:
+
+1. **도형 등록**: 새로운 도형 타입을 시스템에 등록
+   ```typescript
+   shapePlugin.registerShape('custom-shape', new CustomShapeFactory());
+   ```
+
+2. **도형 생성**: 등록된 도형 타입으로 새 도형 인스턴스 생성
+   ```typescript
+   const rectangle = shapePlugin.createShape('rectangle', {
+     x: 10,
+     y: 20,
+     width: 100,
+     height: 50,
+     style: {
+       fillColor: 'blue',
+       strokeColor: 'black',
+       strokeWidth: 2
+     }
+   });
+   ```
+
+3. **도형 타입 검증**: 특정 도형 타입이 등록되었는지 확인
+   ```typescript
+   if (shapePlugin.hasShape('circle')) {
+     // 원형 도형 생성 로직
+   }
+   ```
+
+모든 도형은 `Shape` 인터페이스를 구현하며, 다음과 같은 공통 기능을 제공합니다:
+
+- 변환 적용 (이동, 회전, 크기 조절)
+- 경계 상자(bounds) 계산
+- 점 포함 여부 확인
+- 도형 간 충돌 감지
+- 스타일 설정 및 변경
+
+ShapePlugin은 'math' 플러그인에 의존성을 가지며, 벡터 및 행렬 연산을 위해 MathPlugin을 활용합니다.
+
+### MathPlugin
+
+// ... existing code ...
 
 ## 결론
 

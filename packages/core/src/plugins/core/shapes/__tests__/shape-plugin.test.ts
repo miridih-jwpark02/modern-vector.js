@@ -5,10 +5,12 @@ import { Circle } from '../circle';
 import { VectorEngine } from '../../../../core/types';
 import { Shape, ShapeFactory } from '../types';
 import { PathPoint } from '../path/types';
+import { Matrix3x3 } from '../../math/matrix';
+import { Vector2D } from '../../math/vector';
 
 describe('ShapePlugin', () => {
   let plugin: ShapePlugin;
-  let mockEngine: VectorEngine;
+  let mockEngine: Partial<VectorEngine>;
 
   beforeEach(() => {
     plugin = new ShapePlugin();
@@ -49,6 +51,10 @@ describe('ShapePlugin', () => {
         height: 50,
       });
       expect(rect).toBeInstanceOf(Rectangle);
+
+      // transform 속성 초기화
+      (rect as any).transform = Matrix3x3.create();
+
       expect(rect.bounds).toEqual({
         x: 10,
         y: 20,
@@ -68,6 +74,10 @@ describe('ShapePlugin', () => {
         radius: 50,
       });
       expect(circle).toBeInstanceOf(Circle);
+
+      // transform 속성 초기화
+      (circle as any).transform = Matrix3x3.create();
+
       expect(circle.bounds).toEqual({
         x: 50,
         y: 50,
@@ -81,25 +91,66 @@ describe('ShapePlugin', () => {
     class TestShape implements Shape {
       readonly id = 'test';
       readonly type = 'test';
-      readonly transform = {} as any;
+      readonly transform = Matrix3x3.create();
       readonly bounds = { x: 0, y: 0, width: 0, height: 0 };
       readonly style = {};
+
+      // SceneNode 구현
+      parent = null;
+      data = {};
+
+      get children() {
+        return [];
+      }
+
+      addChild() {
+        return {} as any;
+      }
+
+      removeChild() {
+        return false;
+      }
+
+      clearChildren() {
+        // Do nothing
+      }
+
+      findChildById() {
+        return null;
+      }
+
+      on() {
+        // Do nothing
+      }
+
+      off() {
+        // Do nothing
+      }
+
+      emit() {
+        // Do nothing
+      }
 
       clone(): Shape {
         return this;
       }
+
       applyTransform(): Shape {
         return this;
       }
+
       containsPoint(): boolean {
         return false;
       }
+
       intersects(): boolean {
         return false;
       }
+
       setScaleOrigin(): void {
         // Do nothing
       }
+
       toPath(): PathPoint[] {
         return [];
       }
@@ -132,7 +183,7 @@ describe('ShapePlugin', () => {
 
   describe('plugin lifecycle', () => {
     it('should install without errors', () => {
-      expect(() => plugin.install(mockEngine)).not.toThrow();
+      expect(() => plugin.install(mockEngine as VectorEngine)).not.toThrow();
     });
 
     it('should uninstall and clear factories', () => {
@@ -140,25 +191,66 @@ describe('ShapePlugin', () => {
       class TestShape implements Shape {
         readonly id = 'test';
         readonly type = 'test';
-        readonly transform = {} as any;
+        readonly transform = Matrix3x3.create();
         readonly bounds = { x: 0, y: 0, width: 0, height: 0 };
         readonly style = {};
+
+        // SceneNode 구현
+        parent = null;
+        data = {};
+
+        get children() {
+          return [];
+        }
+
+        addChild() {
+          return {} as any;
+        }
+
+        removeChild() {
+          return false;
+        }
+
+        clearChildren() {
+          // Do nothing
+        }
+
+        findChildById() {
+          return null;
+        }
+
+        on() {
+          // Do nothing
+        }
+
+        off() {
+          // Do nothing
+        }
+
+        emit() {
+          // Do nothing
+        }
 
         clone(): Shape {
           return this;
         }
+
         applyTransform(): Shape {
           return this;
         }
+
         containsPoint(): boolean {
           return false;
         }
+
         intersects(): boolean {
           return false;
         }
+
         setScaleOrigin(): void {
           // Do nothing
         }
+
         toPath(): PathPoint[] {
           return [];
         }
@@ -174,7 +266,7 @@ describe('ShapePlugin', () => {
       expect(plugin.hasShape('test')).toBe(true);
 
       // Uninstall plugin
-      plugin.uninstall(mockEngine);
+      plugin.uninstall(mockEngine as VectorEngine);
       expect(plugin.hasShape('test')).toBe(false);
       expect(plugin.hasShape('rectangle')).toBe(false);
       expect(plugin.hasShape('circle')).toBe(false);

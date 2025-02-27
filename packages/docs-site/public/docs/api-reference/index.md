@@ -15,6 +15,7 @@ Modern Vector.js는 벡터 그래픽을 쉽게 생성하고 조작할 수 있는
 - [Plugin](/docs/api-reference/core/plugin) - 플러그인 인터페이스 및 관련 타입
 - [Service](/docs/api-reference/core/service) - 서비스 시스템 관련 API
 - [Group](/docs/api-reference/core/group) - 요소 그룹화를 위한 API
+- [Shapes](/docs/api-reference/core/shapes) - 도형 생성 및 관리를 위한 API
 
 ### Renderers
 

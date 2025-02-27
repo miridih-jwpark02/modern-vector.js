@@ -5,6 +5,7 @@ import { CircleFactory } from './circle';
 import { LineFactory } from './line';
 import { TextFactory } from './text';
 import { PathFactory } from './path';
+import { HexagonFactory } from './hexagon';
 
 /**
  * Shape plugin implementation
@@ -24,6 +25,7 @@ export class ShapePlugin implements Plugin, IShapePlugin {
     this.registerShape('path', new PathFactory());
     this.registerShape('line', new LineFactory());
     this.registerShape('text', new TextFactory());
+    this.registerShape('hexagon', new HexagonFactory());
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
