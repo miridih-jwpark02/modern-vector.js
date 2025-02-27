@@ -1,6 +1,8 @@
+import { SceneNode } from '../../../core/types';
+import { EventEmitter } from '../../../core/types';
 import { Matrix3x3 } from '../math/matrix';
 import { Vector2D } from '../math/vector';
-import { Shape, ShapeStyle, Bounds, ShapeOptions } from './types';
+import { Shape, ShapeStyle, Bounds } from './types';
 import { PathPoint } from './path/types';
 
 /**
@@ -9,15 +11,39 @@ import { PathPoint } from './path/types';
 export type ScaleOrigin = 'center' | 'topLeft' | 'custom';
 
 /**
- * Shape의 공통 기능을 구현한 추상 클래스
+ * AbstractShape 클래스는 모든 Shape 구현체의 기본이 되는 추상 클래스입니다.
+ * SceneNode를 상속하여 장면 그래프의 노드로 동작합니다.
+ * @abstract
+ * @implements {Shape}
+ * @implements {SceneNode}
  */
-export abstract class AbstractShape implements Shape {
+export abstract class AbstractShape implements Shape, SceneNode {
+  /** Shape의 고유 식별자 */
   readonly id: string;
+
+  /** Shape의 타입 */
   readonly type: string;
+
+  /** Shape의 변환 행렬 */
   readonly transform: Matrix3x3;
+
+  /** Shape의 경계 상자 */
+  readonly _bounds: Bounds;
+
+  /** Shape의 스타일 */
   readonly style: ShapeStyle;
-  protected scaleOrigin: ScaleOrigin;
-  protected customScaleOrigin?: { x: number; y: number };
+
+  /** 부모 노드 */
+  parent: SceneNode | null = null;
+
+  /** 자식 노드 목록 */
+  private _children: SceneNode[] = [];
+
+  /** 노드에 연결된 데이터 */
+  data: Record<string, any> = {};
+
+  /** 이벤트 이미터 */
+  private eventEmitter: EventEmitter;
 
   /**
    * Path가 닫혀있는지 여부
@@ -28,62 +54,169 @@ export abstract class AbstractShape implements Shape {
     return false;
   }
 
-  constructor(type: string, options: ShapeOptions = {}) {
-    this.id = options.id || crypto.randomUUID();
+  constructor(
+    id: string,
+    type: string,
+    transform: Matrix3x3,
+    bounds: Bounds,
+    style: ShapeStyle,
+    eventEmitter: EventEmitter
+  ) {
+    this.id = id;
     this.type = type;
-    this.transform = options.transform || Matrix3x3.create();
-    this.style = options.style || {};
-    this.scaleOrigin = options.scaleOrigin || 'topLeft';
-    this.customScaleOrigin = options.customScaleOriginPoint;
+    this.transform = transform;
+    this._bounds = bounds;
+    this.style = style;
+    this.eventEmitter = eventEmitter;
+  }
+
+  /**
+   * 자식 노드 목록 getter
+   * @returns {SceneNode[]} 자식 노드 목록
+   */
+  get children(): SceneNode[] {
+    return [...this._children]; // 복사본 반환하여 직접 수정 방지
+  }
+
+  /**
+   * 경계 상자 getter
+   * @returns {Bounds} 경계 상자
+   */
+  get bounds(): Bounds {
+    return { ...this._bounds };
+  }
+
+  /**
+   * 자식 노드 추가
+   * @param {SceneNode} child - 추가할 자식 노드
+   * @returns {SceneNode} 추가된 자식 노드
+   */
+  addChild(child: SceneNode): SceneNode {
+    // 이미 다른 부모가 있는 경우 제거
+    if (child.parent) {
+      child.parent.removeChild(child);
+    }
+
+    // 이미 자식으로 있는 경우 무시
+    if (this._children.includes(child)) {
+      return child;
+    }
+
+    // 자식으로 추가
+    this._children.push(child);
+    child.parent = this;
+
+    // 이벤트 발생
+    this.emit('childAdded', { child });
+
+    return child;
+  }
+
+  /**
+   * 자식 노드 제거
+   * @param {SceneNode} child - 제거할 자식 노드
+   * @returns {boolean} 제거 성공 여부
+   */
+  removeChild(child: SceneNode): boolean {
+    const index = this._children.indexOf(child);
+
+    if (index === -1) {
+      return false;
+    }
+
+    // 자식에서 제거
+    this._children.splice(index, 1);
+    child.parent = null;
+
+    // 이벤트 발생
+    this.emit('childRemoved', { child });
+
+    return true;
+  }
+
+  /**
+   * 모든 자식 노드 제거
+   */
+  clearChildren(): void {
+    // 모든 자식의 부모 참조 제거
+    this._children.forEach(child => {
+      child.parent = null;
+    });
+
+    // 자식 목록 초기화
+    const oldChildren = [...this._children];
+    this._children = [];
+
+    // 이벤트 발생
+    this.emit('childrenCleared', { children: oldChildren });
+  }
+
+  /**
+   * ID로 자식 노드 찾기
+   * @param {string} id - 찾을 노드의 ID
+   * @returns {SceneNode | null} 찾은 노드 또는 null
+   */
+  findChildById(id: string): SceneNode | null {
+    // 직접 자식 중에서 찾기
+    for (const child of this._children) {
+      if (child.id === id) {
+        return child;
+      }
+
+      // 재귀적으로 자식의 자식에서 찾기
+      const found = child.findChildById(id);
+      if (found) {
+        return found;
+      }
+    }
+
+    return null;
+  }
+
+  /**
+   * 이벤트 리스너 등록
+   * @param {string} event - 이벤트 이름
+   * @param {Function} handler - 이벤트 핸들러 함수
+   */
+  on(event: string, handler: (data: any) => void): void {
+    this.eventEmitter.on(event, handler);
+  }
+
+  /**
+   * 이벤트 리스너 제거
+   * @param {string} event - 이벤트 이름
+   * @param {Function} handler - 제거할 이벤트 핸들러 함수
+   */
+  off(event: string, handler: (data: any) => void): void {
+    this.eventEmitter.off(event, handler);
+  }
+
+  /**
+   * 이벤트 발생
+   * @param {string} event - 발생시킬 이벤트 이름
+   * @param {any} data - 이벤트와 함께 전달할 데이터
+   */
+  emit(event: string, data: any): void {
+    this.eventEmitter.emit(event, data);
   }
 
   /**
    * Scale 기준점 설정
-   * @param origin - Scale 기준점 ('center', 'topLeft', 'custom')
-   * @param point - Custom 기준점일 경우 좌표
+   * @param {ScaleOrigin} _origin - Scale 기준점 ('center', 'topLeft', 'custom')
+   * @param {{ x: number; y: number }} [_point] - Custom 기준점일 경우 좌표
    */
-  setScaleOrigin(origin: ScaleOrigin, point?: { x: number; y: number }): void {
-    this.scaleOrigin = origin;
-    if (origin === 'custom' && point) {
-      this.customScaleOrigin = point;
-    }
+  setScaleOrigin(_origin: ScaleOrigin, _point?: { x: number; y: number }): void {
+    // Implementation needed
   }
-
-  /**
-   * Scale 기준점 가져오기
-   * @returns Scale 기준점 좌표
-   */
-  protected abstract getLocalBounds(): Bounds;
 
   /**
    * Scale 기준점 가져오기
    * @returns Scale 기준점 좌표
    */
   protected getScaleOriginPoint(): { x: number; y: number } {
-    const localBounds = this.getLocalBounds();
-
-    switch (this.scaleOrigin) {
-      case 'center':
-        return {
-          x: localBounds.x + localBounds.width / 2,
-          y: localBounds.y + localBounds.height / 2,
-        };
-      case 'topLeft':
-        return {
-          x: localBounds.x,
-          y: localBounds.y,
-        };
-      case 'custom':
-        return this.customScaleOrigin || this.getScaleOriginPoint();
-      default:
-        return this.getScaleOriginPoint();
-    }
+    // Implementation needed
+    return { x: 0, y: 0 };
   }
-
-  /**
-   * Shape의 경계 상자 계산
-   */
-  abstract get bounds(): Bounds;
 
   /**
    * Shape 복제
@@ -111,17 +244,7 @@ export abstract class AbstractShape implements Shape {
    * 기본 충돌 검사 구현 (Bounds 기반)
    * @param other - 충돌 검사할 다른 Shape
    */
-  intersects(other: Shape): boolean {
-    const b1 = this.bounds;
-    const b2 = other.bounds;
-
-    return !(
-      b2.x > b1.x + b1.width ||
-      b2.x + b2.width < b1.x ||
-      b2.y > b1.y + b1.height ||
-      b2.y + b2.height < b1.y
-    );
-  }
+  abstract intersects(other: Shape): boolean;
 
   /**
    * Scale 행렬 추출

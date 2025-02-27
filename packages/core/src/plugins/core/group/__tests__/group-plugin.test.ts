@@ -1,14 +1,14 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
-import { GroupPlugin } from '../';
-import { Group } from '../';
-import { VectorEngine, Plugin } from '../../../../core/types';
+import { DefaultGroupPlugin } from '../';
+import { Group, DefaultGroup } from '../';
+import { VectorEngine, Plugin, SceneNode } from '../../../../core/types';
 
 /**
  * Group Plugin 테스트
  */
 describe('GroupPlugin', () => {
   let engine: VectorEngine;
-  let groupPlugin: GroupPlugin;
+  let groupPlugin: DefaultGroupPlugin;
   let mockShapePlugin: Plugin;
 
   beforeEach(() => {
@@ -52,7 +52,7 @@ describe('GroupPlugin', () => {
     });
 
     // Create GroupPlugin instance
-    groupPlugin = new GroupPlugin();
+    groupPlugin = new DefaultGroupPlugin();
   });
 
   afterEach(() => {
@@ -69,7 +69,7 @@ describe('GroupPlugin', () => {
     groupPlugin.install(engine);
 
     // Verify engine is set
-    expect(groupPlugin.createGroup()).toBeInstanceOf(Group);
+    expect(groupPlugin.createGroup()).toBeInstanceOf(DefaultGroup);
 
     // Verify warning when installing twice
     const consoleSpy = vi.spyOn(console, 'warn');
@@ -81,82 +81,82 @@ describe('GroupPlugin', () => {
     groupPlugin.install(engine);
     const group = groupPlugin.createGroup();
 
-    expect(group).toBeInstanceOf(Group);
+    expect(group).toBeInstanceOf(DefaultGroup);
     expect(group.children).toHaveLength(0);
   });
 
   it('should create a group with children', () => {
     groupPlugin.install(engine);
 
-    // Create mock shapes
-    const mockShape1 = { id: 'shape1', type: 'rect' };
-    const mockShape2 = { id: 'shape2', type: 'circle' };
+    // Create mock nodes
+    const mockNode1 = { id: 'node1', type: 'rect' } as unknown as SceneNode;
+    const mockNode2 = { id: 'node2', type: 'circle' } as unknown as SceneNode;
 
-    const group = groupPlugin.createGroup([mockShape1 as any, mockShape2 as any]);
+    const group = groupPlugin.createGroup([mockNode1, mockNode2]);
 
-    expect(group).toBeInstanceOf(Group);
+    expect(group).toBeInstanceOf(DefaultGroup);
     expect(group.children).toHaveLength(2);
-    expect(group.children[0]).toBe(mockShape1);
-    expect(group.children[1]).toBe(mockShape2);
+    expect(group.children[0]).toBe(mockNode1);
+    expect(group.children[1]).toBe(mockNode2);
   });
 
-  it('should add and remove shapes from a group', () => {
+  it('should add and remove nodes from a group', () => {
     groupPlugin.install(engine);
     const group = groupPlugin.createGroup();
 
-    // Create mock shapes
-    const mockShape = { id: 'shape1', type: 'rect' };
+    // Create mock node
+    const mockNode = { id: 'node1', type: 'rect' } as unknown as SceneNode;
 
-    // Add shape
-    group.add(mockShape as any);
+    // Add node
+    group.add(mockNode);
     expect(group.children).toHaveLength(1);
-    expect(group.children[0]).toBe(mockShape);
+    expect(group.children[0]).toBe(mockNode);
 
-    // Remove shape
-    const removed = group.remove(mockShape as any);
+    // Remove node
+    const removed = group.remove(mockNode);
     expect(removed).toBe(true);
     expect(group.children).toHaveLength(0);
 
-    // Try to remove non-existent shape
-    const nonExistentShape = { id: 'shape2', type: 'circle' };
-    const removedNonExistent = group.remove(nonExistentShape as any);
+    // Try to remove non-existent node
+    const nonExistentNode = { id: 'node2', type: 'circle' } as unknown as SceneNode;
+    const removedNonExistent = group.remove(nonExistentNode);
     expect(removedNonExistent).toBe(false);
   });
 
-  it('should find a shape by id', () => {
+  it('should find a node by id', () => {
     groupPlugin.install(engine);
 
-    // Create mock shapes
-    const mockShape1 = { id: 'shape1', type: 'rect' };
-    const mockShape2 = { id: 'shape2', type: 'circle' };
+    // Create mock nodes
+    const mockNode1 = { id: 'node1', type: 'rect' } as unknown as SceneNode;
+    const mockNode2 = { id: 'node2', type: 'circle' } as unknown as SceneNode;
 
-    const group = groupPlugin.createGroup([mockShape1 as any, mockShape2 as any]);
+    const group = groupPlugin.createGroup([mockNode1, mockNode2]);
 
-    // Find existing shape
-    const found = group.findById('shape2');
-    expect(found).toBe(mockShape2);
+    // Find existing node
+    const found = group.findById('node2');
+    expect(found).toBe(mockNode2);
 
-    // Try to find non-existent shape
-    const notFound = group.findById('shape3');
+    // Try to find non-existent node
+    const notFound = group.findById('node3');
     expect(notFound).toBeNull();
   });
 
-  it('should apply transformations to all shapes in the group', () => {
+  it('should apply transformations to all nodes in the group', () => {
     groupPlugin.install(engine);
 
-    // Create mock shapes with applyTransform method
-    const mockShape1 = {
-      id: 'shape1',
+    // Create mock nodes with applyTransform method
+    const mockNode1 = {
+      id: 'node1',
       type: 'rect',
-      applyTransform: vi.fn().mockReturnValue({ id: 'shape1-transformed', type: 'rect' }),
-    };
-    const mockShape2 = {
-      id: 'shape2',
+      applyTransform: vi.fn().mockReturnValue({ id: 'node1-transformed', type: 'rect' }),
+    } as unknown as SceneNode & { applyTransform: (...args: any[]) => any };
+    const mockNode2 = {
+      id: 'node2',
       type: 'circle',
-      applyTransform: vi.fn().mockReturnValue({ id: 'shape2-transformed', type: 'circle' }),
-    };
+      applyTransform: vi.fn().mockReturnValue({ id: 'node2-transformed', type: 'circle' }),
+    } as unknown as SceneNode & { applyTransform: (...args: any[]) => any };
 
-    const group = groupPlugin.createGroup([mockShape1 as any, mockShape2 as any]);
+    const group = groupPlugin.createGroup([mockNode1, mockNode2]);
 
     // Mock transform matrix
     const mockMatrix = { type: 'matrix', matrix: [2, 0, 0, 0, 2, 0, 0, 0, 1] };
@@ -164,12 +164,12 @@ describe('GroupPlugin', () => {
     // Apply transform
     const transformedGroup = group.applyTransform(mockMatrix as any);
 
-    // Verify transform was applied to all shapes
-    expect(mockShape1.applyTransform).toHaveBeenCalledWith(mockMatrix);
-    expect(mockShape2.applyTransform).toHaveBeenCalledWith(mockMatrix);
+    // Verify transform was applied to all nodes
+    expect(mockNode1.applyTransform).toHaveBeenCalledWith(mockMatrix);
+    expect(mockNode2.applyTransform).toHaveBeenCalledWith(mockMatrix);
 
-    // Verify transformed group has transformed shapes
-    expect(transformedGroup).toBeInstanceOf(Group);
+    // Verify transformed group has transformed nodes
+    expect(transformedGroup).toBeInstanceOf(DefaultGroup);
     expect((transformedGroup as Group).children).toHaveLength(2);
   });
 

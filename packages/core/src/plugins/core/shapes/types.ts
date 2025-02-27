@@ -9,6 +9,7 @@ import { Vector2D } from '../math/vector';
 import { Matrix3x3 } from '../math/matrix';
 import { ScaleOrigin } from './abstract-shape';
 import { PathPoint } from './path/types';
+import { SceneNode } from '../../../core/types';
 
 /**
  * Shape의 경계 상자를 나타내는 interface
@@ -59,7 +60,7 @@ export interface ShapeStyle {
  *
  * 모든 도형 타입의 기본이 되는 인터페이스입니다.
  */
-export interface Shape {
+export interface Shape extends SceneNode {
   /** Shape의 고유 ID */
   readonly id: string;
   /** Shape의 타입 */
@@ -74,16 +75,6 @@ export interface Shape {
   readonly points?: PathPoint[];
   /** Path가 닫혀있는지 여부 (Path shape에서만 사용) */
   readonly isClosed?: boolean;
-  /** Text의 내용 (Text shape에서만 사용) */
-  readonly text?: string;
-  /** Text의 폰트 (Text shape에서만 사용) */
-  readonly font?: string;
-  /** Text의 크기 (Text shape에서만 사용) */
-  readonly fontSize?: number;
-  /** Text의 정렬 (Text shape에서만 사용) */
-  readonly textAlign?: 'left' | 'center' | 'right';
-  /** Text의 기준선 (Text shape에서만 사용) */
-  readonly textBaseline?: 'top' | 'middle' | 'bottom';
 
   /**
    * Shape 복제

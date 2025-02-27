@@ -170,7 +170,8 @@ core/
 │   │   └── types/      # 타입 정의
 │   ├── plugins/        # 기본 제공 플러그인
 │   │   ├── core/       # 코어 플러그인
-│   │   └── renderers/  # 렌더러 플러그인
+│   │   ├── renderers/  # 렌더러 플러그인
+│   │   └── tools/      # 도구 플러그인
 │   ├── performance/    # 성능 최적화 관련 코드
 │   └── index.ts        # 진입점
 ├── tests/              # 테스트 코드
@@ -181,6 +182,66 @@ core/
 ## API 문서
 
 자세한 API 문서는 [Modern Vector.js 문서 사이트](https://github.com/username/modern-vector.js)에서 확인할 수 있습니다.
+
+## 플러그인 예제
+
+### SVG Import Tool Plugin
+
+SVG 파일을 가져와서 벡터 그래픽 엔진에서 사용할 수 있는 형태로 변환하는 플러그인입니다.
+
+```typescript
+import { VectorEngine } from '@modern-vector/core';
+import { SVGImportToolPlugin } from '@modern-vector/core/plugins/tools/svg-import';
+import { ShapePlugin } from '@modern-vector/core/plugins/core/shapes';
+
+// 엔진 초기화
+const engine = new VectorEngine();
+
+// 필수 플러그인 등록 (SVG import는 shape 플러그인에 의존함)
+engine.use(new ShapePlugin());
+
+// SVG import 플러그인 등록
+engine.use(new SVGImportToolPlugin());
+
+// SVG 문자열에서 가져오기
+const svgString = '<svg width="100" height="100"><rect x="10" y="10" width="80" height="80" fill="blue" /></svg>';
+engine.svgImport.importFromString(svgString)
+  .then(rootGroup => {
+    console.log('SVG imported successfully:', rootGroup);
+  })
+  .catch(error => {
+    console.error('Error importing SVG:', error);
+  });
+
+// URL에서 가져오기
+engine.svgImport.importFromURL('path/to/image.svg')
+  .then(rootGroup => {
+    console.log('SVG imported successfully from URL:', rootGroup);
+  });
+
+// 파일에서 가져오기 (브라우저 환경)
+document.getElementById('file-input').addEventListener('change', (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    engine.svgImport.importFromFile(file)
+      .then(rootGroup => {
+        console.log('SVG imported successfully from file:', rootGroup);
+      });
+  }
+});
+
+// 가져오기 옵션 지정
+const options = {
+  preserveViewBox: true,
+  flattenGroups: false,
+  scale: 2
+};
+
+engine.svgImport.importFromString(svgString, options)
+  .then(rootGroup => {
+    console.log('SVG imported with custom options:', rootGroup);
+  });
+```
 
 ## 라이센스
 

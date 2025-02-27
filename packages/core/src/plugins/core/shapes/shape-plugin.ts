@@ -26,10 +26,12 @@ export class ShapePlugin implements Plugin, IShapePlugin {
     this.registerShape('text', new TextFactory());
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   install(engine: VectorEngine): void {
     // Plugin initialization
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   uninstall(engine: VectorEngine): void {
     // Cleanup
     this.factories.clear();

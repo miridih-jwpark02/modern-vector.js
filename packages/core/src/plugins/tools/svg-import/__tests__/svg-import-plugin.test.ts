@@ -169,7 +169,7 @@ describe('SVGImportToolPlugin', () => {
     // 기본 속성 검증
     expect(plugin.id).toBe('svg-import-tool');
     expect(plugin.version).toBe('1.0.0');
-    expect(plugin.dependencies).toContain('shape-plugin');
+    expect(plugin.dependencies).toContain('shape');
   });
 
   /**

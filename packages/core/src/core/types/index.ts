@@ -5,6 +5,9 @@
  * @module Core
  */
 
+// 플러그인 확장 타입 export
+export * from './extensions';
+
 /**
  * Plugin interface for the vector graphics engine
  *
@@ -36,6 +39,16 @@ export interface Plugin {
    */
   uninstall(engine: VectorEngine): void;
 }
+
+/**
+ * 플러그인 인스턴스와 함께 사용할 수 있는 타입
+ */
+export type PluginWithManipulators<T> = T & {
+  /**
+   * 플러그인 인스턴스
+   */
+  plugin: T;
+};
 
 /**
  * Core engine interface that manages plugins and essential services
@@ -77,6 +90,17 @@ export interface VectorEngine {
   readonly events: EventService;
   /** Scene service */
   readonly scene: SceneService;
+
+  /**
+   * 예제 기능 실행
+   *
+   * ExamplePlugin이 설치되면 사용 가능한 메서드입니다.
+   * 런타임에 동적으로 추가됩니다.
+   *
+   * @param options - 예제 옵션
+   * @throws Error - ExamplePlugin이 설치되지 않은 경우
+   */
+  executeExample(...args: any[]): any;
 }
 
 /**

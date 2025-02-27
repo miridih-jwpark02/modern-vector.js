@@ -66,4 +66,26 @@ export class VectorEngineImpl implements VectorEngine {
   getPlugin<T extends Plugin>(id: string): T | null {
     return (this.plugins.get(id) as T) || null;
   }
+
+  /**
+   * 그룹 생성 메서드 - GroupPlugin에 의해 런타임에 구현됨
+   * @param children - 초기 자식 노드 목록
+   * @param options - 그룹 생성 옵션
+   * @throws Error if GroupPlugin is not installed
+   */
+  createGroup(..._args: any[]): any {
+    throw new Error('GroupPlugin is not installed');
+  }
+
+  /**
+   * 예제 실행 메서드 - ExamplePlugin에 의해 런타임에 구현됨
+   * @param {any[]} _args - 예제 옵션 및 매개변수
+   * @returns {any} 예제 실행 결과
+   * @throws {Error} ExamplePlugin이 설치되지 않은 경우
+   */
+  executeExample(..._args: any[]): any {
+    throw new Error(
+      'executeExample() 메서드를 사용하려면 먼저 ExamplePlugin을 설치해야 합니다. engine.use(new ExamplePlugin())을 호출하세요.'
+    );
+  }
 }
