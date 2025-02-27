@@ -64,6 +64,7 @@ Modern Vector.js의 플러그인은 다음과 같은 카테고리로 나뉩니�
 - **MathPlugin**: 벡터, 행렬, 기하학 연산 제공
 - **ShapePlugin**: 기본 도형 생성 및 관리
 - **TransformPlugin**: 변환(이동, 회전, 크기 조절 등) 기능 제공
+- **GroupPlugin**: 여러 요소를 그룹화하여 하나의 단위로 관리
 
 ### 2. Renderer Plugins
 
