@@ -12,6 +12,24 @@ import { Scene } from '../../../core/types';
 import { Shape } from '../../core/shapes/types';
 
 /**
+ * Text 도형의 속성들을 정의한 인터페이스
+ */
+interface TextShape extends Shape {
+  text: string;
+  font?: string;
+  fontSize?: number;
+  textAlign?: CanvasTextAlign;
+  textBaseline?: CanvasTextBaseline;
+}
+
+/**
+ * Shape가 TextShape인지 확인하는 타입 가드 함수
+ */
+function isTextShape(shape: Shape): shape is TextShape {
+  return shape.type === 'text' && 'text' in shape;
+}
+
+/**
  * Canvas renderer implementation
  *
  * HTML Canvas API를 사용하여 벡터 그래픽을 렌더링합니다.
@@ -334,24 +352,27 @@ export class CanvasRenderer implements Renderer {
    * @param shape - 렌더링할 Text
    */
   private renderText(shape: Shape): void {
-    if (!shape.text) return;
+    // TextShape인지 확인
+    if (!isTextShape(shape)) return;
 
-    if (shape.font && shape.fontSize) {
-      this.context.font = `${shape.fontSize}px ${shape.font}`;
+    const textShape = shape;
+
+    if (textShape.font && textShape.fontSize) {
+      this.context.font = `${textShape.fontSize}px ${textShape.font}`;
     }
-    if (shape.textAlign) {
-      this.context.textAlign = shape.textAlign;
+    if (textShape.textAlign) {
+      this.context.textAlign = textShape.textAlign;
     }
-    if (shape.textBaseline) {
-      this.context.textBaseline = shape.textBaseline;
+    if (textShape.textBaseline) {
+      this.context.textBaseline = textShape.textBaseline;
     }
 
     const bounds = shape.bounds;
     if (shape.style.fillColor) {
-      this.context.fillText(shape.text, bounds.x, bounds.y);
+      this.context.fillText(textShape.text, bounds.x, bounds.y);
     }
     if (shape.style.strokeColor) {
-      this.context.strokeText(shape.text, bounds.x, bounds.y);
+      this.context.strokeText(textShape.text, bounds.x, bounds.y);
     }
   }
 

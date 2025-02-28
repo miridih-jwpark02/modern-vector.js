@@ -12,6 +12,24 @@ import { Scene } from '../../../core/types';
 import { Shape } from '../../core/shapes/types';
 
 /**
+ * Text 도형의 속성들을 정의한 인터페이스
+ */
+interface TextShape extends Shape {
+  text: string;
+  font?: string;
+  fontSize?: number;
+  textAlign?: CanvasTextAlign;
+  textBaseline?: CanvasTextBaseline;
+}
+
+/**
+ * Shape가 TextShape인지 확인하는 타입 가드 함수
+ */
+function isTextShape(shape: Shape): shape is TextShape {
+  return shape.type === 'text' && 'text' in shape;
+}
+
+/**
  * SVG renderer implementation
  *
  * SVG API를 사용하여 벡터 그래픽을 렌더링합니다.
@@ -307,26 +325,29 @@ export class SVGRenderer implements Renderer {
     text.setAttribute('x', bounds.x.toString());
     text.setAttribute('y', bounds.y.toString());
 
-    if (shape.font && shape.fontSize) {
-      text.setAttribute('font-family', shape.font);
-      text.setAttribute('font-size', shape.fontSize.toString());
+    // TextShape인지 확인
+    if (!isTextShape(shape)) return text;
+
+    const textShape = shape;
+
+    if (textShape.font && textShape.fontSize) {
+      text.setAttribute('font-family', textShape.font);
+      text.setAttribute('font-size', textShape.fontSize.toString());
     }
-    if (shape.textAlign) {
+    if (textShape.textAlign) {
       let textAnchor = 'start';
-      if (shape.textAlign === 'center') textAnchor = 'middle';
-      if (shape.textAlign === 'right') textAnchor = 'end';
+      if (textShape.textAlign === 'center') textAnchor = 'middle';
+      if (textShape.textAlign === 'right') textAnchor = 'end';
       text.setAttribute('text-anchor', textAnchor);
     }
-    if (shape.textBaseline) {
+    if (textShape.textBaseline) {
       let dominantBaseline = 'auto';
-      if (shape.textBaseline === 'middle') dominantBaseline = 'central';
-      if (shape.textBaseline === 'bottom') dominantBaseline = 'hanging';
+      if (textShape.textBaseline === 'middle') dominantBaseline = 'central';
+      if (textShape.textBaseline === 'bottom') dominantBaseline = 'hanging';
       text.setAttribute('dominant-baseline', dominantBaseline);
     }
 
-    if (shape.text) {
-      text.textContent = shape.text;
-    }
+    text.textContent = textShape.text;
 
     return text;
   }

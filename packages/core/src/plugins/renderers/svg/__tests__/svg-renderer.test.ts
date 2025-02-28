@@ -4,6 +4,17 @@ import { Scene, SceneNode } from '../../../../core/types';
 import { Shape } from '../../../core/shapes/types';
 import { Matrix3x3 } from '../../../core/math/matrix';
 
+/**
+ * Text 도형의 속성들을 정의한 인터페이스
+ */
+interface TextShape extends Shape {
+  text: string;
+  font?: string;
+  fontSize?: number;
+  textAlign?: CanvasTextAlign;
+  textBaseline?: CanvasTextBaseline;
+}
+
 describe('SVGRenderer', () => {
   let renderer: SVGRenderer;
   let svg: SVGSVGElement;
@@ -72,6 +83,18 @@ describe('SVGRenderer', () => {
         strokeColor: '#000000', // black
         strokeWidth: 1,
       },
+      // SceneNode 필수 속성
+      parent: null,
+      data: {},
+      children: [],
+      addChild: () => ({}) as SceneNode,
+      removeChild: () => false,
+      clearChildren: () => {},
+      findChildById: () => null,
+      on: () => {},
+      off: () => {},
+      emit: () => {},
+      // Shape 메서드
       clone: () => createMockShape(),
       applyTransform: () => createMockShape(),
       containsPoint: () => false,
@@ -161,16 +184,20 @@ describe('SVGRenderer', () => {
     });
 
     it('should render text', () => {
-      mockScene = createMockScene([
-        createMockShape({
-          type: 'text',
-          text: 'Hello',
-          font: 'Arial',
-          fontSize: 16,
-          textAlign: 'center',
-          textBaseline: 'middle',
-        }),
-      ]);
+      // TextShape 타입으로 생성
+      const textShapeProps = {
+        type: 'text',
+      };
+
+      const textShape = createMockShape(textShapeProps) as unknown as TextShape;
+      // 텍스트 속성 추가
+      textShape.text = 'Hello';
+      textShape.font = 'Arial';
+      textShape.fontSize = 16;
+      textShape.textAlign = 'center';
+      textShape.textBaseline = 'middle';
+
+      mockScene = createMockScene([textShape]);
       renderer.render(mockScene);
       const text = svg.querySelector('text');
       expect(text).toBeDefined();

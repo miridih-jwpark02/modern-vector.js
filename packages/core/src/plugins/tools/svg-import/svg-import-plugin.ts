@@ -463,7 +463,7 @@ export class SVGImportToolPlugin implements Plugin, SVGImportToolPluginInterface
       this.processChildElements(element, parentNode, options);
     } else {
       // GroupPlugin 활용
-      const groupPlugin = this.engine?.getPlugin<GroupPlugin>('group');
+      const groupPlugin = this.engine?.getPlugin<Plugin>('group') as GroupPlugin | null;
       if (groupPlugin) {
         const group = groupPlugin.createGroup();
 
