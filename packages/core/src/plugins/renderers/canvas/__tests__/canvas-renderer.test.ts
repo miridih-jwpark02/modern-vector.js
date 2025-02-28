@@ -4,6 +4,28 @@ import { CanvasRenderer } from '../canvas-renderer';
 import { Scene, SceneNode } from '../../../../core/types';
 import { Shape } from '../../../core/shapes/types';
 import { Matrix3x3 } from '../../../core/math/matrix';
+import { PathPoint } from '../../../core/shapes/path/types';
+
+// Text 관련 인터페이스 정의
+interface TextShape extends Shape {
+  text: string;
+  font: string;
+  fontSize: number;
+  textAlign: CanvasTextAlign;
+  textBaseline: CanvasTextBaseline;
+}
+
+// Mock document object for non-browser environments
+if (typeof document === 'undefined') {
+  // HTMLCanvasElement의 최소 필수 구현
+  const mockDocument = {
+    createElement: (): HTMLCanvasElement => {
+      return createCanvas(100, 100) as unknown as HTMLCanvasElement;
+    },
+  };
+
+  global.document = mockDocument as unknown as Document;
+}
 
 describe('CanvasRenderer', () => {
   let renderer: CanvasRenderer;
@@ -126,31 +148,51 @@ describe('CanvasRenderer', () => {
         strokeColor: '#000000', // black
         strokeWidth: 1,
       },
-      clone: () => createMockShape(),
-      applyTransform: () => createMockShape(),
-      containsPoint: () => false,
-      intersects: () => false,
-      setScaleOrigin: () => {},
-      toPath: () => [],
+      parent: null,
+      data: {},
+      children: [],
+      addChild: (): SceneNode => ({}) as SceneNode,
+      removeChild: (): boolean => false,
+      clearChildren: (): void => {},
+      findChildById: (): SceneNode | null => null,
+      on: (): void => {},
+      off: (): void => {},
+      emit: (): void => {},
+      clone: (): Shape => createMockShape(),
+      applyTransform: (): Shape => createMockShape(),
+      containsPoint: (): boolean => false,
+      intersects: (): boolean => false,
+      setScaleOrigin: (): void => {},
+      toPath: (): PathPoint[] => [],
       ...overrides,
     });
 
     const createMockScene = (shapes: Shape[]): Scene => {
-      const mockRoot = {
-        children: shapes.map(shape => ({
-          ...shape,
-          nodeType: 1, // ELEMENT_NODE
-          nodeName: 'DIV',
-          data: shape,
-        })),
-      } as unknown as SceneNode;
-      return {
-        root: mockRoot,
-        renderer: {} as any,
-        plugins: new Map(),
+      const mockChildren = shapes.map(shape => ({
+        data: shape,
+      }));
+
+      const mockRoot: SceneNode = {
+        id: 'root',
+        children: mockChildren as unknown as SceneNode[],
+        parent: null,
+        data: {},
+        addChild: () => mockRoot,
+        removeChild: () => false,
+        clearChildren: () => {},
+        findChildById: () => null,
         on: () => {},
         off: () => {},
         emit: () => {},
+      };
+
+      return {
+        root: mockRoot,
+        renderer: {} as CanvasRenderer,
+        plugins: new Map(),
+        on: (): void => {},
+        off: (): void => {},
+        emit: (): void => {},
       };
     };
 
@@ -224,16 +266,17 @@ describe('CanvasRenderer', () => {
     });
 
     it('should render text', () => {
-      mockScene = createMockScene([
-        createMockShape({
-          type: 'text',
-          text: 'Hello',
-          font: 'Arial',
-          fontSize: 16,
-          textAlign: 'center',
-          textBaseline: 'middle',
-        }),
-      ]);
+      // TextShape 인터페이스를 사용해 명시적 타입 지정
+      const textShape: TextShape = {
+        ...createMockShape({ type: 'text' }),
+        text: 'Hello',
+        font: 'Arial',
+        fontSize: 16,
+        textAlign: 'center',
+        textBaseline: 'middle',
+      };
+
+      mockScene = createMockScene([textShape]);
       renderer.render(mockScene);
       expect(context.font).toBe('10px sans-serif'); // Mock value
       expect(context.textAlign).toBe('left'); // Mock value

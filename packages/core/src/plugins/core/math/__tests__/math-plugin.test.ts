@@ -1,18 +1,18 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { MathPlugin } from '..';
-import { VectorEngine } from '../../../../core/types';
+import { VectorEngine, Plugin } from '../../../../core/types';
 import { Vector2D } from '../vector';
 
 describe('MathPlugin', () => {
   let plugin: MathPlugin;
-  let mockEngine: VectorEngine;
+  let mockEngine: Partial<VectorEngine>;
 
   beforeEach(() => {
     plugin = new MathPlugin();
     mockEngine = {
       use: vi.fn(),
       remove: vi.fn(),
-      getPlugin: vi.fn(),
+      getPlugin: vi.fn() as unknown as <T extends Plugin>(id: string) => T | null,
       renderer: {} as any,
       events: {} as any,
       scene: {} as any,
@@ -40,11 +40,11 @@ describe('MathPlugin', () => {
 
   describe('plugin lifecycle', () => {
     it('should install without errors', () => {
-      expect(() => plugin.install(mockEngine)).not.toThrow();
+      expect(() => plugin.install(mockEngine as VectorEngine)).not.toThrow();
     });
 
     it('should uninstall without errors', () => {
-      expect(() => plugin.uninstall(mockEngine)).not.toThrow();
+      expect(() => plugin.uninstall(mockEngine as VectorEngine)).not.toThrow();
     });
   });
 
