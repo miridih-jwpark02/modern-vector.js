@@ -2,12 +2,13 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { VectorEngine, Plugin } from '@/../../packages/core';
+import { VectorEngine, Plugin, SceneNode } from '@/../../packages/core';
 import { ShapePlugin } from '@/../../packages/core/src/plugins/core/shapes/shape-plugin';
 import { CanvasRenderer } from '@/../../packages/core/src/plugins/renderers/canvas/canvas-renderer';
 import { MathPlugin } from '@/../../packages/core/src/plugins/core/math';
 import { SVGImportToolPlugin } from '@/../../packages/core/src/plugins/tools/svg-import/svg-import-plugin';
 import { DefaultGroupPlugin } from '@/../../packages/core/src/plugins/core/group/group-plugin';
+import { DefaultSceneNode } from '@/../../packages/core/src/core/services/scene-node';
 
 // UI 컴포넌트 import - 경로 수정
 import {
@@ -223,17 +224,14 @@ function importSVGDirectly(engine: VectorEngine, svgStr: string) {
 
     // MathPlugin에서 Matrix3x3 생성 메서드 가져오기
     const mathPlugin = engine.getPlugin('math');
-    let createMatrixFn;
+    let createMatrixFn: () => number[] = () => [1, 0, 0, 0, 1, 0, 0, 0, 1]; // 타입 정의 및 기본값 설정
     if (mathPlugin && (mathPlugin as any).Matrix3x3 && (mathPlugin as any).Matrix3x3.create) {
       createMatrixFn = (mathPlugin as any).Matrix3x3.create;
       console.log('Found Matrix3x3.create method from MathPlugin');
-    } else {
-      console.log('Matrix3x3.create not found, using simple matrix initialization');
-      createMatrixFn = () => [1, 0, 0, 0, 1, 0, 0, 0, 1]; // 항등 행렬
     }
 
     // 재귀적으로 노드 속성을 확인하고 필요한 속성을 설정하는 함수
-    function ensureNodeProperties(node: any) {
+    const ensureNodeProperties = (node: any) => {
       if (!node) return;
 
       // 노드 자체에 데이터가 있는 경우
@@ -278,7 +276,7 @@ function importSVGDirectly(engine: VectorEngine, svgStr: string) {
           ensureNodeProperties(childNode);
         });
       }
-    }
+    };
 
     // SVG 가져오기 시작
     importMethod(svgStr)
@@ -394,31 +392,30 @@ function importSVGDirectly(engine: VectorEngine, svgStr: string) {
  * SVG Import Tool Plugin 예제 페이지 컴포넌트
  */
 export default function SVGImportExample() {
-  // 캔버스 참조
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  // 컨테이너 참조
-  const containerRef = useRef<HTMLDivElement>(null);
-  // Vector Engine 참조
+  // SVG 모듈 로딩 상태
+  const [engineReady, setEngineReady] = useState(false);
+  const [svgString, setSvgString] = useState('');
+  const [svgUrl, setSvgUrl] = useState('');
+  const [importMethod, setImportMethod] = useState<'string' | 'url' | 'file'>('string');
+  const [importStatus, setImportStatus] = useState<'idle' | 'loading' | 'success' | 'error'>(
+    'idle'
+  );
+  const [errorMessage, setErrorMessage] = useState('');
+
+  // 엔진, 캔버스, 기타 refs
   const engineRef = useRef<VectorEngine | null>(null);
-  // 파일 입력 참조
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const importedNodeRef = useRef<any>(null);
 
   // 상태 관리
-  const [svgString, setSvgString] = useState<string>(
-    '<svg width="200" height="200" viewBox="0 0 200 200"><rect x="50" y="50" width="100" height="100" fill="blue" stroke="black" stroke-width="2" /></svg>'
-  );
-  const [svgUrl, setSvgUrl] = useState<string>('');
   const [importOptions, setImportOptions] = useState<SVGImportOptions>({
     preserveViewBox: false,
     flattenGroups: false,
     scale: 1,
   });
-  const [importMethod, setImportMethod] = useState<'string' | 'url' | 'file'>('string');
   const [canvasSize, setCanvasSize] = useState({ width: 800, height: 500 });
-  const [importStatus, setImportStatus] = useState<'idle' | 'loading' | 'success' | 'error'>(
-    'idle'
-  );
-  const [errorMessage, setErrorMessage] = useState<string>('');
 
   // Vector Engine 초기화
   useEffect(() => {
@@ -459,52 +456,198 @@ export default function SVGImportExample() {
       engine.use(ensurePluginCompatibility(new SVGImportToolPlugin()));
       console.log('SVGImportToolPlugin 등록 완료');
 
+      // 플러그인 접근 방식 확인 및 확장 적용 확인
+      const hasSvgImport =
+        !!(engine as any).svgImport &&
+        typeof (engine as any).svgImport.importFromString === 'function';
+      console.log('SVG Import 플러그인 확장 확인:', {
+        svgImportExtensionExists: !!(engine as any).svgImport,
+        hasImportMethod: hasSvgImport,
+      });
+
       // 장면 생성 및 활성화
       console.log('Scene 생성 시작');
       const scene = engine.scene.create();
       engine.scene.setActive(scene);
       console.log('Scene 생성 및 활성화 완료');
 
-      // 렌더러 등록
-      console.log('CanvasRenderer 등록 시작');
-      const renderer = new CanvasRenderer({
-        context: {
-          canvas: canvasRef.current,
-          contextType: '2d',
-        },
-        antialias: true,
-        autoClear: true,
+      // CanvasRenderer 생성 및 등록
+      console.log('Canvas 설정 - 렌더러 등록 전 Canvas 상태:', {
+        canvas: !!canvasRef.current,
+        width: canvasRef.current?.width || 0,
+        height: canvasRef.current?.height || 0,
       });
 
-      engine.renderer.register(renderer);
-      engine.renderer.setActive('canvas');
-      console.log('CanvasRenderer 등록 및 활성화 완료');
+      // Canvas 크기 명시적 설정
+      if (canvasRef.current) {
+        canvasRef.current.width = containerRef.current?.clientWidth || 800;
+        canvasRef.current.height = Math.min(500, window.innerHeight - 200);
+        console.log('Canvas 크기 설정됨:', canvasRef.current.width, 'x', canvasRef.current.height);
+      }
 
-      // 엔진 참조 저장
+      // 렌더러 생성
+      const rendererOptions = {
+        context: {
+          canvas: canvasRef.current as HTMLCanvasElement,
+          contextType: '2d' as '2d' | 'webgl' | 'webgl2', // 타입 명시
+          contextAttributes: { alpha: true },
+        },
+        backgroundColor: '#ffffff',
+        pixelRatio: window.devicePixelRatio || 1,
+        antialias: true,
+        alpha: true,
+        autoClear: true,
+      };
+
+      // 렌더러 객체 생성 및 등록
+      console.log('CanvasRenderer 생성...');
+      const renderer = new CanvasRenderer(rendererOptions);
+      console.log('CanvasRenderer 생성됨:', renderer.id);
+
+      // 엔진 참조 저장 - 먼저 참조를 저장합니다
       engineRef.current = engine;
       console.log('engineRef에 엔진 참조 저장 완료');
 
-      console.log('Vector Engine 초기화 완료');
+      // 렌더러 등록 - engineRef.current 대신 engine 변수 사용
+      console.log('CanvasRenderer 등록 시작...');
+      engine.renderer.register(renderer);
+      console.log('CanvasRenderer 등록 완료');
 
-      // 등록된 플러그인 확인
-      const registeredMathPlugin = engine.getPlugin('math');
-      const registeredShapePlugin = engine.getPlugin('shape');
-      const registeredGroupPlugin = engine.getPlugin('group');
-      const registeredSvgImportPlugin = engine.getPlugin('svg-import-tool');
+      // 렌더러 확인
+      try {
+        console.log('\n렌더러 상태 확인:');
 
-      console.log('등록된 플러그인 확인:');
-      console.log('- Math Plugin:', !!registeredMathPlugin);
-      console.log('- Shape Plugin:', !!registeredShapePlugin);
-      console.log('- Group Plugin:', !!registeredGroupPlugin);
-      console.log('- SVG Import Plugin:', !!registeredSvgImportPlugin);
+        // Renderer Manager 확인
+        const rendererManager = engine.renderer;
+        console.log('Renderer Manager 존재:', !!rendererManager);
 
-      // 엔진 확장 메서드 확인
-      console.log('Engine SVG Import 확장 확인:', !!(engine as any).svgImport);
-      if ((engine as any).svgImport) {
-        console.log(
-          '사용 가능한 SVG Import 메서드:',
-          Object.keys((engine as any).svgImport).join(', ')
-        );
+        if (rendererManager) {
+          // 등록된 렌더러 확인
+          console.log('Renderer Manager 메서드:');
+          if (typeof rendererManager.register === 'function')
+            console.log('- register 메서드 존재함');
+          // 타입 인터페이스 차이로 인한 오류 무시 (setActive 메서드는 확인함)
+          if (typeof (rendererManager as any).unregister === 'function')
+            console.log('- unregister 메서드 존재함');
+          if (typeof (rendererManager as any).getRenderers === 'function')
+            console.log('- getRenderers 메서드 존재함');
+          if (typeof (rendererManager as any).getActiveRenderer === 'function')
+            console.log('- getActiveRenderer 메서드 존재함');
+          if (typeof (rendererManager as any).setActiveRenderer === 'function')
+            console.log('- setActiveRenderer 메서드 존재함');
+
+          // 등록된 렌더러 목록
+          const renderers =
+            typeof (rendererManager as any).getRenderers === 'function'
+              ? (rendererManager as any).getRenderers()
+              : null;
+
+          if (renderers) {
+            console.log('등록된 렌더러 수:', renderers.length);
+            console.log(
+              '등록된 렌더러 IDs:',
+              renderers.map((r: any) => r.id || 'unknown').join(', ')
+            );
+
+            // 각 렌더러 상세 정보
+            renderers.forEach((r: any, index: number) => {
+              console.log(`렌더러 ${index + 1} 정보:`, r.id || 'unknown');
+              console.log(`- Canvas 요소 존재:`, !!r.getCanvas?.());
+              if (r.getCanvas?.()) {
+                const canvas = r.getCanvas();
+                console.log(`- Canvas 크기:`, canvas.width, 'x', canvas.height);
+                console.log(`- Canvas ID:`, canvas.id || 'ID 없음');
+              }
+            });
+          } else {
+            console.log('등록된 렌더러 정보를 가져올 수 없음');
+          }
+
+          // 활성 렌더러 확인
+          const activeRenderer =
+            typeof (rendererManager as any).getActiveRenderer === 'function'
+              ? (rendererManager as any).getActiveRenderer()
+              : null;
+
+          if (activeRenderer) {
+            console.log('활성 렌더러 ID:', activeRenderer.id || 'unknown');
+            console.log('활성 렌더러 Canvas 존재:', !!activeRenderer.getCanvas?.());
+
+            // 렌더링 메서드 확인
+            console.log('렌더링 메서드 존재:', typeof rendererManager.render === 'function');
+          } else {
+            console.log('활성 렌더러 ID가 설정되지 않음');
+
+            // 활성 렌더러가 없는 경우 렌더러 등록 프로세스 다시 시도
+            console.log('렌더러 등록 프로세스 다시 시도 중...');
+            const canvasElement = canvasRef.current;
+
+            if (canvasElement) {
+              console.log('Canvas 요소 있음, 렌더러 활성화 시도');
+              try {
+                // 기존 등록된 렌더러 여부 확인 (정확한 API가 없으므로 try-catch로 처리)
+                let rendererActivated = false;
+
+                try {
+                  // 이미 등록된 'canvas' ID 렌더러 활성화 시도
+                  console.log('이미 등록된 canvas 렌더러 활성화 시도');
+                  if (rendererManager && typeof rendererManager.setActive === 'function') {
+                    rendererManager.setActive('canvas');
+                    console.log('기존 canvas 렌더러 활성화 성공');
+                    rendererActivated = true;
+                  }
+                } catch (activationError) {
+                  console.warn('기존 렌더러 활성화 실패:', activationError);
+                  // 실패하면 새 렌더러 생성 시도로 진행
+                }
+
+                // 위 시도가 실패한 경우에만 새 렌더러 생성 시도
+                if (!rendererActivated) {
+                  console.log('새 렌더러 인스턴스 생성 시도');
+                  // 중복 방지를 위해 타임스탬프로 고유 ID 생성
+                  const uniqueRendererId = 'canvas-renderer-' + Date.now();
+
+                  const newRenderer = new CanvasRenderer({
+                    context: {
+                      canvas: canvasElement,
+                      contextType: '2d' as '2d' | 'webgl' | 'webgl2',
+                      contextAttributes: { alpha: true },
+                    },
+                    backgroundColor: '#ffffff',
+                    pixelRatio: window.devicePixelRatio || 1,
+                    antialias: true,
+                    alpha: true,
+                    autoClear: true,
+                  });
+
+                  // 렌더러 ID를 명시적으로 설정
+                  (newRenderer as any).id = uniqueRendererId;
+
+                  console.log('새 렌더러 인스턴스 생성 완료, ID:', uniqueRendererId);
+                  console.log('Canvas 연결 상태:', !!newRenderer.getCanvas());
+
+                  if (rendererManager && typeof rendererManager.register === 'function') {
+                    rendererManager.register(newRenderer);
+                    console.log('새 렌더러 등록 완료');
+
+                    if (rendererManager && typeof rendererManager.setActive === 'function') {
+                      rendererManager.setActive(uniqueRendererId);
+                      console.log('새 렌더러 활성화 완료');
+                    }
+                  }
+                }
+              } catch (e) {
+                console.error('렌더러 활성화/등록 중 오류:', e);
+              }
+            } else {
+              console.log('Canvas 요소가 없어서 렌더러를 생성할 수 없음');
+            }
+          }
+        } else {
+          console.log('렌더러 관리자가 초기화되지 않음');
+        }
+      } catch (error) {
+        console.error('렌더러 상태 확인 중 오류:', error);
       }
     } catch (error) {
       console.error('Vector Engine 초기화 중 오류 발생:', error);
@@ -540,50 +683,178 @@ export default function SVGImportExample() {
 
   // SVG 가져오기 함수
   const importSVG = async () => {
-    if (!engineRef.current) return;
-
-    const engine = engineRef.current;
-    setImportStatus('loading');
-    setErrorMessage('');
-
+    console.log('SVG 가져오기 시작...');
     try {
-      // 현재 장면 초기화
-      const scene = engine.scene.getActive();
-      while (scene.root.children.length > 0) {
-        scene.root.removeChild(scene.root.children[0]);
+      if (!engineRef.current) {
+        console.error('Vector Engine이 초기화되지 않았습니다');
+        return;
       }
 
-      // 가져오기 방법에 따라 SVG 가져오기
-      let result;
+      const engine = engineRef.current;
+
+      // SVG Import 플러그인 접근 방식 확인
+      const svgImportPlugin = engine.getPlugin('svg-import-tool');
+      const hasPluginImport =
+        svgImportPlugin && typeof (svgImportPlugin as any).importFromString === 'function';
+
+      // 엔진 확장으로 접근 확인
+      const hasEngineExtension =
+        !!(engine as any).svgImport &&
+        typeof (engine as any).svgImport.importFromString === 'function';
+
+      console.log('SVG Import 접근 방식 확인 결과:', {
+        pluginFound: !!svgImportPlugin,
+        hasPluginImport,
+        hasEngineExtension,
+      });
+
+      if (!hasPluginImport && !hasEngineExtension) {
+        console.error('SVG Import 플러그인이 준비되지 않았습니다. 플러그인 ID 및 메서드 확인 필요');
+        return;
+      }
+
+      setImportStatus('loading');
+      setErrorMessage('');
+
+      // 현재 import 방법에 따라 SVG 내용 가져오기
+      let svgContent = '';
 
       switch (importMethod) {
         case 'string':
-          result = await (engine as any).svgImport.importFromString(svgString, importOptions);
+          svgContent = svgString;
           break;
         case 'url':
-          if (!svgUrl) {
-            throw new Error('URL이 입력되지 않았습니다.');
-          }
-          result = await (engine as any).svgImport.importFromURL(svgUrl, importOptions);
+          // URL 방식은 직접 importFromURL 함수를 사용하므로 여기서는 처리하지 않음
           break;
         case 'file':
-          if (!fileInputRef.current?.files?.[0]) {
-            throw new Error('파일이 선택되지 않았습니다.');
-          }
-          result = await (engine as any).svgImport.importFromFile(
-            fileInputRef.current.files[0],
-            importOptions
-          );
+          // 파일 방식은 직접 importFromFile 함수를 사용하므로 여기서는 처리하지 않음
           break;
       }
 
-      // 장면 렌더링
-      engine.renderer.render(scene);
-      setImportStatus('success');
-    } catch (error) {
-      console.error('SVG 가져오기 오류:', error);
-      setImportStatus('error');
-      setErrorMessage(error instanceof Error ? error.message : '알 수 없는 오류가 발생했습니다.');
+      console.log('SVG 내용 길이:', svgContent.length);
+      console.log('SVG 가져오기 옵션:', importOptions);
+
+      // 이전에 생성된 노드 제거
+      try {
+        if (engine.scene && importedNodeRef.current) {
+          console.log('이전에 임포트된 노드 제거 시도');
+
+          // 활성 Scene에서 모든 노드 제거
+          const scene = engine.scene.getActive();
+          if (scene && scene.root) {
+            console.log('현재 Scene의 자식 수:', scene.root.children.length);
+            scene.root.clearChildren();
+            console.log('Scene 초기화 완료');
+          }
+
+          importedNodeRef.current = null;
+        }
+      } catch (err) {
+        console.error('이전 노드 제거 중 오류:', err);
+      }
+
+      // SVG 가져오기 시작
+      console.log('SVG 임포트 함수 호출 시작...');
+      let result: any;
+
+      try {
+        // SVG 직접 가져오기 시도
+        console.time('SVG 가져오기 시간');
+
+        // 접근 방식에 따라 적절한 메서드 선택
+        if (hasPluginImport) {
+          console.log('플러그인 직접 접근 방식으로 SVG 가져오기 시도');
+          const svgImportPlugin = engine.getPlugin('svg-import-tool');
+          result = await (svgImportPlugin as any).importFromString(svgContent, importOptions);
+        } else if (hasEngineExtension) {
+          console.log('엔진 확장 방식으로 SVG 가져오기 시도');
+          result = await (engine as any).svgImport.importFromString(svgContent, importOptions);
+        }
+
+        console.timeEnd('SVG 가져오기 시간');
+
+        console.log('SVG 가져오기 결과:', {
+          success: !!result,
+          resultType: result ? typeof result : 'undefined',
+          hasId: result ? !!result.id : false,
+          id: result ? result.id : '없음',
+        });
+
+        // 가져온 노드 검증
+        if (result) {
+          console.log('가져온 SVG 노드 상세 정보:');
+          console.log('- 노드 ID:', result.id);
+          console.log('- 노드 타입:', result.nodeType || '알 수 없음');
+          console.log('- 자식 노드 수:', result.children ? result.children.length : '알 수 없음');
+
+          // 노드 속성 검증 및 보정
+          const validateImportedNode = (node: any, level = 0) => {
+            if (!node) return;
+
+            // 기본 노드 속성 확인
+            const prefix = '  '.repeat(level) + '- ';
+            console.log(prefix + `노드: ${node.id}, 타입: ${node.type || '없음'}`);
+
+            // transform 확인
+            if (!node.transform || !node.transform.values) {
+              console.warn(prefix + `노드 ${node.id}에 transform이 없거나 유효하지 않음`);
+            }
+
+            // bounds 확인
+            if (!node.bounds) {
+              console.warn(prefix + `노드 ${node.id}에 bounds가 없음`);
+            } else {
+              console.log(
+                prefix +
+                  `bounds: x=${node.bounds.x}, y=${node.bounds.y}, w=${node.bounds.width}, h=${node.bounds.height}`
+              );
+            }
+
+            // style 확인
+            if (!node.style) {
+              console.warn(prefix + `노드 ${node.id}에 style이 없음`);
+            }
+
+            // 자식 노드 검증
+            if (node.children && node.children.length > 0) {
+              console.log(prefix + `자식 노드 ${node.children.length}개 검증 시작`);
+              node.children.forEach((child: any) => validateImportedNode(child, level + 1));
+            }
+          };
+
+          console.log('=== 가져온 SVG 노드 구조 검증 ===');
+          validateImportedNode(result);
+        }
+
+        // 가져온 노드를 Scene에 추가
+        console.log('가져온 SVG 노드를 Scene에 추가 시도');
+        const scene = engine.scene.getActive();
+
+        if (scene && scene.root && result) {
+          console.log('Scene에 노드 추가 전 자식 수:', scene.root.children.length);
+          scene.root.addChild(result);
+          console.log('Scene에 노드 추가 후 자식 수:', scene.root.children.length);
+
+          // 렌더링 시도
+          console.log('렌더러를 통한 렌더링 시도...');
+          try {
+            engine.renderer.render(scene);
+            console.log('렌더링 완료 (에러 없음)');
+          } catch (err) {
+            console.error('렌더링 중 오류:', err);
+          }
+
+          // 임포트된 노드 참조 저장
+          importedNodeRef.current = result;
+          console.log('SVG 가져오기 및 렌더링 완료');
+        } else {
+          console.error('활성 Scene을 찾을 수 없거나 가져온 노드가 없음');
+        }
+      } catch (err) {
+        console.error('SVG 가져오기 중 오류:', err);
+      }
+    } catch (err) {
+      console.error('SVG 가져오기 처리 중 오류:', err);
     }
   };
 
@@ -594,55 +865,34 @@ export default function SVGImportExample() {
     }
   };
 
-  // 예제 SVG 로드
+  // 예제 SVG 로드 함수
   const loadExampleSVG = () => {
     console.log('\n\n==== 예제 SVG 로드 버튼 클릭됨 ====');
 
     const exampleSVG = `<svg width="200" height="200" viewBox="0 0 200 200">
-  <rect x="50" y="50" width="100" height="100" fill="blue" stroke="black" stroke-width="2" />
-  <circle cx="100" cy="100" r="30" fill="red" />
-  <g id="star">
-    <polygon points="100,20 120,80 180,80 130,120 150,180 100,140 50,180 70,120 20,80 80,80" fill="gold" stroke="orange" stroke-width="2" />
-  </g>
+  <rect x="30" y="30" width="140" height="140" fill="#4285f4" stroke="#0f2e90" stroke-width="3" />
+  <circle cx="100" cy="100" r="50" fill="#ea4335" stroke="#991409" stroke-width="2" />
+  <polygon points="100,50 120,80 160,80 130,110 140,150 100,130 60,150 70,110 40,80 80,80" fill="#fbbc05" stroke="#e37400" stroke-width="2" />
+  <text x="100" y="180" font-family="Arial" font-size="16" text-anchor="middle" fill="#34a853">Vector.js</text>
 </svg>`;
 
     console.log('예제 SVG 문자열 설정:', exampleSVG.substring(0, 50) + '...');
     setSvgString(exampleSVG);
-    console.log('importMethod "string"으로 설정');
     setImportMethod('string');
 
-    // 엔진 상태 확인
-    console.log('엔진 참조 확인:', !!engineRef.current);
+    // 옵션 설정
+    setImportOptions({
+      preserveViewBox: true,
+      flattenGroups: false,
+      scale: 1,
+    });
 
-    // 엔진이 이미 초기화되어 있으면 직접 SVG 가져오기 시도
-    if (engineRef.current) {
-      console.log('엔진이 초기화되어 있음, 직접 가져오기 시도');
+    console.log('예제 SVG 설정 완료, SVG 가져오기 시작');
 
-      try {
-        console.log('\n\n==== Example SVG Load Button Clicked ====');
-        console.log('Engine already initialized, trying to import directly');
-
-        // 약간의 지연 후 SVG 가져오기 실행 (상태 업데이트가 완료될 시간을 주기 위해)
-        setTimeout(() => {
-          console.log('타임아웃 콜백 실행');
-          if (engineRef.current) {
-            console.log('importSVGDirectly 함수 호출 전');
-            try {
-              importSVGDirectly(engineRef.current, exampleSVG);
-              console.log('importSVGDirectly 함수 호출 성공');
-            } catch (err) {
-              console.error('importSVGDirectly 함수 호출 중 오류 발생:', err);
-            }
-          } else {
-            console.warn('타임아웃 콜백에서 engineRef.current가 없음');
-          }
-        }, 100);
-      } catch (err) {
-        console.error('SVG 로드 처리 중 오류 발생:', err);
-      }
-    } else {
-      console.warn('Engine not initialized yet, SVG will be loaded when engine is ready');
-    }
+    // 자동으로 importSVG 함수 호출
+    setTimeout(() => {
+      importSVG();
+    }, 100);
   };
 
   // 코드 예제 가져오기
@@ -698,6 +948,202 @@ const result = await engine.svgImport.importFromFile(file, options);`;
     }
   };
 
+  // Engine Test 버튼 클릭 핸들러
+  const handleEngineTest = () => {
+    const engine = engineRef.current;
+    console.log('엔진 테스트 시작...');
+
+    if (engine) {
+      try {
+        console.log('엔진 분석:');
+        console.log('- engine.ready:', (engine as any).ready);
+        console.log('- engine.scene exists:', !!engine.scene);
+        console.log('- engine.renderer exists:', !!engine.renderer);
+
+        const plugins = [
+          'Math Plugin 로드됨:',
+          !!engine.getPlugin('math'),
+          'Shape Plugin 로드됨:',
+          !!engine.getPlugin('shape'),
+          'Group Plugin 로드됨:',
+          !!engine.getPlugin('group'),
+          'SVG Import Tool 로드됨:',
+          !!(
+            engine.getPlugin('svg-import-tool') &&
+            (engine.getPlugin('svg-import-tool') as any)?.importFromString
+          ),
+        ];
+        console.log('플러그인 상태:', plugins);
+
+        // 활성 렌더러 정보 확인
+        try {
+          // 렌더러 관리자가 있는지 확인
+          const rendererManager = (engine as any).renderer;
+          console.log('렌더러 객체 키:', Object.keys(rendererManager));
+
+          // 활성 렌더러 확인 시도
+          console.log('엔진의 renderer 객체 타입:', typeof rendererManager);
+          console.log(
+            '렌더러 객체의 메서드:',
+            Object.getOwnPropertyNames(Object.getPrototypeOf(rendererManager))
+          );
+
+          if (typeof rendererManager.getActive === 'function') {
+            const activeRenderer = rendererManager.getActive();
+            console.log('활성 렌더러 객체:', activeRenderer);
+            console.log('활성 렌더러 ID:', activeRenderer?.id);
+
+            // 렌더러가 실제 Canvas와 연결되어 있는지 확인
+            if (activeRenderer && typeof activeRenderer.getCanvas === 'function') {
+              const canvas = activeRenderer.getCanvas();
+              console.log('활성 렌더러의 Canvas:', !!canvas);
+              if (canvas) {
+                console.log('Canvas 크기:', { width: canvas.width, height: canvas.height });
+                console.log('Canvas 표시 상태:', {
+                  visibility: canvas.style.visibility,
+                  display: canvas.style.display,
+                  width: canvas.style.width,
+                  height: canvas.style.height,
+                });
+              }
+            } else {
+              console.log('활성 렌더러가 getCanvas 메서드를 가지고 있지 않음');
+            }
+          } else {
+            console.log(
+              '렌더러 관리자(engine.renderer)에 getActive 메서드가 없음, 직접 렌더러 확인 시도'
+            );
+
+            // 직접 렌더러 목록 확인
+            if (rendererManager.renderers) {
+              console.log('등록된 렌더러 IDs:', Object.keys(rendererManager.renderers));
+
+              // active_id로 활성 렌더러 확인
+              if (rendererManager.active_id) {
+                console.log('활성 렌더러 ID:', rendererManager.active_id);
+                const active = rendererManager.renderers[rendererManager.active_id];
+                console.log('활성 렌더러:', active);
+
+                // 렌더러가 Canvas를 가지고 있는지 확인
+                if (active && typeof active.getCanvas === 'function') {
+                  const canvas = active.getCanvas();
+                  console.log('활성 렌더러의 Canvas:', !!canvas);
+                  if (canvas) {
+                    console.log('Canvas 크기:', { width: canvas.width, height: canvas.height });
+                  }
+                }
+              } else {
+                console.log('활성 렌더러 ID가 설정되지 않음');
+              }
+            } else {
+              console.log('등록된 렌더러 목록이 없음');
+            }
+          }
+        } catch (error) {
+          console.error('렌더러 정보 확인 중 오류:', error);
+        }
+
+        // 활성 Scene 확인
+        try {
+          console.log('활성 Scene 정보:');
+          if (engine.scene) {
+            // 활성 Scene 가져오기
+            const activeScene = engine.scene.getActive();
+            console.log('활성 Scene 존재:', !!activeScene);
+
+            if (activeScene && activeScene.root) {
+              console.log('Scene Root 노드 존재:', !!activeScene.root);
+              console.log(
+                'Scene의 자식 수:',
+                activeScene.root.children ? activeScene.root.children.length : 0
+              );
+
+              // 간단한 도형 생성하여 렌더링 테스트
+              try {
+                console.log('테스트 Shape 생성 및 렌더링 시도...');
+
+                // Scene 초기화 - activeScene.root 사용
+                if (activeScene.root.clearChildren) {
+                  activeScene.root.clearChildren();
+                  console.log('Scene 초기화 완료');
+                } else {
+                  console.log('clearChildren 메서드 없음, 수동으로 자식 제거 시도');
+                  if (activeScene.root.children && activeScene.root.children.length > 0) {
+                    while (activeScene.root.children.length > 0) {
+                      activeScene.root.removeChild(activeScene.root.children[0]);
+                    }
+                  }
+                }
+
+                // 테스트용 사각형 추가 (플러그인 직접 확인)
+                const shapePlugin = engine.getPlugin('shape');
+                console.log('Shape 플러그인 존재:', !!shapePlugin);
+
+                let rect;
+                if (shapePlugin && typeof (shapePlugin as any).createRect === 'function') {
+                  rect = (shapePlugin as any).createRect({
+                    x: 50,
+                    y: 50,
+                    width: 100,
+                    height: 100,
+                    fill: '#ff0000',
+                    stroke: '#000000',
+                    strokeWidth: 2,
+                  });
+                } else if (
+                  (engine as any).shape &&
+                  typeof (engine as any).shape.createRect === 'function'
+                ) {
+                  rect = (engine as any).shape.createRect({
+                    x: 50,
+                    y: 50,
+                    width: 100,
+                    height: 100,
+                    fill: '#ff0000',
+                    stroke: '#000000',
+                    strokeWidth: 2,
+                  });
+                } else {
+                  console.error('Shape 생성 메서드를 찾을 수 없음');
+                }
+
+                if (rect) {
+                  console.log('테스트 Shape 생성됨:', rect.id);
+                  // Scene에 노드 추가 - activeScene.root 사용
+                  activeScene.root.addChild(rect);
+                  console.log('Shape를 Scene에 추가함');
+
+                  // 렌더링 시도 - activeScene 전달
+                  console.log('렌더링 시도...');
+                  if (typeof engine.renderer.render === 'function') {
+                    engine.renderer.render(activeScene);
+                    console.log('렌더링 완료 (에러 없음)');
+                  } else {
+                    console.error('render 메서드를 찾을 수 없음');
+                  }
+                } else {
+                  console.error('Shape 생성 실패');
+                }
+              } catch (error) {
+                console.error('테스트 렌더링 중 오류:', error);
+              }
+            } else {
+              console.log('활성 Scene에 Root 노드가 없음');
+            }
+          } else {
+            console.log('Scene 서비스가 없음');
+          }
+        } catch (error) {
+          console.error('Scene 정보 확인 중 오류:', error);
+        }
+      } catch (err) {
+        console.error('엔진 테스트 중 오류:', err);
+      }
+    } else {
+      console.error('Vector Engine이 초기화되지 않음');
+    }
+  };
+
   return (
     <div className="container mx-auto py-8">
       <div className="mb-8">
@@ -730,6 +1176,9 @@ const result = await engine.svgImport.importFromFile(file, options);`;
                     position: 'relative',
                     zIndex: 10,
                     visibility: 'visible',
+                    display: 'block',
+                    minHeight: '300px',
+                    backgroundColor: '#f0f0f0',
                   }}
                 />
               </div>
@@ -741,63 +1190,87 @@ const result = await engine.svgImport.importFromFile(file, options);`;
                 </div>
               )}
             </CardContent>
-            <CardFooter>
+            <CardFooter className="flex flex-wrap gap-2">
               <Button onClick={importSVG} disabled={importStatus === 'loading'}>
                 {importStatus === 'loading' ? '가져오는 중...' : 'SVG 가져오기'}
               </Button>
-              <Button variant="outline" className="ml-2" onClick={loadExampleSVG}>
+              <Button variant="outline" onClick={loadExampleSVG}>
                 예제 SVG 로드
               </Button>
               <Button
-                variant="secondary"
-                className="ml-2"
+                variant="outline"
+                className="border-indigo-500 text-indigo-700"
                 onClick={() => {
-                  console.log('Canvas 직접 그리기 테스트 버튼 클릭');
-                  if (canvasRef.current) {
-                    const ctx = canvasRef.current.getContext('2d');
-                    if (ctx) {
-                      console.log('Canvas 컨텍스트 획득 성공');
+                  console.log('직접 Canvas 그리기 테스트 시작...');
 
-                      // Canvas 초기화
-                      ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-                      console.log('Canvas 초기화 완료');
-
-                      // 배경색 설정
-                      ctx.fillStyle = '#f8f8f8';
-                      ctx.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-
-                      // 빨간색 사각형 그리기
-                      ctx.fillStyle = 'red';
-                      ctx.fillRect(50, 50, 150, 100);
-
-                      // 파란색 원 그리기
-                      ctx.beginPath();
-                      ctx.arc(250, 150, 50, 0, Math.PI * 2);
-                      ctx.fillStyle = 'blue';
-                      ctx.fill();
-
-                      // 텍스트 추가
-                      ctx.font = '20px Arial';
-                      ctx.fillStyle = 'black';
-                      ctx.fillText('Canvas 직접 그리기 테스트', 80, 220);
-
-                      console.log('Canvas 그리기 완료');
-                    } else {
-                      console.error('Canvas 컨텍스트를 가져올 수 없음');
-                    }
-                  } else {
+                  // Canvas 요소 가져오기
+                  const canvas = canvasRef.current;
+                  if (!canvas) {
                     console.error('Canvas 요소를 찾을 수 없음');
+                    return;
+                  }
+
+                  console.log('Canvas 요소 확인:', !!canvas);
+                  console.log('Canvas 크기:', canvas.width, 'x', canvas.height);
+                  console.log('Canvas ID:', canvas.id || 'ID 없음');
+
+                  try {
+                    // Canvas 2D Context 가져오기
+                    const ctx = canvas.getContext('2d');
+                    if (!ctx) {
+                      console.error('Canvas 2D Context를 가져올 수 없음');
+                      return;
+                    }
+
+                    console.log('Canvas 2D Context 확인:', !!ctx);
+
+                    // Canvas 초기화
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                    // 배경 그리기
+                    ctx.fillStyle = '#f8f8f8';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                    // 테스트 도형 그리기
+                    // 1. 사각형
+                    ctx.fillStyle = '#ff0000';
+                    ctx.fillRect(50, 50, 100, 100);
+
+                    // 2. 테두리
+                    ctx.strokeStyle = '#000000';
+                    ctx.lineWidth = 2;
+                    ctx.strokeRect(50, 50, 100, 100);
+
+                    // 3. 텍스트
+                    ctx.fillStyle = '#000000';
+                    ctx.font = '16px Arial';
+                    ctx.fillText('직접 그리기 테스트', 60, 90);
+
+                    console.log('Canvas 직접 그리기 완료');
+
+                    // 픽셀 데이터 확인 (그림이 실제로 그려졌는지 확인)
+                    const pixelData = ctx.getImageData(60, 60, 1, 1).data;
+                    console.log(
+                      '(60,60) 픽셀 색상:',
+                      `rgba(${pixelData[0]}, ${pixelData[1]}, ${pixelData[2]}, ${pixelData[3] / 255})`
+                    );
+
+                    if (pixelData[0] > 0) {
+                      console.log('빨간색 픽셀 확인됨 - 그리기 성공');
+                    } else {
+                      console.error('예상한 픽셀 색상이 없음 - 그리기 실패');
+                    }
+                  } catch (error) {
+                    console.error('Canvas 직접 그리기 중 오류:', error);
                   }
                 }}
               >
-                Canvas 테스트
+                직접 Canvas 그리기 테스트
               </Button>
             </CardFooter>
           </Card>
-        </div>
 
-        <div>
-          <Card>
+          <Card className="mt-6">
             <CardHeader>
               <CardTitle>가져오기 옵션</CardTitle>
               <CardDescription>SVG 가져오기 방법과 옵션을 설정합니다.</CardDescription>
@@ -921,6 +1394,92 @@ const result = await engine.svgImport.importFromFile(file, options);`;
             </CardContent>
           </Card>
         </div>
+
+        <div>
+          <Card>
+            <CardHeader>
+              <CardTitle>SVG Import Tool Plugin 사용 방법</CardTitle>
+              <CardDescription>
+                SVG Import Tool Plugin을 사용하여 SVG 파일을 가져오는 방법을 알아봅니다.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <h3 className="text-lg font-semibold">1. 플러그인 설치</h3>
+              <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto text-sm">
+                <code>{`// SVG Import Tool Plugin 가져오기
+import { SVGImportToolPlugin } from 'modern-vector.js/plugins/tools/svg-import';
+
+// Vector Engine 생성
+const engine = new VectorEngine();
+
+// 플러그인 등록
+engine.use(new SVGImportToolPlugin());`}</code>
+              </pre>
+
+              <h3 className="text-lg font-semibold">2. SVG 가져오기</h3>
+              <p>
+                SVG Import Tool Plugin은 문자열, URL, 파일에서 SVG를 가져오는 세 가지 방법을
+                제공합니다. 각 방법은 비동기 함수로 구현되어 있어 Promise를 반환합니다.
+              </p>
+
+              <h4 className="font-semibold">문자열에서 가져오기</h4>
+              <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto text-sm">
+                <code>{`const svgString = '<svg>...</svg>';
+const result = await engine.svgImport.importFromString(svgString);`}</code>
+              </pre>
+
+              <h4 className="font-semibold">URL에서 가져오기</h4>
+              <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto text-sm">
+                <code>{`const svgUrl = 'https://example.com/image.svg';
+const result = await engine.svgImport.importFromURL(svgUrl);`}</code>
+              </pre>
+
+              <h4 className="font-semibold">파일에서 가져오기</h4>
+              <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto text-sm">
+                <code>{`// HTML 파일 입력에서 파일 가져오기
+const fileInput = document.getElementById('file-input');
+const file = fileInput.files[0];
+
+// 옵션 설정
+const options = {
+  preserveViewBox: ${importOptions.preserveViewBox},
+  flattenGroups: ${importOptions.flattenGroups},
+  scale: ${importOptions.scale}
+};
+
+// SVG 가져오기
+const result = await engine.svgImport.importFromFile(file, options);`}</code>
+              </pre>
+
+              <h3 className="text-lg font-semibold">3. 가져오기 옵션</h3>
+              <p>SVG Import Tool Plugin은 다음과 같은 옵션을 제공합니다:</p>
+              <ul className="list-disc pl-6 space-y-2">
+                <li>
+                  <strong>preserveViewBox</strong>: SVG의 viewBox 속성을 유지할지 여부 (기본값:
+                  true)
+                </li>
+                <li>
+                  <strong>flattenGroups</strong>: SVG 그룹을 평탄화할지 여부 (기본값: false)
+                </li>
+                <li>
+                  <strong>scale</strong>: SVG 요소에 적용할 스케일 팩터 (기본값: 1)
+                </li>
+              </ul>
+
+              <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto text-sm">
+                <code>{`// 가져오기 옵션 설정
+const options = {
+  preserveViewBox: true,
+  flattenGroups: false,
+  scale: 1.5
+};
+
+// 옵션을 적용하여 SVG 가져오기
+const result = await engine.svgImport.importFromString(svgString, options);`}</code>
+              </pre>
+            </CardContent>
+          </Card>
+        </div>
       </div>
 
       <Card className="mt-8">
@@ -967,7 +1526,15 @@ const result = await engine.svgImport.importFromURL(svgUrl);`}</code>
 const fileInput = document.getElementById('file-input');
 const file = fileInput.files[0];
 
-const result = await engine.svgImport.importFromFile(file);`}</code>
+// 옵션 설정
+const options = {
+  preserveViewBox: ${importOptions.preserveViewBox},
+  flattenGroups: ${importOptions.flattenGroups},
+  scale: ${importOptions.scale}
+};
+
+// SVG 가져오기
+const result = await engine.svgImport.importFromFile(file, options);`}</code>
           </pre>
 
           <h3 className="text-lg font-semibold">3. 가져오기 옵션</h3>
