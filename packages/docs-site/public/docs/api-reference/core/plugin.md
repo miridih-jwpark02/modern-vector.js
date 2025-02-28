@@ -214,3 +214,62 @@ engine.remove('grid');
 
 - [VectorEngine](/docs/api-reference/core/vector-engine) - 플러그인이 설치되는 핵심 엔진
 - [Service](/docs/api-reference/core/service) - 서비스 시스템 
+
+## 내장 플러그인
+
+Modern Vector.js는 다양한 내장 플러그인을 제공합니다. 이 플러그인들은 라이브러리의 핵심 기능을 구현하며, 사용자는 필요에 따라 이를 확장하거나 대체할 수 있습니다.
+
+### ShapePlugin
+
+`ShapePlugin`은 다양한 벡터 도형을 생성하고 관리하는 플러그인입니다.
+
+```typescript
+import { VectorEngine } from 'modern-vector';
+import { ShapePlugin } from 'modern-vector/plugins/shape';
+
+const engine = new VectorEngine();
+engine.use(new ShapePlugin());
+
+// ShapePlugin 사용 예제
+const shapePlugin = engine.getPlugin('shape');
+const rectangle = shapePlugin.createShape('rectangle', {
+  x: 50,
+  y: 50,
+  width: 100,
+  height: 80,
+  fillColor: 'blue'
+});
+
+// 사용자 정의 도형 등록
+shapePlugin.registerShape('star', (options) => {
+  // 별 모양 도형 생성 로직
+  // ...
+  return starShape;
+});
+
+// 자세한 내용은 Shape API 문서 참조
+// [Shape API](/docs/api-reference/core/shape)
+```
+
+### GroupPlugin
+
+`GroupPlugin`은 여러 도형을 그룹화하여 단일 단위로 관리할 수 있게 해주는 플러그인입니다.
+
+```typescript
+import { VectorEngine } from 'modern-vector';
+import { GroupPlugin } from 'modern-vector/plugins/group';
+
+const engine = new VectorEngine();
+engine.use(new GroupPlugin());
+
+// GroupPlugin 사용 예제
+const groupPlugin = engine.getPlugin('group');
+const group = engine.createGroup([shape1, shape2, shape3]);
+
+// 그룹 변환
+group.translate(100, 100);
+group.rotate(45);
+
+// 자세한 내용은 Group API 문서 참조
+// [Group API](/docs/api-reference/core/group)
+``` 

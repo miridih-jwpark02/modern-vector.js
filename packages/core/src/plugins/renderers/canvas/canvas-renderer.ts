@@ -184,66 +184,134 @@ export class CanvasRenderer implements Renderer {
    * @param shape - 렌더링할 Shape
    */
   private renderShape(shape: Shape): void {
+    // 기본 검증
+    if (!shape) {
+      console.warn('Cannot render undefined or null shape');
+      return;
+    }
+
     // Save context state
     this.context.save();
 
-    // Apply transform
-    const matrix = shape.transform.values;
-    this.context.transform(
-      matrix[0],
-      matrix[3], // a, b
-      matrix[1],
-      matrix[4], // c, d
-      matrix[2],
-      matrix[5] // e, f
-    );
+    try {
+      // Transform 객체 안전 검증
+      if (!shape.transform) {
+        console.warn(
+          `Shape ${shape.id || 'unknown'} has no transform property - rendering with identity transform`
+        );
+        // 기본 변환 없이 계속 진행
+      } else {
+        try {
+          // transform이 있지만 values가 없거나 유효하지 않은 경우를 try-catch로 처리
+          const matrix = shape.transform.values;
+          if (!matrix || matrix.length < 6) {
+            console.warn(
+              `Shape ${shape.id || 'unknown'} has invalid transform matrix - using identity transform`
+            );
+          } else {
+            // 유효한 matrix가 있는 경우에만 transform 적용
+            this.context.transform(
+              matrix[0],
+              matrix[3], // a, b
+              matrix[1],
+              matrix[4], // c, d
+              matrix[2],
+              matrix[5] // e, f
+            );
+          }
+        } catch (error) {
+          console.error(`Failed to apply transform for shape ${shape.id || 'unknown'}:`, error);
+          // 오류 발생 시 변환없이 계속 진행
+        }
+      }
 
-    // Apply style
-    if (shape.style.fillColor) {
-      this.context.fillStyle = shape.style.fillColor;
-    }
-    if (shape.style.strokeColor) {
-      this.context.strokeStyle = shape.style.strokeColor;
-    }
-    if (shape.style.strokeWidth) {
-      this.context.lineWidth = shape.style.strokeWidth;
-    }
-    if (shape.style.strokeDashArray) {
-      this.context.setLineDash(shape.style.strokeDashArray);
-    }
-    if (shape.style.strokeDashOffset) {
-      this.context.lineDashOffset = shape.style.strokeDashOffset;
-    }
-    if (shape.style.strokeLineCap) {
-      this.context.lineCap = shape.style.strokeLineCap;
-    }
-    if (shape.style.strokeLineJoin) {
-      this.context.lineJoin = shape.style.strokeLineJoin;
-    }
-    if (shape.style.strokeMiterLimit) {
-      this.context.miterLimit = shape.style.strokeMiterLimit;
-    }
-    if (shape.style.fillOpacity !== undefined) {
-      this.context.globalAlpha = shape.style.fillOpacity;
-    }
+      // Style 객체 안전 검증
+      const style = shape.style || {};
 
-    // Draw shape based on type
-    switch (shape.type) {
-      case 'rectangle':
-        this.renderRectangle(shape);
-        break;
-      case 'circle':
-        this.renderCircle(shape);
-        break;
-      case 'line':
-        this.renderLine(shape);
-        break;
-      case 'path':
-        this.renderPath(shape);
-        break;
-      case 'text':
-        this.renderText(shape);
-        break;
+      // Apply safe style properties
+      if (style.fillColor) {
+        this.context.fillStyle = style.fillColor;
+      } else {
+        // 기본 채우기 색상 설정
+        this.context.fillStyle = 'rgba(0, 0, 0, 0)'; // 투명
+      }
+
+      if (style.strokeColor) {
+        this.context.strokeStyle = style.strokeColor;
+      } else {
+        // 기본 테두리 색상 설정
+        this.context.strokeStyle = '#000000';
+      }
+
+      if (style.strokeWidth !== undefined && style.strokeWidth !== null) {
+        this.context.lineWidth = style.strokeWidth;
+      } else {
+        // 기본 테두리 두께 설정
+        this.context.lineWidth = 1;
+      }
+
+      if (style.strokeDashArray) {
+        this.context.setLineDash(style.strokeDashArray);
+      }
+
+      if (style.strokeDashOffset) {
+        this.context.lineDashOffset = style.strokeDashOffset;
+      }
+
+      if (style.strokeLineCap) {
+        this.context.lineCap = style.strokeLineCap;
+      }
+
+      if (style.strokeLineJoin) {
+        this.context.lineJoin = style.strokeLineJoin;
+      }
+
+      if (style.strokeMiterLimit) {
+        this.context.miterLimit = style.strokeMiterLimit;
+      }
+
+      if (style.fillOpacity !== undefined) {
+        this.context.globalAlpha = style.fillOpacity;
+      }
+
+      // Check for required shape properties
+      if (!shape.type) {
+        console.warn('Shape has no type - cannot render');
+        this.context.restore();
+        return;
+      }
+
+      if (!shape.bounds) {
+        console.warn(`Shape ${shape.id || 'unknown'} has no bounds - using default bounds`);
+        shape = { ...shape, bounds: { x: 0, y: 0, width: 100, height: 100 } };
+      }
+
+      // Draw shape based on type with additional safety checks
+      try {
+        switch (shape.type) {
+          case 'rectangle':
+            this.renderRectangle(shape);
+            break;
+          case 'circle':
+            this.renderCircle(shape);
+            break;
+          case 'line':
+            this.renderLine(shape);
+            break;
+          case 'path':
+            this.renderPath(shape);
+            break;
+          case 'text':
+            this.renderText(shape);
+            break;
+          default:
+            console.warn(`Unknown shape type: ${shape.type}`);
+        }
+      } catch (error) {
+        console.error(`Error rendering shape type ${shape.type}:`, error);
+      }
+    } catch (error) {
+      console.error('Unexpected error in renderShape:', error);
     }
 
     // Restore context state
@@ -256,11 +324,13 @@ export class CanvasRenderer implements Renderer {
    * @param shape - 렌더링할 Rectangle
    */
   private renderRectangle(shape: Shape): void {
-    const bounds = shape.bounds;
-    if (shape.style.fillColor) {
+    const bounds = shape.bounds || { x: 0, y: 0, width: 0, height: 0 };
+    const style = shape.style || {};
+
+    if (style.fillColor) {
       this.context.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
     }
-    if (shape.style.strokeColor) {
+    if (style.strokeColor) {
       this.context.strokeRect(bounds.x, bounds.y, bounds.width, bounds.height);
     }
   }
@@ -271,18 +341,25 @@ export class CanvasRenderer implements Renderer {
    * @param shape - 렌더링할 Circle
    */
   private renderCircle(shape: Shape): void {
-    const bounds = shape.bounds;
+    const bounds = shape.bounds || { x: 0, y: 0, width: 0, height: 0 };
+    const style = shape.style || {};
+
     const centerX = bounds.x + bounds.width / 2;
     const centerY = bounds.y + bounds.height / 2;
     const radius = bounds.width / 2;
 
+    if (radius <= 0) {
+      console.warn(`Circle ${shape.id || 'unknown'} has invalid radius - not rendering`);
+      return;
+    }
+
     this.context.beginPath();
     this.context.arc(centerX, centerY, radius, 0, Math.PI * 2);
 
-    if (shape.style.fillColor) {
+    if (style.fillColor) {
       this.context.fill();
     }
-    if (shape.style.strokeColor) {
+    if (style.strokeColor) {
       this.context.stroke();
     }
   }
@@ -293,12 +370,14 @@ export class CanvasRenderer implements Renderer {
    * @param shape - 렌더링할 Line
    */
   private renderLine(shape: Shape): void {
-    const bounds = shape.bounds;
+    const bounds = shape.bounds || { x: 0, y: 0, width: 0, height: 0 };
+    const style = shape.style || {};
+
     this.context.beginPath();
     this.context.moveTo(bounds.x, bounds.y);
     this.context.lineTo(bounds.x + bounds.width, bounds.y + bounds.height);
 
-    if (shape.style.strokeColor) {
+    if (style.strokeColor) {
       this.context.stroke();
     }
   }
@@ -309,39 +388,82 @@ export class CanvasRenderer implements Renderer {
    * @param shape - 렌더링할 Path
    */
   private renderPath(shape: Shape): void {
-    if (!shape.points) return;
+    const style = shape.style || {};
+
+    // Shape에 points 속성이 없으면 안전하게 처리
+    const points = (shape as any).points || [];
+
+    if (points.length === 0) {
+      console.warn(`Path ${shape.id || 'unknown'} has no points - not rendering`);
+      return;
+    }
 
     this.context.beginPath();
-    shape.points.forEach((point, index) => {
-      if (point.type === 'move' || index === 0) {
-        this.context.moveTo(point.x, point.y);
-      } else if (point.type === 'line') {
-        this.context.lineTo(point.x, point.y);
-      } else if (point.type === 'quadratic' && point.controlPoint) {
-        // 2차 베지어 곡선 그리기
-        this.context.quadraticCurveTo(point.controlPoint.x, point.controlPoint.y, point.x, point.y);
-      } else if (point.type === 'cubic' && point.controlPoint1 && point.controlPoint2) {
-        // 3차 베지어 곡선 그리기
-        this.context.bezierCurveTo(
-          point.controlPoint1.x,
-          point.controlPoint1.y,
-          point.controlPoint2.x,
-          point.controlPoint2.y,
-          point.x,
-          point.y
-        );
-      }
-    });
+
+    try {
+      points.forEach((point: any, index: number) => {
+        if (!point || typeof point.x !== 'number' || typeof point.y !== 'number') {
+          console.warn(`Path ${shape.id || 'unknown'} has invalid point at index ${index}`);
+          return;
+        }
+
+        if (point.type === 'move' || index === 0) {
+          this.context.moveTo(point.x, point.y);
+        } else if (point.type === 'line') {
+          this.context.lineTo(point.x, point.y);
+        } else if (point.type === 'quadratic' && point.controlPoint) {
+          // 2차 베지어 곡선 그리기
+          if (
+            typeof point.controlPoint.x !== 'number' ||
+            typeof point.controlPoint.y !== 'number'
+          ) {
+            console.warn(
+              `Path ${shape.id || 'unknown'} has invalid control point at index ${index}`
+            );
+            return;
+          }
+          this.context.quadraticCurveTo(
+            point.controlPoint.x,
+            point.controlPoint.y,
+            point.x,
+            point.y
+          );
+        } else if (point.type === 'cubic' && point.controlPoint1 && point.controlPoint2) {
+          // 3차 베지어 곡선 그리기
+          if (
+            typeof point.controlPoint1.x !== 'number' ||
+            typeof point.controlPoint1.y !== 'number' ||
+            typeof point.controlPoint2.x !== 'number' ||
+            typeof point.controlPoint2.y !== 'number'
+          ) {
+            console.warn(
+              `Path ${shape.id || 'unknown'} has invalid control points at index ${index}`
+            );
+            return;
+          }
+          this.context.bezierCurveTo(
+            point.controlPoint1.x,
+            point.controlPoint1.y,
+            point.controlPoint2.x,
+            point.controlPoint2.y,
+            point.x,
+            point.y
+          );
+        }
+      });
+    } catch (error) {
+      console.error(`Error rendering path points for shape ${shape.id || 'unknown'}:`, error);
+    }
 
     // 닫힌 경로인 경우 closePath 호출
-    if (shape.isClosed) {
+    if ((shape as any).isClosed) {
       this.context.closePath();
     }
 
-    if (shape.style.fillColor) {
+    if (style.fillColor) {
       this.context.fill();
     }
-    if (shape.style.strokeColor) {
+    if (style.strokeColor) {
       this.context.stroke();
     }
   }
@@ -353,26 +475,40 @@ export class CanvasRenderer implements Renderer {
    */
   private renderText(shape: Shape): void {
     // TextShape인지 확인
-    if (!isTextShape(shape)) return;
+    if (!isTextShape(shape)) {
+      console.warn(`Shape ${shape.id || 'unknown'} is not a valid TextShape - not rendering`);
+      return;
+    }
 
     const textShape = shape;
+    const bounds = shape.bounds || { x: 0, y: 0, width: 0, height: 0 };
+    const style = shape.style || {};
 
-    if (textShape.font && textShape.fontSize) {
-      this.context.font = `${textShape.fontSize}px ${textShape.font}`;
-    }
-    if (textShape.textAlign) {
-      this.context.textAlign = textShape.textAlign;
-    }
-    if (textShape.textBaseline) {
-      this.context.textBaseline = textShape.textBaseline;
+    // 필수 속성 확인
+    if (!textShape.text) {
+      console.warn(`TextShape ${shape.id || 'unknown'} has no text content - not rendering`);
+      return;
     }
 
-    const bounds = shape.bounds;
-    if (shape.style.fillColor) {
-      this.context.fillText(textShape.text, bounds.x, bounds.y);
-    }
-    if (shape.style.strokeColor) {
-      this.context.strokeText(textShape.text, bounds.x, bounds.y);
+    try {
+      if (textShape.font && textShape.fontSize) {
+        this.context.font = `${textShape.fontSize}px ${textShape.font}`;
+      }
+      if (textShape.textAlign) {
+        this.context.textAlign = textShape.textAlign;
+      }
+      if (textShape.textBaseline) {
+        this.context.textBaseline = textShape.textBaseline;
+      }
+
+      if (style.fillColor) {
+        this.context.fillText(textShape.text, bounds.x, bounds.y);
+      }
+      if (style.strokeColor) {
+        this.context.strokeText(textShape.text, bounds.x, bounds.y);
+      }
+    } catch (error) {
+      console.error(`Error rendering text for shape ${shape.id || 'unknown'}:`, error);
     }
   }
 

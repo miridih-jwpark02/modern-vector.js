@@ -1,7 +1,7 @@
 import { Plugin, VectorEngine, SceneNode } from '../../../core/types';
 import { DefaultSceneNode } from '../../../core/services/scene-node';
 import { ShapePlugin } from '../../core/shapes';
-import { ShapeOptions } from '../../core/shapes/types';
+import { ShapeOptions, Shape } from '../../core/shapes/types';
 import { GroupPlugin } from '../../core/group';
 import {
   SVGImportOptions,
@@ -273,6 +273,9 @@ export class SVGImportToolPlugin implements Plugin, SVGImportToolPluginInterface
 
       const rect = shapePlugin.createShape('rectangle', shapeOptions);
 
+      // Ensure shape has required properties
+      this.ensureShapeProperties(rect, style);
+
       // DefaultSceneNode 클래스를 사용하여 SceneNode 생성
       const rectNode = new DefaultSceneNode(rect.id, this.engine!.events);
       rectNode.data = rect;
@@ -314,6 +317,9 @@ export class SVGImportToolPlugin implements Plugin, SVGImportToolPluginInterface
       };
 
       const circle = shapePlugin.createShape('circle', shapeOptions);
+
+      // Ensure shape has required properties
+      this.ensureShapeProperties(circle, style);
 
       // DefaultSceneNode 클래스를 사용하여 SceneNode 생성
       const circleNode = new DefaultSceneNode(circle.id, this.engine!.events);
@@ -379,6 +385,9 @@ export class SVGImportToolPlugin implements Plugin, SVGImportToolPluginInterface
 
       const line = shapePlugin.createShape('line', shapeOptions);
 
+      // Ensure shape has required properties
+      this.ensureShapeProperties(line, style);
+
       // DefaultSceneNode 클래스를 사용하여 SceneNode 생성
       const lineNode = new DefaultSceneNode(line.id, this.engine!.events);
       lineNode.data = line;
@@ -416,12 +425,65 @@ export class SVGImportToolPlugin implements Plugin, SVGImportToolPluginInterface
    * @private
    */
   private processPolygonElement(
-    _element: Element,
-    _parentNode: SceneNode,
-    _options: SVGImportOptions
+    element: Element,
+    parentNode: SceneNode,
+    options: SVGImportOptions
   ): void {
-    // Implementation would parse points attribute and create polygon shape
-    console.log('Processing polygon element - implementation needed');
+    // points 속성 파싱
+    const pointsAttr = element.getAttribute('points');
+    if (!pointsAttr) {
+      console.warn('Polygon element missing points attribute');
+      return;
+    }
+
+    // 점 좌표 파싱
+    const points = pointsAttr.trim().split(/\s+|,/).map(Number);
+
+    if (points.length < 4 || points.length % 2 !== 0) {
+      console.warn('Invalid polygon points format');
+      return;
+    }
+
+    // 좌표 쌍으로 변환
+    const coordinates: { x: number; y: number }[] = [];
+    for (let i = 0; i < points.length; i += 2) {
+      coordinates.push({
+        x: points[i] * (options.scale || 1),
+        y: points[i + 1] * (options.scale || 1),
+      });
+    }
+
+    // 스타일 속성 추출
+    const style = this.extractStyleAttributes(element);
+
+    // 경로 명령 생성
+    const commands = coordinates.map((coord, index) => {
+      return index === 0
+        ? { type: 'M', x: coord.x, y: coord.y }
+        : { type: 'L', x: coord.x, y: coord.y };
+    });
+
+    // 경로 닫기 - 첫번째 좌표 사용
+    commands.push({ type: 'Z', x: coordinates[0].x, y: coordinates[0].y });
+
+    // 경로 생성
+    const shapePlugin = this.engine?.getPlugin<ShapePlugin>('shape');
+    if (shapePlugin) {
+      const shapeOptions: ShapeOptions = {
+        commands,
+        ...style,
+      };
+
+      const path = shapePlugin.createShape('path', shapeOptions);
+
+      // Ensure shape has required properties
+      this.ensureShapeProperties(path, style);
+
+      // DefaultSceneNode 클래스를 사용하여 SceneNode 생성
+      const pathNode = new DefaultSceneNode(path.id, this.engine!.events);
+      pathNode.data = path;
+      parentNode.addChild(pathNode);
+    }
   }
 
   /**
@@ -435,12 +497,156 @@ export class SVGImportToolPlugin implements Plugin, SVGImportToolPluginInterface
    * @private
    */
   private processPathElement(
-    _element: Element,
-    _parentNode: SceneNode,
-    _options: SVGImportOptions
+    element: Element,
+    parentNode: SceneNode,
+    options: SVGImportOptions
   ): void {
-    // Implementation would parse d attribute and create path shape
-    console.log('Processing path element - implementation needed');
+    // d 속성 파싱
+    const dAttr = element.getAttribute('d');
+    if (!dAttr) {
+      console.warn('Path element missing d attribute');
+      return;
+    }
+
+    // 스타일 속성 추출
+    const style = this.extractStyleAttributes(element);
+
+    // 경로 생성
+    const shapePlugin = this.engine?.getPlugin<ShapePlugin>('shape');
+    if (shapePlugin) {
+      const scale = options.scale || 1;
+
+      // 간단한 방식으로 d 속성을 commands로 변환
+      // 실제 구현에서는 더 정교한 SVG Path 파서가 필요함
+      const commands = this.parseSVGPath(dAttr, scale);
+
+      const shapeOptions: ShapeOptions = {
+        commands,
+        ...style,
+      };
+
+      const path = shapePlugin.createShape('path', shapeOptions);
+
+      // Ensure shape has required properties
+      this.ensureShapeProperties(path, style);
+
+      // DefaultSceneNode 클래스를 사용하여 SceneNode 생성
+      const pathNode = new DefaultSceneNode(path.id, this.engine!.events);
+      pathNode.data = path;
+      parentNode.addChild(pathNode);
+    }
+  }
+
+  /**
+   * Parse SVG path d attribute
+   *
+   * SVG path의 d 속성을 파싱합니다.
+   *
+   * @param d - SVG path d attribute
+   * @param scale - Scale factor
+   * @returns Array of path commands
+   * @private
+   */
+  private parseSVGPath(d: string, scale: number): { type: string; x: number; y: number }[] {
+    // 매우 기본적인 SVG Path 파싱 구현
+    // 전체 SVG Path 문법을 지원하지는 않음
+    const commands: { type: string; x: number; y: number }[] = [];
+
+    // 숫자와 명령어 토큰 추출
+    const tokens = d.match(/([a-zA-Z])|([+-]?\d*\.?\d+)/g) || [];
+
+    let currentX = 0;
+    let currentY = 0;
+    let commandType = '';
+    let tokenIndex = 0;
+
+    while (tokenIndex < tokens.length) {
+      const token = tokens[tokenIndex];
+
+      // 명령어인 경우
+      if (/[a-zA-Z]/.test(token)) {
+        commandType = token;
+        tokenIndex++;
+        continue;
+      }
+
+      // 좌표 값 파싱
+      if (commandType === 'M' || commandType === 'm') {
+        // 절대/상대 이동
+        const x = parseFloat(tokens[tokenIndex]) * scale;
+        const y = parseFloat(tokens[tokenIndex + 1]) * scale;
+
+        if (commandType === 'm') {
+          // 상대 이동
+          currentX += x;
+          currentY += y;
+        } else {
+          // 절대 이동
+          currentX = x;
+          currentY = y;
+        }
+
+        commands.push({ type: 'M', x: currentX, y: currentY });
+        tokenIndex += 2;
+      } else if (commandType === 'L' || commandType === 'l') {
+        // 절대/상대 선
+        const x = parseFloat(tokens[tokenIndex]) * scale;
+        const y = parseFloat(tokens[tokenIndex + 1]) * scale;
+
+        if (commandType === 'l') {
+          // 상대 선
+          currentX += x;
+          currentY += y;
+        } else {
+          // 절대 선
+          currentX = x;
+          currentY = y;
+        }
+
+        commands.push({ type: 'L', x: currentX, y: currentY });
+        tokenIndex += 2;
+      } else if (commandType === 'H' || commandType === 'h') {
+        // 수평선
+        const x = parseFloat(tokens[tokenIndex]) * scale;
+
+        if (commandType === 'h') {
+          // 상대 수평선
+          currentX += x;
+        } else {
+          // 절대 수평선
+          currentX = x;
+        }
+
+        commands.push({ type: 'L', x: currentX, y: currentY });
+        tokenIndex += 1;
+      } else if (commandType === 'V' || commandType === 'v') {
+        // 수직선
+        const y = parseFloat(tokens[tokenIndex]) * scale;
+
+        if (commandType === 'v') {
+          // 상대 수직선
+          currentY += y;
+        } else {
+          // 절대 수직선
+          currentY = y;
+        }
+
+        commands.push({ type: 'L', x: currentX, y: currentY });
+        tokenIndex += 1;
+      } else if (commandType === 'Z' || commandType === 'z') {
+        // 경로 닫기 - 첫 번째 명령의 좌표 사용
+        const firstCommand = commands[0];
+        if (firstCommand) {
+          commands.push({ type: 'Z', x: firstCommand.x, y: firstCommand.y });
+        }
+        tokenIndex += 1;
+      } else {
+        // 지원하지 않는 명령은 건너뜀
+        tokenIndex += 1;
+      }
+    }
+
+    return commands;
   }
 
   /**
@@ -546,5 +752,34 @@ export class SVGImportToolPlugin implements Plugin, SVGImportToolPluginInterface
     }
 
     return style;
+  }
+
+  /**
+   * Ensure shape has required properties
+   *
+   * Shape 객체에 필수 속성이 있는지 확인하고 없으면 초기화합니다.
+   *
+   * @param shape - Shape object to check
+   * @param style - Style attributes
+   * @private
+   */
+  private ensureShapeProperties(shape: Shape, style: SVGStyleAttributes): void {
+    // transform 속성이 없는 경우 초기화
+    if (!shape.transform) {
+      // readonly 속성이므로 타입 단언 사용
+      const mathPlugin = this.engine?.getPlugin('math');
+      if (mathPlugin && typeof (mathPlugin as any).createMatrix === 'function') {
+        (shape as any).transform = (mathPlugin as any).createMatrix();
+      }
+    }
+
+    // style 속성이 없는 경우 초기화
+    if (!shape.style) {
+      (shape as any).style = {
+        fillColor: style.fill || 'none',
+        strokeColor: style.stroke || 'none',
+        strokeWidth: style.strokeWidth || 1,
+      };
+    }
   }
 }
