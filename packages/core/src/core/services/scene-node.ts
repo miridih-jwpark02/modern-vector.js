@@ -1,4 +1,11 @@
-import { SceneNode, EventEmitter } from '../types';
+import {
+  SceneNode,
+  TypedEventEmitter,
+  EventMap,
+  EventHandler,
+  BaseEventData,
+  NodeID,
+} from '../types';
 
 /**
  * Default implementation of SceneNode
@@ -7,7 +14,7 @@ import { SceneNode, EventEmitter } from '../types';
  */
 export class DefaultSceneNode implements SceneNode {
   /** 노드의 고유 ID */
-  readonly id: string;
+  readonly id: NodeID;
 
   /** 부모 노드 */
   parent: SceneNode | null = null;
@@ -16,29 +23,30 @@ export class DefaultSceneNode implements SceneNode {
   private _children: SceneNode[] = [];
 
   /** 노드에 연결된 데이터 */
-  data: any = null;
+  data: Record<string, unknown> = {};
 
   /** 이벤트 이미터 */
-  private eventEmitter: EventEmitter;
+  private eventEmitter: TypedEventEmitter;
 
   /**
    * DefaultSceneNode 생성자
    *
-   * @param id - 노드의 고유 ID (생략 시 자동 생성)
+   * @param idStr - 노드의 고유 ID (생략 시 자동 생성)
    * @param eventEmitter - 이벤트 이미터
    */
   constructor(
-    id: string = `node-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
-    eventEmitter: EventEmitter
+    idStr: string = `node-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+    eventEmitter: TypedEventEmitter
   ) {
-    this.id = id;
+    // NodeID 타입으로 변환 (타입 단언 사용)
+    this.id = idStr as NodeID;
     this.eventEmitter = eventEmitter;
   }
 
   /**
    * 자식 노드 목록 getter
    */
-  get children(): SceneNode[] {
+  get children(): ReadonlyArray<SceneNode> {
     return [...this._children]; // 복사본 반환하여 직접 수정 방지
   }
 
@@ -64,7 +72,7 @@ export class DefaultSceneNode implements SceneNode {
     child.parent = this;
 
     // 이벤트 발생
-    this.emit('childAdded', { child });
+    this.emit('childAdded', { type: 'childAdded', timestamp: Date.now(), child });
 
     return child;
   }
@@ -87,7 +95,7 @@ export class DefaultSceneNode implements SceneNode {
     child.parent = null;
 
     // 이벤트 발생
-    this.emit('childRemoved', { child });
+    this.emit('childRemoved', { type: 'childRemoved', timestamp: Date.now(), child });
 
     return true;
   }
@@ -106,7 +114,11 @@ export class DefaultSceneNode implements SceneNode {
     this._children = [];
 
     // 이벤트 발생
-    this.emit('childrenCleared', { children: oldChildren });
+    this.emit('childrenCleared', {
+      type: 'childrenCleared',
+      timestamp: Date.now(),
+      children: oldChildren,
+    });
   }
 
   /**
@@ -118,7 +130,7 @@ export class DefaultSceneNode implements SceneNode {
   findChildById(id: string): SceneNode | null {
     // 직접 자식 중에서 찾기
     for (const child of this._children) {
-      if (child.id === id) {
+      if (child.id === (id as NodeID)) {
         return child;
       }
 
@@ -138,7 +150,7 @@ export class DefaultSceneNode implements SceneNode {
    * @param event - 이벤트 이름
    * @param handler - 이벤트 핸들러 함수
    */
-  on(event: string, handler: (data: any) => void): void {
+  on<K extends keyof EventMap>(event: K, handler: EventHandler<EventMap[K]>): void {
     this.eventEmitter.on(event, handler);
   }
 
@@ -148,7 +160,7 @@ export class DefaultSceneNode implements SceneNode {
    * @param event - 이벤트 이름
    * @param handler - 제거할 이벤트 핸들러 함수
    */
-  off(event: string, handler: (data: any) => void): void {
+  off<K extends keyof EventMap>(event: K, handler: EventHandler<EventMap[K]>): void {
     this.eventEmitter.off(event, handler);
   }
 
@@ -158,7 +170,7 @@ export class DefaultSceneNode implements SceneNode {
    * @param event - 발생시킬 이벤트 이름
    * @param data - 이벤트와 함께 전달할 데이터
    */
-  emit(event: string, data: any): void {
+  emit<K extends keyof EventMap>(event: K, data: EventMap[K]): void {
     this.eventEmitter.emit(event, data);
   }
 }

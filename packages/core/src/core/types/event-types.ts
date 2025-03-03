@@ -50,6 +50,11 @@ export type EventHandlerRegistry = Map<string, Set<EventHandler>>;
  */
 export interface EventMap {
   [eventType: string]: BaseEventData;
+
+  // 노드 관련 이벤트 데이터 타입
+  childAdded: BaseEventData & { child: unknown };
+  childRemoved: BaseEventData & { child: unknown };
+  childrenCleared: BaseEventData & { children: unknown[] };
 }
 
 /**

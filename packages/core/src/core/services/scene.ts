@@ -2,10 +2,13 @@ import {
   SceneService,
   Scene,
   VectorEngine,
-  EventEmitter,
+  TypedEventEmitter,
   Plugin,
   Renderer,
   SceneNode,
+  EventMap,
+  EventHandler,
+  BaseEventData,
 } from '../types';
 import { DefaultSceneNode } from './scene-node';
 
@@ -15,11 +18,11 @@ import { DefaultSceneNode } from './scene-node';
 class DefaultScene implements Scene {
   readonly root: SceneNode;
   readonly plugins: Map<string, Plugin>;
-  private eventEmitter: EventEmitter;
+  private eventEmitter: TypedEventEmitter;
 
   constructor(
     private engine: VectorEngine,
-    eventEmitter: EventEmitter
+    eventEmitter: TypedEventEmitter
   ) {
     this.root = new DefaultSceneNode('scene-root', eventEmitter);
     this.plugins = new Map();
@@ -30,15 +33,15 @@ class DefaultScene implements Scene {
     return this.engine.renderer as unknown as Renderer;
   }
 
-  on(event: string, handler: (data: any) => void): void {
+  on<K extends keyof EventMap>(event: K, handler: EventHandler<EventMap[K]>): void {
     this.eventEmitter.on(event, handler);
   }
 
-  off(event: string, handler: (data: any) => void): void {
+  off<K extends keyof EventMap>(event: K, handler: EventHandler<EventMap[K]>): void {
     this.eventEmitter.off(event, handler);
   }
 
-  emit(event: string, data: any): void {
+  emit<K extends keyof EventMap>(event: K, data: EventMap[K]): void {
     this.eventEmitter.emit(event, data);
   }
 }
