@@ -5,6 +5,7 @@ import { Metadata } from 'next';
 import TableOfContents from '@/components/TableOfContents';
 import { Suspense } from 'react';
 import { ApiNavLinks } from '@/components/ApiNavLinks';
+import HighlightedContent from '@/components/HighlightedContent';
 
 /**
  * API 문서 페이지 메타데이터 생성
@@ -14,7 +15,9 @@ export async function generateMetadata({
 }: {
   params: { slug: string[] };
 }): Promise<Metadata> {
-  const slug = params.slug.join('/');
+  // Next.js 15에서는 params를 await 해야 함
+  const slugParams = await params;
+  const slug = slugParams.slug.join('/');
   const doc = allApiDocs.find((doc: ApiDoc) => doc.slug === slug);
 
   if (!doc) {
@@ -30,29 +33,12 @@ export async function generateMetadata({
 }
 
 /**
- * 정적 경로 생성
- */
-export function generateStaticParams() {
-  // 빈 배열을 반환하면 빌드 오류가 발생하므로 기본 경로 추가
-  if (allApiDocs.length === 0) {
-    return [
-      { slug: ['README'] },
-      { slug: ['classes'] },
-      { slug: ['interfaces'] },
-      { slug: ['type-aliases'] },
-    ];
-  }
-  
-  return allApiDocs.map((doc: ApiDoc) => ({
-    slug: doc.slug.split('/'),
-  }));
-}
-
-/**
  * API 문서 페이지 컴포넌트
  */
-export default function ApiDocPage({ params }: { params: { slug: string[] } }) {
-  const slug = params.slug.join('/');
+export default async function ApiDocPage({ params }: { params: { slug: string[] } }) {
+  // Next.js 15에서는 params를 await 해야 함
+  const slugParams = await params;
+  const slug = slugParams.slug.join('/');
   const doc = allApiDocs.find((doc: ApiDoc) => doc.slug === slug);
 
   if (!doc) {
@@ -76,15 +62,15 @@ export default function ApiDocPage({ params }: { params: { slug: string[] } }) {
           </Suspense>
         </nav>
       </aside>
-      
+
       {/* 문서 내용 */}
       <main className="flex-1 p-6">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           <article className="prose dark:prose-invert max-w-none lg:col-span-3">
             <h1>{doc.title}</h1>
-            <div dangerouslySetInnerHTML={{ __html: doc.body.html }} />
+            <HighlightedContent html={doc.body.html} />
           </article>
-          
+
           <div className="hidden lg:block">
             <div className="sticky top-20">
               <TableOfContents className="mt-6" />
@@ -94,4 +80,23 @@ export default function ApiDocPage({ params }: { params: { slug: string[] } }) {
       </main>
     </div>
   );
-} 
+}
+
+/**
+ * 정적 경로 생성
+ */
+export function generateStaticParams() {
+  // 빈 배열을 반환하면 빌드 오류가 발생하므로 기본 경로 추가
+  if (allApiDocs.length === 0) {
+    return [
+      { slug: ['README'] },
+      { slug: ['classes'] },
+      { slug: ['interfaces'] },
+      { slug: ['type-aliases'] },
+    ];
+  }
+
+  return allApiDocs.map((doc: ApiDoc) => ({
+    slug: doc.slug.split('/'),
+  }));
+}

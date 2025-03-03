@@ -13,7 +13,7 @@ interface MdxProps {
 /**
  * 커스텀 MDX 컴포넌트
  */
-const components = {
+export const components = {
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1 className={`mt-8 mb-4 text-3xl font-bold ${className || ''}`} {...props} />
   ),
@@ -41,27 +41,39 @@ const components = {
   a: ({ className, href, ...props }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
     if (href?.startsWith('/')) {
       return (
-        <Link href={href} className={`text-blue-600 hover:underline ${className || ''}`} {...props} />
+        <Link
+          href={href}
+          className={`text-blue-600 hover:underline ${className || ''}`}
+          {...props}
+        />
       );
     }
     return (
-      <a 
-        href={href} 
-        className={`text-blue-600 hover:underline ${className || ''}`} 
-        target="_blank" 
-        rel="noopener noreferrer" 
-        {...props} 
+      <a
+        href={href}
+        className={`text-blue-600 hover:underline ${className || ''}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        {...props}
       />
     );
   },
-  code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
-    <code className={`bg-muted px-1 py-0.5 rounded text-sm ${className || ''}`} {...props} />
-  ),
-  pre: ({ className, ...props }: React.HTMLAttributes<HTMLPreElement>) => (
-    <pre className={`mb-4 overflow-auto rounded-lg bg-muted p-4 ${className || ''}`} {...props} />
-  ),
+  code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => {
+    if (className?.includes('language-')) {
+      return <code className={`bg-muted px-1 py-0.5 rounded text-sm ${className}`} {...props} />;
+    }
+    return (
+      <code className={`bg-muted px-1 py-0.5 rounded text-sm ${className || ''}`} {...props} />
+    );
+  },
+  pre: ({ className, ...props }: React.HTMLAttributes<HTMLPreElement>) => {
+    return <pre className={className} {...props} />;
+  },
   blockquote: ({ className, ...props }: React.HTMLAttributes<HTMLQuoteElement>) => (
-    <blockquote className={`mb-4 border-l-4 border-muted pl-4 italic ${className || ''}`} {...props} />
+    <blockquote
+      className={`mb-4 border-l-4 border-muted pl-4 italic ${className || ''}`}
+      {...props}
+    />
   ),
   table: ({ className, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
     <div className="mb-4 overflow-auto">
@@ -69,7 +81,10 @@ const components = {
     </div>
   ),
   th: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
-    <th className={`border border-muted px-4 py-2 text-left font-bold ${className || ''}`} {...props} />
+    <th
+      className={`border border-muted px-4 py-2 text-left font-bold ${className || ''}`}
+      {...props}
+    />
   ),
   td: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
     <td className={`border border-muted px-4 py-2 ${className || ''}`} {...props} />
@@ -81,7 +96,7 @@ const components = {
 
 /**
  * MDX 컴포넌트
- * 
+ *
  * @param props - MDX 컴포넌트 props
  * @returns MDX 컴포넌트
  */

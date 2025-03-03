@@ -33,6 +33,20 @@
     --ring: 222.2 84% 4.9%;
  
     --radius: 0.5rem;
+
+    --od-background: #282c34;
+    --od-current-line: #2c313c;
+    --od-selection: #3e4451;
+    --od-foreground: #abb2bf;
+    --od-comment: #5c6370;
+    --od-cyan: #56b6c2;
+    --od-green: #98c379;
+    --od-orange: #d19a66;
+    --od-pink: #c678dd;
+    --od-purple: #c678dd;
+    --od-red: #e06c75;
+    --od-yellow: #e5c07b;
+    --od-blue: #61afef;
   }
  
   .dark {
@@ -148,13 +162,162 @@
   @apply bg-gray-800;
 }
 
-/* 다크 모드에서 코드 블록 스타일 */
-.dark .prose code {
-  @apply text-gray-200 bg-gray-800;
+/* 코드 블록 하이라이팅 스타일 - Toss/Framer 스타일 */
+.prose pre {
+  background-color: #1e1e2e !important;
+  border-radius: 0.75rem !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.03) !important;
+  margin: 1.5rem 0 !important;
+  padding: 1.25rem !important;
+  overflow: auto !important;
+  position: relative !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
+.prose code {
+  font-family: 'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !important;
+  font-size: 0.9rem !important;
+  line-height: 1.6 !important;
+}
+
+.prose pre code {
+  background-color: transparent !important;
+  color: #f8f8f2 !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+/* 코드 블록 타이틀 스타일 */
+[data-rehype-pretty-code-title] {
+  font-family: 'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !important;
+  font-size: 0.8rem !important;
+  background-color: #2d2d3d !important;
+  color: #e2e2e2 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-bottom: none !important;
+  border-top-left-radius: 0.75rem !important;
+  border-top-right-radius: 0.75rem !important;
+  padding: 0.6rem 1.25rem !important;
+  margin-bottom: -2px !important;
+}
+
+[data-rehype-pretty-code-title] + pre {
+  margin-top: 0 !important;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}
+
+/* 코드 블록 라인 번호 스타일 */
+figure[data-rehype-pretty-code-figure] code[data-line-numbers] > .line::before {
+  color: #6c6c8a !important;
+  content: counter(line);
+  counter-increment: line;
+  display: inline-block;
+  text-align: right;
+  width: 1.5rem;
+  margin-right: 1rem;
+  opacity: 0.5;
+}
+
+/* 하이라이트된 라인 스타일 */
+figure[data-rehype-pretty-code-figure] .line.highlighted {
+  background-color: rgba(99, 102, 241, 0.1) !important;
+  position: relative;
+}
+
+figure[data-rehype-pretty-code-figure] .line.highlighted::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background-color: #6366f1;
+}
+
+/* 하이라이트된 단어 스타일 */
+figure[data-rehype-pretty-code-figure] .word {
+  background-color: rgba(99, 102, 241, 0.15) !important;
+  border-radius: 0.25rem;
+  padding: 0.1rem 0.2rem;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+/* 다크 모드에서 코드 블록 스타일 */
 .dark .prose pre {
-  @apply bg-gray-800;
+  background-color: #1e1e2e !important;
+}
+
+.dark [data-rehype-pretty-code-title] {
+  background-color: #2d2d3d !important;
+  color: #e2e2e2 !important;
+}
+
+/* 언어 뱃지 스타일 */
+.prose pre::before {
+  content: attr(data-language);
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #a0a0c0;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* 인라인 코드 스타일 */
+:not(pre) > code {
+  background-color: rgba(99, 102, 241, 0.1) !important;
+  color: #6366f1 !important;
+  padding: 0.2rem 0.4rem !important;
+  border-radius: 0.25rem !important;
+  font-size: 0.85em !important;
+  font-weight: 500 !important;
+  white-space: nowrap !important;
+}
+
+.dark :not(pre) > code {
+  background-color: rgba(99, 102, 241, 0.15) !important;
+  color: #a5b4fc !important;
+}
+
+/* rehype-pretty-code 스타일 */
+figure[data-rehype-pretty-code-figure] {
+  @apply overflow-hidden rounded-lg my-6;
+}
+
+figure[data-rehype-pretty-code-figure] pre {
+  @apply overflow-x-auto py-4 text-sm leading-6;
+  -webkit-overflow-scrolling: touch;
+}
+
+figure[data-rehype-pretty-code-figure] code {
+  @apply grid min-w-full text-sm break-words;
+  counter-reset: line;
+  box-decoration-break: clone;
+}
+
+figure[data-rehype-pretty-code-figure] code[data-line-numbers] {
+  counter-reset: line;
+}
+
+figure[data-rehype-pretty-code-figure] code[data-line-numbers] > .line::before {
+  counter-increment: line;
+  content: counter(line);
+  @apply inline-block w-6 text-right mr-4 text-gray-500 text-xs;
+}
+
+figure[data-rehype-pretty-code-figure] .line {
+  @apply px-4 py-0.5;
+}
+
+figure[data-rehype-pretty-code-figure] .line.highlighted {
+  @apply bg-gray-700/50 border-l-2 border-blue-400;
+}
+
+figure[data-rehype-pretty-code-figure] .word {
+  @apply rounded-md bg-blue-500/20 p-1;
 }
 
 /* API 문서 네비게이션 스타일 */
@@ -177,5 +340,386 @@
 
 .dark .api-nav-link.active {
   @apply bg-secondary;
+}
+
+/* 추가적인 코드 하이라이팅 스타일 */
+pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em;
+}
+
+code.hljs {
+  padding: 3px 5px;
+}
+
+.hljs {
+  color: #abb2bf;
+  background: #282c34;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #5c6370;
+  font-style: italic;
+}
+
+.hljs-doctag,
+.hljs-keyword,
+.hljs-formula {
+  color: #c678dd;
+}
+
+.hljs-section,
+.hljs-name,
+.hljs-selector-tag,
+.hljs-deletion,
+.hljs-subst {
+  color: #e06c75;
+}
+
+.hljs-literal {
+  color: #56b6c2;
+}
+
+.hljs-string,
+.hljs-regexp,
+.hljs-addition,
+.hljs-attribute,
+.hljs-meta .hljs-string {
+  color: #98c379;
+}
+
+.hljs-attr,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-type,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-number {
+  color: #d19a66;
+}
+
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link,
+.hljs-meta,
+.hljs-selector-id,
+.hljs-title {
+  color: #61aeee;
+}
+
+.hljs-built_in,
+.hljs-title.class_,
+.hljs-class .hljs-title {
+  color: #e6c07b;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+.hljs-link {
+  text-decoration: underline;
+}
+
+/* rehype-pretty-code 추가 스타일 */
+code[data-theme*=" "],
+code[data-theme*=" "] span {
+  color: var(--shiki-light);
+  background-color: var(--shiki-light-bg);
+}
+
+.dark code[data-theme*=" "],
+.dark code[data-theme*=" "] span {
+  color: var(--shiki-dark);
+  background-color: var(--shiki-dark-bg);
+}
+
+[data-rehype-pretty-code-fragment] {
+  position: relative;
+}
+
+[data-rehype-pretty-code-fragment] code {
+  display: grid;
+  min-width: 100%;
+  overflow-wrap: break-word;
+  border-radius: 0;
+  margin: 0;
+  background-color: transparent;
+  padding: 0;
+}
+
+[data-rehype-pretty-code-fragment] .line {
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  border-left: 2px solid transparent;
+}
+
+[data-rehype-pretty-code-fragment] .highlighted {
+  background-color: rgba(200, 200, 255, 0.1);
+  border-left-color: #60a5fa;
+}
+
+[data-rehype-pretty-code-fragment] .highlighted-word {
+  background-color: rgba(200, 200, 255, 0.1);
+  padding: 2px;
+  border-radius: 4px;
+}
+
+/* 코드 복사 버튼 스타일 */
+.copy-code-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background-color: rgba(99, 102, 241, 0.1);
+  border: none;
+  border-radius: 0.375rem;
+  color: #a0a0c0;
+  transition: all 0.2s ease;
+  opacity: 0;
+  z-index: 10;
+}
+
+/* pre에 호버 시 버튼 표시 */
+pre:hover .copy-code-button,
+.copy-code-button:focus {
+  opacity: 1;
+}
+
+/* 버튼 호버 효과 */
+.copy-code-button:hover {
+  background-color: rgba(99, 102, 241, 0.2);
+  color: #e2e2e2;
+  transform: scale(1.05);
+}
+
+/* 버튼 액티브 효과 */
+.copy-code-button:active {
+  transform: scale(0.95);
+}
+
+/* 체크 아이콘 (복사 성공 시) 색상 */
+.copy-code-button .check-icon {
+  color: #10b981; /* 녹색 */
+}
+
+/* 다크 모드에서 버튼 스타일 */
+.dark .copy-code-button {
+  background-color: rgba(168, 85, 247, 0.15);
+}
+
+.dark .copy-code-button:hover {
+  background-color: rgba(168, 85, 247, 0.25);
+}
+
+/* One Dark 테마 코드 블록 스타일 */
+.prose pre {
+  background-color: var(--od-background) !important;
+  border-radius: 0.5rem !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06) !important;
+  margin: 1.5rem 0 !important;
+  padding: 1.25rem !important;
+  overflow: auto !important;
+  position: relative !important;
+  border: 1px solid rgba(171, 178, 191, 0.1) !important;
+}
+
+.prose code {
+  font-family: 'JetBrains Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !important;
+  font-size: 0.9rem !important;
+  line-height: 1.6 !important;
+}
+
+.prose pre code {
+  background-color: transparent !important;
+  color: var(--od-foreground) !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+/* 코드 블록 타이틀 스타일 */
+[data-rehype-pretty-code-title] {
+  font-family: 'JetBrains Mono', 'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !important;
+  font-size: 0.8rem !important;
+  background-color: #2c313a !important;
+  color: var(--od-foreground) !important;
+  border: 1px solid rgba(171, 178, 191, 0.1) !important;
+  border-bottom: none !important;
+  border-top-left-radius: 0.5rem !important;
+  border-top-right-radius: 0.5rem !important;
+  padding: 0.6rem 1.25rem !important;
+  margin-bottom: -2px !important;
+}
+
+[data-rehype-pretty-code-title] + pre {
+  margin-top: 0 !important;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}
+
+/* 코드 블록 라인 번호 스타일 */
+figure[data-rehype-pretty-code-figure] code[data-line-numbers] > .line::before {
+  color: var(--od-comment) !important;
+  content: counter(line);
+  counter-increment: line;
+  display: inline-block;
+  text-align: right;
+  width: 1.5rem;
+  margin-right: 1rem;
+  opacity: 0.5;
+}
+
+/* 하이라이트된 라인 스타일 */
+figure[data-rehype-pretty-code-figure] .line.highlighted {
+  background-color: rgba(96, 125, 139, 0.15) !important;
+  position: relative;
+}
+
+figure[data-rehype-pretty-code-figure] .line.highlighted::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background-color: var(--od-blue);
+}
+
+/* 하이라이트된 단어 스타일 */
+figure[data-rehype-pretty-code-figure] .word {
+  background-color: rgba(96, 125, 139, 0.15) !important;
+  border-radius: 0.25rem;
+  padding: 0.1rem 0.2rem;
+  border: 1px solid rgba(96, 125, 139, 0.2);
+}
+
+/* 언어 뱃지 스타일 */
+.prose pre::before {
+  content: attr(data-language);
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--od-comment);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* 인라인 코드 스타일 */
+:not(pre) > code {
+  background-color: rgba(96, 125, 139, 0.1) !important;
+  color: var(--od-red) !important;
+  padding: 0.2rem 0.4rem !important;
+  border-radius: 0.25rem !important;
+  font-size: 0.85em !important;
+  font-weight: 500 !important;
+  white-space: nowrap !important;
+}
+
+.dark :not(pre) > code {
+  background-color: rgba(96, 125, 139, 0.15) !important;
+  color: var(--od-red) !important;
+}
+
+/* 코드 복사 버튼 One Dark 스타일 */
+.copy-code-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background-color: rgba(97, 175, 239, 0.1);
+  border: none;
+  border-radius: 4px;
+  color: var(--od-comment);
+  transition: all 0.2s ease;
+  opacity: 0;
+  z-index: 10;
+}
+
+/* pre에 호버 시 버튼 표시 */
+pre:hover .copy-code-button,
+.copy-code-button:focus {
+  opacity: 1;
+}
+
+/* 버튼 호버 효과 */
+.copy-code-button:hover {
+  background-color: rgba(97, 175, 239, 0.2);
+  color: var(--od-blue);
+  transform: scale(1.05);
+}
+
+/* 버튼 액티브 효과 */
+.copy-code-button:active {
+  transform: scale(0.95);
+}
+
+/* 체크 아이콘 (복사 성공 시) 색상 */
+.copy-code-button .check-icon {
+  color: var(--od-green); /* One Dark의 녹색 */
+}
+
+/* 토큰 컬러 스타일 - One Dark 테마 */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: var(--od-comment) !important;
+}
+
+.token.punctuation {
+  color: var(--od-foreground) !important;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol {
+  color: var(--od-red) !important;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin {
+  color: var(--od-green) !important;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: var(--od-yellow) !important;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: var(--od-purple) !important;
+}
+
+.token.function,
+.token.class-name {
+  color: var(--od-blue) !important;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: var(--od-orange) !important;
 }
 

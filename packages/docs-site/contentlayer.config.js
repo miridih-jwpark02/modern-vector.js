@@ -31,11 +31,11 @@ export const ApiDoc = defineDocumentType(() => ({
   computedFields: {
     slug: {
       type: 'string',
-      resolve: (doc) => doc._raw.flattenedPath.replace('api-docs/', ''),
+      resolve: doc => doc._raw.flattenedPath.replace('api-docs/', ''),
     },
     url: {
       type: 'string',
-      resolve: (doc) => `/api-docs/${doc._raw.flattenedPath.replace('api-docs/', '')}`,
+      resolve: doc => `/api-docs/${doc._raw.flattenedPath.replace('api-docs/', '')}`,
     },
   },
 }));
@@ -67,11 +67,11 @@ export const Doc = defineDocumentType(() => ({
   computedFields: {
     slug: {
       type: 'string',
-      resolve: (doc) => doc._raw.flattenedPath.replace('docs/', ''),
+      resolve: doc => doc._raw.flattenedPath.replace('docs/', ''),
     },
     url: {
       type: 'string',
-      resolve: (doc) => `/docs/${doc._raw.flattenedPath.replace('docs/', '')}`,
+      resolve: doc => `/docs/${doc._raw.flattenedPath.replace('docs/', '')}`,
     },
   },
 }));
@@ -112,7 +112,9 @@ export default makeSource({
       [
         rehypePrettyCode,
         {
-          theme: 'github-dark',
+          theme: 'one-dark',
+          keepBackground: true,
+          defaultLang: 'plaintext',
           onVisitLine(node) {
             // 라인 번호 추가
             if (node.children.length === 0) {
@@ -120,13 +122,17 @@ export default makeSource({
             }
           },
           onVisitHighlightedLine(node) {
-            node.properties.className.push('highlighted');
+            node.properties.className = ['highlighted'];
           },
           onVisitHighlightedWord(node) {
             node.properties.className = ['word'];
           },
+          // 코드 블록에 라인 번호 표시
+          showLineNumbers: true,
+          // 메타 정보 표시 (언어 이름)
+          filterMetaString: meta => meta,
         },
       ],
     ],
   },
-}); 
+});
