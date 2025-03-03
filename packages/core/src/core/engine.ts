@@ -1,4 +1,15 @@
-import { VectorEngine, Plugin, RendererService, EventService, SceneService } from './types';
+import {
+  VectorEngine,
+  Plugin,
+  RendererService,
+  EventService,
+  SceneService,
+  GroupOptions,
+  ExampleOptions,
+  ExampleResult,
+  Group,
+  SceneNode,
+} from './types';
 import { DefaultRendererService } from './services/renderer';
 import { DefaultEventService } from './services/events';
 import { DefaultSceneService } from './services/scene';
@@ -7,7 +18,7 @@ import { DefaultSceneService } from './services/scene';
  * Vector Graphics Engine implementation
  */
 export class VectorEngineImpl implements VectorEngine {
-  private plugins: Map<string, Plugin> = new Map();
+  private readonly plugins: Map<string, Plugin> = new Map();
 
   readonly renderer: RendererService;
   readonly events: EventService;
@@ -69,21 +80,21 @@ export class VectorEngineImpl implements VectorEngine {
 
   /**
    * 그룹 생성 메서드 - GroupPlugin에 의해 런타임에 구현됨
-   * @param children - 초기 자식 노드 목록
-   * @param options - 그룹 생성 옵션
+   * @param _children - 초기 자식 노드 목록
+   * @param _options - 그룹 생성 옵션
    * @throws Error if GroupPlugin is not installed
    */
-  createGroup(..._args: any[]): any {
+  createGroup(_children?: ReadonlyArray<SceneNode>, _options?: GroupOptions): Group {
     throw new Error('GroupPlugin is not installed');
   }
 
   /**
    * 예제 실행 메서드 - ExamplePlugin에 의해 런타임에 구현됨
-   * @param {any[]} _args - 예제 옵션 및 매개변수
-   * @returns {any} 예제 실행 결과
+   * @param {ExampleOptions} _options - 예제 옵션 및 매개변수
+   * @returns {ExampleResult<T>} 예제 실행 결과
    * @throws {Error} ExamplePlugin이 설치되지 않은 경우
    */
-  executeExample(..._args: any[]): any {
+  executeExample<T = unknown>(_options: ExampleOptions): ExampleResult<T> {
     throw new Error(
       'executeExample() 메서드를 사용하려면 먼저 ExamplePlugin을 설치해야 합니다. engine.use(new ExamplePlugin())을 호출하세요.'
     );

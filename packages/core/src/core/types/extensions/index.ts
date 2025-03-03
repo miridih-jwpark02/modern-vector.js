@@ -16,7 +16,7 @@ export * from './plugin-registry';
  *
  * 이 타입은 플러그인이 VectorEngine에 추가하는 메서드의 타입을 정의합니다.
  */
-export type ExtensionMethod<T extends (...args: any[]) => any> = T;
+export type ExtensionMethod<T extends (...args: unknown[]) => unknown> = T;
 
 // 플러그인 확장 타입 정의를 위한 예제
 // 각 플러그인은 이 패턴을 따라 VectorEngine 인터페이스를 확장할 수 있습니다.

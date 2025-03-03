@@ -126,8 +126,16 @@ export class SVGImportToolPlugin implements Plugin, SVGImportToolPluginInterface
    */
   async importFromFile(file: File, options?: SVGImportOptions): Promise<SceneNode> {
     try {
-      if (!file.type.includes('svg')) {
-        throw new Error('File is not an SVG');
+      // SVG MIME 타입 체크 - 여러 MIME 타입 지원
+      const validSvgTypes = ['image/svg+xml', 'application/svg+xml', 'text/svg+xml'];
+      if (!file.type || !validSvgTypes.some(type => file.type.includes(type))) {
+        // 파일 확장자로 2차 확인
+        const filename = file.name.toLowerCase();
+        if (!filename.endsWith('.svg')) {
+          throw new Error(
+            'File is not an SVG. Expected MIME type to include "svg+xml" or filename to end with .svg'
+          );
+        }
       }
 
       const svgString = await file.text();
@@ -339,13 +347,40 @@ export class SVGImportToolPlugin implements Plugin, SVGImportToolPluginInterface
    * @private
    */
   private processEllipseElement(
-    _element: Element,
-    _parentNode: SceneNode,
-    _options: SVGImportOptions
+    element: Element,
+    parentNode: SceneNode,
+    options: SVGImportOptions
   ): void {
-    // Implementation would be similar to processRectElement
-    // Extract cx, cy, rx, ry attributes and create ellipse shape
-    console.log('Processing ellipse element - implementation needed');
+    // Extract attributes with defaults
+    const cx = parseFloat(element.getAttribute('cx') || '0') * (options.scale || 1);
+    const cy = parseFloat(element.getAttribute('cy') || '0') * (options.scale || 1);
+    const rx = parseFloat(element.getAttribute('rx') || '0') * (options.scale || 1);
+    const ry = parseFloat(element.getAttribute('ry') || '0') * (options.scale || 1);
+
+    // Extract style attributes
+    const style = this.extractStyleAttributes(element);
+
+    // Create ellipse shape
+    const shapePlugin = this.engine?.getPlugin<ShapePlugin>('shape');
+    if (shapePlugin) {
+      const shapeOptions: ShapeOptions = {
+        x: cx - rx, // Convert center coordinates to top-left
+        y: cy - ry,
+        width: rx * 2, // Convert radius to width
+        height: ry * 2, // Convert radius to height
+        ...style,
+      };
+
+      const ellipse = shapePlugin.createShape('ellipse', shapeOptions);
+
+      // Ensure shape has required properties
+      this.ensureShapeProperties(ellipse, style);
+
+      // DefaultSceneNode 클래스를 사용하여 SceneNode 생성
+      const ellipseNode = new DefaultSceneNode(ellipse.id, this.engine!.events);
+      ellipseNode.data = ellipse;
+      parentNode.addChild(ellipseNode);
+    }
   }
 
   /**
@@ -406,12 +441,62 @@ export class SVGImportToolPlugin implements Plugin, SVGImportToolPluginInterface
    * @private
    */
   private processPolylineElement(
-    _element: Element,
-    _parentNode: SceneNode,
-    _options: SVGImportOptions
+    element: Element,
+    parentNode: SceneNode,
+    options: SVGImportOptions
   ): void {
-    // Implementation would parse points attribute and create polyline shape
-    console.log('Processing polyline element - implementation needed');
+    // points 속성 파싱
+    const pointsAttr = element.getAttribute('points');
+    if (!pointsAttr) {
+      console.warn('Polyline element missing points attribute');
+      return;
+    }
+
+    // 점 좌표 파싱
+    const points = pointsAttr.trim().split(/\s+|,/).map(Number);
+
+    if (points.length < 4 || points.length % 2 !== 0) {
+      console.warn('Invalid polyline points format');
+      return;
+    }
+
+    // 좌표 쌍으로 변환
+    const coordinates: { x: number; y: number }[] = [];
+    for (let i = 0; i < points.length; i += 2) {
+      coordinates.push({
+        x: points[i] * (options.scale || 1),
+        y: points[i + 1] * (options.scale || 1),
+      });
+    }
+
+    // 스타일 속성 추출
+    const style = this.extractStyleAttributes(element);
+
+    // 경로 명령 생성
+    const commands = coordinates.map((coord, index) => {
+      return index === 0
+        ? { type: 'M', x: coord.x, y: coord.y }
+        : { type: 'L', x: coord.x, y: coord.y };
+    });
+
+    // 경로 생성 (polyline은 닫히지 않음)
+    const shapePlugin = this.engine?.getPlugin<ShapePlugin>('shape');
+    if (shapePlugin) {
+      const shapeOptions: ShapeOptions = {
+        commands,
+        ...style,
+      };
+
+      const path = shapePlugin.createShape('path', shapeOptions);
+
+      // Ensure shape has required properties
+      this.ensureShapeProperties(path, style);
+
+      // DefaultSceneNode 클래스를 사용하여 SceneNode 생성
+      const pathNode = new DefaultSceneNode(path.id, this.engine!.events);
+      pathNode.data = path;
+      parentNode.addChild(pathNode);
+    }
   }
 
   /**
@@ -547,18 +632,58 @@ export class SVGImportToolPlugin implements Plugin, SVGImportToolPluginInterface
    * @returns Array of path commands
    * @private
    */
-  private parseSVGPath(d: string, scale: number): { type: string; x: number; y: number }[] {
-    // 매우 기본적인 SVG Path 파싱 구현
-    // 전체 SVG Path 문법을 지원하지는 않음
-    const commands: { type: string; x: number; y: number }[] = [];
+  private parseSVGPath(
+    d: string,
+    scale: number
+  ): { type: string; x: number; y: number; [key: string]: any }[] {
+    // SVG Path 명령어를 파싱하기 위한 고급 구현
+    const commands: { type: string; x: number; y: number; [key: string]: any }[] = [];
 
-    // 숫자와 명령어 토큰 추출
-    const tokens = d.match(/([a-zA-Z])|([+-]?\d*\.?\d+)/g) || [];
+    // 명령어, 숫자 및 쉼표를 토큰화
+    const tokenRegex = /([a-zA-Z])|([+-]?\d*\.?\d+)|(,)/g;
+    const tokens = d.match(tokenRegex) || [];
+
+    // 숫자 토큰만 필터링하고 파싱하는 헬퍼 함수
+    const getNextNumbers = (
+      count: number,
+      startIndex: number
+    ): { values: number[]; nextIndex: number } => {
+      const values: number[] = [];
+      let index = startIndex;
+
+      while (values.length < count && index < tokens.length) {
+        const token = tokens[index];
+
+        // 명령어를 만나면 중단
+        if (/[a-zA-Z]/.test(token)) {
+          break;
+        }
+
+        // 숫자인 경우 추가
+        if (/[+-]?\d*\.?\d+/.test(token)) {
+          values.push(parseFloat(token) * scale);
+        }
+        // 쉼표는 무시
+
+        index++;
+      }
+
+      return { values, nextIndex: index };
+    };
 
     let currentX = 0;
     let currentY = 0;
+    // 이전 제어점 (베지어 곡선에서 사용)
+    let lastControlX = 0;
+    let lastControlY = 0;
+    // 첫 명령어의 좌표 (경로 닫기용)
+    let firstCommandX = 0;
+    let firstCommandY = 0;
     let commandType = '';
     let tokenIndex = 0;
+
+    // 첫 번째 명령어가 M이 아닌 경우 현재 위치에서부터 경로가 시작됨을 가정
+    let isFirstCommand = true;
 
     while (tokenIndex < tokens.length) {
       const token = tokens[tokenIndex];
@@ -567,82 +692,589 @@ export class SVGImportToolPlugin implements Plugin, SVGImportToolPluginInterface
       if (/[a-zA-Z]/.test(token)) {
         commandType = token;
         tokenIndex++;
+
+        // 첫 명령어가 M이 아닌 경우
+        if (isFirstCommand && commandType !== 'M' && commandType !== 'm') {
+          console.warn(
+            'SVG path does not start with M or m command. Defaulting to current position.'
+          );
+        }
+
+        if (isFirstCommand) {
+          isFirstCommand = false;
+        }
+
         continue;
       }
 
       // 좌표 값 파싱
-      if (commandType === 'M' || commandType === 'm') {
-        // 절대/상대 이동
-        const x = parseFloat(tokens[tokenIndex]) * scale;
-        const y = parseFloat(tokens[tokenIndex + 1]) * scale;
-
-        if (commandType === 'm') {
+      switch (commandType) {
+        case 'M': // 절대 이동
+        case 'm': {
           // 상대 이동
-          currentX += x;
-          currentY += y;
-        } else {
-          // 절대 이동
-          currentX = x;
-          currentY = y;
+          const { values, nextIndex } = getNextNumbers(2, tokenIndex);
+          tokenIndex = nextIndex;
+
+          if (values.length >= 2) {
+            if (commandType === 'm') {
+              // 상대 이동
+              currentX += values[0];
+              currentY += values[1];
+            } else {
+              // 절대 이동
+              currentX = values[0];
+              currentY = values[1];
+            }
+
+            if (commands.length === 0) {
+              // 첫 명령어의 좌표 저장
+              firstCommandX = currentX;
+              firstCommandY = currentY;
+            }
+
+            commands.push({ type: 'M', x: currentX, y: currentY });
+
+            // M/m 다음에 좌표쌍이 계속되면 L/l로 취급
+            // 추가 좌표쌍이 있는지 확인하고 처리
+            let moreCoords = true;
+            while (moreCoords) {
+              const { values: extraValues, nextIndex: extraIndex } = getNextNumbers(2, tokenIndex);
+
+              if (extraValues.length >= 2) {
+                if (commandType === 'm') {
+                  // 상대 선
+                  currentX += extraValues[0];
+                  currentY += extraValues[1];
+                } else {
+                  // 절대 선
+                  currentX = extraValues[0];
+                  currentY = extraValues[1];
+                }
+
+                commands.push({ type: 'L', x: currentX, y: currentY });
+                tokenIndex = extraIndex;
+              } else {
+                moreCoords = false;
+              }
+            }
+          }
+          break;
         }
 
-        commands.push({ type: 'M', x: currentX, y: currentY });
-        tokenIndex += 2;
-      } else if (commandType === 'L' || commandType === 'l') {
-        // 절대/상대 선
-        const x = parseFloat(tokens[tokenIndex]) * scale;
-        const y = parseFloat(tokens[tokenIndex + 1]) * scale;
-
-        if (commandType === 'l') {
+        case 'L': // 절대 선
+        case 'l': {
           // 상대 선
-          currentX += x;
-          currentY += y;
-        } else {
-          // 절대 선
-          currentX = x;
-          currentY = y;
+          const { values, nextIndex } = getNextNumbers(2, tokenIndex);
+          tokenIndex = nextIndex;
+
+          if (values.length >= 2) {
+            if (commandType === 'l') {
+              // 상대 선
+              currentX += values[0];
+              currentY += values[1];
+            } else {
+              // 절대 선
+              currentX = values[0];
+              currentY = values[1];
+            }
+
+            commands.push({ type: 'L', x: currentX, y: currentY });
+
+            // 추가 좌표쌍 처리
+            let moreCoords = true;
+            while (moreCoords) {
+              const { values: extraValues, nextIndex: extraIndex } = getNextNumbers(2, tokenIndex);
+
+              if (extraValues.length >= 2) {
+                if (commandType === 'l') {
+                  // 상대 선
+                  currentX += extraValues[0];
+                  currentY += extraValues[1];
+                } else {
+                  // 절대 선
+                  currentX = extraValues[0];
+                  currentY = extraValues[1];
+                }
+
+                commands.push({ type: 'L', x: currentX, y: currentY });
+                tokenIndex = extraIndex;
+              } else {
+                moreCoords = false;
+              }
+            }
+          }
+          break;
         }
 
-        commands.push({ type: 'L', x: currentX, y: currentY });
-        tokenIndex += 2;
-      } else if (commandType === 'H' || commandType === 'h') {
-        // 수평선
-        const x = parseFloat(tokens[tokenIndex]) * scale;
-
-        if (commandType === 'h') {
+        case 'H': // 절대 수평선
+        case 'h': {
           // 상대 수평선
-          currentX += x;
-        } else {
-          // 절대 수평선
-          currentX = x;
+          const { values, nextIndex } = getNextNumbers(1, tokenIndex);
+          tokenIndex = nextIndex;
+
+          if (values.length >= 1) {
+            if (commandType === 'h') {
+              // 상대 수평선
+              currentX += values[0];
+            } else {
+              // 절대 수평선
+              currentX = values[0];
+            }
+
+            commands.push({ type: 'L', x: currentX, y: currentY });
+
+            // 추가 값 처리
+            let moreCoords = true;
+            while (moreCoords) {
+              const { values: extraValues, nextIndex: extraIndex } = getNextNumbers(1, tokenIndex);
+
+              if (extraValues.length >= 1) {
+                if (commandType === 'h') {
+                  // 상대 수평선
+                  currentX += extraValues[0];
+                } else {
+                  // 절대 수평선
+                  currentX = extraValues[0];
+                }
+
+                commands.push({ type: 'L', x: currentX, y: currentY });
+                tokenIndex = extraIndex;
+              } else {
+                moreCoords = false;
+              }
+            }
+          }
+          break;
         }
 
-        commands.push({ type: 'L', x: currentX, y: currentY });
-        tokenIndex += 1;
-      } else if (commandType === 'V' || commandType === 'v') {
-        // 수직선
-        const y = parseFloat(tokens[tokenIndex]) * scale;
-
-        if (commandType === 'v') {
+        case 'V': // 절대 수직선
+        case 'v': {
           // 상대 수직선
-          currentY += y;
-        } else {
-          // 절대 수직선
-          currentY = y;
+          const { values, nextIndex } = getNextNumbers(1, tokenIndex);
+          tokenIndex = nextIndex;
+
+          if (values.length >= 1) {
+            if (commandType === 'v') {
+              // 상대 수직선
+              currentY += values[0];
+            } else {
+              // 절대 수직선
+              currentY = values[0];
+            }
+
+            commands.push({ type: 'L', x: currentX, y: currentY });
+
+            // 추가 값 처리
+            let moreCoords = true;
+            while (moreCoords) {
+              const { values: extraValues, nextIndex: extraIndex } = getNextNumbers(1, tokenIndex);
+
+              if (extraValues.length >= 1) {
+                if (commandType === 'v') {
+                  // 상대 수직선
+                  currentY += extraValues[0];
+                } else {
+                  // 절대 수직선
+                  currentY = extraValues[0];
+                }
+
+                commands.push({ type: 'L', x: currentX, y: currentY });
+                tokenIndex = extraIndex;
+              } else {
+                moreCoords = false;
+              }
+            }
+          }
+          break;
         }
 
-        commands.push({ type: 'L', x: currentX, y: currentY });
-        tokenIndex += 1;
-      } else if (commandType === 'Z' || commandType === 'z') {
-        // 경로 닫기 - 첫 번째 명령의 좌표 사용
-        const firstCommand = commands[0];
-        if (firstCommand) {
-          commands.push({ type: 'Z', x: firstCommand.x, y: firstCommand.y });
+        case 'C': // 절대 3차 베지어 곡선
+        case 'c': {
+          // 상대 3차 베지어 곡선
+          const { values, nextIndex } = getNextNumbers(6, tokenIndex);
+          tokenIndex = nextIndex;
+
+          if (values.length >= 6) {
+            let x1, y1, x2, y2, x, y;
+
+            if (commandType === 'c') {
+              // 상대 좌표
+              x1 = currentX + values[0];
+              y1 = currentY + values[1];
+              x2 = currentX + values[2];
+              y2 = currentY + values[3];
+              x = currentX + values[4];
+              y = currentY + values[5];
+            } else {
+              // 절대 좌표
+              x1 = values[0];
+              y1 = values[1];
+              x2 = values[2];
+              y2 = values[3];
+              x = values[4];
+              y = values[5];
+            }
+
+            // 마지막 제어점 저장 (S 명령어에서 사용)
+            lastControlX = x2;
+            lastControlY = y2;
+
+            commands.push({
+              type: 'C',
+              x: x,
+              y: y,
+              x1: x1,
+              y1: y1,
+              x2: x2,
+              y2: y2,
+            });
+
+            // 현재 위치 업데이트
+            currentX = x;
+            currentY = y;
+
+            // 추가 좌표 세트 처리
+            let moreCoords = true;
+            while (moreCoords) {
+              const { values: extraValues, nextIndex: extraIndex } = getNextNumbers(6, tokenIndex);
+
+              if (extraValues.length >= 6) {
+                if (commandType === 'c') {
+                  // 상대 좌표
+                  x1 = currentX + extraValues[0];
+                  y1 = currentY + extraValues[1];
+                  x2 = currentX + extraValues[2];
+                  y2 = currentY + extraValues[3];
+                  x = currentX + extraValues[4];
+                  y = currentY + extraValues[5];
+                } else {
+                  // 절대 좌표
+                  x1 = extraValues[0];
+                  y1 = extraValues[1];
+                  x2 = extraValues[2];
+                  y2 = extraValues[3];
+                  x = extraValues[4];
+                  y = extraValues[5];
+                }
+
+                // 마지막 제어점 업데이트
+                lastControlX = x2;
+                lastControlY = y2;
+
+                commands.push({
+                  type: 'C',
+                  x: x,
+                  y: y,
+                  x1: x1,
+                  y1: y1,
+                  x2: x2,
+                  y2: y2,
+                });
+
+                // 현재 위치 업데이트
+                currentX = x;
+                currentY = y;
+
+                tokenIndex = extraIndex;
+              } else {
+                moreCoords = false;
+              }
+            }
+          }
+          break;
         }
-        tokenIndex += 1;
-      } else {
-        // 지원하지 않는 명령은 건너뜀
-        tokenIndex += 1;
+
+        case 'S': // 절대 3차 베지어 곡선 (대칭 제어점)
+        case 's': {
+          // 상대 3차 베지어 곡선 (대칭 제어점)
+          const { values, nextIndex } = getNextNumbers(4, tokenIndex);
+          tokenIndex = nextIndex;
+
+          if (values.length >= 4) {
+            // 첫 번째 제어점은 이전 제어점의 반사
+            let x1, y1, x2, y2, x, y;
+
+            // 이전 제어점 반사 계산
+            x1 = 2 * currentX - lastControlX;
+            y1 = 2 * currentY - lastControlY;
+
+            if (commandType === 's') {
+              // 상대 좌표
+              x2 = currentX + values[0];
+              y2 = currentY + values[1];
+              x = currentX + values[2];
+              y = currentY + values[3];
+            } else {
+              // 절대 좌표
+              x2 = values[0];
+              y2 = values[1];
+              x = values[2];
+              y = values[3];
+            }
+
+            // 마지막 제어점 업데이트
+            lastControlX = x2;
+            lastControlY = y2;
+
+            commands.push({
+              type: 'C',
+              x: x,
+              y: y,
+              x1: x1,
+              y1: y1,
+              x2: x2,
+              y2: y2,
+            });
+
+            // 현재 위치 업데이트
+            currentX = x;
+            currentY = y;
+
+            // 추가 좌표 세트 처리
+            let moreCoords = true;
+            while (moreCoords) {
+              const { values: extraValues, nextIndex: extraIndex } = getNextNumbers(4, tokenIndex);
+
+              if (extraValues.length >= 4) {
+                // 첫 번째 제어점은 이전 제어점의 반사
+                x1 = 2 * currentX - lastControlX;
+                y1 = 2 * currentY - lastControlY;
+
+                if (commandType === 's') {
+                  // 상대 좌표
+                  x2 = currentX + extraValues[0];
+                  y2 = currentY + extraValues[1];
+                  x = currentX + extraValues[2];
+                  y = currentY + extraValues[3];
+                } else {
+                  // 절대 좌표
+                  x2 = extraValues[0];
+                  y2 = extraValues[1];
+                  x = extraValues[2];
+                  y = extraValues[3];
+                }
+
+                // 마지막 제어점 업데이트
+                lastControlX = x2;
+                lastControlY = y2;
+
+                commands.push({
+                  type: 'C',
+                  x: x,
+                  y: y,
+                  x1: x1,
+                  y1: y1,
+                  x2: x2,
+                  y2: y2,
+                });
+
+                // 현재 위치 업데이트
+                currentX = x;
+                currentY = y;
+
+                tokenIndex = extraIndex;
+              } else {
+                moreCoords = false;
+              }
+            }
+          }
+          break;
+        }
+
+        case 'Q': // 절대 2차 베지어 곡선
+        case 'q': {
+          // 상대 2차 베지어 곡선
+          const { values, nextIndex } = getNextNumbers(4, tokenIndex);
+          tokenIndex = nextIndex;
+
+          if (values.length >= 4) {
+            let x1, y1, x, y;
+
+            if (commandType === 'q') {
+              // 상대 좌표
+              x1 = currentX + values[0];
+              y1 = currentY + values[1];
+              x = currentX + values[2];
+              y = currentY + values[3];
+            } else {
+              // 절대 좌표
+              x1 = values[0];
+              y1 = values[1];
+              x = values[2];
+              y = values[3];
+            }
+
+            // 마지막 제어점 저장 (T 명령어에서 사용)
+            lastControlX = x1;
+            lastControlY = y1;
+
+            commands.push({
+              type: 'Q',
+              x: x,
+              y: y,
+              x1: x1,
+              y1: y1,
+            });
+
+            // 현재 위치 업데이트
+            currentX = x;
+            currentY = y;
+
+            // 추가 좌표 세트 처리
+            let moreCoords = true;
+            while (moreCoords) {
+              const { values: extraValues, nextIndex: extraIndex } = getNextNumbers(4, tokenIndex);
+
+              if (extraValues.length >= 4) {
+                if (commandType === 'q') {
+                  // 상대 좌표
+                  x1 = currentX + extraValues[0];
+                  y1 = currentY + extraValues[1];
+                  x = currentX + extraValues[2];
+                  y = currentY + extraValues[3];
+                } else {
+                  // 절대 좌표
+                  x1 = extraValues[0];
+                  y1 = extraValues[1];
+                  x = extraValues[2];
+                  y = extraValues[3];
+                }
+
+                // 마지막 제어점 업데이트
+                lastControlX = x1;
+                lastControlY = y1;
+
+                commands.push({
+                  type: 'Q',
+                  x: x,
+                  y: y,
+                  x1: x1,
+                  y1: y1,
+                });
+
+                // 현재 위치 업데이트
+                currentX = x;
+                currentY = y;
+
+                tokenIndex = extraIndex;
+              } else {
+                moreCoords = false;
+              }
+            }
+          }
+          break;
+        }
+
+        case 'T': // 절대 2차 베지어 곡선 (대칭 제어점)
+        case 't': {
+          // 상대 2차 베지어 곡선 (대칭 제어점)
+          const { values, nextIndex } = getNextNumbers(2, tokenIndex);
+          tokenIndex = nextIndex;
+
+          if (values.length >= 2) {
+            // 제어점은 이전 제어점의 반사
+            let x1, y1, x, y;
+
+            // 이전 제어점 반사 계산
+            x1 = 2 * currentX - lastControlX;
+            y1 = 2 * currentY - lastControlY;
+
+            if (commandType === 't') {
+              // 상대 좌표
+              x = currentX + values[0];
+              y = currentY + values[1];
+            } else {
+              // 절대 좌표
+              x = values[0];
+              y = values[1];
+            }
+
+            // 마지막 제어점 업데이트 (다음 T 명령에서 사용)
+            lastControlX = x1;
+            lastControlY = y1;
+
+            commands.push({
+              type: 'Q',
+              x: x,
+              y: y,
+              x1: x1,
+              y1: y1,
+            });
+
+            // 현재 위치 업데이트
+            currentX = x;
+            currentY = y;
+
+            // 추가 좌표 세트 처리
+            let moreCoords = true;
+            while (moreCoords) {
+              const { values: extraValues, nextIndex: extraIndex } = getNextNumbers(2, tokenIndex);
+
+              if (extraValues.length >= 2) {
+                // 제어점은 이전 제어점의 반사
+                x1 = 2 * currentX - lastControlX;
+                y1 = 2 * currentY - lastControlY;
+
+                if (commandType === 't') {
+                  // 상대 좌표
+                  x = currentX + extraValues[0];
+                  y = currentY + extraValues[1];
+                } else {
+                  // 절대 좌표
+                  x = extraValues[0];
+                  y = extraValues[1];
+                }
+
+                // 마지막 제어점 업데이트
+                lastControlX = x1;
+                lastControlY = y1;
+
+                commands.push({
+                  type: 'Q',
+                  x: x,
+                  y: y,
+                  x1: x1,
+                  y1: y1,
+                });
+
+                // 현재 위치 업데이트
+                currentX = x;
+                currentY = y;
+
+                tokenIndex = extraIndex;
+              } else {
+                moreCoords = false;
+              }
+            }
+          }
+          break;
+        }
+
+        case 'Z': // 경로 닫기
+        case 'z': {
+          // Z 명령은 인자를 갖지 않음
+          commands.push({ type: 'Z', x: firstCommandX, y: firstCommandY });
+          // 현재 위치를 경로의 시작점으로 설정
+          currentX = firstCommandX;
+          currentY = firstCommandY;
+          tokenIndex++;
+          break;
+        }
+
+        // 지원하지 않는 명령어 처리 (예: A - 호 명령어)
+        default: {
+          console.warn(`Unsupported or invalid SVG path command: ${commandType}`);
+          // 다음 명령어까지 토큰 건너뛰기
+          let foundNextCommand = false;
+          while (tokenIndex < tokens.length && !foundNextCommand) {
+            if (/[a-zA-Z]/.test(tokens[tokenIndex])) {
+              foundNextCommand = true;
+            } else {
+              tokenIndex++;
+            }
+          }
+          break;
+        }
       }
     }
 
@@ -664,37 +1296,39 @@ export class SVGImportToolPlugin implements Plugin, SVGImportToolPluginInterface
     parentNode: SceneNode,
     options: SVGImportOptions
   ): void {
-    if (options.flattenGroups) {
-      // 그룹 평탄화 시 자식 요소를 직접 부모에 추가
-      this.processChildElements(element, parentNode, options);
-    } else {
-      // GroupPlugin 활용
-      const groupPlugin = this.engine?.getPlugin<Plugin>('group') as GroupPlugin | null;
-      if (groupPlugin) {
-        const group = groupPlugin.createGroup();
+    // Group 생성
+    const groupId =
+      element.getAttribute('id') || `group-${Math.random().toString(36).substring(2, 9)}`;
+    const groupPlugin = this.engine?.getPlugin<GroupPlugin>('group');
 
-        // DefaultSceneNode 클래스를 사용하여 SceneNode 생성
-        const groupNode = new DefaultSceneNode(group.id, this.engine!.events);
-        groupNode.data = group;
-        const addedNode = parentNode.addChild(groupNode);
+    if (groupPlugin && !options.flattenGroups) {
+      // 그룹으로 처리
+      const group = groupPlugin.createGroup({
+        id: groupId,
+      });
 
-        // 자식 요소 처리
-        this.processChildElements(element, addedNode, options);
-      } else {
-        // 기존 방식으로 폴백
-        // DefaultSceneNode 클래스를 사용하여 SceneNode 생성
-        const groupId = element.id || 'group';
-        const groupNode = new DefaultSceneNode(groupId, this.engine!.events);
-        groupNode.data = {};
-        const addedNode = parentNode.addChild(groupNode);
+      // 스타일 속성 추출
+      const style = this.extractStyleAttributes(element);
 
-        // 데이터 객체가 확실히 초기화되었는지 확인
-        if (!addedNode.data) {
-          addedNode.data = {};
-        }
-
-        this.processChildElements(element, addedNode, options);
+      // 그룹 설정 (예: 변환)
+      if (style.transform) {
+        (group as any).transform = style.transform;
       }
+
+      const groupNode = new DefaultSceneNode(group.id, this.engine!.events);
+      groupNode.data = group;
+
+      // 부모 노드에 그룹 노드 추가
+      const addedNode = parentNode.addChild(groupNode);
+
+      if (!addedNode.data) {
+        addedNode.data = {};
+      }
+
+      this.processChildElements(element, addedNode, options);
+    } else {
+      // 그룹을 평탄화하여 처리
+      this.processChildElements(element, parentNode, options);
     }
   }
 

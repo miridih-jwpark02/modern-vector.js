@@ -1,4 +1,4 @@
-import { EventService, EventHandler, EventEmitter } from '../types';
+import { EventService, EventHandler, EventEmitter, BaseEventData } from '../types';
 
 /**
  * Basic event emitter implementation
@@ -23,7 +23,7 @@ class BaseEventEmitter implements EventEmitter {
     }
   }
 
-  emit(event: string, data: any): void {
+  emit(event: string, data: BaseEventData): void {
     const handlers = this.handlers.get(event);
     if (handlers) {
       handlers.forEach(handler => handler(data));

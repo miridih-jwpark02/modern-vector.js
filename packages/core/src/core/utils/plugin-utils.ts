@@ -13,12 +13,12 @@ import { PluginMethodDefinition } from '../types/extensions/plugin-extension';
  * 엔진에 메서드 추가
  * @param {VectorEngine} engine - 메서드를 추가할 엔진 인스턴스
  * @param {string} methodName - 추가할 메서드 이름
- * @param {(...args: any[]) => any} method - 추가할 메서드 구현
+ * @param {Function} method - 추가할 메서드 구현
  */
 export function addEngineMethod(
   engine: VectorEngine,
   methodName: string,
-  method: (...args: any[]) => any
+  method: (...args: unknown[]) => unknown
 ): void {
   Object.defineProperty(engine, methodName, {
     value: method,
@@ -36,18 +36,20 @@ export function addEngineMethod(
  */
 export function removeEngineMethod(engine: VectorEngine, methodName: string): boolean {
   if (Object.prototype.hasOwnProperty.call(engine, methodName)) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return Reflect.deleteProperty(engine as Record<string, any>, methodName);
+    // 먼저 엔진을 unknown으로 캐스팅한 후 Record<string, unknown>으로 변환
+    return Reflect.deleteProperty(engine as unknown as Record<string, unknown>, methodName);
   }
   return false;
 }
+
+type MethodFunction = (...args: unknown[]) => unknown;
 
 /**
  * 타입 안전한 메서드 추가
  * @param {VectorEngine} engine - 메서드를 추가할 엔진 인스턴스
  * @param {PluginMethodDefinition<T>} methodDef - 메서드 정의
  */
-export function addTypedEngineMethod<T extends (...args: any[]) => any>(
+export function addTypedEngineMethod<T extends MethodFunction>(
   engine: VectorEngine,
   methodDef: PluginMethodDefinition<T>
 ): void {
@@ -57,11 +59,11 @@ export function addTypedEngineMethod<T extends (...args: any[]) => any>(
 /**
  * 여러 메서드 한번에 추가
  * @param {VectorEngine} engine - 메서드를 추가할 엔진 인스턴스
- * @param {PluginMethodDefinition<any>[]} methodDefs - 메서드 정의 배열
+ * @param {PluginMethodDefinition<T>[]} methodDefs - 메서드 정의 배열
  */
-export function addEngineExtensions(
+export function addEngineExtensions<T extends MethodFunction>(
   engine: VectorEngine,
-  methodDefs: PluginMethodDefinition<any>[]
+  methodDefs: PluginMethodDefinition<T>[]
 ): void {
   methodDefs.forEach(def => addTypedEngineMethod(engine, def));
 }

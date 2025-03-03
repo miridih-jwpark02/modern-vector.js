@@ -6,21 +6,21 @@
  * @module Core/Types/Extensions/PluginExtension
  */
 
-import { VectorEngine } from '../index';
+import { VectorEngine } from '..';
 
 /**
  * 플러그인 확장 메서드 타입
  *
  * 이 타입은 플러그인이 VectorEngine에 추가하는 메서드의 타입을 정의합니다.
  */
-export type ExtensionMethod<T extends (...args: any[]) => any> = T;
+export type ExtensionMethod<T extends (...args: unknown[]) => unknown> = T;
 
 /**
  * 플러그인 메서드 정의 타입
  *
  * 이 타입은 플러그인이 VectorEngine에 추가하는 메서드의 이름과 구현을 정의합니다.
  */
-export interface PluginMethodDefinition<T extends (...args: any[]) => any> {
+export interface PluginMethodDefinition<T extends (...args: unknown[]) => unknown> {
   /** 메서드 이름 */
   name: string;
   /** 메서드 구현 */
@@ -33,7 +33,7 @@ export interface PluginMethodDefinition<T extends (...args: any[]) => any> {
  * 이 타입은 플러그인이 VectorEngine에 추가하는 메서드들의 집합을 정의합니다.
  */
 export type PluginExtension = {
-  [key: string]: ExtensionMethod<(...args: any[]) => any>;
+  [key: string]: ExtensionMethod<(...args: unknown[]) => unknown>;
 };
 
 /**

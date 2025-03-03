@@ -6,7 +6,7 @@
  * @module Core/Types/Extensions/PluginRegistry
  */
 
-import { VectorEngine } from '../index';
+import { VectorEngine } from '..';
 import { PluginExtension, ExtendedEngine } from './plugin-extension';
 
 /**
@@ -107,7 +107,7 @@ export class DefaultPluginRegistry implements PluginRegistry {
       });
     });
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return engine as any;
+    // any 대신 타입 단언을 사용
+    return engine as ExtendedEngine<T>;
   }
 }
